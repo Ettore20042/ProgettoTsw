@@ -9,8 +9,8 @@
     </form>
     <img src="${pageContext.request.contextPath}/img/header/omino.jpeg" alt="Logo" class="logo">
     <div class="user-info">
-        <a href="${pageContext.request.contextPath}/login">Accedi</a>
-        <a href="${pageContext.request.contextPath}/registrati">Registrati</a>
+        <a href="${pageContext.request.contextPath}/jsp/auth/login.jsp">Accedi</a>
+        <a href="${pageContext.request.contextPath}/jsp/auth/registration.jsp">Registrati</a>
     </div>
     <img src="${pageContext.request.contextPath}/img/header/carrello.svg" alt="Logo" class="logo">
     <div class="cart">
