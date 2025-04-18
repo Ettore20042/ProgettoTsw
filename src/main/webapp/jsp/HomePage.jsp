@@ -39,7 +39,11 @@
 
             <p>E siccome abbiamo a cuore proprio tutte le tue passioni, qui troverai anche prodotti per prenderti cura della tua auto e della tua moto. Realizza i tuoi progetti con le offerte e le promozioni di BricoBravo e approfitta dei consigli e dell’assistenza dei nostri esperti.</p>
     </section>
+    <!-- Prova dei dao con questo form-->
+<form action="hello-servlet" method="get">
+    <input type="submit" value="Clicca qui per vedere il messaggio di benvenuto">
 
+</form>
 
 </main>
 

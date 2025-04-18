@@ -5,6 +5,7 @@ import model.ConnPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AddressDAO {
@@ -19,17 +20,18 @@ public class AddressDAO {
                 preparedStatement.setString(4, address.getNumber());
                 preparedStatement.setString(5, address.getStreet());
                 preparedStatement.setString(6, address.getCity());
-                preparedStatement.executeUpdate();
-
-                // Recupero ID generato
-                try (var resultSet = preparedStatement.getGeneratedKeys()) {
-                    if (resultSet.next()) {
-                        address.setIdAddress(resultSet.getInt(1));
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    // Recupero ID generato
+                    try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                        if (resultSet.next()) {
+                            address.setIdAddress(resultSet.getInt(1));
+                        }
                     }
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Errore durante il salvataggio dell'indirizzo", e);
+            e.printStackTrace(); // Log dettagliato dell'errore
+            throw new RuntimeException("Errore durante il salvataggio dell'indirizzo: " + e.getMessage(), e);
         }
-    }
-}
+}}

@@ -4,6 +4,8 @@ import java.io.*;
 
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import model.Bean.Address;
+import model.DAO.AddressDAO;
 
 @WebServlet(name = "helloServlet", value = "/hello-servlet")
 public class HelloServlet extends HttpServlet {
@@ -15,12 +17,25 @@ public class HelloServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
-
-        // Hello
         PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
-        out.println("</body></html>");
+
+
+            Address address = new Address();
+            address.setCity("Rome");
+            address.setStreet("Via Roma");
+            address.setNumber("1");
+            address.setPostalCode("00100");
+            address.setCountry("Italy");
+            address.setProvince("Lazio");
+
+            AddressDAO service = new AddressDAO();
+            service.doSave(address);
+
+            out.println("<html><body>");
+            out.println("<h1> salvato con successo!</h1>");
+            out.println("<p>ID assegnato: " + address.getIdAddress()+ "</p>");
+            out.println("</body></html>");
+
     }
 
     public void destroy() {
