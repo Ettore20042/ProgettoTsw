@@ -1,9 +1,20 @@
-.logo {
-    width: 120px;
+#idlogo {
+    width: 5%;
     height: auto;
-    display: block;
-    margin: 20px auto;
-    max-width: 100%;
-    object-fit: contain;
-    cursor: pointer;
+    max-width: 200%;
+}
+#idsearch {
+    width: 5%;
+    height: auto;
+    max-width: 200%;
+}
+#search {
+    width: 30%;
+    height: auto;
+    max-width: 200%;
+}
+
+
+header{
+    background-color: rgb(30, 58, 71);
 }

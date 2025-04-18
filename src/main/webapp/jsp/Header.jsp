@@ -1,21 +1,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <header>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
-    <div class="logo">
-        <img src="${pageContext.request.contextPath}/img/header/download.png" alt="Logo" />
-    </div>
-    <form action="/SearchBar" method="get">
-        <input type="search" id="search" name="q" placeholder="Cerca...">
-        <button type="submit"><img src="${pageContext.request.contextPath}/img/header/lente.svg"></button>
-    </form>
-    <img src="${pageContext.request.contextPath}/img/header/omino.jpeg" alt="Logo" class="logo">
-    <div class="user-info">
-        <a href="${pageContext.request.contextPath}/jsp/auth/login.jsp">Accedi</a>
-        <a href="${pageContext.request.contextPath}/jsp/auth/registration.jsp">Registrati</a>
-    </div>
-    <img src="${pageContext.request.contextPath}/img/header/carrello.svg" alt="Logo" class="logo">
-    <div class="cart">
-        <a href="${pageContext.request.contextPath}/carrello">Carrello</a>
+    <div class="top-container">
+        <a href="/jsp/HomePage.jsp">
+            <img src="${pageContext.request.contextPath}/img/header/logo.png" alt="Logo" id="idlogo" />
+        </a>
+        <div class="top-container-center">
+                <form action="/SearchBar" method="get">
+                <input type="search" id="search" name="q" placeholder="Cerca...">
+                 <button type="submit"><img src="${pageContext.request.contextPath}/img/header/lente.svg" id="idsearch"></button>
+                </form>
+        </div>
+        <div class="top-container-right">
+                    <img src="${pageContext.request.contextPath}/img/header/omino.jpeg" alt="Logo" id="idomino" />
+                    <a href="${pageContext.request.contextPath}/jsp/auth/login.jsp">Accedi</a>
+                    <a href="${pageContext.request.contextPath}/jsp/auth/registration.jsp">Registrati</a>
+                    <img src="${pageContext.request.contextPath}/img/header/carrello.svg" alt="Logo" id="idcarrello" />
+                    <a href="${pageContext.request.contextPath}/carrello">Carrello</a>
+        </div>
     </div>
     <nav>
         <ul>
