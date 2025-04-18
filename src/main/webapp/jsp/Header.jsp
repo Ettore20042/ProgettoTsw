@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <header>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
     <div class="logo">
         <img src="${pageContext.request.contextPath}/img/header/download.png" alt="Logo" />
     </div>
-    <form action="/barra" method="get">
+    <form action="/SearchBar" method="get">
         <input type="search" id="search" name="q" placeholder="Cerca...">
         <button type="submit"><img src="${pageContext.request.contextPath}/img/header/lente.svg"></button>
     </form>
