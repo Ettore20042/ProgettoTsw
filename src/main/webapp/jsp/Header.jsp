@@ -2,9 +2,12 @@
 <header>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
     <div class="top-container">
-        <a href="/jsp/HomePage.jsp">
-            <img src="${pageContext.request.contextPath}/img/header/logo.png" alt="Logo" id="idlogo" />
-        </a>
+        <div class="top-container-left">
+            <a href="/jsp/HomePage.jsp">
+                <img src="${pageContext.request.contextPath}/img/header/logo.png" alt="Logo" id="idlogo" />
+            </a>
+        </div>
+
         <div class="top-container-center">
                 <form action="/SearchBar" method="get">
                 <input type="search" id="search" name="q" placeholder="Cerca...">
@@ -14,9 +17,10 @@
         <div class="top-container-right">
                     <img src="${pageContext.request.contextPath}/img/header/omino.jpeg" alt="Logo" id="idomino" />
                     <a href="${pageContext.request.contextPath}/jsp/auth/login.jsp">Accedi</a>
+                    <p>/</p>
                     <a href="${pageContext.request.contextPath}/jsp/auth/registration.jsp">Registrati</a>
                     <img src="${pageContext.request.contextPath}/img/header/carrello.svg" alt="Logo" id="idcarrello" />
-                    <a href="${pageContext.request.contextPath}/carrello">Carrello</a>
+                    <a href="${pageContext.request.contextPath}/carrello" id="cartlink">Carrello</a>
         </div>
     </div>
     <nav>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <footer>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
     <div class="footer-content">
         <p> 2025 Brico Shop. Tutti i diritti riservati.</p>
         <div class="footer-links">
@@ -12,10 +13,10 @@
         <div class="footer-social">
             <ul>
                 <li><p>Seguici sui social:</p></li>
-                <li><a href="https://www.facebook.com/"><img src="${pageContext.request.contextPath}/img/footer/facebook.svg" alt="Facebook"></a></li>
-                <li><a href="https://www.instagram.com/"><img src="${pageContext.request.contextPath}/img/footer/instagram.png" alt="Instagram"></a></li>
-                <li><a href="https://www.twitter.com/"><img src="${pageContext.request.contextPath}/img/footer/x.svg" alt="Twitter"></a></li>
-                <li><a href="https://www.linkedin.com/"><img src="${pageContext.request.contextPath}/img/footer/linkedin.svg" alt="LinkedIn"></a></li>
+                <li><a href="https://www.facebook.com/"><img src="${pageContext.request.contextPath}/img/footer/facebook.svg" alt="Facebook" id="idfacebook"></a></li>
+                <li><a href="https://www.instagram.com/"><img src="${pageContext.request.contextPath}/img/footer/instagram.png" alt="Instagram" id="idinstagram"></a></li>
+                <li><a href="https://www.twitter.com/"><img src="${pageContext.request.contextPath}/img/footer/x.svg" alt="Twitter"id="twitter"></a></li>
+                <li><a href="https://www.linkedin.com/"><img src="${pageContext.request.contextPath}/img/footer/linkedin.svg" alt="LinkedIn" id="linkedin"></a></li>
             </ul>
 
         </div>

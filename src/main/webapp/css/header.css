@@ -1,20 +1,180 @@
-#idlogo {
-    width: 5%;
-    height: auto;
-    max-width: 200%;
-}
-#idsearch {
-    width: 5%;
-    height: auto;
-    max-width: 200%;
-}
-#search {
-    width: 30%;
-    height: auto;
-    max-width: 200%;
-}
-
-
-header{
+/* Stili generali per l'header */
+header {
     background-color: rgb(30, 58, 71);
+    color: white;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 100%;
+}
+
+/* Container principale in flex */
+.top-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px 20px;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+.top-container-left{
+    width: 15%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+/* Logo */
+#idlogo {
+    width: 50%;
+    height: auto;
+    max-width: 200%;
+    transition: transform 0.2s;
+    border-radius: 10%;
+}
+
+#idlogo:hover {
+    transform: scale(1.05);
+}
+
+/* Area centrale con barra di ricerca */
+.top-container-center {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    width: 50%;
+}
+
+.top-container-center form {
+    display: flex;
+    width: 100%;
+    align-items: start;
+}
+
+#search {
+    width: 90%;
+    height: 50px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    font-size: 20px;
+}
+
+.top-container-center button {
+    height: 50px;
+    background: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    padding: 5px 7px;
+    cursor: pointer;
+}
+
+#idsearch {
+    width: 25px;
+    height: auto;
+}
+
+/* Area destra con accesso e carrello */
+.top-container-right {
+    margin-left: 0;
+    width: 25%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.top-container-right img {
+    width: 24px;
+    height: auto;
+}
+
+#idomino {
+    width: 10%;
+    border-radius: 50%;
+}
+
+.top-container-right a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    transition: color 0.2s;
+}
+
+.top-container-right a:hover {
+    color: #ff9900;
+    text-decoration: underline;
+}
+
+#idcarrello {
+    width: 10%;
+    height: auto;
+    margin-left: 10px;
+
+
+}
+#cartlink {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    border: 2px solid #a3e635;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size:20px;
+    background-color: rgb(36, 70, 92);
+}
+
+/* Barra di navigazione */
+nav {
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: start;
+    padding: 0;
+    margin: 0;
+    gap: 30px;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 5px 15px;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+}
+
+nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .top-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .top-container-center,
+    .top-container-right {
+        width: 100%;
+    }
+
+    #idlogo {
+        width: 20%;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
 }
