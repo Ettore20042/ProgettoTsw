@@ -11,13 +11,13 @@ import java.sql.SQLException;
 public class AddressDAO {
     public void doSave(Address address) {
         try (Connection connection = ConnPool.getConnection()) {
-            String sql = "INSERT INTO indirizzo (Provincia, Paese, Cap, NumeroCivico, Via, Città) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO address(Province, Country, ZipCode, StreetNumber, Street, City) VALUES (?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
                 preparedStatement.setString(1, address.getProvince());
                 preparedStatement.setString(2, address.getCountry());
-                preparedStatement.setString(3, address.getPostalCode());
-                preparedStatement.setString(4, address.getNumber());
+                preparedStatement.setString(3, address.getZipCode());
+                preparedStatement.setString(4, address.getStreetNumber());
                 preparedStatement.setString(5, address.getStreet());
                 preparedStatement.setString(6, address.getCity());
                 int rowsAffected = preparedStatement.executeUpdate();
@@ -25,7 +25,7 @@ public class AddressDAO {
                     // Recupero ID generato
                     try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                         if (resultSet.next()) {
-                            address.setIdAddress(resultSet.getInt(1));
+                            address.setAddressId(resultSet.getInt(1));
                         }
                     }
                 }

@@ -77,6 +77,7 @@ header {
     width: 1.5rem;
     height: 1.5rem; /* Definita altezza fissa invece di auto */
     vertical-align: middle; /* Aiuta nell'allineamento verticale */
+
 }
 
 /* Area destra con accesso e carrello */

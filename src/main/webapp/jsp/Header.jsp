@@ -1,11 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <header>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
+
+
+
+
+
     <div class="top-container">
         <div class="top-container-left">
-            <a href="/jsp/HomePage.jsp">
-                <img src="${pageContext.request.contextPath}/img/header/logo.png" alt="Logo" id="idlogo" />
+
+            <a href="${pageContext.request.contextPath}/jsp/HomePage.jsp">
+                <img src="${pageContext.request.contextPath}/img/header/logo.png" alt="Logo" id="idlogo">
             </a>
+
         </div>
 
         <div class="top-container-center">
