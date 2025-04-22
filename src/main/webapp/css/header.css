@@ -41,23 +41,24 @@ header {
 .top-container-center {
     display: flex;
     justify-content: start;
-    align-items: start;
+    align-items: center; /* Cambiato da start a center */
     width: 50%;
 }
 
 .top-container-center form {
     display: flex;
     width: 100%;
-    align-items: start;
+    align-items: center; /* Cambiato da start a center */
 }
 
 #search {
     width: 90%;
     height: 2.5rem;
-    padding: 0.5% 1%;
+    padding: 0 1%; /* Standardizzato il padding orizzontale */
     border: none;
     border-radius: 0.25rem 0 0 0.25rem;
     font-size: 1.25rem;
+    line-height: 2.5rem; /* Aggiunto per migliorare l'allineamento */
 }
 
 .top-container-center button {
@@ -65,13 +66,17 @@ header {
     background: white;
     border: none;
     border-radius: 0 0.25rem 0.25rem 0;
-    padding: 0.5% 0.7%;
+    padding: 0 0.7%; /* Standardizzato il padding orizzontale */
     cursor: pointer;
+    display: flex; /* Aggiungo flexbox al bottone */
+    align-items: center; /* Centro il contenuto verticalmente */
+    justify-content: center; /* Centro il contenuto orizzontalmente */
 }
 
 #idsearch {
     width: 1.5rem;
-    height: auto;
+    height: 1.5rem; /* Definita altezza fissa invece di auto */
+    vertical-align: middle; /* Aiuta nell'allineamento verticale */
 }
 
 /* Area destra con accesso e carrello */
