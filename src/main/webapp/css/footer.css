@@ -5,7 +5,8 @@ footer{
     padding: 3% 5%;                       /* Spaziatura interna: 3% sopra/sotto, 5% destra/sinistra */
     box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2); /* Ombra leggera sotto il footer  */
     width: 100%;                          /* Larghezza completa */
-    margin-top: 5%;                       /* Spazio superiore del 5% */
+    margin-top: 5%;
+
 }
 
 /* Contenitore flessibile per organizzare il contenuto del footer */
@@ -20,13 +21,15 @@ footer{
 
 /* Sezione dei link nel footer */
 .footer-links {
-    margin-right: 10%;                    /* Margine destro del 10% */
+    margin-right: 10%;                 /* Margine destro del 10% */
+    flex: 1;                          /* Occupa spazio flessibile */
 }
 
 /* Sezione dei social media */
 .footer-social {
     display: flex;                        /* Layout flessibile */
     align-items: center;                  /* Allineamento verticale al centro */
+    flex:1;
 }
 
 /* Stile degli elementi della lista nei footer-links */
@@ -41,7 +44,7 @@ footer{
     display: flex;                        /* Layout flessibile per allineare orizzontalmente */
     align-items: center;                  /* Centratura verticale */
     gap: 1rem;                            /* Spazio tra elementi (unità relativa al font) */
-    padding-left: 3%;                     /* Spaziatura interna sinistra */
+    padding-left: 0;                     /* Spaziatura interna sinistra */
 }
 
 /* Elementi della lista social */
