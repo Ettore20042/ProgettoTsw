@@ -1,56 +1,70 @@
+/* Definizione dello stile principale del footer */
 footer{
-    background-color: rgb(30, 58, 71);
-    color: white;
-    padding: 3% 5%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    margin-top: 5%;
-
-
+    background-color: rgb(30, 58, 71);    /* Colore di sfondo blu scuro */
+    color: white;                         /* Colore del testo bianco */
+    padding: 3% 5%;                       /* Spaziatura interna: 3% sopra/sotto, 5% destra/sinistra */
+    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2); /* Ombra leggera sotto il footer  */
+    width: 100%;                          /* Larghezza completa */
+    margin-top: 5%;                       /* Spazio superiore del 5% */
 }
+
+/* Contenitore flessibile per organizzare il contenuto del footer */
 .footer-content {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start; /* fix */
-    padding: 3% 3%;
-    margin-bottom: 10px;
+    display: flex;                        /* Layout flessibile */
+    flex-direction: row;                  /* Elementi allineati orizzontalmente */
+    align-items: flex-start;              /* Allineamento in alto degli elementi */
+    padding: 3% 3%;                       /* Spaziatura interna uniforme del 3% */
+    margin-bottom: 1%;                    /* Margine inferiore dell'1%  */
+    font-size: 100%;                      /* Dimensione font standard */
 }
 
+/* Sezione dei link nel footer */
 .footer-links {
-    margin-right: 10%;
+    margin-right: 10%;                    /* Margine destro del 10% */
 }
 
+/* Sezione dei social media */
 .footer-social {
-    display: flex;
-    align-items: center; /* o flex-start se vuoi allineamento in alto */
+    display: flex;                        /* Layout flessibile */
+    align-items: center;                  /* Allineamento verticale al centro */
 }
+
+/* Stile degli elementi della lista nei footer-links */
 .footer-links ul li{
-    list-style-type: none;
-    display: block;
-
-
+    list-style-type: none;                /* Rimuove i punti elenco */
+    display: block;                       /* Ogni elemento è un blocco separato (va a capo) */
 }
 
-
-/* Allinea le icone social in orizzontale */
+/* Lista delle icone social */
 .footer-social ul {
-    list-style-type: none;
-    display: flex;
-    align-items: center;
-    gap: 1rem; /* Spazio relativo tra le icone */
-    padding-left: 3%;
+    list-style-type: none;                /* Rimuove i punti elenco */
+    display: flex;                        /* Layout flessibile per allineare orizzontalmente */
+    align-items: center;                  /* Centratura verticale */
+    gap: 1rem;                            /* Spazio tra elementi (unità relativa al font) */
+    padding-left: 3%;                     /* Spaziatura interna sinistra */
 }
 
+/* Elementi della lista social */
 .footer-social ul li {
-    display: flex;
-    align-items: center;
+    display: flex;                        /* Layout flessibile */
+    align-items: center;                  /* Centratura verticale */
 }
 
-/* Usa unità relative per le dimensioni delle icone */
+/* Stile delle icone dei social media */
 #idinstagram, #idfacebook, #idlinkedin, #idtwitter {
-    width: 2rem; /* Dimensione relativa al font-size */
-    height: auto;
-    max-width: 100%;
+    width: 2rem;                          /* Larghezza relativa al font-size */
+    height: auto;                         /* Altezza proporzionale */
+    max-width: 100%;                      /* Larghezza massima contenuta */
 }
 
+/* Stile dei link nel footer */
+.footer-links a {
+    color: rgb(0, 195, 0);                /* Colore verde per i link */
+    text-decoration: none;                /* Rimuove la sottolineatura */
+}
 
+/* Effetto hover sui link */
+.footer-links a:hover {
+    color: #ffd700;                       /* Colore oro al passaggio del mouse */
+    text-decoration: underline;           /* Aggiunge sottolineatura all'hover */
+}

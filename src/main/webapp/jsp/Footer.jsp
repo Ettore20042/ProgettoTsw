@@ -3,7 +3,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
     <div class="footer-content">
         <div class="footer-links">
-            <p> 2025 Brico Shop. Tutti i diritti riservati.</p>
+            <ul>  <li> 2025 Brico Shop. Tutti i diritti riservati.</li></ul>
+
             <ul>
                 <li><a href="${pageContext.request.contextPath}/privacy">Privacy Policy</a></li>
                 <li><a href="${pageContext.request.contextPath}/termini">Termini e Condizioni</a></li>
