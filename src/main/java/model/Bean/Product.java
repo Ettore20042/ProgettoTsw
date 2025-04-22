@@ -1,60 +1,53 @@
 package model.Bean;
 
 public class Product {
-    private int idProduct;
-    private String nameProduct;
+    private int productId;
+    private String productName;
     private float price;
-    private String colour;
+    private String color;
     private String material;
-    private int stock;
+    private int quantity;
     private String description;
-    private int idBrand;
-    private int idCategory;
+    private int brandId;
+    private int categoryId;
 
-    public Product(int idProduct, int idCategory, int idBrand, String description, int stock, String material, String colour, float price, String nameProduct) {
-        this.idProduct = idProduct;
-        this.idCategory = idCategory;
-        this.idBrand = idBrand;
-        this.description = description;
-        this.stock = stock;
-        this.material = material;
-        this.colour = colour;
-        this.price = price;
-        this.nameProduct = nameProduct;
-    }
-    public Product() {
-    }
+  public Product(int idProduct, int idCategory, int idBrand, String description, int stock, String material, String colour, float price, String nameProduct) {
+      this.productId = idProduct;
+      this.categoryId = idCategory;
+      this.brandId = idBrand;
+      this.description = description;
+      this.quantity = stock;
+      this.material = material;
+      this.color = colour;
+      this.price = price;
+      this.productName = nameProduct;
+  }
+  public Product(){
 
-    public int getIdProduct() {
-        return idProduct;
-    }
+  }
 
-    public void setIdProduct(int idProduct) {
-        this.idProduct = idProduct;
+    public int getProductId() {
+        return productId;
     }
 
-    public int getIdCategory() {
-        return idCategory;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
-    public void setIdCategory(int idCategory) {
-        this.idCategory = idCategory;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public int getIdBrand() {
-        return idBrand;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public void setIdBrand(int idBrand) {
-        this.idBrand = idBrand;
+    public int getBrandId() {
+        return brandId;
     }
 
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setBrandId(int brandId) {
+        this.brandId = brandId;
     }
 
     public String getDescription() {
@@ -65,6 +58,14 @@ public class Product {
         this.description = description;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public String getMaterial() {
         return material;
     }
@@ -73,12 +74,12 @@ public class Product {
         this.material = material;
     }
 
-    public String getColour() {
-        return colour;
+    public String getColor() {
+        return color;
     }
 
-    public void setColour(String colour) {
-        this.colour = colour;
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public float getPrice() {
@@ -89,11 +90,14 @@ public class Product {
         this.price = price;
     }
 
-    public String getNameProduct() {
-        return nameProduct;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setNameProduct(String nameProduct) {
-        this.nameProduct = nameProduct;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }
+
+
+

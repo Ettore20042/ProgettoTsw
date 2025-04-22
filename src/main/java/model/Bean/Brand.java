@@ -1,39 +1,41 @@
 package model.Bean;
 
 public class Brand {
-    private int idBrand;
-    private String PathLogo;
-    private String NameBrand;
+    private int brandId;
+    private String logoPath;
+    private String brandName;
 
-    public Brand(int idBrand, String nameBrand, String pathLogo) {
-        this.idBrand = idBrand;
-        NameBrand = nameBrand;
-        PathLogo = pathLogo;
-    }
     public Brand() {
 
     }
-    public int getIdBrand() {
-        return idBrand;
+    public Brand(int idBrand, String nameBrand, String pathLogo) {
+        this.brandId = idBrand;
+        this.brandName = nameBrand;
+        this.logoPath = pathLogo;
     }
 
-    public void setIdBrand(int idBrand) {
-        this.idBrand = idBrand;
+    public int getBrandId() {
+        return brandId;
     }
 
-    public String getNameBrand() {
-        return NameBrand;
+    public void setBrandId(int brandId) {
+        this.brandId = brandId;
     }
 
-    public void setNameBrand(String nameBrand) {
-        NameBrand = nameBrand;
+    public String getBrandName() {
+        return brandName;
     }
 
-    public String getPathLogo() {
-        return PathLogo;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
-    public void setPathLogo(String pathLogo) {
-        PathLogo = pathLogo;
+    public String getLogoPath() {
+        return logoPath;
+    }
+
+    public void setLogoPath(String logoPath) {
+        this.logoPath = logoPath;
     }
 }
+

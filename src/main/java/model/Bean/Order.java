@@ -5,82 +5,75 @@ import java.time.LocalTime;
 
 
 public class Order {
-    private int idOrder;
+    private int orderId;
     private String status;
-    private LocalDate date;
-    private LocalTime time;
-    private float total;
-    private int idBillingAddress;
-    private int idShippingAddress;
-    private int idUser;
+    private LocalDate orderDate;
+    private LocalTime orderTime;
+    private float totalAmount;
+    private int billingAddressId;
+    private int shippingAddressId;
+    private int userId;
 
-    public Order(int idUser, int idShippingAddress, int idBillingAddress, float total, LocalTime time, LocalDate date, String status, int idOrder) {
-        this.idUser = idUser;
-        this.idShippingAddress = idShippingAddress;
-        this.idBillingAddress = idBillingAddress;
-        this.total = total;
-        this.time = time;
-        this.date = date;
+    public Order(int idOrder, int idUser, int idBillingAddress, int idShippingAddress, float total, LocalTime time, LocalDate date, String status) {
+        this.orderId = idOrder;
+        this.userId = idUser;
+        this.billingAddressId = idBillingAddress;
+        this.shippingAddressId = idShippingAddress;
+        this.totalAmount = total;
+        this.orderTime = time;
+        this.orderDate = date;
         this.status = status;
-        this.idOrder = idOrder;
     }
+
     public Order() {
     }
 
-    public int getIdOrder() {
-        return idOrder;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setIdOrder(int idOrder) {
-        this.idOrder = idOrder;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public int getIdBillingAddress() {
-        return idBillingAddress;
+    public int getShippingAddressId() {
+        return shippingAddressId;
     }
 
-    public void setIdBillingAddress(int idBillingAddress) {
-        this.idBillingAddress = idBillingAddress;
+    public void setShippingAddressId(int shippingAddressId) {
+        this.shippingAddressId = shippingAddressId;
     }
 
-    public int getIdShippingAddress() {
-        return idShippingAddress;
+    public float getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setIdShippingAddress(int idShippingAddress) {
-        this.idShippingAddress = idShippingAddress;
+    public void setTotalAmount(float totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
-    public float getTotal() {
-        return total;
+    public int getBillingAddressId() {
+        return billingAddressId;
     }
 
-    public void setTotal(float total) {
-        this.total = total;
+    public void setBillingAddressId(int billingAddressId) {
+        this.billingAddressId = billingAddressId;
     }
 
-    public LocalTime getTime() {
-        return time;
+    public LocalTime getOrderTime() {
+        return orderTime;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setOrderTime(LocalTime orderTime) {
+        this.orderTime = orderTime;
     }
 
     public String getStatus() {
@@ -89,5 +82,13 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public LocalDate getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
     }
 }

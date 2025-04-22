@@ -1,40 +1,33 @@
 package model.Bean;
 
 public class User {
-    private int idUser;
-    private String name;
-    private String surname;
-    private String number;
+    private int userId;
+    private String firstName;
+    private String lastName;
+    private String phone;
     private String role;
-    private String email;
     private String password;
+    private String email;
 
-    public User(int idUser, String email, String password, String role, String number, String surname, String name) {
-        this.idUser = idUser;
-        this.email = email;
-        this.password = password;
+
+   public User(int idUser, String name, String surname, String number, String role, String password, String email) {
+        this.userId = idUser;
+        this.firstName = name;
+        this.lastName = surname;
+        this.phone = number;
         this.role = role;
-        this.number = number;
-        this.surname = surname;
-        this.name = name;
+        this.password = password;
+        this.email = email;
     }
     public User() {
     }
 
-    public int getIdUser() {
-        return idUser;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getEmail() {
@@ -45,6 +38,14 @@ public class User {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getRole() {
         return role;
     }
@@ -53,27 +54,27 @@ public class User {
         this.role = role;
     }
 
-    public String getNumber() {
-        return number;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 }
