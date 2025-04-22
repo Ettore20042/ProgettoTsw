@@ -36,6 +36,7 @@ footer{
 .footer-links ul li{
     list-style-type: none;                /* Rimuove i punti elenco */
     display: block;                       /* Ogni elemento è un blocco separato (va a capo) */
+    padding-bottom: 2%;
 }
 
 /* Lista delle icone social */
@@ -62,12 +63,12 @@ footer{
 
 /* Stile dei link nel footer */
 .footer-links a {
-    color: rgb(0, 195, 0);                /* Colore verde per i link */
+    color: rgb(241, 239, 234);                /* Colore verde per i link */
     text-decoration: none;                /* Rimuove la sottolineatura */
 }
 
 /* Effetto hover sui link */
 .footer-links a:hover {
-    color: #ffd700;                       /* Colore oro al passaggio del mouse */
+    color: #00c300;                       /* Colore oro al passaggio del mouse */
     text-decoration: underline;           /* Aggiunge sottolineatura all'hover */
 }
