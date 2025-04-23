@@ -5,21 +5,9 @@
     <!-- Favicon (base icon for all browsers) -->
     <link rel="icon" href="${pageContext.request.contextPath}/img/favicon/favicon.ico" type="image/x-icon">
 
-    <!-- PNG icons -->
-    <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/img/favicon/favicon-16x16.png">
-
-    <!-- Apple icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/img/favicon/apple-touch-icon.png">
-
-    <!-- Manifest for modern browsers -->
-    <link rel="manifest" href="${pageContext.request.contextPath}/img/favicon/site.webmanifest">
-
-    <!-- Shortcut fallback -->
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/img/favicon/favicon.ico" type="image/x-icon">
 
     <title>Brico Shop</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/homepage.css">
 </head>
 <body>
 <jsp:include page="Header.jsp" />
