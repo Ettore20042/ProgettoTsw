@@ -9,7 +9,7 @@
     <div class="top-container">
         <div class="top-container-left">
 
-            <a href="${pageContext.request.contextPath}/jsp/HomePage.jsp">
+            <a href="${pageContext.request.contextPath}/">
                 <img src="${pageContext.request.contextPath}/img/header/logo.png" alt="Logo" id="idlogo">
             </a>
 

@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Registration</title>
 </head>
 <body>
 <jsp:include page="/jsp/Header.jsp" />

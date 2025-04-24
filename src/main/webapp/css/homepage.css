@@ -1,0 +1,85 @@
+/* Mobile first */
+body {
+    background-color: rgb(30, 58, 71);
+
+    width: 100%;
+    font-family: Arial, sans-serif;
+
+}
+
+#welcome-category-image{
+    width: 30%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
+}
+.button{
+    width: 50%;
+    border-radius: 0.5rem;
+    border: 0.3rem solid #1b1919;
+    background-color: rgb(36, 70, 92);
+}
+
+.welcome-section a{
+    color: rgb(241, 239, 234);
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.4rem 0.5rem 0.4rem 0.5rem;
+
+}
+.welcome-section a:hover{
+    color: rgba(0, 195, 0, 0.6);
+    text-decoration: underline;
+}
+.welcome-section h3{
+    font-size: 1.0rem;
+    color: rgb(36, 70, 92);
+    margin-bottom: 5%;
+}
+#welcome-category-image{
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
+}
+
+#welcome-shop-image{
+    padding-bottom: 10%;
+}
+
+/* Modifica del contenitore welcome-section per creare la griglia */
+.welcome-section {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2%;
+    padding: 2%;
+}
+
+/* Stile comune per tutte le sezioni */
+.categoria-section, .brand-section, .shop-section, .offers-section {
+    width: 48%;  /* Larghezza per due colonne con spazio tra loro */
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    border: 0.3rem solid #efe9e9;
+    margin-right: 0; /* Rimuovo il margine destro che causava layout a singola colonna */
+    background-color: rgb(241, 239, 234);
+    color: rgb(36, 70, 92);
+    margin-top: 5%;
+    padding: 2%;
+}
+
+
+
+
+/* Per tablet e PC */
+@media (min-width: 768px) {
+    body {
+        font-size: 20px;
+        background-color: lightgreen;
+    }
+}
