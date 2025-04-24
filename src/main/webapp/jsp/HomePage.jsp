@@ -17,22 +17,24 @@
         <div class="categoria-section">
             <img src="${pageContext.request.contextPath}/img/homepage/materasso.jpg" alt="Product" id="welcome-category-image">
             <h3>I nostri prodotti</h3>
-            <a href="${pageContext.request.contextPath}/jsp/category.jsp" class="button">Scopri di più</a>
+            <a href="${pageContext.request.contextPath}/jsp/category.jsp" class="button" id="idscopriora">Scopri di più</a>
         </div>
-        <div class="brand-section">
-            <img src="${pageContext.request.contextPath}/img/homepage/tagliaerba.jpg" alt="Brand" id="welcome-brand-image">
-            <h3>I nostri Brand</h3>
-            <a href="${pageContext.request.contextPath}/jsp/brand.jsp" class="button">Scopri di più</a>
-        </div>
-        <div class="shop-section">
-            <img src="${pageContext.request.contextPath}/img/homepage/negozio.svg" alt="Shop" id="welcome-shop-image">
-            <h3>Trova il negozio</h3>
-            <a href="${pageContext.request.contextPath}/jsp/shop.jsp" class="button">I nostri store</a>
-        </div>
-        <div class="offers-section">
-            <img src="${pageContext.request.contextPath}/img/homepage/promo.png" alt="Promo" id="welcome-promo-image">
-            <h3>Promo</h3>
-            <a href="${pageContext.request.contextPath}/jsp/offers.jsp" class="button">Scopri di più</a>
+        <div class="small-section">
+                <div class="brand-section">
+                    <img src="${pageContext.request.contextPath}/img/homepage/tagliaerba.jpg" alt="Brand" id="welcome-brand-image">
+                    <h3>I nostri Brand</h3>
+                    <a href="${pageContext.request.contextPath}/jsp/brand.jsp" class="button">Scopri di più</a>
+                </div>
+                <div class="shop-section">
+                    <img src="${pageContext.request.contextPath}/img/homepage/negozio.svg" alt="Shop" id="welcome-shop-image">
+                    <h3>Trova il negozio</h3>
+                    <a href="${pageContext.request.contextPath}/jsp/shop.jsp" class="button">I nostri store</a>
+                </div>
+                <div class="offers-section">
+                    <img src="${pageContext.request.contextPath}/img/homepage/promo.png" alt="Promo" id="welcome-promo-image">
+                    <h3>Promo</h3>
+                    <a href="${pageContext.request.contextPath}/jsp/offers.jsp" class="button">Scopri di più</a>
+                </div>
         </div>
     </section>
     <section>
