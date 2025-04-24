@@ -26,10 +26,12 @@
         </div>
         <div class="shop-section">
             <img src="${pageContext.request.contextPath}/img/homepage/negozio.svg" alt="Shop" id="welcome-shop-image">
+            <h3>Trova il negozio</h3>
             <a href="${pageContext.request.contextPath}/jsp/shop.jsp" class="button">I nostri store</a>
         </div>
         <div class="offers-section">
             <img src="${pageContext.request.contextPath}/img/homepage/promo.png" alt="Promo" id="welcome-promo-image">
+            <h3>Promo</h3>
             <a href="${pageContext.request.contextPath}/jsp/offers.jsp" class="button">Scopri di più</a>
         </div>
     </section>
