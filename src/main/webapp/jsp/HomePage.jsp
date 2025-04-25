@@ -7,7 +7,7 @@
 
 
     <title>Brico Shop</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/homepage.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/homepage.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
 </head>
 <body>
 <jsp:include page="Header.jsp" />
@@ -15,18 +15,18 @@
 <main>
     <section class="welcome-section">
         <div class="categoria-section">
-            <img src="${pageContext.request.contextPath}/img/homepage/materasso.jpg" alt="Product" id="welcome-category-image">
+            <img src="${pageContext.request.contextPath}/img/homepage/materassoa.jpg" alt="Product" id="welcome-category-image">
             <h3>I nostri prodotti</h3>
             <a href="${pageContext.request.contextPath}/jsp/category.jsp" class="button" id="idscopriora">Scopri di più</a>
         </div>
         <div class="small-section">
                 <div class="brand-section">
-                    <img src="${pageContext.request.contextPath}/img/homepage/tagliaerba.jpg" alt="Brand" id="welcome-brand-image">
-                    <h3>I nostri Brand</h3>
+                    <img src="${pageContext.request.contextPath}/img/homepage/brand.png" alt="Brand" id="welcome-brand-image">
+                    <h3> I nostri Brand</h3>
                     <a href="${pageContext.request.contextPath}/jsp/brand.jsp" class="button">Scopri di più</a>
                 </div>
                 <div class="shop-section">
-                    <img src="${pageContext.request.contextPath}/img/homepage/negozio.svg" alt="Shop" id="welcome-shop-image">
+                    <img src="${pageContext.request.contextPath}/img/homepage/negozio.png" alt="Shop" id="welcome-shop-image">
                     <h3>Trova il negozio</h3>
                     <a href="${pageContext.request.contextPath}/jsp/shop.jsp" class="button">I nostri store</a>
                 </div>
@@ -37,7 +37,7 @@
                 </div>
         </div>
     </section>
-    <section>
+    <section class="about-us">
         <h2>Il più importante Marketplace Italiano del settore Home & Garden</h2>
         <p>Nel 1959 eravamo un negozio di ferramenta a conduzione familiare. Oggi BricoBravo è un punto di riferimento nel settore del bricolage e del fai da te oltre ad essere anche un ecommerce online dove dare sfogo alla tua passione per la casa, la decorazione e il giardinaggio.</p>
 
