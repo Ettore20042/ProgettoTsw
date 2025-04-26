@@ -1,0 +1,182 @@
+/* Stili generali per l'header */
+header {
+    background-color: rgb(30, 58, 71);
+    color: white;
+    padding: 1% 0;
+    box-shadow: 0 0.125rem 0.313rem rgba(0, 0, 0, 0.2);
+    width: 100%;
+}
+
+/* Container principale in flex */
+.top-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2% 2%;
+    margin-bottom: 1%;
+    gap: 1%;
+}
+
+.top-container-left{
+    width: 15%;
+    display: flex;
+    align-items: center;
+    gap: 3%;
+}
+
+/* Logo */
+#idlogo {
+    width: 50%;
+    height: auto;
+    max-width: 200%;
+    transition: transform 0.2s;
+    border-radius: 10%;
+}
+
+#idlogo:hover {
+    transform: scale(1.05);
+}
+
+/* Area centrale con barra di ricerca */
+.top-container-center {
+    display: flex;
+    justify-content: start;
+    align-items: center; /* Cambiato da start a center */
+    width: 50%;
+}
+
+.top-container-center form {
+    display: flex;
+    width: 100%;
+    align-items: center; /* Cambiato da start a center */
+}
+
+#search {
+    width: 90%;
+    height: 2.5rem;
+    padding: 0 1%; /* Standardizzato il padding orizzontale */
+    border: none;
+    border-radius: 0.25rem 0 0 0.25rem;
+    font-size: 1.25rem;
+    line-height: 2.5rem; /* Aggiunto per migliorare l'allineamento */
+}
+
+.top-container-center button {
+    height: 2.5rem;
+    background: white;
+    border: none;
+    border-radius: 0 0.25rem 0.25rem 0;
+    padding: 0 0.7%; /* Standardizzato il padding orizzontale */
+    cursor: pointer;
+    display: flex; /* Aggiungo flexbox al bottone */
+    align-items: center; /* Centro il contenuto verticalmente */
+    justify-content: center; /* Centro il contenuto orizzontalmente */
+}
+
+#idsearch {
+    width: 1.5rem;
+    height: 1.5rem; /* Definita altezza fissa invece di auto */
+    vertical-align: middle; /* Aiuta nell'allineamento verticale */
+
+}
+
+/* Area destra con accesso e carrello */
+.top-container-right {
+    margin-left: auto;
+    width: 25%;
+    display: flex;
+    align-items: center;
+    gap: 3%;
+    justify-content: flex-end;
+}
+
+.top-container-right img {
+    width: 1.5rem;
+    height: auto;
+}
+
+#idomino {
+    width: 10%;
+    border-radius: 50%;
+}
+
+.top-container-right a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.25rem;
+    transition: color 0.2s;
+}
+
+.top-container-right a:hover {
+    color: #ff9900;
+    text-decoration: underline;
+}
+
+#idcarrello {
+    width: 10%;
+    height: auto;
+    margin-left: 2%;
+}
+
+#cartlink {
+    display: flex;
+    align-items: center;
+    padding: 0.4rem 0.75rem;
+    border: 0.125rem solid #a3e635;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size: 1.25rem;
+    background-color: rgb(36, 70, 92);
+}
+
+/* Barra di navigazione */
+nav {
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: 1% 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: start;
+    padding: 0;
+    margin: 0;
+    gap: 3%;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding: 0.4rem 1rem;
+    border-radius: 0.2rem;
+    transition: background-color 0.2s;
+}
+
+nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+
+/* Smartphone orizzontale (fino a 768px) */
+@media screen and (max-width: 768px) {
+    .top-container-right{
+        width: 40%;
+        justify-content: center;
+    }
+}
+
+
+
+
+
+
+
