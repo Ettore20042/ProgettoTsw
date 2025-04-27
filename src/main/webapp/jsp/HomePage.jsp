@@ -20,23 +20,25 @@
             <a href="${pageContext.request.contextPath}/jsp/category.jsp" class="button" id="idscopriora">Scopri di più</a>
         </div>
         <div class="small-section">
-            <div class="brand-section">
+            <div class="shop-brand-section">
+                <div class="brand-section">
                 <img src="${pageContext.request.contextPath}/img/homepage/brand.png" alt="Brand" id="welcome-brand-image">
                 <h3>I nostri Brand</h3>
                 <a href="${pageContext.request.contextPath}/jsp/brand.jsp" class="button">Scopri di più</a>
-            </div>
-            <div class="shop-offers-container">
+                 </div>
+
                 <div class="shop-section">
                     <img src="${pageContext.request.contextPath}/img/homepage/negozio.png" alt="Shop" id="welcome-shop-image">
                     <h3>I nostri store</h3>
                     <a href="${pageContext.request.contextPath}/jsp/shop.jsp" class="button">Trova il negozio</a>
                 </div>
+            </div>
                 <div class="offers-section">
                     <img src="${pageContext.request.contextPath}/img/homepage/promo.png" alt="Promo" id="welcome-promo-image">
                     <h3>Le nostre offerte</h3>
                     <a href="${pageContext.request.contextPath}/jsp/offers.jsp" class="button">Scopri di più</a>
                 </div>
-            </div>
+
         </div>
     </section>
     <div class="featured">
