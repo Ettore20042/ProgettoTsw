@@ -1,18 +1,95 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <!-- Favicon (base icon for all browsers) -->
     <link rel="icon" href="${pageContext.request.contextPath}/img/favicon/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
 
     <title>Brico Shop</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/homepage.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
+    <!-- Il tuo HTML/JSP -->
+    <!-- Il tuo HTML/JSP -->
+
+    <script>
+        // Funzioni di scroll rinominate per evitare conflitti con proprietà DOM native
+        function scrollToLeft() {
+            const container = document.getElementById('featured');
+            if (container) {
+                container.scrollBy({
+                    left: -300,
+                    behavior: 'smooth'
+                });
+                // Aggiorna lo stato dei pulsanti dopo lo scroll
+                setTimeout(() => updateButtonsState(), 100);
+            }
+        }
+
+        function scrollToRight() {
+            const container = document.getElementById('featured');
+            if (container) {
+                container.scrollBy({
+                    left: 300,
+                    behavior: 'smooth'
+                });
+                // Aggiorna lo stato dei pulsanti dopo lo scroll
+                setTimeout(() => updateButtonsState(), 100);
+            }
+        }
+
+        // Funzione per aggiornare lo stato dei pulsanti
+        function updateButtonsState() {
+            const container = document.getElementById('featured');
+            const scrollLeftBtn = document.querySelector('.scroll-button.left');
+            const scrollRightBtn = document.querySelector('.scroll-button.right');
+
+            if (!container || !scrollLeftBtn || !scrollRightBtn) return;
+
+            // Ottieni le dimensioni
+            const scrollLeft = container.scrollLeft;
+            const scrollWidth = container.scrollWidth;
+            const clientWidth = container.clientWidth;
+
+            console.log("scrollLeft:", scrollLeft);
+            console.log("scrollWidth:", scrollWidth);
+            console.log("clientWidth:", clientWidth);
+
+            // Disabilita il pulsante sinistro se siamo all'inizio
+            scrollLeftBtn.disabled = scrollLeft <= 0;
+
+            // Disabilita il pulsante destro se siamo alla fine
+            scrollRightBtn.disabled = scrollLeft + clientWidth >= scrollWidth - 1;
+        }
+
+        // Inizializza quando il documento è pronto
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('featured');
+
+            if (container) {
+                // Inizializza lo stato dei pulsanti
+                setTimeout(() => updateButtonsState(), 300);
+
+                // Aggiungi listener per gli scroll manuali
+                container.addEventListener('scroll', function() {
+                    updateButtonsState();
+                });
+            }
+        });
+
+    </script>
+
+
+
 </head>
 <body>
 <jsp:include page="Header.jsp" />
-
 <main>
+    <!-- Aggiungi all'inizio della pagina, dopo i tag iniziali -->
+
     <section class="welcome-section">
         <div class="categoria-section">
             <img src="${pageContext.request.contextPath}/img/homepage/materassoa.jpg" alt="Product" id="welcome-category-image">
@@ -41,9 +118,23 @@
 
         </div>
     </section>
-    <div class="featured">
-        <h2>In primo piano</h2>
+    <h1>In evidenza</h1>
+    <div class="scroll-container">
 
+        <button class="scroll-button left" onclick="scrollToLeft()">❮</button>
+
+        <div class="featured" id="featured">
+            <c:forEach var="product" items="${applicationScope.products}">
+                <div class="product">
+                    <img src="${pageContext.request.contextPath}/img/products/default.jpg"
+                         alt="${product.productName}" class="product-image"/>
+                    <h2>${product.productName}</h2>
+                    <p>Prezzo: €${product.price}</p>
+                </div>
+            </c:forEach>
+        </div>
+
+        <button class="scroll-button right" onclick="scrollToRight()">❯</button>
 
     </div>
     <section class="about-us">
