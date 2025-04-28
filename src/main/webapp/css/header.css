@@ -5,6 +5,7 @@ header {
     padding: 1% 0;
     box-shadow: 0 0.125rem 0.313rem rgba(0, 0, 0, 0.2);
     width: 100%;
+    font-family: 'Roboto', sans-serif;
 }
 
 /* Container principale in flex */

@@ -14,7 +14,7 @@
 <jsp:include page="/jsp/Header.jsp" />
 <main>
     <div class="login">
-        <h2>Registrati</h2>
+        <h2 id="idregistration">Registrati</h2>
         <form action="RegistrationServlet" method="post">
             <input type="text"  class="barre" name="name" placeholder="Nome*" required>
             <input type="text" class="barre" name="surname" placeholder="Cognome*" required>

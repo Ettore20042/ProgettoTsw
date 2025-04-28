@@ -1,6 +1,6 @@
 body {
-    background-color: rgb(220, 219, 219); /* Colore di sfondo grigio chiaro */
-    font-family: Arial, sans-serif;
+    background-color: rgba(132, 136, 98, 0.49);
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
 
@@ -10,23 +10,24 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 3% 5%;
+    padding: 3% 10% 3% 7%;
     border: 0.3rem solid #1b1919;
     border-radius:1rem;
     box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.2);
     background-color: rgba(36, 70, 92, 0.81); /* Colore di sfondo bianco */
     width: 15%;
-    max-width: 90%;
-    margin: 7%  auto; /* 5% sopra e sotto, auto ai lati per centraggio orizzontale */
+    max-width: 100%;
+    margin: 7% auto; /* 5% sopra e sotto, auto ai lati per centraggio orizzontale */
 }
 .login h2{
     font-size: 2.5rem; /* Dimensione del titolo */
     color: rgb(241, 239, 234); /* Colore del titolo */
     margin-bottom: 15%; /* Margine inferiore */
+    padding-left: 10%;
 
 }
 .barre {
-    width: 100%;
+    width: 120%;
     height: 2.5rem;
     padding: 0.5% 1%;
     border: none;
@@ -41,20 +42,57 @@ body {
 .button {
     background-color: rgb(30, 58, 71);
     color: #f1efea;
-    margin-top: 2%;
+    margin-top: 5%;
     padding: 0.5rem 1rem;
     border: greenyellow solid 1px;
     border-radius: 0.3rem;
     cursor: pointer;
     font-size: 1.3rem;
     margin-bottom: 10%;
+
 }
 a{
-    color: rgb(27, 25, 25);  /* Colore del testo */
+    color: greenyellow;  /* Colore del testo */
     font-size: 1rem;  /* Dimensione del testo */
     margin-top: 2%;
 
 }
 a:hover{
     color: rgb(241, 239, 234); /* Colore del testo al passaggio del mouse */
+}
+#idregistration{
+    align-self: center;
+}
+@media (min-height: 768px){
+    .login {
+        width: 40%;
+        height: auto;
+
+    }
+    .barre{
+        width: 100%;
+        height: 3rem;
+        font-size: 1.5rem;
+        align-self: center;
+    }
+    h2{
+        font-size: 4rem;
+        margin-top: 5%;
+        align-self:start;
+        margin-left: 13%;
+
+    }
+    a{
+        font-size: 1.5rem;
+        margin-top: 5%;
+
+    }
+    .button{
+        font-size: 1.5rem;
+
+
+    }
+    #idregistration{
+        margin-left:0;
+    }
 }
