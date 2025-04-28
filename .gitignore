@@ -1,4 +1,7 @@
+# Escludi tutti i file di build generati
 target/
+
+# Includi maven-wrapper.jar ma escludi altre cose nella cartella .mvn
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
