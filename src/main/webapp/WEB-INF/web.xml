@@ -6,13 +6,5 @@
     <welcome-file-list>
         <welcome-file>jsp/HomePage.jsp</welcome-file>
     </welcome-file-list>
-    <servlet>
-        <servlet-name>ProductServlet</servlet-name>
-        <servlet-class>controller.ProductServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ProductServlet</servlet-name>
-        <url-pattern>/ProductServlet</url-pattern>
-    </servlet-mapping>
+
 </web-app>

@@ -8,79 +8,12 @@
     <link rel="icon" href="${pageContext.request.contextPath}/img/favicon/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-
-
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <title>Brico Shop</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/homepage.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
     <!-- Il tuo HTML/JSP -->
     <!-- Il tuo HTML/JSP -->
-
-    <script>
-        // Funzioni di scroll rinominate per evitare conflitti con proprietà DOM native
-        function scrollToLeft() {
-            const container = document.getElementById('featured');
-            if (container) {
-                container.scrollBy({
-                    left: -300,
-                    behavior: 'smooth'
-                });
-                // Aggiorna lo stato dei pulsanti dopo lo scroll
-                setTimeout(() => updateButtonsState(), 100);
-            }
-        }
-
-        function scrollToRight() {
-            const container = document.getElementById('featured');
-            if (container) {
-                container.scrollBy({
-                    left: 300,
-                    behavior: 'smooth'
-                });
-                // Aggiorna lo stato dei pulsanti dopo lo scroll
-                setTimeout(() => updateButtonsState(), 100);
-            }
-        }
-
-        // Funzione per aggiornare lo stato dei pulsanti
-        function updateButtonsState() {
-            const container = document.getElementById('featured');
-            const scrollLeftBtn = document.querySelector('.scroll-button.left');
-            const scrollRightBtn = document.querySelector('.scroll-button.right');
-
-            if (!container || !scrollLeftBtn || !scrollRightBtn) return;
-
-            // Ottieni le dimensioni
-            const scrollLeft = container.scrollLeft;
-            const scrollWidth = container.scrollWidth;
-            const clientWidth = container.clientWidth;
-
-            console.log("scrollLeft:", scrollLeft);
-            console.log("scrollWidth:", scrollWidth);
-            console.log("clientWidth:", clientWidth);
-
-            // Disabilita il pulsante sinistro se siamo all'inizio
-            scrollLeftBtn.disabled = scrollLeft <= 0;
-
-            // Disabilita il pulsante destro se siamo alla fine
-            scrollRightBtn.disabled = scrollLeft + clientWidth >= scrollWidth - 1;
-        }
-
-        // Inizializza quando il documento è pronto
-        document.addEventListener('DOMContentLoaded', function() {
-            const container = document.getElementById('featured');
-
-            if (container) {
-                // Inizializza lo stato dei pulsanti
-                setTimeout(() => updateButtonsState(), 300);
-
-                // Aggiungi listener per gli scroll manuali
-                container.addEventListener('scroll', function() {
-                    updateButtonsState();
-                });
-            }
-        });
-
-    </script>
+    <script src="${pageContext.request.contextPath}/Js/scrollHomepage.js" defer  ></script>
 
 
 
@@ -107,7 +40,7 @@
                 <div class="shop-section">
                     <img src="${pageContext.request.contextPath}/img/homepage/negozio.png" alt="Shop" id="welcome-shop-image">
                     <h3>I nostri store</h3>
-                    <a href="${pageContext.request.contextPath}/jsp/shop.jsp" class="button">Trova il negozio</a>
+                    <a href="${pageContext.request.contextPath}/jsp/Store.jsp" class="button">Trova il negozio</a>
                 </div>
             </div>
                 <div class="offers-section">
@@ -118,17 +51,18 @@
 
         </div>
     </section>
-    <h1>In evidenza</h1>
+    <h1 id="idevidenza">In evidenza</h1>
     <div class="scroll-container">
 
         <button class="scroll-button left" onclick="scrollToLeft()">❮</button>
 
         <div class="featured" id="featured">
-            <c:forEach var="product" items="${applicationScope.products}">
+            <c:forEach var="product"  items="${products}">
                 <div class="product">
-                    <img src="${pageContext.request.contextPath}/img/products/default.jpg"
-                         alt="${product.productName}" class="product-image"/>
-                    <h2>${product.productName}</h2>
+                    <a href="Product.jsp"><img src="ImageServlet?productId=${product.productId}"
+                                               alt="${product.productName}"
+                                               class="product-image" />
+                    <h2>${product.productName}</h2></a>
                     <p>Prezzo: €${product.price}</p>
                 </div>
             </c:forEach>
