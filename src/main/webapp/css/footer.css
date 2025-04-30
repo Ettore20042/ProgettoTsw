@@ -1,9 +1,9 @@
 /* Definizione dello stile principale del footer */
 footer{
-    background-color: rgb(30, 58, 71);    /* Colore di sfondo blu scuro */
+    background-color: rgb(30 58 71);    /* Colore di sfondo blu scuro */
     color: white;                         /* Colore del testo bianco */
     padding: 3% 0 ;                       /* Spaziatura interna: 3% sopra/sotto */
-    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2); /* Ombra leggera sotto il footer  */
+    box-shadow: 0 0.1rem 0.2rem rgb(0 0 0 / 20%); /* Ombra leggera sotto il footer  */
     width: 100%;                          /* Larghezza completa */
     margin-top: 5%;
     max-width: 100%;                    /* Larghezza massima del footer */
@@ -13,12 +13,11 @@ footer{
 /* Contenitore flessibile per organizzare il contenuto del footer */
 .footer-content {
     display: flex;                        /* Layout flessibile */
-    flex-direction: row;                  /* Elementi allineati orizzontalmente */
+    flex-flow: row wrap;                  /* Elementi allineati orizzontalmente */
     align-items: flex-start;              /* Allineamento in alto degli elementi */
     padding: 1% 3%;                       /* Spaziatura interna uniforme del 3% */
     font-size: 100%;                      /* Dimensione font standard */
     margin: auto;
-    flex-wrap: wrap;
 }
 
 /* Sezione dei link nel footer */
@@ -65,7 +64,7 @@ footer{
 
 /* Stile dei link nel footer */
 .footer-links a {
-    color: rgb(241, 239, 234);                /* Colore verde per i link */
+    color: rgb(241 239 234);                /* Colore verde per i link */
     text-decoration: none;                /* Rimuove la sottolineatura */
 }
 
@@ -75,7 +74,7 @@ footer{
     text-decoration: underline;           /* Aggiunge sottolineatura all'hover */
 
 /* Media queries per responsività */
-@media screen and (max-width: 768px) {
+@media screen and (width <= 768px) {
     .footer-content {
         flex-direction: column;
         text-align: center;
@@ -97,7 +96,7 @@ footer{
     }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (width <= 480px) {
     footer {
         padding: 5% 0;
     }
