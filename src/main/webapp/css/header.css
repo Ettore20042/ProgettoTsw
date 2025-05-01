@@ -1,20 +1,213 @@
-#idlogo {
-    width: 5%;
-    height: auto;
-    max-width: 200%;
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-#idsearch {
-    width: 5%;
-    height: auto;
-    max-width: 200%;
+:root{
+    color-scheme: only light !important;
 }
-#search {
-    width: 30%;
-    height: auto;
-    max-width: 200%;
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
-
-
 header{
-    background-color: rgb(30, 58, 71);
+    display: flex;
+    flex-direction: column;
+    background-color: #F3EED8;
+}
+
+/*Css Mobile*/
+
+.top-container{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0.3rem 1rem 0.5rem 1rem;
+}
+
+.top-container #openNav{
+    font-size: 2rem;
+    line-height: 1em;
+    color: #3a2f26;
+    margin-left: 1rem;
+    border: none;
+    background: none;
+}
+.top-container-logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    height: 4rem;
+    overflow: hidden;
+    border-radius: 35%;
+    margin-left: 1rem;
+    /*border: 1px solid #3a2f26;*/
+    text-align: center;
+}
+
+#idlogo{
+    width: 6.5rem;
+    height: auto;
+    position: relative;
+    bottom: 2px;
+}
+
+.top-container-searchBar{
+    order: 4;
+    border: 2px solid #7fa836 ;
+    border-radius: 2.5em;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 1vh;
+    background-color: white ;
+}
+.top-container-searchBar form{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: center;
+    width: 100%;
+    padding: 7px;
+}
+.top-container-searchBar form input[type="search"]{
+    font-size: 1.1rem;
+    border: none;
+    min-width: 0;
+    outline: none;
+    padding-left: 5px;
+    flex-grow: 1;
+    margin-right: 7px;
+}
+
+.top-container-searchBar form button[type="submit"]{
+    background: none;
+    border: none;
+}
+.top-container-searchBar #searchLens{
+    width: 2em;
+    margin-right: 11px;
+}
+.top-container-userIcons{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 3%;
+    position: relative;
+    row-gap: 2.3vw;
+}
+.top-container-login-dropdown{
+    display: none; /*Attualmente impostato none per comodità. Da impostare flex, e rendere visivamente dinamico con js*/
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 2.9em;
+    right: 3.5em;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 0.5em;
+    background-color: white;
+    padding: 11px 23px;
+    z-index: 1;
+}
+.top-container-login-dropdown a{
+    text-decoration: none;
+    border-radius: 11px;
+    padding: 9px 18px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.1rem;
+    margin: 2px;
+    color: #392E23;
+    font-weight: 500;
+}
+.top-container-login-dropdown a:first-child{
+    background-color: #CFAF7C;
+    color: white;
+}
+.top-container-userIcons #idProfileIcon{
+    width: 2.6rem;
+    height: auto;
+    padding: 5px;
+}
+.top-container-userIcons #idCarrello{
+    width: 3.7rem;
+    height: auto;
+    padding: 7px;
+}
+nav{
+    display: none;       /*Da impostare block con js*/
+    position: fixed;
+    width: 65%;
+    height: 100%;
+    background-color: #392E23;
+}
+nav ul{
+    list-style: none;
+    padding-top: 15vh;
+    padding-left: 2vw;
+}
+
+nav ul li:first-child .closebtn{
+    position: absolute;
+    right: 7vw;
+    top: 5vh;
+    font-size: 3rem;
+    padding: 7px;
+    line-height: 1;
+}
+nav ul a{
+    display: block;
+    text-decoration: none;
+    color: white;
+    font-size: clamp(1.3rem, 1.2rem + 1.5vw, 2.5rem);
+    padding: 0.3em 1em;
+}
+
+/*CSS Desktop*/
+@media (min-width: 992px){
+    .top-container{
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        gap: 5vw;
+        margin: 0 11px;
+    }
+    .top-container #openNav{
+        display: none;
+    }
+    .top-container-searchBar{
+        order: 0;
+        width: 60%;
+    }
+    .top-container-userIcons{
+        margin: 0;
+    }
+    nav{
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        height: auto;
+        background-color: transparent;
+    }
+    nav ul{
+        display: flex;
+        flex-direction: row;
+        padding: 0 2rem;
+    }
+    nav ul li:first-child{
+        display: none;
+    }
+    nav ul li a{
+        color: #392E23;
+        font-size: 1.2rem;
+        padding: 0.8rem 1rem 1rem 1rem;
+    }
+}
+@media (min-width: 1220px) {
+    header, main, footer {
+        padding: 0 3%;
+    }
 }

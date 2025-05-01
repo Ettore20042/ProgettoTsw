@@ -1,12 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <footer>
     <div class="footer-content">
-        <p> 2025 Brico Shop. Tutti i diritti riservati.</p>
-        <div class="footer-links">
+        <details class="customer-support">
+            <summary>
+                <h3><a href="${pageContext.request.contextPath}/jsp/assistenza.jsp">Assistenza clienti</a></h3>
+
+            </summary>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/privacy">Privacy Policy</a></li>
-                <li><a href="${pageContext.request.contextPath}/termini">Termini e Condizioni</a></li>
-                <li><a href="${pageContext.request.contextPath}/contatti">Contatti</a></li>
+                <li><a href="${pageContext.request.contextPath}/jsp/politicheReso.jsp">Politiche di reso e rimborso</a></li>
+                <li><a href="${pageContext.request.contextPath}/jsp/metodiPagamento.jsp">Metodi di pagamento</a></li>
+                <li><a href="${pageContext.request.contextPath}/jsp/politicheReso.jsp">Contattaci</a></li>
+            </ul>
+        </details>
+        <div class="legal-links">
+            <h3>Legal</h3>
+            <ul>
+                <li><a href="${pageContext.request.contextPath}/privacy.jsp">Privacy Policy</a></li>
+                <li><a href="${pageContext.request.contextPath}/termini.jsp">Termini e Condizioni</a></li>
             </ul>
         </div>
         <div class="footer-social">
@@ -19,5 +29,6 @@
             </ul>
 
         </div>
+        <p> 2025 Brico Shop. Tutti i diritti riservati.</p>
     </div>
 </footer>
