@@ -361,7 +361,6 @@ a:hover {
 
     /* Specifiche per shop-section */
     .shop-section {
-
         margin-right: 0;
         margin-top: 0;
     }
@@ -425,7 +424,6 @@ a:hover {
     #welcome-brand-image,
     #welcome-shop-image {
         width: 40%;
-
         padding-top: 2%;
         margin-top: auto;
     }
