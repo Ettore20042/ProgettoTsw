@@ -25,7 +25,7 @@ a:hover {
 .button {
     width: 40%;
     border-radius: 0.5rem;
-    border: 0.3rem solid #735e4d;
+    border: 0.1rem solid #735e4d;
     background-color: #bdb8b8;
     margin-top: 2%;
 }
@@ -44,8 +44,8 @@ a:hover {
 /* Solo modifiche specifiche di larghezza per i bottoni */
 .brand-section .button { width: 50%; }
 
-.shop-section .button,
-.offers-section .button { width: 60%; }
+.shop-section .button { width: 60%; }
+.offers-section .button { width: 50%; }
 
 #idscopriora {
     width: 17%;
@@ -122,8 +122,8 @@ a:hover {
     display: flex;
     flex-direction: column;
     border-radius: 1rem;
-    border: 0.3rem solid #3A2E25;
-    background-color: #E8D5B5;
+    border: 0.2rem solid #3A2E25;
+    background-color: #f3eed8;
     color: #3A2E25;
     margin-top: auto;
     justify-content: space-between;
@@ -137,7 +137,7 @@ a:hover {
     display: flex;
     flex-direction: column;
     border-radius: 0.5rem;
-    border: 0.3rem solid #3A2E25;
+    border: 0.2rem solid #3A2E25;
     color: #3A2E25;
     margin-top: 5%;
     min-height: 23rem;
@@ -146,7 +146,7 @@ a:hover {
 
 /* Proprietà specifiche per ogni sezione */
 .brand-section {
-    background-color: #FAF7F0;
+    background-color: #F5F0E1;
     margin-right: 2%;
 }
 
@@ -156,7 +156,7 @@ a:hover {
 }
 
 .offers-section {
-    background-color: #FD0;
+    background-color: #F5F0E1;
     margin-right: 0;
 }
 
@@ -342,6 +342,7 @@ a:hover {
         align-items: stretch;
         margin-bottom: 1rem;
         height: auto;
+        margin-top: 0.5%;
     }
 
     /* Larghezze comuni per le sezioni */
@@ -349,27 +350,25 @@ a:hover {
     .shop-section {
         width: 50%;
         height: auto;
+        min-height:0;
     }
 
     /* Specifiche per brand-section */
     .brand-section {
-        align-self: end;
-        min-height: 15%;
         margin-left: 0;
         margin-top: 0;
     }
 
     /* Specifiche per shop-section */
     .shop-section {
-        min-height: 0;
+
         margin-right: 0;
-        padding-top: 0;
         margin-top: 0;
     }
 
     /* Specifiche per offers-section */
     .offers-section {
-        width: 98%;
+        width: 99%;
         height: 20%;
         display: flex;
         flex-direction: column;
@@ -426,8 +425,9 @@ a:hover {
     #welcome-brand-image,
     #welcome-shop-image {
         width: 40%;
-        max-height: 5rem;
+
         padding-top: 2%;
+        margin-top: auto;
     }
 
     #welcome-shop-image {
@@ -452,6 +452,7 @@ a:hover {
     .offers-section .button {
         margin-top: 2%;
         margin-bottom: 2%;
+        align-self: end;
     }
 
     /* SEZIONE ABOUT US */
@@ -472,15 +473,13 @@ a:hover {
 
     /* Regole specifiche bottoni shop-brand-section */
     .shop-brand-section .button {
-        width: 44%;
+        align-self: end;
         margin-bottom: 4%;
         font-size: 0.8rem;
         margin-top: 8%;
     }
 
-    .shop-section .button {
-        width: 50%;
-    }
+
 
     /* Titoli in shop-brand-section */
     .shop-brand-section h3 {
@@ -494,11 +493,12 @@ a:hover {
 
     /* Bottone offers-section */
     .offers-section .button {
-        width: 20%;
+        width: 25%;
         margin-bottom: 2%;
         font-size: 0.8rem;
         margin-top: 8%;
     }
+
 
     #idscopriora {
         width: 15%;
