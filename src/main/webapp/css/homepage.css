@@ -1,0 +1,514 @@
+/* Mobile first */
+body {
+    background-color: #F5F0E1;
+    width: 100%;
+    font-family: Poppins, sans-serif;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+/* Stili base per i link */
+a {
+    font-size: 1rem;
+    margin-top: 2%;
+    text-decoration: none;
+    color: #3A2E25;
+}
+
+a:hover {
+    color: rgb(0 195 0 / 60%);
+    text-decoration: underline;
+}
+
+/* Stili base per i bottoni */
+.button {
+    width: 40%;
+    border-radius: 0.5rem;
+    border: 0.1rem solid #735e4d;
+    background-color: #bdb8b8;
+    margin-top: 2%;
+}
+
+/* Modifiche specifiche per i bottoni nelle diverse sezioni */
+.small-section .button,
+.brand-section .button,
+.shop-section .button,
+.offers-section .button {
+    margin-top: 10%;
+    align-self: end;
+    margin-right: 4%;
+    margin-bottom: 5%;
+}
+
+/* Solo modifiche specifiche di larghezza per i bottoni */
+.brand-section .button { width: 50%; }
+
+.shop-section .button { width: 60%; }
+.offers-section .button { width: 50%; }
+
+#idscopriora {
+    width: 17%;
+    height: auto;
+}
+
+/* Stili per i link in sezioni specifiche */
+.categoria-section a,
+.small-section a {
+    color: #3A2E25;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.categoria-section a { padding: 0.4rem 0.5rem; }
+
+.small-section a {
+    padding: 0.4rem 0.6rem 0.4rem 0.2rem;
+    text-align: end;
+}
+
+.welcome-section a:hover {
+    color: #a3e635;
+    text-decoration: underline;
+}
+
+.welcome-section h3 {
+    font-size: 1.0rem;
+    color: rgb(36 70 92);
+    margin-bottom: 5%;
+}
+
+/* Stili comuni per le immagini */
+.welcome-image {
+    height: auto;
+    border-radius: 0.5rem;
+}
+
+#welcome-category-image {
+    width: 98%;
+    box-shadow: 0 0.1rem 0.2rem rgb(0 0 0 / 20%);
+    margin-bottom: 2rem;
+}
+
+#welcome-brand-image {
+    width: 100%;
+    align-self: center;
+}
+
+#welcome-shop-image {
+    width: 93%;
+    align-self: center;
+}
+
+#welcome-promo-image {
+    width: 95%;
+}
+
+/* Modifica del contenitore welcome-section */
+.welcome-section {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    gap: 2%;
+    margin-bottom: 5%;
+    padding: 1% 2%;
+}
+
+/* Stile per le sezioni categoria */
+.categoria-section {
+    width: 98%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    border: 0.2rem solid #3A2E25;
+    background-color: #f3eed8;
+    color: #3A2E25;
+    margin-top: auto;
+    justify-content: space-between;
+    padding: 0.5rem 0 2rem 0.8rem;
+}
+
+/* Stili comuni per le sezioni */
+.brand-section, .shop-section, .offers-section {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    border: 0.2rem solid #3A2E25;
+    color: #3A2E25;
+    margin-top: 5%;
+    min-height: 23rem;
+    padding-top: 5%;
+}
+
+/* Proprietà specifiche per ogni sezione */
+.brand-section {
+    background-color: #F5F0E1;
+    margin-right: 2%;
+}
+
+.shop-section {
+    background-color: #F5F0E1;
+    margin-right: 2%;
+}
+
+.offers-section {
+    background-color: #F5F0E1;
+    margin-right: 0;
+}
+
+.small-section {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
+    scroll-snap-type: x mandatory;
+    margin-bottom: 2%;
+    margin-top: 3%;
+    padding: 2rem 0;
+    border-radius: 1rem;
+    box-shadow: 0 0.4rem 0.8rem rgb(241 239 234);
+    align-self: center;
+    max-height: none;
+}
+
+/* Stili comuni per i titoli h3 */
+.categoria-section h3,
+.brand-section h3,
+.shop-section h3,
+.offers-section h3 {
+    margin-top: auto;
+    margin-bottom: 0;
+    font-size: 2.0rem;
+    color: #3A2E25;
+}
+
+/* Solo per i titoli delle sezioni specifiche */
+.brand-section h3,
+.shop-section h3,
+.offers-section h3 {
+    padding-left: 2%;
+}
+
+/* Il resto del codice rimane invariato */
+.about-us {
+    background: linear-gradient(to bottom, #fff, #f7f7f7);
+    border-radius: 1rem;
+    box-shadow: 0 6px 20px rgb(0 0 0 / 10%);
+    padding: 1.8rem 1.2rem;
+    margin: 20rem 1rem 10rem;
+    font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+    color: #2d2d2d;
+    line-height: 1.7;
+
+}
+
+.about-us h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    color: #23475c;
+    border-left: 5px solid #23475c;
+    padding-left: 0.8rem;
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+.about-us p {
+    font-size: 0.5rem;
+    line-height: 1.8;
+    color: #3a3a3a;
+    margin-bottom: 1.4rem;
+    border-left: 3px solid rgb(36 70 92 / 20%);
+    background-color: rgb(240 240 240 / 40%);
+    border-radius: 0.4rem;
+    padding: 0.8rem 1rem;
+    box-shadow: inset 0 0 4px rgb(0 0 0 / 3%);
+}
+
+.shop-brand-section {
+    all: unset;
+    display: contents;
+}
+
+/* Parti per lo scroll container */
+.scroll-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.featured {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 16px;
+    scroll-snap-type: x mandatory;
+}
+
+.featured::-webkit-scrollbar {
+    display: none;
+}
+
+/* Stili comuni per i pulsanti di scorrimento */
+.scroll-button {
+    background-color: transparent;
+    color: black;
+    border: none;
+    font-size: 5rem;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 10%;
+    margin: 8px;
+    z-index: 1;
+}
+
+.scroll-button.left {
+    position: absolute;
+    left: 0;
+    width: 5%;
+    height: auto;
+}
+
+.scroll-button.right {
+    position: absolute;
+    right: 0;
+    width: 5%;
+    height: auto;
+}
+
+.scroll-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.scroll-button:hover {
+    background-color: rgb(106 103 103);
+    color: white;
+}
+
+.product {
+    flex: 0 0 auto;
+    width: 200px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
+    background-color: white;
+    transition: box-shadow 0.3s ease-in-out;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    scroll-snap-align: start;
+    scroll-behavior: smooth;
+}
+
+.product:hover {
+    box-shadow: 0 8px 16px rgb(0 0 0 / 16%);
+}
+
+.product-image {
+    width: 100%;
+    height: 15rem;
+    border-radius: 4px;
+}
+
+#idevidenza {
+    padding-left: 1%;
+    font-family: Montserrat, cursive;
+    color: #1f4a61;
+}
+
+/* Media query per desktop */
+@media (width >= 1024px) {
+    /* SEZIONE WELCOME */
+    .welcome-section {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        gap: 2%;
+        padding: 1rem 2%;
+        align-items: stretch;
+        border-radius: 0;
+    }
+
+    /* SEZIONE SHOP E BRAND */
+    .shop-brand-section {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: stretch;
+        margin-bottom: 1rem;
+        height: auto;
+        margin-top: 0.5%;
+    }
+
+    /* Larghezze comuni per le sezioni */
+    .brand-section,
+    .shop-section {
+        width: 50%;
+        height: auto;
+        min-height:0;
+    }
+
+    /* Specifiche per brand-section */
+    .brand-section {
+        margin-left: 0;
+        margin-top: 0;
+    }
+
+    /* Specifiche per shop-section */
+    .shop-section {
+        margin-right: 0;
+        margin-top: 0;
+    }
+
+    /* Specifiche per offers-section */
+    .offers-section {
+        width: 99%;
+        height: 20%;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        margin-top: 0;
+        padding: 0;
+    }
+
+    /* SEZIONI CATEGORIA E SMALL */
+    .categoria-section,
+    .small-section {
+        width: 50%;
+        height: auto;
+    }
+
+    /* Specifiche per categoria-section */
+    .categoria-section {
+        width: 70%;
+        margin: 0;
+        padding: 0.5rem;
+        max-height: 100%;
+    }
+
+    /* Stili bottoni in desktop */
+    .button {
+        width: 20%;
+    }
+
+    .categoria-section .button {
+        width: 20%;
+        margin-top: 2%;
+        margin-bottom: 2%;
+        align-self: end;
+        margin-right: 4%;
+    }
+
+    /* Specifiche per small-section */
+    .small-section {
+        width: 50%;
+        margin: 0;
+        flex-direction: column;
+        overflow: visible;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    .categoria-section a {
+        text-align: end;
+        padding-right: 2%;
+    }
+
+    /* IMMAGINI NELLA SEZIONE */
+    #welcome-brand-image,
+    #welcome-shop-image {
+        width: 40%;
+        padding-top: 2%;
+        margin-top: auto;
+    }
+
+    #welcome-shop-image {
+        padding-top: 12%;
+    }
+
+    #welcome-promo-image {
+        width: 30%;
+        margin-left: 2%;
+    }
+
+    /* TITOLI */
+    .small-section h3 {
+        margin-top: 1%;
+        margin-bottom: 2%;
+        font-size: 1.5rem;
+    }
+
+    /* Stili comuni per bottoni nelle sezioni principali */
+    .brand-section .button,
+    .shop-section .button,
+    .offers-section .button {
+        margin-top: 2%;
+        margin-bottom: 2%;
+        align-self: end;
+    }
+
+    /* SEZIONE ABOUT US */
+    .about-us {
+        max-width: 100%;
+    }
+
+    .about-us h2 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .about-us p {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        margin-bottom: 1.4rem;
+    }
+
+    /* Regole specifiche bottoni shop-brand-section */
+    .shop-brand-section .button {
+        align-self: end;
+        margin-bottom: 4%;
+        font-size: 0.8rem;
+        margin-top: 8%;
+    }
+
+
+
+    /* Titoli in shop-brand-section */
+    .shop-brand-section h3 {
+        padding-top: 5%;
+        font-size: 1.3rem;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-left: 2%;
+        color: rgb(27 25 25);
+    }
+
+    /* Bottone offers-section */
+    .offers-section .button {
+        width: 25%;
+        margin-bottom: 2%;
+        font-size: 0.8rem;
+        margin-top: 8%;
+    }
+
+
+    #idscopriora {
+        width: 15%;
+        font-size: 0.8rem;
+    }
+
+    .categoria-section h3 {
+        margin-top: 0;
+    }
+
+    #welcome-category-image {
+        width: 100%;
+        border-radius: 0.8rem;
+    }
+}

@@ -23,8 +23,8 @@ public class HelloServlet extends HttpServlet {
             Address address = new Address();
             address.setCity("Rome");
             address.setStreet("Via Roma");
-            address.setNumber("1");
-            address.setPostalCode("00100");
+            address.setStreetNumber("1");
+            address.setZipCode("00100");
             address.setCountry("Italy");
             address.setProvince("Lazio");
 
@@ -33,7 +33,7 @@ public class HelloServlet extends HttpServlet {
 
             out.println("<html><body>");
             out.println("<h1> salvato con successo!</h1>");
-            out.println("<p>ID assegnato: " + address.getIdAddress()+ "</p>");
+            out.println("<p>ID assegnato: " + address.getAddressId()+ "</p>");
             out.println("</body></html>");
 
     }

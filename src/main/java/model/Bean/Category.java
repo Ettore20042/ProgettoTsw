@@ -1,52 +1,52 @@
 package model.Bean;
 
 public class Category {
-    private int IdCategory;
-    private String NameCategory;
-    private String PathCategory;
-    private int IdParentCategory;
-
-    public Category(int idCategory, int idParentCategory, String nameCategory, String pathCategory) {
-        IdCategory = idCategory;
-        IdParentCategory = idParentCategory;
-        NameCategory = nameCategory;
-        PathCategory = pathCategory;
-    }
-
+    private int categoryId;
+    private String categoryName;
+    private String categoryPath;
+    private Integer parentCategory;
 
     public Category() {
 
     }
-
-    public int getIdCategory() {
-        return IdCategory;
+    public Category(int categoryId, String categoryName, String categoryPath, Integer parentCategory) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+        this.categoryPath = categoryPath;
+        this.parentCategory = parentCategory;
     }
 
-    public void setIdCategory(int idCategory) {
-        IdCategory = idCategory;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public int getIdParentCategory() {
-        return IdParentCategory;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public void setIdParentCategory(int idParentCategory) {
-        IdParentCategory = idParentCategory;
+    public Integer getParentCategory() {
+        return parentCategory;
     }
 
-    public String getPathCategory() {
-        return PathCategory;
+    public void setParentCategory(Integer parentCategory) {
+        this.parentCategory = parentCategory;
     }
 
-    public void setPathCategory(String pathCategory) {
-        PathCategory = pathCategory;
+    public String getCategoryPath() {
+        return categoryPath;
     }
 
-    public String getNameCategory() {
-        return NameCategory;
+    public void setCategoryPath(String categoryPath) {
+        this.categoryPath = categoryPath;
     }
 
-    public void setNameCategory(String nameCategory) {
-        NameCategory = nameCategory;
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }
+
+

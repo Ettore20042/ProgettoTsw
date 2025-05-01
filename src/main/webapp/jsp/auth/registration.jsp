@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Favicon (base icon for all browsers) -->
+
+
+
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Registration</title>
 </head>
 <body>
 <jsp:include page="/jsp/Header.jsp" />
 <main>
-    <h1>Registrati</h1>
-    <form action="RegistrationServlet" method="post">
-        <input type="text" name="name" placeholder="Nome" required>
-        <input type="text" name="surname" placeholder="Cognome" required>
-        <input type="number" name="phone" placeholder="Telefono" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Registrati</button>
-    </form>
+    <div class="login">
+        <h2 class="registration">Registrati</h2>
+        <form action="RegistrationServlet" method="post">
+            <input type="text"  class="barre" name="name" placeholder="Nome*" required>
+            <input type="text" class="barre" name="surname" placeholder="Cognome*" required>
+            <input type="number" class="barre" name="phone" placeholder="Telefono*" required>
+            <input type="email" class="barre" name="email" placeholder="Email*" required>
+            <input type="password" class="barre" name="password" placeholder="Password*" required>
+            <input type="password" class="barre" name="confirmPassword" placeholder="Conferma Password*" required>
+            <button type="submit" class="button">Registrati</button>
+        </form>
+    </div>
 </main>
 <jsp:include page="/jsp/Footer.jsp" />
 </body>

@@ -1,59 +1,59 @@
 package model.Bean;
 
 public class Image {
-    private int idImage;
-    private String pathImage;
-    private int imageOrder;
-    private String DescriptionImage;
-    private int idProduct;
+    private int imageId;
+    private String imagePath;
+    private Integer displayOrder;
+    private String imageDescription;
+    private int productId;
 
     public Image(int idImage, int idProduct, String descriptionImage, int imageOrder, String pathImage) {
-        this.idImage = idImage;
-        this.idProduct = idProduct;
-        DescriptionImage = descriptionImage;
-        this.imageOrder = imageOrder;
-        this.pathImage = pathImage;
+        this.imageId = idImage;
+        this.productId = idProduct;
+        this.imageDescription = descriptionImage;
+        this.displayOrder = imageOrder;
+        this.imagePath = pathImage;
     }
     public Image() {
     }
 
-    public int getIdImage() {
-        return idImage;
+    public int getImageId() {
+        return imageId;
     }
 
-    public void setIdImage(int idImage) {
-        this.idImage = idImage;
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 
-    public int getIdProduct() {
-        return idProduct;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setIdProduct(int idProduct) {
-        this.idProduct = idProduct;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
-    public String getDescriptionImage() {
-        return DescriptionImage;
+    public String getImageDescription() {
+        return imageDescription;
     }
 
-    public void setDescriptionImage(String descriptionImage) {
-        DescriptionImage = descriptionImage;
+    public void setImageDescription(String imageDescription) {
+        this.imageDescription = imageDescription;
     }
 
-    public int getImageOrder() {
-        return imageOrder;
+    public Integer getDisplayOrder() {
+        return displayOrder;
     }
 
-    public void setImageOrder(int imageOrder) {
-        this.imageOrder = imageOrder;
+    public void setDisplayOrder(Integer displayOrder) {
+        this.displayOrder = displayOrder;
     }
 
-    public String getPathImage() {
-        return pathImage;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setPathImage(String pathImage) {
-        this.pathImage = pathImage;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

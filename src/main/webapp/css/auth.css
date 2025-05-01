@@ -1,0 +1,112 @@
+body {
+    background-color: #f3eed8;
+    font-family: Poppins, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3% 10% 3% 7%;
+    border: 0.3rem solid #392e23;
+    border-radius: 1rem;
+    box-shadow: 0 0.8rem 2rem rgb(57 46 35 / 30%);
+    background-color: rgb(57 46 35 / 49%);
+    width: 15%;
+    max-width: 100%;
+    margin: 7% auto;
+}
+
+.login h2 {
+    font-size: 2.5rem;
+    color: #f3eed8;
+    margin: 0 0 15% 10%;
+}
+
+.barre {
+    width: 120%;
+    height: 2.5rem;
+    padding: 0.5% 1%;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background-color: #f3eed8;
+    color: #392e23;
+    box-shadow: 0 0.1rem 0.2rem rgb(57 46 35 / 20%);
+    margin-bottom: 5%;
+}
+
+.barre:focus {
+    outline: 2px solid #7fa836;
+    outline-offset: 2px;
+}
+
+.button {
+    background-color: #7fa836;
+    color: #f3eed8;
+    margin-top: 5%;
+    padding: 0.5rem 1rem;
+    border: 1px solid #40611e;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    font-size: 1.3rem;
+    margin-bottom: 10%;
+}
+
+.button:focus {
+    outline: 2px solid #f3eed8;
+    outline-offset: 2px;
+}
+
+a {
+    color: #392e23;
+    font-size: 1rem;
+    margin-top: 2%;
+    transition: color 0.3s ease;
+}
+
+a:hover,
+a:focus {
+    color: #f3eed8;
+}
+
+.registration {
+    align-self: center;
+}
+
+@media (height >= 768px) {
+    .login {
+        width: 40%;
+        height: auto;
+    }
+
+    .barre {
+        width: 100%;
+        height: 3rem;
+        font-size: 1.5rem;
+        align-self: center;
+    }
+
+    .login h2 {
+        font-size: 4rem;
+        margin-top: 5%;
+        align-self: start;
+        margin-left: 13%;
+    }
+
+    a {
+        font-size: 1.5rem;
+        margin-top: 5%;
+    }
+
+    .button {
+        font-size: 1.5rem;
+    }
+
+    .registration {
+        margin-left: 0;
+    }
+}
