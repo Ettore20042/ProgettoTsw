@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <!-- Favicon (base icon for all browsers) -->
-    <link rel="icon" href="${pageContext.request.contextPath}/img/favicon/favicon.ico" type="image/x-icon">
+
 
 
 
@@ -14,7 +14,7 @@
 <jsp:include page="/jsp/Header.jsp" />
 <main>
     <div class="login">
-        <h2 id="idregistration">Registrati</h2>
+        <h2 class="registration">Registrati</h2>
         <form action="RegistrationServlet" method="post">
             <input type="text"  class="barre" name="name" placeholder="Nome*" required>
             <input type="text" class="barre" name="surname" placeholder="Cognome*" required>

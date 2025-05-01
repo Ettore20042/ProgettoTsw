@@ -1,9 +1,8 @@
 body {
-    background-color: rgb(132 136 98 / 49%);
-    font-family: Poppins, sans-serif;
+    background-color: #f3eed8;
+    font-family: 'Poppins', 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
     margin: 0;
     padding: 0;
-
 }
 
 .login {
@@ -12,21 +11,19 @@ body {
     align-items: center;
     justify-content: center;
     padding: 3% 10% 3% 7%;
-    border: 0.3rem solid #1b1919;
-    border-radius:1rem;
-    box-shadow: 0 0.8rem 2rem rgb(0 0 0 / 20%);
-    background-color: rgb(36 70 92 / 81%); /* Colore di sfondo bianco */
+    border: 0.3rem solid #392e23;
+    border-radius: 1rem;
+    box-shadow: 0 0.8rem 2rem rgba(57, 46, 35, 0.3);
+    background-color: rgba(57, 46, 35, 0.49);
     width: 15%;
     max-width: 100%;
-    margin: 7% auto; /* 5% sopra e sotto, auto ai lati per centraggio orizzontale */
+    margin: 7% auto;
 }
 
-.login h2{
-    font-size: 2.5rem; /* Dimensione del titolo */
-    color: rgb(241 239 234); /* Colore del titolo */
-    margin-bottom: 15%; /* Margine inferiore */
-    padding-left: 10%;
-
+.login h2 {
+    font-size: 2.5rem;
+    color: #f3eed8;
+    margin: 0 0 15% 10%;
 }
 
 .barre {
@@ -36,76 +33,80 @@ body {
     border: none;
     border-radius: 0.5rem;
     font-size: 1rem;
-    background-color: rgb(241 239 234); /* Colore di sfondo */
-    color: rgb(36 70 92); /* Colore del testo */
-    box-shadow: 0 0.1rem 0.2rem rgb(0 0 0 / 20%); /* Ombra leggera */
-    margin-bottom: 5%; /* Margine inferiore */
+    background-color: #f3eed8;
+    color: #392e23;
+    box-shadow: 0 0.1rem 0.2rem rgba(57, 46, 35, 0.2);
+    margin-bottom: 5%;
+}
 
+.barre:focus {
+    outline: 2px solid #7fa836;
+    outline-offset: 2px;
 }
 
 .button {
-    background-color: rgb(30 58 71);
-    color: #f1efea;
+    background-color: #7fa836;
+    color: #f3eed8;
     margin-top: 5%;
     padding: 0.5rem 1rem;
-    border: greenyellow solid 1px;
+    border: 1px solid #40611e;
     border-radius: 0.3rem;
     cursor: pointer;
     font-size: 1.3rem;
     margin-bottom: 10%;
-
 }
 
-a{
-    color: greenyellow;  /* Colore del testo */
-    font-size: 1rem;  /* Dimensione del testo */
+.button:focus {
+    outline: 2px solid #f3eed8;
+    outline-offset: 2px;
+}
+
+a {
+    color: #392e23;
+    font-size: 1rem;
     margin-top: 2%;
-
+    transition: color 0.3s ease;
 }
 
-a:hover{
-    color: rgb(241 239 234); /* Colore del testo al passaggio del mouse */
+a:hover,
+a:focus {
+    color: #f3eed8;
 }
 
-#idregistration{
+.registration {
     align-self: center;
 }
 
-@media (height >= 768px){
+@media (height >= 768px) {
     .login {
         width: 40%;
         height: auto;
-
     }
 
-    .barre{
+    .barre {
         width: 100%;
         height: 3rem;
         font-size: 1.5rem;
         align-self: center;
     }
 
-    h2{
+    .login h2 {
         font-size: 4rem;
         margin-top: 5%;
-        align-self:start;
+        align-self: start;
         margin-left: 13%;
-
     }
 
-    a{
+    a {
         font-size: 1.5rem;
         margin-top: 5%;
-
     }
 
-    .button{
+    .button {
         font-size: 1.5rem;
-
-
     }
 
-    #idregistration{
-        margin-left:0;
+    .registration {
+        margin-left: 0;
     }
 }

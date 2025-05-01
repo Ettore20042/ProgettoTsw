@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <!-- Favicon (base icon for all browsers) -->
-    <link rel="icon" href="${pageContext.request.contextPath}/img/favicon/favicon.ico" type="image/x-icon">
+
 
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>

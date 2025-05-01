@@ -6,6 +6,9 @@
 
 
 
+<head>
+    <link rel="icon" href="${pageContext.request.contextPath}/img/favicon/favicon.ico" type="image/x-icon">
+</head>
     <div class="top-container">
         <div class="top-container-left">
 
