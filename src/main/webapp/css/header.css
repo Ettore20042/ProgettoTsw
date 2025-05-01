@@ -1,6 +1,7 @@
 /* Stili generali per l'header */
 body {
-    background-color: rgb(132 136 98 / 49%);
+   /* background-color: rgb(132 136 98 / 49%); */
+    background-color: rgb(241 239 234);
 }
 
 header {

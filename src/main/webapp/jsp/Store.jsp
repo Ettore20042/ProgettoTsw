@@ -10,11 +10,9 @@
             flex-direction: row;
         }
         #map {
-            height: 30vh;
-            width: 60%;
             border-radius: 5%;
             margin: 0 0 5% 5%;
-            border: 1rem solid #f1efea;
+            border: 1rem solid #ffffff;
         }
         #search-box {
             margin: 20px 0;
@@ -47,7 +45,7 @@
 <h2>Trova lo Store più vicino a te</h2>
 <div class="map-button-search-container">
     <div id="search-box">
-        <input type="text" id="search-input" placeholder="Inserisci la tua città o luogo">
+        <label for="search-input"></label><input type="text" id="search-input" placeholder="Inserisci la tua città o luogo">
         <button id="search-button">Cerca</button>
     </div>
     <div id="map" style="height: 500px; width: 100%;"></div>
