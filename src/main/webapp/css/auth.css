@@ -77,7 +77,7 @@ a:focus {
     align-self: center;
 }
 
-@media (height >= 768px) {
+@media (max-width: 768px) {
     .login {
         width: 40%;
         height: auto;

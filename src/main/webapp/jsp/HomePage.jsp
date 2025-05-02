@@ -59,7 +59,7 @@
         <div class="featured" id="featured">
             <c:forEach var="product"  items="${products}">
                 <div class="product">
-                    <a href="Product.jsp"><img src="ImageServlet?productId=${product.productId}"
+                    <a href="Product.jsp" class="a-class"><img src="ImageServlet?productId=${product.productId}"
                                                alt="${product.productName}"
                                                class="product-image" />
                     <h2>${product.productName}</h2></a>
