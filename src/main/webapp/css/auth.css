@@ -23,6 +23,7 @@ body {
     font-size: 2.5rem;
     color: #f3eed8;
     margin-bottom: 10%;
+    text-shadow: 0.2rem 0.2rem 0.6rem #4b3d2e, -0.2rem -0.2rem 0.6rem #4b3d2e;  /*bordo intorno al testo*/
 }
 
 .barre {
@@ -92,14 +93,45 @@ a:focus {
 label[for="remember-me"] {
     color: #f3eed8;
     font-size: 1rem;
-
     cursor: pointer;
 }
 
 .checkbox-container {
     display: flex;
-    align-items: center;
+    align-items: start;
     margin-bottom: 1rem;
+}
+.email-logo-container {
+    position: relative;
+    width: 100%;
+}
+/* Position the email icon in the input field */
+#idemaillogo {
+    position: absolute;
+    top: 10%;
+    right: 2%;
+    width: 1.5rem;
+    height: auto;
+}
+.password-logo-container {
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+#idpasslogo {
+    position: absolute;
+    top: 10%;
+    right: 2%;
+    width: 1.5rem;
+    height: auto;
+}
+
+/* Add right padding to input to prevent text overlap with icon */
+.email-logo-container input {
+    padding-right: 2.5rem;
+}
+.account-prompt-registrati{
+    margin-top: 5%;
 }
 
 @media (width <= 768px) {
