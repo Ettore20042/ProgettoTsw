@@ -22,6 +22,7 @@
             <a href="${pageContext.request.contextPath}/jsp/auth/registration.jsp">Crea un account</a>
         </form>
     </div>
+
 </main>
 <jsp:include page="/jsp/Footer.jsp" />
 </body>
