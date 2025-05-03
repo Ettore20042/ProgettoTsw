@@ -4,6 +4,7 @@ package controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import model.Bean.Product;
 import model.DAO.ProductDAO;
 
 import java.io.IOException;
@@ -21,7 +22,27 @@ public class ProductServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idParam = request.getParameter("productId");
+        ProductDAO service = new ProductDAO();
+        RequestDispatcher rd = request.getRequestDispatcher("/jsp/Product.jsp");
 
+        if(idParam != null) {
+            try{
+                int id = Integer.parseInt(idParam);
+                Product product = service.doRetrieveById(id);
+
+                if(product != null) {
+                    request.setAttribute("product", product);
+                    rd.forward(request, response);
+                }else{
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Prodotto non trovato");
+                }
+            }catch (NumberFormatException e){
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID non valido");
+            }
+        }else{
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parametro 'productId' mancante");
+        }
 
 
 

@@ -32,4 +32,24 @@ public class ProductDAO {
 
     }
 
+    public Product doRetrieveById(int id) {
+        try(Connection con = ConnPool.getConnection()){
+            PreparedStatement ps = con.prepareStatement("SELECT ProductID,ProductName,Description,Price FROM product WHERE ProductID=?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                Product p = new Product();
+                p.setProductId(rs.getInt(1));
+                p.setProductName(rs.getString(2));
+                p.setDescription(rs.getString(3));
+                p.setPrice(rs.getFloat(4));
+                return p;
+            }
+            return null;
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
 }
+
