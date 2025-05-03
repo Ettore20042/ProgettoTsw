@@ -17,12 +17,21 @@
     <div class="login">
         <h2 class="registration">Registrati</h2>
         <form action="RegistrationServlet" method="post">
-            <input type="text"  class="barre" name="name" placeholder="Nome*" required>
-            <input type="text" class="barre" name="surname" placeholder="Cognome*" required>
+            <div class="nome-cognome-container">
+                <input type="text"  class="barre" name="name" placeholder="Nome*" required>
+                <input type="text" class="barre" name="surname" placeholder="Cognome*" required>
+            </div>
+
             <input type="number" class="barre" name="phone" placeholder="Telefono*" required>
             <input type="email" class="barre" name="email" placeholder="Email*" required>
-            <input type="password" class="barre" name="password" placeholder="Password*" required>
-            <input type="password" class="barre" name="confirmPassword" placeholder="Conferma Password*" required>
+            <div class="bar-icon-container">
+                <input type="password" class="barre" name="password" placeholder="Password*" required>
+                <span  onclick="togglePassword()"><img src="${pageContext.request.contextPath}/img/icon/eye.png" class="icon"></span>
+            </div>
+            <div class="bar-icon-container">
+                <input type="password" class="barre" name="confirmPassword" placeholder="Conferma Password*" required>
+                <img src="${pageContext.request.contextPath}/img/icon/return.png" class="icon">
+            </div>
             <button type="submit" class="button">Registrati</button>
         </form>
         <div class="account-prompt-registrati">
