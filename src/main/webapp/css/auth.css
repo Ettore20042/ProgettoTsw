@@ -105,20 +105,12 @@ label[for="remember-me"] {
     position: relative;
     width: 100%;
 }
-/* Position the email icon in the input field */
-#idemaillogo {
-    position: absolute;
-    top: 10%;
-    right: 2%;
-    width: 1.5rem;
-    height: auto;
-}
-.password-logo-container {
+.bar-icon-container{
     display: flex;
     position: relative;
     width: 100%;
 }
-#idpasslogo {
+.icon{
     position: absolute;
     top: 10%;
     right: 2%;
@@ -133,6 +125,22 @@ label[for="remember-me"] {
 .account-prompt-registrati{
     margin-top: 5%;
 }
+.nome-cognome-container {
+    display: flex;
+    justify-content: space-between;
+}
+.nome-cognome-container .barre{
+    width: 49%;
+}
+
+#idpasslogo {
+    position: absolute;
+    top: 10%;
+    right: 2%;
+    width: 1.5rem;
+    height: auto;
+}
+
 
 @media (width <= 768px) {
     .login {

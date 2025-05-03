@@ -16,13 +16,13 @@
     <div class="login">
         <h2>Accedi</h2>
         <form action="LoginServlet" method="post">
-            <div class="email-logo-container">
+            <div class="bar-icon-container">
                 <input type="email" id="login-email" name="email"  placeholder="Email" required class="barre">
-                <img src="${pageContext.request.contextPath}/img/other/email.png" id="idemaillogo"><br><br>
+                <img src="${pageContext.request.contextPath}/img/icon/email.png" class="icon"><br><br>
             </div>
-            <div class="password-logo-container">
+            <div class="bar-icon-container">
                 <input type="password" id="password" name="password" placeholder="Password" required class="barre"><br><br>
-                <img src="${pageContext.request.contextPath}/img/other/padlock.png" id="idpasslogo"><br><br>
+                <img src="${pageContext.request.contextPath}/img/icon/padlock.png" class="icon"><br><br>
             </div>
 
 
