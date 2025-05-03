@@ -64,7 +64,7 @@ public class ImageServlet extends HttpServlet {
             // Legge il file immagine e lo invia al client
             try (FileInputStream fis = new FileInputStream(file);
                  OutputStream os = response.getOutputStream()) {
-                fis.transferTo(os);  // Trasferisce i byte dal file all'output
+                 fis.transferTo(os);  // Trasferisce i byte dal file all'output
             }
         } catch (NumberFormatException e) {
             // Gestisce il caso in cui l'ID non sia un numero valido

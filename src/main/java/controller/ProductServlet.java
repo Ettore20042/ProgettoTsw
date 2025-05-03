@@ -24,8 +24,7 @@ public class ProductServlet extends HttpServlet {
 
 
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/HomePage.jsp");
-        dispatcher.forward(request, response);
+
     }
 
     @Override

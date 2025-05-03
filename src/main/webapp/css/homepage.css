@@ -9,7 +9,7 @@ body {
 }
 
 /* Stili base per i link */
-a {
+.a-class{
     font-size: 1rem;
     margin-top: 2%;
     text-decoration: none;

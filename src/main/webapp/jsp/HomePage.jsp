@@ -1,10 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Favicon (base icon for all browsers) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -59,7 +60,7 @@
         <div class="featured" id="featured">
             <c:forEach var="product"  items="${products}">
                 <div class="product">
-                    <a href="Product.jsp"><img src="ImageServlet?productId=${product.productId}"
+                    <a href="Product.jsp" class="a-class"><img src="ImageServlet?productId=${product.productId}"
                                                alt="${product.productName}"
                                                class="product-image" />
                     <h2>${product.productName}</h2></a>
