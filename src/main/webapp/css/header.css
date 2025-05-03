@@ -9,7 +9,7 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
-header{
+header.main-header{
     display: flex;
     flex-direction: column;
     background-color: #F3EED8;
@@ -17,22 +17,25 @@ header{
 
 /*Css Mobile*/
 
-.top-container{
+.main-header_content{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    margin: 0.3rem 1rem 0.5rem 1rem;
+    margin: 0.3rem 1rem 0.5rem;
 }
 
-.top-container #openNav{
+.main-header_content #hamburgerMenu{
     font-size: 2rem;
     line-height: 1em;
     color: #3a2f26;
-    margin-left: 1rem;
+    margin-left: 0.5rem;
     border: none;
     background: none;
 }
-.top-container-logo{
+#hamburgerMenu:hover{
+    cursor: pointer;
+}
+.main-header_logo-link{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,28 +43,29 @@ header{
     height: 4rem;
     overflow: hidden;
     border-radius: 35%;
-    margin-left: 1rem;
+    margin-left: 0.5rem;
     /*border: 1px solid #3a2f26;*/
     text-align: center;
 }
 
-#idlogo{
+.main-header_logo-link #logoImage{
     width: 6.5rem;
     height: auto;
     position: relative;
     bottom: 2px;
 }
-
-.top-container-searchBar{
-    order: 4;
-    border: 2px solid #7fa836 ;
+.search-bar{
     border-radius: 2.5em;
     width: 100%;
     overflow: hidden;
-    margin-top: 1vh;
-    background-color: white ;
+    background-color: white;
 }
-.top-container-searchBar form{
+.main-header_search-bar{
+    order: 4;
+    border: 2px solid #7fa836 ;
+    margin-top: 1vh;
+}
+.search-bar form{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -70,8 +74,8 @@ header{
     width: 100%;
     padding: 7px;
 }
-.top-container-searchBar form input[type="search"]{
-    font-size: 1.1rem;
+.search-bar form input[type="search"]{
+    font-size: 1rem;
     border: none;
     min-width: 0;
     outline: none;
@@ -80,15 +84,15 @@ header{
     margin-right: 7px;
 }
 
-.top-container-searchBar form button[type="submit"]{
+.search-bar form button[type="submit"]{
     background: none;
     border: none;
 }
-.top-container-searchBar #searchLens{
+.search-bar #searchLens{
     width: 2em;
     margin-right: 11px;
 }
-.top-container-userIcons{
+.main-header_user-actions{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -96,9 +100,26 @@ header{
     margin-left: auto;
     margin-right: 3%;
     position: relative;
-    row-gap: 2.3vw;
+    gap: 0.1vw;
 }
-.top-container-login-dropdown{
+.user-actions_button{
+    background: none;
+    border: none;
+}
+.user-actions_button--profile:hover{
+    cursor: pointer;
+}
+.user-actions_button--profile #profileIcon{
+     width: 2.9rem;
+     height: auto;
+     padding: 7px;
+ }
+.user-actions_button--cart #cartIcon{
+    width: 3.7rem;
+    height: auto;
+    padding: 7px;
+}
+.user-actions_dropdown{
     display: none; /*Attualmente impostato none per comodità. Da impostare flex, e rendere visivamente dinamico con js*/
     flex-direction: column;
     flex-wrap: nowrap;
@@ -113,7 +134,7 @@ header{
     padding: 11px 23px;
     z-index: 1;
 }
-.top-container-login-dropdown a{
+.user-actions_dropdown a{
     text-decoration: none;
     border-radius: 11px;
     padding: 9px 18px;
@@ -124,34 +145,25 @@ header{
     color: #392E23;
     font-weight: 500;
 }
-.top-container-login-dropdown a:first-child{
+.user-actions_dropdown a:first-child{
     background-color: #CFAF7C;
     color: white;
 }
-.top-container-userIcons #idProfileIcon{
-    width: 2.6rem;
-    height: auto;
-    padding: 5px;
-}
-.top-container-userIcons #idCarrello{
-    width: 3.7rem;
-    height: auto;
-    padding: 7px;
-}
-nav{
+
+.mobile-nav{
     display: none;       /*Da impostare block con js*/
     position: fixed;
     width: 65%;
     height: 100%;
     background-color: #392E23;
 }
-nav ul{
+.mobile-nav_list{
     list-style: none;
     padding-top: 15vh;
     padding-left: 2vw;
 }
 
-nav ul li:first-child .closebtn{
+.mobile-nav_list .mobile-nav_item--close{
     position: absolute;
     right: 7vw;
     top: 5vh;
@@ -159,7 +171,11 @@ nav ul li:first-child .closebtn{
     padding: 7px;
     line-height: 1;
 }
-nav ul a{
+#closeButton{
+    text-decoration: none;
+    color: white;
+}
+.mobile-nav_link{
     display: block;
     text-decoration: none;
     color: white;
@@ -169,38 +185,39 @@ nav ul a{
 
 /*CSS Desktop*/
 @media (min-width: 992px){
-    .top-container{
+    .main-header_content{
         flex-wrap: nowrap;
         justify-content: space-around;
         gap: 5vw;
-        margin: 0 11px;
+        margin: 7px 11px 0;
     }
-    .top-container #openNav{
+    .main-header_content #hamburgerMenu{
         display: none;
     }
-    .top-container-searchBar{
+    .main-header_search-bar{
         order: 0;
         width: 60%;
     }
-    .top-container-userIcons{
+    .main-header_user-actions{
         margin: 0;
+        gap: 0.2vw;
     }
-    nav{
+    .main-header_nav{
         display: inline-block;
         position: relative;
         width: 100%;
         height: auto;
         background-color: transparent;
     }
-    nav ul{
+    .mobile-nav_list{
         display: flex;
         flex-direction: row;
         padding: 0 2rem;
     }
-    nav ul li:first-child{
+    .mobile-nav_item--close{
         display: none;
     }
-    nav ul li a{
+    .mobile-nav_link{
         color: #392E23;
         font-size: 1.2rem;
         padding: 0.8rem 1rem 1rem 1rem;
@@ -208,6 +225,11 @@ nav ul a{
 }
 @media (min-width: 1220px) {
     header, main, footer {
-        padding: 0 3%;
+        padding: 0 5%;
+    }
+}
+@media (min-width: 1440px) {
+    header, main, footer {
+        padding: 0 12%;
     }
 }

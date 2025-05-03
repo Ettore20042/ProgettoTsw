@@ -1,34 +1,62 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<footer>
-    <div class="footer-content">
-        <details class="customer-support">
-            <summary>
-                <h3><a href="${pageContext.request.contextPath}/jsp/assistenza.jsp">Assistenza clienti</a></h3>
-
+<footer class="main-footer">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css" type="text/css">
+    <div class="main-footer_content">
+        <details class="disclosure-box main-footer_customer-support" open>
+            <summary class="disclosure-box_button">
+                <h3 class="disclosure-box_heading">Assistenza Clienti</h3>
             </summary>
-            <ul>
-                <li><a href="${pageContext.request.contextPath}/jsp/politicheReso.jsp">Politiche di reso e rimborso</a></li>
-                <li><a href="${pageContext.request.contextPath}/jsp/metodiPagamento.jsp">Metodi di pagamento</a></li>
-                <li><a href="${pageContext.request.contextPath}/jsp/politicheReso.jsp">Contattaci</a></li>
+            <ul class="disclosure-box_list">
+                <li class="disclosure-box_item">
+                    <a href="${pageContext.request.contextPath}/jsp/assistenza.jsp" class="disclosure-box_link">Centro assistenza</a>
+                </li>
+                <li class="disclosure-box_item">
+                    <a href="${pageContext.request.contextPath}/jsp/politicheReso.jsp" class="disclosure-box_link">Politiche di reso e rimborso</a>
+                </li>
+                <li class="disclosure-box_item">
+                    <a href="${pageContext.request.contextPath}/jsp/metodiPagamento.jsp" class="disclosure-box_link">Metodi di pagamento</a>
+                </li>
+                <li class="disclosure-box_item">
+                    <a href="${pageContext.request.contextPath}/jsp/politicheReso.jsp" class="disclosure-box_link">Contattaci</a>
+                </li>
             </ul>
         </details>
-        <div class="legal-links">
-            <h3>Legal</h3>
-            <ul>
-                <li><a href="${pageContext.request.contextPath}/privacy.jsp">Privacy Policy</a></li>
-                <li><a href="${pageContext.request.contextPath}/termini.jsp">Termini e Condizioni</a></li>
+        <details class="disclosure-box main-footer_legal" open>
+            <summary class="disclosure-box_button">
+                <h3 class="disclosure-box_heading">Legal</h3>
+            </summary>
+            <ul class="disclosure-box_list">
+                <li class="disclosure-box_item">
+                    <a href="${pageContext.request.contextPath}/privacy.jsp" class="disclosure-box_link">Privacy Policy</a>
+                </li>
+                <li class="disclosure-box_item">
+                    <a href="${pageContext.request.contextPath}/termini.jsp" class="disclosure-box_link">Termini e Condizioni</a>
+                </li>
             </ul>
-        </div>
-        <div class="footer-social">
-            <ul>
-                <li><p>Seguici sui social:</p></li>
-                <li><a href="https://www.facebook.com/"><img src="${pageContext.request.contextPath}/img/footer/facebook.svg" alt="Facebook"></a></li>
-                <li><a href="https://www.instagram.com/"><img src="${pageContext.request.contextPath}/img/footer/instagram.png" alt="Instagram"></a></li>
-                <li><a href="https://www.twitter.com/"><img src="${pageContext.request.contextPath}/img/footer/x.svg" alt="Twitter"></a></li>
-                <li><a href="https://www.linkedin.com/"><img src="${pageContext.request.contextPath}/img/footer/linkedin.svg" alt="LinkedIn"></a></li>
+        </details>
+        <div class="main-footer_social-box">
+            <ul class="social_box_list">
+                <li class="social_box_item">
+                    <p>Seguici sui social:</p>
+                </li>
+                <li class="social_box_item">
+                    <a href="https://www.facebook.com/" class="social-box_link">
+                        <img src="${pageContext.request.contextPath}/img/footer/facebook.svg" class="social-box_icon" alt="Facebook">
+                    </a>
+                </li>
+                <li class="social_box_item">
+                    <a href="https://www.instagram.com/" class="social-box_link">
+                        <img src="${pageContext.request.contextPath}/img/footer/instagram.png" class="social-box_icon" alt="Instagram">
+                    </a>
+                </li>
+                <li class="social_box_item">
+                    <a href="https://www.twitter.com/" class="social-box_link">
+                        <img src="${pageContext.request.contextPath}/img/footer/twitter-X.svg" class="social-box_icon" alt="Twitter">
+                    </a>
+                </li>
             </ul>
 
         </div>
-        <p> 2025 Brico Shop. Tutti i diritti riservati.</p>
+        <p class="main-footer_copyright"> 2025 Brico Shop. Tutti i diritti riservati.</p>
     </div>
 </footer>
