@@ -8,7 +8,7 @@ body {
 .login {
     display: flex;
     flex-direction: column;
-    padding: 5% 5%;
+    padding: 5%;
     justify-content: center;
     border: 0.3rem solid #392e23;
     border-radius: 1rem;
@@ -23,7 +23,7 @@ body {
     font-size: 2.5rem;
     color: #f3eed8;
     margin-bottom: 10%;
-    text-shadow: 0.2rem 0.2rem 0.6rem #4b3d2e, -0.2rem -0.2rem 0.6rem #4b3d2e;  /*bordo intorno al testo*/
+    text-shadow: 0.2rem 0.2rem 0.6rem #4b3d2e, -0.2rem -0.2rem 0.6rem #4b3d2e;  /* bordo intorno al testo */
 }
 
 .barre {
@@ -59,6 +59,7 @@ body {
     margin-top: 3%;
     margin-bottom: 5%;
 }
+
 .button:hover {
     background-color: #709537;
     color: #f3eed8;
@@ -84,12 +85,14 @@ a:focus {
 .registration {
     align-self: center;
 }
+
 .account-prompt{
     flex-direction: column ;
     display: flex;
     align-content: flex-end;
     align-items: center;
 }
+
 label[for="remember-me"] {
     color: #f3eed8;
     font-size: 1rem;
@@ -101,24 +104,19 @@ label[for="remember-me"] {
     align-items: start;
     margin-bottom: 1rem;
 }
+
 .email-logo-container {
     position: relative;
     width: 100%;
 }
-/* Position the email icon in the input field */
-#idemaillogo {
-    position: absolute;
-    top: 10%;
-    right: 2%;
-    width: 1.5rem;
-    height: auto;
-}
-.password-logo-container {
+
+.bar-icon-container{
     display: flex;
     position: relative;
     width: 100%;
 }
-#idpasslogo {
+
+.icon{
     position: absolute;
     top: 10%;
     right: 2%;
@@ -130,9 +128,28 @@ label[for="remember-me"] {
 .email-logo-container input {
     padding-right: 2.5rem;
 }
+
 .account-prompt-registrati{
     margin-top: 5%;
 }
+
+.nome-cognome-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nome-cognome-container .barre{
+    width: 49%;
+}
+
+#idpasslogo {
+    position: absolute;
+    top: 10%;
+    right: 2%;
+    width: 1.5rem;
+    height: auto;
+}
+
 
 @media (width <= 768px) {
     .login {
@@ -150,8 +167,7 @@ label[for="remember-me"] {
     .login h2 {
         font-size: 4rem;
         margin-top: 5%;
-        align-self: center;
-        justify-self: center;
+        place-self: center center;
 
     }
 
