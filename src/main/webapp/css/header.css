@@ -120,7 +120,7 @@ header.main-header{
     padding: 7px;
 }
 .user-actions_dropdown{
-    display: none; /*Attualmente impostato none per comodità. Da impostare flex, e rendere visivamente dinamico con js*/
+    display: flex; /*Attualmente impostato none per comodità. Da impostare flex, e rendere visivamente dinamico con js*/
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: center;

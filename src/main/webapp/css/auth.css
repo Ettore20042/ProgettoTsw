@@ -149,6 +149,10 @@ label[for="remember-me"] {
     width: 1.5rem;
     height: auto;
 }
+.barre::-webkit-inner-spin-button{     /*rimuove i tastini su l input number*/
+    -webkit-appearance: none;
+
+}
 
 
 @media (width <= 768px) {
