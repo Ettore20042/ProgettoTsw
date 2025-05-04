@@ -8,7 +8,7 @@
     <div class="main-header_content">
         <button id = "hamburgerMenu" onClick = "openNav()" tabindex="0">&#9776;</button>
 
-        <a href="/jsp/HomePage.jsp" class="main-header_logo-link">
+        <a href="${pageContext.request.contextPath}/" class="main-header_logo-link">
             <img src="${pageContext.request.contextPath}/img/header/Logo_brico.jpg" alt="Logo" id="logoImage" />
         </a>
 

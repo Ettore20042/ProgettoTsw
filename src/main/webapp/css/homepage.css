@@ -23,7 +23,7 @@ a:hover {
 
 /* Stili base per i bottoni */
 .button {
-    width: 40%;
+    width: 60%;
     border-radius: 0.5rem;
     border: 0.1rem solid #735e4d;
     background-color: #bdb8b8;
@@ -42,13 +42,13 @@ a:hover {
 }
 
 /* Solo modifiche specifiche di larghezza per i bottoni */
-.brand-section .button { width: 50%; }
+.brand-section .button { width: 80%; }
 
-.shop-section .button { width: 60%; }
-.offers-section .button { width: 50%; }
+.shop-section .button { width: 80%; }
+.offers-section .button { width: 80%; }
 
 #idscopriora {
-    width: 17%;
+    width: 35%;
     height: auto;
 }
 
@@ -57,7 +57,7 @@ a:hover {
 .small-section a {
     color: #3A2E25;
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.0rem;
     font-weight: 500;
 }
 
@@ -130,6 +130,7 @@ a:hover {
     padding: 0.5rem 0 2rem 0.8rem;
 }
 
+
 /* Stili comuni per le sezioni */
 .brand-section, .shop-section, .offers-section {
     width: 100%;
@@ -183,7 +184,7 @@ a:hover {
 .offers-section h3 {
     margin-top: auto;
     margin-bottom: 0;
-    font-size: 2.0rem;
+    font-size: 1.5rem;
     color: #3A2E25;
 }
 
@@ -471,12 +472,15 @@ a:hover {
 
     /* Regole specifiche bottoni shop-brand-section */
     .shop-brand-section .button {
+        width: 50%;
         align-self: end;
         margin-bottom: 4%;
         font-size: 0.8rem;
         margin-top: 8%;
     }
-
+    .shop-section .button{
+        width: 60%;
+    }
 
 
     /* Titoli in shop-brand-section */
@@ -499,7 +503,7 @@ a:hover {
 
 
     #idscopriora {
-        width: 15%;
+        width: 20%;
         font-size: 0.8rem;
     }
 
