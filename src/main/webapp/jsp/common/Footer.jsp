@@ -2,13 +2,13 @@
 <footer class="main-footer">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css" type="text/css">
     <div class="main-footer_content">
-        <details class="disclosure-box main-footer_customer-support" open>
+        <details class="disclosure-box main-footer_customer-support">
             <summary class="disclosure-box_button">
                 <h3 class="disclosure-box_heading">Assistenza Clienti</h3>
             </summary>
             <ul class="disclosure-box_list">
                 <li class="disclosure-box_item">
-                    <a href="${pageContext.request.contextPath}/jsp/assistenza.jsp" class="disclosure-box_link">Centro assistenza</a>
+                    <a href="${pageContext.request.contextPath}/jsp/customer-support.jsp" class="disclosure-box_link">Centro assistenza</a>
                 </li>
                 <li class="disclosure-box_item">
                     <a href="${pageContext.request.contextPath}/jsp/politicheReso.jsp" class="disclosure-box_link">Politiche di reso e rimborso</a>
@@ -21,7 +21,7 @@
                 </li>
             </ul>
         </details>
-        <details class="disclosure-box main-footer_legal" open>
+        <details class="disclosure-box main-footer_legal">
             <summary class="disclosure-box_button">
                 <h3 class="disclosure-box_heading">Legal</h3>
             </summary>

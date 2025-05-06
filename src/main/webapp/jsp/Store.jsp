@@ -50,7 +50,7 @@
     </style>
 </head>
 <body>
-<jsp:include page="/jsp/Header.jsp" />
+<jsp:include page="/jsp/common/Header.jsp" />
 <h2 id="idtext">Trova lo Store più vicino a te</h2>
 <div class="map-button-search-container">
 
@@ -61,7 +61,7 @@
     <div id="map" style="height: 500px; width: 60%;"></div>
 </div>
 
-<jsp:include page="/jsp/Footer.jsp" />
+<jsp:include page="/jsp/common/Footer.jsp" />
 
 <script>
     let map;
