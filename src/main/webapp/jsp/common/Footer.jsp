@@ -8,16 +8,16 @@
             </summary>
             <ul class="disclosure-box_list">
                 <li class="disclosure-box_item">
-                    <a href="${pageContext.request.contextPath}/jsp/customer-support.jsp" class="disclosure-box_link">Centro assistenza</a>
+                    <a href="${pageContext.request.contextPath}/jsp/support/CustomerSupport.jsp" class="disclosure-box_link">Centro assistenza</a>
                 </li>
                 <li class="disclosure-box_item">
-                    <a href="${pageContext.request.contextPath}/jsp/politicheReso.jsp" class="disclosure-box_link">Politiche di reso e rimborso</a>
+                    <a href="${pageContext.request.contextPath}/jsp/support/RefundPolicy.jsp" class="disclosure-box_link">Politiche di reso e rimborso</a>
                 </li>
                 <li class="disclosure-box_item">
-                    <a href="${pageContext.request.contextPath}/jsp/metodiPagamento.jsp" class="disclosure-box_link">Metodi di pagamento</a>
+                    <a href="${pageContext.request.contextPath}/jsp/support/PaymentMethods.jsp" class="disclosure-box_link">Metodi di pagamento</a>
                 </li>
                 <li class="disclosure-box_item">
-                    <a href="${pageContext.request.contextPath}/jsp/politicheReso.jsp" class="disclosure-box_link">Contattaci</a>
+                    <a href="${pageContext.request.contextPath}/jsp/support/ContactUs.jsp" class="disclosure-box_link">Contattaci</a>
                 </li>
             </ul>
         </details>

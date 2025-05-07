@@ -46,18 +46,26 @@
     margin-bottom: 2px;
     font-weight: 500;
 }
-.disclosure-box_list{
+.disclosure-box:not([open]) .disclosure-box_list{
     display: block;
     list-style-type: none;
     padding-top: 0.5rem;
-    max-height: 0;
-    opacity: 0;
+    max-height: 0 !important;
+    opacity: 0 !important;
     overflow: hidden;
-    transition: max-height 300ms ease, opacity 3000ms ease !important;
+    visibility: hidden;
 }
 .disclosure-box[open] .disclosure-box_list{
+    display: block;
+    list-style-type: none;
+    padding-top: 0.5rem;
     max-height: 1000px;
     opacity: 1;
+    visibility: visible;
+    transition:
+            max-height 0.5s ease,
+            opacity 0.5s ease,
+            visibility 0s linear 0s;
 }
 .disclosure-box_item{
     width: 100%;

@@ -120,7 +120,7 @@ header.main-header{
     padding: 7px;
 }
 .user-actions_dropdown{
-    display: flex; /*Attualmente impostato none per comodità. Da impostare flex, e rendere visivamente dinamico con js*/
+    display: none; /*Attualmente impostato none per comodità. Da impostare flex, e rendere visivamente dinamico con js*/
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: center;
@@ -151,11 +151,12 @@ header.main-header{
 }
 
 .mobile-nav{
-    display: none;       /*Da impostare block con js*/
+    display: block;       /*Da impostare block con js*/
     position: fixed;
-    width: 65%;
+    width: 0;
     height: 100%;
     background-color: #392E23;
+    overflow: hidden;
 }
 .mobile-nav_list{
     list-style: none;
@@ -172,8 +173,11 @@ header.main-header{
     line-height: 1;
 }
 #closeButton{
-    text-decoration: none;
+    background: none;
+    border: none;
     color: white;
+    font-size: clamp(1.3rem, 1.3rem + 1.5vw, 2.5rem);
+    cursor: pointer;
 }
 .mobile-nav_link{
     display: block;
