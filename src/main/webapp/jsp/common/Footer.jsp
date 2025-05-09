@@ -59,4 +59,5 @@
         </div>
         <p class="main-footer_copyright"> 2025 Brico Shop. Tutti i diritti riservati.</p>
     </div>
+    <script src="${pageContext.request.contextPath}/Js/common/footer.js"></script>
 </footer>
