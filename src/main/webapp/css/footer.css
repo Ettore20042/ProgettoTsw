@@ -142,6 +142,16 @@
     .main-footer_copyright{
         width: 100%;
     }
+
+    @media (min-width: 1200px){
+
+       .main-support{
+           padding-bottom: 2rem;
+       }
+
+    }
+
+
 }
 
 
