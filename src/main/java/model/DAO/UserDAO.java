@@ -21,7 +21,7 @@ public class UserDAO {
             e.printStackTrace();
     }
 }
-public Boolean doLogin(String email, String password) {
+    public Boolean doLogin(String email, String password) {
         try (Connection conn = ConnPool.getConnection()) {
             String sql = "SELECT * FROM useraccount WHERE Email = ? AND Password = ?";
             PreparedStatement ps = conn.prepareStatement(sql);

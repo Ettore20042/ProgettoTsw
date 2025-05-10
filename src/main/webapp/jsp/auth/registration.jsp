@@ -12,7 +12,7 @@
     <title>Registration</title>
 </head>
 <body>
-<jsp:include page="/jsp/Header.jsp" />
+<jsp:include page="/jsp/common/Header.jsp" />
 <main>
     <div class="login">
         <h2 class="registration">Registrati</h2>
@@ -36,10 +36,10 @@
         </form>
         <div class="account-prompt-registrati">
             <span>Hai già un account?</span>
-            <a href="${pageContext.request.contextPath}/jsp/auth/login.jsp">Accedi</a>
+            <a href="${pageContext.request.contextPath}/jsp/auth/login.jsp" class="user-form-container_link">Accedi</a>
         </div>
     </div>
 </main>
-<jsp:include page="/jsp/Footer.jsp" />
+<jsp:include page="/jsp/common/Footer.jsp" />
 </body>
 </html>

@@ -14,13 +14,13 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/homepage.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
     <!-- Il tuo HTML/JSP -->
     <!-- Il tuo HTML/JSP -->
-    <script src="${pageContext.request.contextPath}/Js/scrollHomepage.js" defer  ></script>
+    <script src="${pageContext.request.contextPath}/Js/Homepage.js" defer  ></script>
 
 
 
 </head>
 <body>
-<jsp:include page="Header.jsp" />
+<jsp:include page="common/Header.jsp" />
 <main>
     <!-- Aggiungi all'inizio della pagina, dopo i tag iniziali -->
 
@@ -86,6 +86,6 @@
 
 </main>
 
-<jsp:include page="Footer.jsp" />
+<jsp:include page="common/Footer.jsp" />
 </body>
 </html>

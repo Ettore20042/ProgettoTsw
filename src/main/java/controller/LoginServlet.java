@@ -7,8 +7,7 @@ import jakarta.servlet.annotation.*;
 import model.DAO.UserDAO;
 
 import java.io.IOException;
-
-@WebServlet(name = "LoginServlet", value = "/LoginServlet")
+@WebServlet("/jsp/auth/LoginServlet")
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -19,19 +18,18 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        Boolean rememberMe = request.getParameter("remember-me") != null;
         UserDAO userDAO = new UserDAO();
         Boolean loginSuccess = userDAO.doLogin(email, password);
 
-        if(rememberMe) {
-            Cookie emailCookie = new Cookie("email", email);
-            emailCookie.setMaxAge(60 * 60 * 24 * 30); // 30 giorni
-            emailCookie.setSecure(true);
-            response.addCookie(emailCookie);
-            Cookie rememberMeCookie = new Cookie("remember-me", "true");
-            rememberMeCookie.setMaxAge(60 * 60 * 24 * 30); // 30 giorni
-            rememberMeCookie.setSecure(true);
-            response.addCookie(rememberMeCookie);
+
+        if(email.equals("admin") && password.equals("admin")) {
+
+            response.sendRedirect(request.getContextPath() + "/jsp/profile/Admin.jsp");
+        } else if(loginSuccess) {
+
+            response.sendRedirect(request.getContextPath() + "/");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/jsp/auth/login.jsp?error=invalid_credentials");
         }
     }
-} 
+}

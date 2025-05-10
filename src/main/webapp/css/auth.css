@@ -73,15 +73,15 @@ body {
     outline-offset: 2px;
 }
 
-a {
+.user-form-container_link{
     color: #392e23;
     font-size: 1rem; /* Smaller on mobile */
     margin-top: 5%;
     transition: color 0.3s ease;
 }
 
-a:hover,
-a:focus {
+.user-form-container_link:hover,
+.user-form-container_link:focus {
     color: #f3eed8;
 }
 
@@ -175,20 +175,7 @@ label[for="remember-me"] {
     }
 }
 
-/* Small tablet styles */
-@media (min-width: 576px) {
-    .login {
-        width: 70%;
-    }
 
-    .nome-cognome-container {
-        flex-direction: row; /* Side by side on tablet */
-    }
-
-    .nome-cognome-container .barre {
-        width: 48%; /* Allow space between */
-    }
-}
 
 /* Mid-sized tablet styles */
 @media (min-width: 680px) {
