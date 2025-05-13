@@ -27,10 +27,10 @@
             </summary>
             <ul class="disclosure-box_list">
                 <li class="disclosure-box_item">
-                    <a href="${pageContext.request.contextPath}/privacy.jsp" class="disclosure-box_link">Privacy Policy</a>
+                    <a href="${pageContext.request.contextPath}/jsp/support/PrivacyPolicy.jsp" class="disclosure-box_link">Privacy Policy</a>
                 </li>
                 <li class="disclosure-box_item">
-                    <a href="${pageContext.request.contextPath}/termini.jsp" class="disclosure-box_link">Termini e Condizioni</a>
+                    <a href="${pageContext.request.contextPath}/jsp/support/TermsConditions.jsp" class="disclosure-box_link">Termini e Condizioni</a>
                 </li>
             </ul>
         </details>
