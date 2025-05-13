@@ -10,21 +10,29 @@ public class User {
     private String firstName;
     private String lastName;
     private String phone;
-    private String role;
+    private boolean admin;
     private String password;
     private String email;
 
 
-   public User(int idUser, String name, String surname, String number, String role, String password, String email) {
+   public User(int idUser, String name, String surname, String number, boolean admin, String password, String email) {
         this.userId = idUser;
         this.firstName = name;
         this.lastName = surname;
         this.phone = number;
-        this.role = role;
+        this.admin = admin;
         this.password = password;
         this.email = email;
     }
     public User() {
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     public int getUserId() {
@@ -59,13 +67,6 @@ public class User {
         }
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public String getPhone() {
         return phone;
