@@ -3,62 +3,18 @@
 <head>
 
     <title>Mappa Store</title>
-    <style>
-
-        .map-button-search-container {
-            display: flex;
-            justify-content: center;
-            flex-direction: row;
-        }
-        #map {
-            border-radius: 5%;
-            margin: 0 0 5% 5%;
-            border: 1rem solid  #F3EED8;
-        }
-
-        #search-input {
-            width: 100%;
-            height: 2.5rem;
-            padding: 0.5% 1%;
-            border: none;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            background-color: rgb(241, 239, 234);
-            color: rgb(36, 70, 92);
-            box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
-            margin-bottom: 5%;
-            margin-left: auto;
-        }
-        #search-button {
-            background-color: rgb(30, 58, 71);
-            color: #f1efea;
-            padding: 0.5rem 1rem;
-            border: greenyellow solid 1px;
-            border-radius: 0.3rem;
-            cursor: pointer;
-            font-size: 1.3rem;
-        }
-        #idtext {
-            text-align: justify-all;
-            margin: 2% 0;
-            font-size: 2rem;
-            color: rgb(30, 58, 71);
-        }
-        #search-box{
-            margin-right:auto;
-        }
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/store.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
 </head>
 <body>
 <jsp:include page="/jsp/common/Header.jsp" />
 <h2 id="idtext">Trova lo Store più vicino a te</h2>
-<div class="map-button-search-container">
+<div class="button-search-container">
 
     <div id="search-box">
         <label for="search-input"></label><input type="text" id="search-input" placeholder="Inserisci la tua città o luogo">
         <button  id="search-button">Cerca</button>
     </div>
-    <div id="map" style="height: 500px; width: 60%;"></div>
+    <div id="map" ></div>
 </div>
 
 <jsp:include page="/jsp/common/Footer.jsp" />

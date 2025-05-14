@@ -160,60 +160,6 @@ label[for="remember-me"] {
     -webkit-appearance: none;
 }
 
-/* Tablet styles */
-@media (min-width: 576px) {
-    .login {
-        width: 70%;
-    }
-
-    .nome-cognome-container {
-        flex-direction: row; /* Side by side on tablet */
-    }
-
-    .nome-cognome-container .barre {
-        width: 48%; /* Allow space between */
-    }
-}
-
-
-
-/* Mid-sized tablet styles */
-@media (min-width: 680px) {
-    .login {
-        width: 60%;
-        padding: 4%;
-        margin: 8% auto;
-    }
-
-    .login h2 {
-        font-size: 2.3rem;
-        margin-bottom: 7%;
-    }
-
-    .barre {
-        height: 2.5rem;
-        font-size: 1.1rem;
-        margin-bottom: 3%;
-    }
-
-    .button {
-        width: 75%;
-        font-size: 1.2rem;
-    }
-
-    .account-prompt,
-    .account-prompt-registrati {
-        font-size: 1rem;
-    }
-
-    .icon {
-        width: 1.3rem;
-    }
-
-    label[for="remember-me"] {
-        font-size: 1rem;
-    }
-}
 
 /* Desktop styles */
 @media (min-width: 768px) {
@@ -246,9 +192,10 @@ label[for="remember-me"] {
     }
     .nome-cognome-container{
         gap: 6%;
+        flex-direction: row; /* Row on desktop */
     }
     .nome-cognome-container .barre {
-        width: 47%;
+        width: 50%;
     }
 }
 
@@ -265,6 +212,6 @@ label[for="remember-me"] {
         gap: 3%;
     }
     .nome-cognome-container .barre {
-        width: 49%;
+        width: 50%;
     }
 }
