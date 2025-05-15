@@ -6,7 +6,7 @@
 
 
 
-
+    <script src="${pageContext.request.contextPath}/Js/CheckCredential.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
     <meta charset="UTF-8">
     <title>Registration</title>
@@ -16,7 +16,7 @@
 <main>
     <div class="login">
         <h2 class="registration">Registrati</h2>
-        <form action="RegistrationServlet" method="post">
+        <form id=registerForm" action="RegistrationServlet" method="post">
             <div class="nome-cognome-container">
                 <input type="text"  class="barre" name="name" placeholder="Nome*" required>
                 <input type="text" class="barre" name="surname" placeholder="Cognome*" required>
