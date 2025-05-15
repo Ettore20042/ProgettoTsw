@@ -31,7 +31,7 @@ lint_css:
           "no-extra-semicolons": true,
           "declaration-block-no-duplicate-properties": true,
           "declaration-block-trailing-semicolon": "always",
-          "selector-max-id": 0
+          "selector-max-id": 0,
           "selector-class-pattern": "^[a-z0-9\\-]+$"
         }
       }
