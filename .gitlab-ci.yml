@@ -14,7 +14,9 @@ lint_css:
   stage: lint
   before_script:
     - npm install -g stylelint stylelint-config-standard
-    - echo '{
+    - |
+      cat <<EOF > .stylelintrc.json
+      {
         "extends": "stylelint-config-standard",
         "rules": {
           "indentation": 2,
@@ -31,6 +33,7 @@ lint_css:
           "declaration-block-trailing-semicolon": "always",
           "selector-max-id": 0
         }
-      }' > .stylelintrc.json
+      }
+      EOF
   script:
     - stylelint "**/*.css"
