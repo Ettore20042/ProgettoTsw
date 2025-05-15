@@ -36,7 +36,7 @@
         </form>
         <div class="account-prompt-registrati">
             <span>Hai già un account?</span>
-            <a href="${pageContext.request.contextPath}/jsp/auth/login.jsp" class="user-form-container_link">Accedi</a>
+            <a href="${pageContext.request.contextPath}/jsp/auth/Login.jsp" class="user-form-container_link">Accedi</a>
         </div>
     </div>
 </main>

@@ -1,21 +1,21 @@
 const openNavButton = document.getElementById("openNavButton");
 const closeNavButton = document.getElementById("closeNavButton");
 const profileActionsButton = document.getElementById("userProfileButton");
-
+const mobileNav = document.getElementById("mobileNav");
+let profileActionsDropdown = document.getElementById("userActionsDropdown");
 
 function openNav() {
-    document.getElementById("mobileNav").style.width = "65%";
-    document.getElementById("mobileNav").style.transition = "0.5s";
+    event.stopPropagation();
+    mobileNav.style.width = "65%";
+    mobileNav.style.transition = "0.5s";
 }
 
 function closeNav() {
-    document.getElementById("mobileNav").style.width = "0";
+    mobileNav.style.width = "0";
 }
 
 
 function toggleDropdown() {
-    let profileActionsDropdown =
-        document.getElementById("userActionsDropdown");
     let currentStyle = window.getComputedStyle(profileActionsDropdown);
     console.log(currentStyle.display);
 
@@ -32,11 +32,25 @@ function toggleDropdown() {
     }
 }
 
+function closeOnClickOutside(event) {
+    if (mobileNav.style.width === "65%" &&
+            !mobileNav.contains(event.target)) {
+       closeNav();
+    }
+    if (profileActionsDropdown.style.display === "flex" &&
+            !profileActionsButton.contains(event.target) &&
+            !profileActionsDropdown.contains(event.target)) {
+        toggleDropdown();
+    }
+}
+
 
 
 openNavButton.addEventListener("click", openNav);
 closeNavButton.addEventListener("click", closeNav);
 profileActionsButton.addEventListener("click", toggleDropdown);
+
+document.addEventListener("click", closeOnClickOutside);
 
 
 

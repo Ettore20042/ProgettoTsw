@@ -5,6 +5,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import model.Bean.Product;
+import model.Bean.User;
 import model.DAO.ProductDAO;
 
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class ProductServlet extends HttpServlet {
             try{
                 int id = Integer.parseInt(idParam);
                 Product product = service.doRetrieveById(id);
-
+//              User loggedUser = (User) request.getSession().getAttribute("user");
                 if(product != null) {
                     request.setAttribute("product", product);
                     rd.forward(request, response);

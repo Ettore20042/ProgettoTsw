@@ -1,12 +1,12 @@
+<%@ page import="model.Bean.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <header class="main-header">
-<head>
-    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon/favicon.ico">
 
-</head>
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon/favicon.ico">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
     <meta name="color-scheme" content="light">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
     <div class="main-header_content">
         <button id = "openNavButton" tabindex="0">&#9776;</button>
 
@@ -29,8 +29,16 @@
             </button>
 
             <div class="user-actions_dropdown" id="userActionsDropdown">
-                <a href="${pageContext.request.contextPath}/jsp/auth/login.jsp">Accedi</a>
-                <a href="${pageContext.request.contextPath}/jsp/auth/registration.jsp">Registrati</a>
+
+                <% if (request.getSession().getAttribute("user") != null) {
+                    User user = (User) session.getAttribute("user");%>
+                    <span class="user-actions_dropdown_name-user"><%= user.getFirstName()%></span>
+                    <a href="${pageContext.request.contextPath}/jsp/profile/User.jsp" class="user-actions_dropdown--first-link">Account</a>
+                    <a href="${pageContext.request.contextPath}/LogoutServlet">Logout</a>
+                <% } else { %>
+                    <a href="${pageContext.request.contextPath}/jsp/auth/Login.jsp" class="user-actions_dropdown--first-link">Accedi</a>
+                    <a href="${pageContext.request.contextPath}/jsp/auth/registration.jsp">Registrati</a>
+                <% } %>
             </div>
             <a href="${pageContext.request.contextPath}/carrello" class="user-actions_button user-actions_button--cart">
                 <img src="${pageContext.request.contextPath}/img/header/carrello.svg" alt="Logo" id="cartIcon" tabindex="0"/>

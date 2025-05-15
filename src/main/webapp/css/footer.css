@@ -2,6 +2,7 @@
 .main-footer{
     background-color: #CFAF7C;
     color: white;
+    position: sticky;
 }
 .main-footer_content{
     display: flex;

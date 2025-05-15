@@ -34,15 +34,21 @@ public class ProductDAO {
 
     public Product doRetrieveById(int id) {
         try(Connection con = ConnPool.getConnection()){
-            PreparedStatement ps = con.prepareStatement("SELECT ProductID,ProductName,Description,Price FROM product WHERE ProductID=?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM product WHERE ProductID=?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 Product p = new Product();
-                p.setProductId(rs.getInt(1));
-                p.setProductName(rs.getString(2));
-                p.setDescription(rs.getString(3));
-                p.setPrice(rs.getFloat(4));
+                p.setProductId(rs.getInt("ProductID"));
+                p.setProductName(rs.getString("ProductName"));
+                p.setPrice(rs.getFloat("Price"));
+                p.setColor(rs.getString("Color"));
+                p.setMaterial(rs.getString("Material"));
+                p.setQuantity(rs.getInt("Quantity"));
+                p.setDescription(rs.getString("Description"));
+                p.setsalePrice(rs.getFloat("salePrice"));
+                p.setBrandId(rs.getInt("BrandID"));
+                p.setCategoryId(rs.getInt("CategoryID"));
                 return p;
             }
             return null;

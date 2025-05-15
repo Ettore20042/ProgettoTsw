@@ -1,4 +1,4 @@
-<%--
+<%@ page import="model.Bean.User" %><%--
   Created by IntelliJ IDEA.
   User: Utente
   Date: 03/05/2025
@@ -11,6 +11,9 @@
     <title>Title</title>
 </head>
 <body>
+    <% if (request.getSession().getAttribute("user") != null) {
+    User user = (User) session.getAttribute("user");%>
+    <h1><%= user.getFirstName()%></h1><% }%>
 
 </body>
 </html>

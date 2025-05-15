@@ -11,9 +11,13 @@ body {
 }
 header.main-header{
     display: flex;
+    position: sticky;
     flex-direction: column;
     background-color: #F3EED8;
+    z-index: 1000;
+    transition: trasform 0.3s ease-in-out;
 }
+
 
 /*Css Mobile*/
 
@@ -146,7 +150,15 @@ header.main-header{
     color: #392E23;
     font-weight: 500;
 }
-.user-actions_dropdown a:first-child{
+.user-actions_dropdown .user-actions_dropdown_name-user{
+    font-size: 1.5rem;
+    font-weight: 600;
+    width: 100%;
+    text-align: left;
+    padding-left: 5px;
+    margin-bottom: 5px;
+}
+.user-actions_dropdown .user-actions_dropdown--first-link{
     background-color: #CFAF7C;
     color: white;
 }
@@ -158,6 +170,7 @@ header.main-header{
     height: 100%;
     background-color: #392E23;
     overflow: hidden;
+    z-index: 2;
 }
 .mobile-nav_list{
     list-style: none;
@@ -227,6 +240,9 @@ header.main-header{
         color: #392E23;
         font-size: 1.2rem;
         padding: 0.8rem 1rem 1rem 1rem;
+    }
+    .user-actions_dropdown{
+        z-index: 3;
     }
 }
 @media (min-width: 1220px) {

@@ -10,9 +10,9 @@ public class Product {
     private String description;
     private int brandId;
     private int categoryId;
-    private double salesPrice;
+    private double salePrice;
 
-  public Product(int idProduct, int idCategory, int idBrand, String description, int stock, String material, String colour, float price, String nameProduct,double salesPrice) {
+  public Product(int idProduct, int idCategory, int idBrand, String description, int stock, String material, String colour, float price, String nameProduct,double salePrice) {
       this.productId = idProduct;
       this.categoryId = idCategory;
       this.brandId = idBrand;
@@ -22,18 +22,18 @@ public class Product {
       this.color = colour;
       this.price = price;
       this.productName = nameProduct;
-        this.salesPrice = salesPrice;
+      this.salePrice = salePrice;
   }
   public Product(){
 
   }
 
-    public double getSalesPrice() {
-        return salesPrice;
+    public double getsalePrice() {
+        return salePrice;
     }
 
-    public void setSalesPrice(double salesPrice) {
-        this.salesPrice = salesPrice;
+    public void setsalePrice(double salePrice) {
+        this.salePrice = salePrice;
     }
 
     public int getProductId() {

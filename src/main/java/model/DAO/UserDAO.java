@@ -1,10 +1,12 @@
 package model.DAO;
 
+import model.Bean.Product;
 import model.Bean.User;
 import model.ConnPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class UserDAO {
     public void doSaveUser(User user) {
@@ -21,16 +23,25 @@ public class UserDAO {
             e.printStackTrace();
     }
 }
-    public Boolean doLogin(String email, String password) {
+public User doLogin(String email, String password) {
         try (Connection conn = ConnPool.getConnection()) {
             String sql = "SELECT * FROM useraccount WHERE Email = ? AND Password = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);
             ps.setString(2, password);
-            return ps.executeQuery().next();
+            ResultSet resultSet = ps.executeQuery();
+            resultSet.next();
+            User user = new User();
+            user.setUserId(resultSet.getInt("UserID"));
+            user.setFirstName(resultSet.getString("FirstName"));
+            user.setLastName(resultSet.getString("LastName"));
+            user.setPhone(resultSet.getString("Phone"));
+            user.setAdmin(resultSet.getBoolean("Admin"));
+            user.setEmail(resultSet.getString("Email"));
+            return user;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 }
