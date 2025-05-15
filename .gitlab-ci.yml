@@ -32,7 +32,7 @@ lint_css:
           "declaration-block-no-duplicate-properties": true,
           "declaration-block-trailing-semicolon": "always",
           "selector-max-id": 0,
-          "selector-class-pattern": "null"
+          "selector-class-pattern": null
         }
       }
       EOF
