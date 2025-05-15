@@ -37,7 +37,7 @@
                     <a href="${pageContext.request.contextPath}/LogoutServlet">Logout</a>
                 <% } else { %>
                     <a href="${pageContext.request.contextPath}/jsp/auth/Login.jsp" class="user-actions_dropdown--first-link">Accedi</a>
-                    <a href="${pageContext.request.contextPath}/jsp/auth/registration.jsp">Registrati</a>
+                    <a href="${pageContext.request.contextPath}/jsp/auth/Registration.jsp">Registrati</a>
                 <% } %>
             </div>
             <a href="${pageContext.request.contextPath}/carrello" class="user-actions_button user-actions_button--cart">

@@ -22,7 +22,7 @@ public class RegistrationServlet extends HttpServlet {
         String password = request.getParameter("password");
         String phone = request.getParameter("phone");
         if(firstName == null || lastName == null || email == null || password == null || phone == null) {
-            response.sendRedirect(request.getContextPath() + "/jsp/auth/registration.jsp?error=missing_fields");
+            response.sendRedirect(request.getContextPath() + "/jsp/auth/Registration.jsp?error=missing_fields");
         }
 
     }

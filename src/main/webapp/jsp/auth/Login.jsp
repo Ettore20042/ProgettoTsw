@@ -30,7 +30,7 @@
             <button type="submit" class="button" >Accedi</button><br>
             <div class="account-prompt">
                 <span>Non hai un account?</span>
-                <a href="${pageContext.request.contextPath}/jsp/auth/registration.jsp" class="user-form-container_link">Crea un account</a>
+                <a href="${pageContext.request.contextPath}/jsp/auth/Registration.jsp" class="user-form-container_link">Crea un account</a>
             </div>
         </form>
     </div>
