@@ -25,7 +25,7 @@ public class ProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idParam = request.getParameter("productId");
         ProductDAO service = new ProductDAO();
-        RequestDispatcher rd = request.getRequestDispatcher("/jsp/Product.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/jsp/products/Product.jsp");
 
         if(idParam != null) {
             try{

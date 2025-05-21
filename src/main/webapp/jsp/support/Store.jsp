@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-
+    <jsp:include page="/jsp/common/HeadContent.jsp" />
     <title>Mappa Store</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/store.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
 </head>

@@ -5,7 +5,7 @@
     <!-- Favicon (base icon for all browsers) -->
 
 
-
+    <jsp:include page="/jsp/common/HeadContent.jsp" />
     <script src="${pageContext.request.contextPath}/Js/CheckCredential.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
     <meta charset="UTF-8">

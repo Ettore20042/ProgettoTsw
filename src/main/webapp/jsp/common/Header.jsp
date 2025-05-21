@@ -1,14 +1,10 @@
 <%@ page import="model.Bean.User" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <header class="main-header">
-
-    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon/favicon.ico">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
-    <meta name="color-scheme" content="light">
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-
     <div class="main-header_content">
-        <button id = "openNavButton" tabindex="0">&#9776;</button>
+        <button id="openNavButton" tabindex="0">&#9776;</button>
 
         <a href="${pageContext.request.contextPath}/" class="main-header_logo-link">
             <img src="${pageContext.request.contextPath}/img/header/Logo_brico.jpg" alt="Logo" id="logoImage" />
@@ -29,22 +25,19 @@
             </button>
 
             <div class="user-actions_dropdown" id="userActionsDropdown">
-
                 <% if (request.getSession().getAttribute("user") != null) {
                     User user = (User) session.getAttribute("user");%>
-                    <span class="user-actions_dropdown_name-user"><%= user.getFirstName()%></span>
-                    <a href="${pageContext.request.contextPath}/jsp/profile/User.jsp" class="user-actions_dropdown--first-link">Account</a>
-                    <a href="${pageContext.request.contextPath}/LogoutServlet">Logout</a>
+                <span class="user-actions_dropdown_name-user"><%= user.getFirstName()%></span>
+                <a href="${pageContext.request.contextPath}/jsp/profile/User.jsp" class="user-actions_dropdown--first-link">Account</a>
+                <a href="${pageContext.request.contextPath}/LogoutServlet">Logout</a>
                 <% } else { %>
-                    <a href="${pageContext.request.contextPath}/jsp/auth/Login.jsp" class="user-actions_dropdown--first-link">Accedi</a>
-                    <a href="${pageContext.request.contextPath}/jsp/auth/Registration.jsp">Registrati</a>
+                <a href="${pageContext.request.contextPath}/jsp/auth/Login.jsp" class="user-actions_dropdown--first-link">Accedi</a>
+                <a href="${pageContext.request.contextPath}/jsp/auth/Registration.jsp">Registrati</a>
                 <% } %>
             </div>
             <a href="${pageContext.request.contextPath}/carrello" class="user-actions_button user-actions_button--cart">
                 <img src="${pageContext.request.contextPath}/img/header/carrello.svg" alt="Logo" id="cartIcon" tabindex="0"/>
-                <!--<a href="${pageContext.request.contextPath}/carrello">Carrello</a>-->
             </a>
-
         </div>
     </div>
     <nav class="mobile-nav main-header_nav" id="mobileNav">

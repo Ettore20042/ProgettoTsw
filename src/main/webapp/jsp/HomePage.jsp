@@ -1,26 +1,12 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-    <title>Brico Shop</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/homepage.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
-    <!-- Il tuo HTML/JSP -->
-    <!-- Il tuo HTML/JSP -->
-    <script src="${pageContext.request.contextPath}/Js/Homepage.js" defer  ></script>
-
-
-
+    <jsp:include page="common/HeadContent.jsp" />
+    <title>BricoShop</title>
 </head>
+</html>
 <body>
-<jsp:include page="common/Header.jsp" />
+<jsp:include page="common/Header.jsp"/>
 <main>
     <!-- Aggiungi all'inizio della pagina, dopo i tag iniziali -->
 
@@ -88,4 +74,3 @@
 
 <jsp:include page="common/Footer.jsp" />
 </body>
-</html>
