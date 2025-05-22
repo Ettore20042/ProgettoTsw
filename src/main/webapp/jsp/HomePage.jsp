@@ -1,10 +1,11 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
     <jsp:include page="common/HeadContent.jsp" />
     <title>BricoShop</title>
 </head>
-</html>
 <body>
 <jsp:include page="common/Header.jsp"/>
 <main>
@@ -21,7 +22,7 @@
                 <div class="brand-section">
                 <img src="${pageContext.request.contextPath}/img/homepage/brand.png" alt="Brand" id="welcome-brand-image">
                 <h3>I nostri Brand</h3>
-                <a href="${pageContext.request.contextPath}/jsp/products/Brand.jsp" class="button">Scopri di più</a>
+                <a href="${pageContext.request.contextPath}/jsp/products/Brand.jsp" class="button">Scopri di pi&ugrave;</a>
                  </div>
 
                 <div class="shop-section">
