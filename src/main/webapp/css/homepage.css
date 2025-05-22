@@ -1,11 +1,8 @@
 /* Mobile first */
 body {
-    background-color: #F5F0E1;
+    background-color: white;
     width: 100%;
     font-family: Poppins, sans-serif;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
 }
 
 /* Stili base per i link */
@@ -18,7 +15,6 @@ body {
 
 a:hover {
     color: rgb(0 195 0 / 60%);
-    text-decoration: underline;
 }
 
 /* Stili base per i bottoni */

@@ -1,3 +1,9 @@
+footer{
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+}
+
+
 /* CSS Mobile */
 .main-footer{
     background-color: #CFAF7C;
@@ -42,6 +48,7 @@
     transform:  rotate(45deg);
 }
 .disclosure-box_heading{
+    font-family: 'Poppins', sans-serif;
     color: #392E23;
     font-size: 1.2rem;
     margin-bottom: 2px;

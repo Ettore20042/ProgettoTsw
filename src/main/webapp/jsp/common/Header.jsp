@@ -46,6 +46,7 @@
             <li><a href="${pageContext.request.contextPath}/" class="mobile-nav_link">Home</a></li>
             <li><a href="${pageContext.request.contextPath}/prodotti" class="mobile-nav_link">Prodotti</a></li>
             <li><a href="${pageContext.request.contextPath}/contatti" class="mobile-nav_link">Contatti</a></li>
+            <li><a href="${pageContext.request.contextPath}/ProductServlet" class="mobile-nav_link">TestProdotto</a></li>
         </ul>
     </nav>
     <script src="${pageContext.request.contextPath}/Js/common/header.js"></script>

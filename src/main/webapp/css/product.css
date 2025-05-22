@@ -1,0 +1,83 @@
+.product-page{
+    margin: 0 1rem;
+}
+.product-card_images{
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+.product-card_slider-track{
+    display: flex;
+    width: max-content;
+    height: auto;
+    flex-direction: row;
+    margin: 1.5rem 0;
+}
+
+.product-card_slide{
+    width: auto;
+    height: 21rem;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+.product-card--brand{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin: 1.3rem 0 5px;
+}
+.product-card--name{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin-bottom: .75rem;
+    line-height: 1.2;
+}
+.product-card_details--price{
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-top: 7px;
+    line-height: 1;
+}
+.product-card_details--shipping{
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: .75rem;
+    color: #757575;
+}
+.product-card_buy-button{
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    width: 100%;
+    color: #392E23;
+    padding: 0.85rem;
+    border-radius: 1.5rem;
+    border: none;
+    cursor: pointer;
+}
+.product-card_add-to-cart--button{
+    background-color: #FFE312;
+    margin: 1rem 0 0;
+}
+.product-card_buy-now--button{
+    background-color: #FFA20D;
+    margin: 0.5rem 0 0;
+}
+.product-card_description{
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin: 1.5rem -0.35rem;
+    box-shadow: 0.15rem 0.15rem 1rem rgb(57 46 35 / 23%);
+    padding: 1rem;
+    border-radius: 1.5rem;
+}
+.product-card_description--heading{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 3px;
+}

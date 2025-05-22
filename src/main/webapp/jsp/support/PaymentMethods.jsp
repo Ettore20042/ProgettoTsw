@@ -21,7 +21,7 @@
     </p>
     <div class="main-info_image-container">
 
-    <h3 class="main-info_subtitle">Carte di credito e debito</h3>
+        <h3 class="main-info_subtitle">Carte di credito e debito</h3>
         <img src="${pageContext.request.contextPath}/img/icon/credit-card.webp" alt="Credit-card" class="icon-payments" />
     </div>
         <p class="main-info_text">
@@ -36,16 +36,16 @@
         Puoi scegliere di pagare con PayPal, utilizzando il tuo account personale per completare l'acquisto in modo rapido e sicuro,
         senza dover inserire i dati della tua carta direttamente sul nostro sito.
     </p>
-    <div class="main-info_image-container">
-    <h3 class="main-info_subtitle">Pagamento alla consegna</h3>
-    <img src="${pageContext.request.contextPath}/img/icon/camionetta.png" alt="Camionetta" class="icon-payments"/>
+        <div class="main-info_image-container">
+        <h3 class="main-info_subtitle">Pagamento alla consegna</h3>
+        <img src="${pageContext.request.contextPath}/img/icon/camionetta.png" alt="Camionetta" class="icon-payments"/>
     </div>
         <p class="main-info_text">
         In alcune località offriamo la possibilità di pagamento in contanti alla consegna (contrassegno).
         Questo metodo comporta un piccolo sovrapprezzo che verrà chiaramente indicato al momento dell’ordine.
-    </p>
+        </p>
     <div class="main-info_image-container">
-    <h3 class="main-info_subtitle">Bonifico bancario</h3>
+        <h3 class="main-info_subtitle">Bonifico bancario</h3>
         <img src="${pageContext.request.contextPath}/img/icon/banca.png" alt="banca" class="icon-payments"/>
     </div>
         <p class="main-info_text">
