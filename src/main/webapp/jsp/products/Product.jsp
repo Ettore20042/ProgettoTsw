@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>Prodotto</title>
+    <jsp:include page="/jsp/common/HeadContent.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
 </head>
 <body>
