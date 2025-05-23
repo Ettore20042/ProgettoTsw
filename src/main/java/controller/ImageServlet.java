@@ -7,6 +7,8 @@ import model.Bean.Image;
 import model.DAO.ImageDAO;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "ImageServlet", value = "/ImageServlet", loadOnStartup = 1)
 public class ImageServlet extends HttpServlet {
@@ -23,29 +25,29 @@ public class ImageServlet extends HttpServlet {
             return;
         }
 
-//        try {
-//            // Converte il productId in intero
-//            int id = Integer.parseInt(productIdParam);
-//            ImageDAO service = new ImageDAO();
-//
-//            // Recupera l'immagine dal database utilizzando l'ID
-//            Image image = service.doRetrieveById(id);
-//
-//            // Verifica che l'immagine esista
-//            if (image == null) {
-//                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Immagine non trovata");
-//                return;
-//            }
-//
-//            // Il percorso deve essere accessibile direttamente dal browser
-//            String imageUrl = request.getContextPath() + image.getImagePath();
-//
-//            // Reindirizza il browser all'URL dell'immagine
-//            response.sendRedirect(imageUrl);
-//
-//        } catch (NumberFormatException e) {
-//            // Gestisce il caso in cui l'ID non sia un numero valido
-//            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID non valido");
-//        }
+        try {
+            // Converte il productId in intero
+            int id = Integer.parseInt(productIdParam);
+            ImageDAO service = new ImageDAO();
+
+            // Recupera l'immagine dal database utilizzando l'ID
+            List<Image> images = service.doRetrieveById(id);
+
+            // Verifica che l'immagine esista
+            if (images == null) {
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Immagine non trovata");
+                return;
+            }
+
+            // Il percorso deve essere accessibile direttamente dal browser
+            String imageUrl = request.getContextPath() + images.get(0).getImagePath();
+
+            // Reindirizza il browser all'URL dell'immagine
+            response.sendRedirect(imageUrl);
+
+        } catch (NumberFormatException e) {
+            // Gestisce il caso in cui l'ID non sia un numero valido
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID non valido");
+       }
     }
 }
