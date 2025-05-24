@@ -1,3 +1,6 @@
+main{
+    font-family: 'Inter', sans-serif;
+}
 .product-page{
     margin: 0 1rem;
 }
@@ -13,53 +16,56 @@
     height: auto;
     flex-direction: row;
     margin: 1.5rem 0;
+    gap: 5rem;
 }
 
 .product-card_slide{
     width: auto;
-    height: 21rem;
+    height: 18rem;
     flex-shrink: 0;
     object-fit: cover;
 }
 .product-card--brand{
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin: 1.3rem 0 5px;
 }
 .product-card--name{
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
-    font-size: 1.5rem;
-    margin-bottom: .75rem;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
     line-height: 1.2;
 }
+.product-card_details{
+    display: flex;
+    flex-direction: column;
+
+}
 .product-card_details--price{
-    font-family: 'Inter', sans-serif;
     font-weight: 700;
-    font-size: 1.8rem;
-    margin-top: 7px;
+    font-size: 1.65rem;
+    margin-top: 2.3rem;
     line-height: 1;
 }
 .product-card_details--shipping{
-    font-family: 'Inter', sans-serif;
     font-weight: 400;
     font-size: .75rem;
     color: #757575;
 }
-.product-card_buy-button{
-    font-family: 'Inter', sans-serif;
+.product-card_buy-buttons{
     font-weight: 600;
     font-size: 1rem;
     width: 100%;
     color: #392E23;
-    padding: 0.85rem;
+    padding: 1rem;
     border-radius: 1.5rem;
     border: none;
     cursor: pointer;
 }
 .product-card_add-to-cart--button{
-    background-color: #FFE312;
+    background-color: #9DD141;
     margin: 1rem 0 0;
 }
 .product-card_buy-now--button{
@@ -67,10 +73,9 @@
     margin: 0.5rem 0 0;
 }
 .product-card_description{
-    font-family: 'Inter', sans-serif;
     font-weight: 400;
-    font-size: 1.2rem;
-    margin: 1.5rem -0.35rem;
+    font-size: 1rem;
+    margin: 2rem -0.35rem;
     box-shadow: 0.15rem 0.15rem 1rem rgb(57 46 35 / 23%);
     padding: 1rem;
     border-radius: 1.5rem;
@@ -78,6 +83,28 @@
 .product-card_description--heading{
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     margin-bottom: 3px;
+}
+.product-card_quantity{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 1.65rem 0.5rem 0 auto;
+    background-color: #F3EED8;
+    padding: 0.35rem 0.75rem;
+    border-radius: 1.5rem;
+}
+.product-card_quantity--label{
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0 0.5rem;
+}
+.product-card_quantity--select{
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.35rem 1rem;
+    border-radius: 0.5rem;
+    background: transparent;
+    border: none;
 }

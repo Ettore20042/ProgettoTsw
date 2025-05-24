@@ -31,8 +31,21 @@
                 <p class="product-card_details--price"><fmt:formatNumber value="${product.getPrice()}" pattern="€ #,##0.00" /></p>
                 <p class="product-card_details--shipping">Iva inclusa. Spedizione gratuita</p>
                 <%--Aggiungere elemento per quantità, da vedere se gestire con js oppure da server--%>
-                <button class="product-card_buy-button product-card_add-to-cart--button">Aggiungi al carrello</button>
-                <button class="product-card_buy-button product-card_buy-now--button">Acquista Ora</button>
+                <c:if test="${product.getQuantity() > 0}">
+                    <div class="product-card_quantity">
+                        <label class="product-card_quantity--label">Quantità: </label>
+                        <select name="quantity" id="quantity" class="product-card_quantity--select">
+                            <c:forEach begin="1" end="${product.getQuantity()}" var="i">
+                                <option value="${i}">${i}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </c:if>
+                <c:if test="${product.getQuantity() == 0}">
+                    <p class="product-card_details--out-of-stock">Non disponibile momentaneamente</p>
+                </c:if>
+                <button class="product-card_buy-buttons product-card_add-to-cart--button">Aggiungi al carrello</button>
+                <button class="product-card_buy-buttons product-card_buy-now--button">Acquista Ora</button>
             </div>
             <div class="product-card_description">
                 <h2 class="product-card_description--heading">Descrizione</h2>
@@ -41,5 +54,6 @@
         </section>
     </main>
 <jsp:include page="/jsp/common/Footer.jsp"/>
+<script src="${pageContext.request.contextPath}/Js/products/ProductPage.js"></script>
 </body>
 </html>
