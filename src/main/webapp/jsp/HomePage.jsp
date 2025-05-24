@@ -15,7 +15,7 @@
         <div class="categoria-section">
             <img src="${pageContext.request.contextPath}/img/homepage/materassoa.jpg" alt="Product" id="welcome-category-image">
             <h3>I nostri prodotti</h3>
-            <a href="${pageContext.request.contextPath}/jsp/products/Categories.jsp" class="button" id="idscopriora">Scopri di più</a>
+            <a href="${pageContext.request.contextPath}/CategoryServlet" class="button" id="idscopriora">Scopri di più</a>
         </div>
         <div class="small-section">
             <div class="shop-brand-section">
