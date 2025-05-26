@@ -7,6 +7,7 @@
     <title>Categories</title>
     <jsp:include page="/jsp/common/HeadContent.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/categories.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
+    <script src="${pageContext.request.contextPath}/Js/products/CategoryList.js?v=<%=System.currentTimeMillis()%>"></script>
 </head>
 <body>
 <jsp:include page="/jsp/common/Header.jsp" />
@@ -23,6 +24,7 @@
                             <img src="${pageContext.request.contextPath}/${category.categoryPath}" alt="${category.categoryName}" />
                             <h3>${category.categoryName}</h3>
                             <a href="${pageContext.request.contextPath}/ProductServlet?categoryId=${category.categoryId}" class="view-btn">Vedi prodotti</a>
+                            <button class="toggle-subcategories">▶</button>
                         </div>
 
 
