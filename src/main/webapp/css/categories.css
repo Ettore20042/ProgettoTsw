@@ -128,10 +128,17 @@
     margin-top: 8px;
     margin-right: auto;
 }
+.product-card_product_image--img {
+    width: 65%; max-width: 65%; height: auto; object-fit: contain;
+
+}
 
 /* Desktop styles */
 @media (min-width: 992px) {
+    .product-card_product_image--img {
+        width: 100%; max-width: 100%; height: auto; object-fit: contain;
 
+    }
     .category-card img{
         max-width: 100%;
     }

@@ -6,6 +6,7 @@
     <jsp:include page="common/HeadContent.jsp" />
     <title>BricoShop</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/homepage.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
+    <script src="${pageContext.request.contextPath}/Js/Homepage.js?v=<%=System.currentTimeMillis()%>"></script>
 </head>
 <body>
 <jsp:include page="common/Header.jsp"/>

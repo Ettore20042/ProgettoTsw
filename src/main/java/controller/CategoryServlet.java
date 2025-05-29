@@ -18,7 +18,8 @@ public class CategoryServlet extends HttpServlet {
       CategoryDAO categoryDAO = new CategoryDAO();
       List<Category> categories = categoryDAO.doRetrieveAll();
       request.setAttribute("categories", categories);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/products/CategoryList.jsp");
+      RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/products/CategoryList.jsp");
+
         dispatcher.forward(request, response);
     }
 

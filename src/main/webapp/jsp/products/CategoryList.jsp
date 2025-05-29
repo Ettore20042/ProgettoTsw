@@ -48,7 +48,7 @@
         <c:forEach var="product" items="${products}">
             <div class="product-card">
                 <a href="${pageContext.request.contextPath}/ProductServlet?productId=${product.productId}" class="a-class">
-                    <img src="ImageServlet?productId=${product.productId}" alt="${product.productName}" class="product-image" />
+                    <img src="${pageContext.request.contextPath}/ImageServlet?productId=${product.productId}" alt="${product.productName}" class="product-card_product_image--img" />
                     <h6 class="product-card_productName--title">${product.productName}</h6>
                 </a>
                 <p class="category-container_card_price">Prezzo: €${product.price}</p>

@@ -7,47 +7,62 @@ import model.Bean.Image;
 import model.DAO.ImageDAO;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "ImageServlet", value = "/ImageServlet", loadOnStartup = 1)
 public class ImageServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        // Ottiene il parametro productId dalla richiesta
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String productIdParam = request.getParameter("productId");
-
-        // Verifica che il parametro sia presente e non vuoto
-        if (productIdParam == null || productIdParam.isBlank()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parametro 'productId' mancante");
+        if (productIdParam == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "productId mancante");
             return;
         }
 
-        try {
-            // Converte il productId in intero
-            int id = Integer.parseInt(productIdParam);
-            ImageDAO service = new ImageDAO();
+        ImageDAO dao = new ImageDAO();
+        List<Image> images = dao.doRetrieveByProductId(productIdParam);
 
-            // Recupera l'immagine dal database utilizzando l'ID
-            List<Image> images = service.doRetrieveById(id);
+        if (images.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Nessuna immagine trovata");
+            return;
+        }
 
-            // Verifica che l'immagine esista
-            if (images == null) {
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Immagine non trovata");
-                return;
+        // Get the actual path without forcing /images/ directory
+        String imagePath = images.get(0).getImagePath();
+
+        // Make sure path starts with /
+        String fullPath = imagePath.startsWith("/") ? imagePath : "/" + imagePath;
+
+        // Debug
+        System.out.println("Looking for image at: " + fullPath);
+
+        // Determine content type based on file extension
+        String contentType = "image/jpeg"; // Default
+        if (imagePath.endsWith(".png")) contentType = "image/png";
+        else if (imagePath.endsWith(".webp")) contentType = "image/webp";
+        else if (imagePath.endsWith(".gif")) contentType = "image/gif";
+
+        // Get the ServletContext to access resources
+        ServletContext context = getServletContext();
+        InputStream is = context.getResourceAsStream(fullPath);
+
+        if (is == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "File immagine non trovato: " + fullPath);
+            return;
+        }
+
+        response.setContentType(contentType);
+
+        // Copy from input stream to output stream
+        try (InputStream inputStream = is;
+             OutputStream outputStream = response.getOutputStream()) {
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
             }
-
-            // Il percorso deve essere accessibile direttamente dal browser
-            String imageUrl = request.getContextPath() + images.get(0).getImagePath();
-
-            // Reindirizza il browser all'URL dell'immagine
-            response.sendRedirect(imageUrl);
-
-        } catch (NumberFormatException e) {
-            // Gestisce il caso in cui l'ID non sia un numero valido
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID non valido");
-       }
+        }
     }
 }
