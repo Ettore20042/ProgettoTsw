@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const toggleBtns = document.querySelectorAll(".toggle-subcategories");
 
-
-
     toggleBtns.forEach(btn => {
         btn.addEventListener("click", function() {
             const categoryCard = this.closest('.category-card');
@@ -21,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 this.textContent = "▼";
             } else {
                 // Hide with animation
-
                 menu.style.transform = "translateY(-5px)";
 
                 // After animation completes, hide the element

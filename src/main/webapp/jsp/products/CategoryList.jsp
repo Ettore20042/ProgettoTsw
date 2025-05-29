@@ -2,13 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<html>
-<head>
-    <title>Categories</title>
-    <jsp:include page="/jsp/common/HeadContent.jsp" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/categories.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
-    <script src="${pageContext.request.contextPath}/Js/products/CategoryList.js?v=<%=System.currentTimeMillis()%>"></script>
-</head>
+<%
+    request.setAttribute("pageTitle", "BricoBravo - Categorie");
+%>
+
+
+
 <body>
 <jsp:include page="/jsp/common/Header.jsp" />
 
@@ -44,21 +43,23 @@
 
     </section>
     <h2 class="categories-main_title--h2">Sfoglia i nostri prodotti</h2>
-    <div class="product-grid">
+    <div class="category-product-grid">
         <c:forEach var="product" items="${products}">
-            <div class="product-card">
+            <div class="category-product-item">
                 <a href="${pageContext.request.contextPath}/ProductServlet?productId=${product.productId}" class="a-class">
-                    <img src="${pageContext.request.contextPath}/ImageServlet?productId=${product.productId}" alt="${product.productName}" class="product-card_product_image--img" />
-                    <h6 class="product-card_productName--title">${product.productName}</h6>
+                    <img src="${pageContext.request.contextPath}/ImageServlet?productId=${product.productId}"
+                         alt="${product.productName}" class="category-product-item_image--img" />
+                    <h6 class="category-product-item_name--title">${product.productName}</h6>
                 </a>
                 <p class="category-container_card_price">Prezzo: €${product.price}</p>
-                <button class="product-card_add-to-cart--button">Aggiungi al carrello</button>
+                <button class="category-product-item_add-to-cart--button">Aggiungi al carrello</button>
             </div>
         </c:forEach>
     </div>
 
 </main>
 
-<jsp:include page="/jsp/common/Footer.jsp" />
+
 </body>
+<jsp:include page="/jsp/common/Footer.jsp" />
 </html>

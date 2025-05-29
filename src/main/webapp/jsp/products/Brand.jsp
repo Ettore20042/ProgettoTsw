@@ -6,12 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <jsp:include page="/jsp/common/HeadContent.jsp" />
-    <title>Title</title>
-</head>
+<%
+    request.setAttribute("pageTitle", "BricoBravo - Brand");
+%>
+<jsp:include page="/jsp/common/Header.jsp"/>
 <body>
 
 </body>
+<jsp:include page="/jsp/common/Footer.jsp"/>
 </html>

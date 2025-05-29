@@ -1,14 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <jsp:include page="common/HeadContent.jsp" />
-    <title>BricoShop</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/homepage.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
-    <script src="${pageContext.request.contextPath}/Js/Homepage.js?v=<%=System.currentTimeMillis()%>"></script>
-</head>
-<body>
+
+<%
+    request.setAttribute("pageTitle", "BricoBravo - Home");
+%>
 <jsp:include page="common/Header.jsp"/>
 <main>
     <!-- Aggiungi all'inizio della pagina, dopo i tag iniziali -->

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <footer class="main-footer">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css" type="text/css">
+
     <div class="main-footer_content">
         <details class="disclosure-box main-footer_customer-support">
             <summary class="disclosure-box_button">
