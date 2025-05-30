@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    request.setAttribute("pageTitle", "BricoBravo - User Profile");
+    request.setAttribute("pageTitle", "BricoShop - User Profile");
 %>
 <jsp:include page="/jsp/common/Header.jsp" />
 <body>

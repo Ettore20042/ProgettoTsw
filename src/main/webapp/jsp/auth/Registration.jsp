@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    request.setAttribute("pageTitle", "BricoBravo - Registrazione");
+    request.setAttribute("pageTitle", " Registrazione");
 %>
 <body>
 <jsp:include page="/jsp/common/Header.jsp" />

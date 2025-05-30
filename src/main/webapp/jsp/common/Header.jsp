@@ -41,8 +41,17 @@
                     <a href="${pageContext.request.contextPath}/jsp/auth/Registration.jsp">Registrati</a>
                 <% } %>
             </div>
-            <a href="${pageContext.request.contextPath}/carrello" class="user-actions_button user-actions_button--cart">
+
+            <a href="${pageContext.request.contextPath}/jsp/profile/Cart.jsp" class="user-actions_button user-actions_button--cart">
                 <img src="${pageContext.request.contextPath}/img/header/carrello.svg" alt="Logo" id="cartIcon" tabindex="0"/>
+                <span class="cart-count">
+                    <c:choose>
+                        <c:when test="${sessionScope.cart != null}">
+                            <c:out value="${sessionScope.cart.size()}" />
+                        </c:when>
+                        <c:otherwise>0</c:otherwise>
+                    </c:choose>
+                </span>
             </a>
         </div>
     </div>

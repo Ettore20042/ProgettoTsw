@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%
-    request.setAttribute("pageTitle", "BricoBravo - Categorie");
+    request.setAttribute("pageTitle", "BricoShop - Categorie");
 %>
 
 
@@ -52,7 +52,14 @@
                     <h6 class="category-product-item_name--title">${product.productName}</h6>
                 </a>
                 <p class="category-container_card_price">Prezzo: €${product.price}</p>
-                <button class="category-product-item_add-to-cart--button">Aggiungi al carrello</button>
+                <form action="${pageContext.request.contextPath}/CartServlet" class="add-to-cart-form" data-product-id="${product.productId}" method="post" style="display: contents;">
+                    <input type="hidden" name="productId" value="${product.productId}" />
+                    <input type="hidden" name="quantity" value="1" />
+                    <button type="submit" class="category-product-item_add-to-cart--button">Aggiungi al carrello</button>
+                </form>
+
+
+
             </div>
         </c:forEach>
     </div>
