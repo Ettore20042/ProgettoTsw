@@ -6,8 +6,7 @@
 %>
 <jsp:include page="/jsp/common/Header.jsp"/>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
-<script src="${pageContext.request.contextPath}/Js/profile/cart.js" defer></script>
+
 
 <div class="cart-container">
     <h1 class="cart-title">Il tuo carrello</h1>
