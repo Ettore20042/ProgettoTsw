@@ -70,7 +70,7 @@ public class ProductDAO {
                 product.setColor(resultSet.getString("Color"));
                 product.setMaterial(resultSet.getString("Material"));
                 product.setQuantity(resultSet.getInt("Quantity"));
-                product.setsalePrice(resultSet.getFloat("salePrice"));
+                product.setsalePrice(resultSet.getFloat("SalePrice"));
                 product.setBrandId(resultSet.getInt("BrandID"));
                 product.setCategoryId(resultSet.getInt("CategoryID"));
                 products.add(product);

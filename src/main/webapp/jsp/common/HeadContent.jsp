@@ -11,3 +11,5 @@
 <script src="${pageContext.request.contextPath}/Js/products/ProductPage.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
 <script src="${pageContext.request.contextPath}/Js/CheckCredential.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
+<script src="${pageContext.request.contextPath}/Js/profile/cart.js" defer></script>

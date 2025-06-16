@@ -22,7 +22,7 @@
                         <div class="category-card_maincategory">
                             <img src="${pageContext.request.contextPath}/${category.categoryPath}" alt="${category.categoryName}" />
                             <h3>${category.categoryName}</h3>
-                            <a href="${pageContext.request.contextPath}/ProductServlet?categoryId=${category.categoryId}" class="view-btn">Vedi prodotti</a>
+                            <a href="${pageContext.request.contextPath}/ProductListServlet?categoryId=${category.categoryId}" class="view-btn">Vedi prodotti</a>
                             <button class="toggle-subcategories">▶</button>
                         </div>
 
@@ -30,7 +30,7 @@
                         <div class="subcategory-menu">
                             <c:forEach var="subcat" items="${categories}">
                                 <c:if test="${subcat.parentCategory == category.categoryId}">
-                                    <a href="${pageContext.request.contextPath}/ProductServlet?categoryId=${subcat.categoryId}">
+                                    <a href="${pageContext.request.contextPath}/ProductListServlet?categoryId=${subcat.categoryId}">
                                             ${subcat.categoryName}
                                     </a>
                                 </c:if>

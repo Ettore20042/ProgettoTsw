@@ -36,6 +36,7 @@
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 1rem;
+
 }
 
 .cart-table thead {
@@ -56,11 +57,7 @@
     font-size: 0.9rem;
 }
 
-/* Hide total column on small screens */
-.cart-table th:nth-child(4),
-.cart-table td:nth-child(4) {
-    display: none;
-}
+
 
 .product-name {
     font-weight: 500;
@@ -86,8 +83,10 @@
     text-align: center;
 }
 
-
-
+    .cart-table th:nth-child(5),
+    .cart-table td:nth-child(5) {
+        display: none;
+    }
 
 
 /* Footer row styling */
