@@ -19,7 +19,7 @@
                 <div class="brand-section">
                 <img src="${pageContext.request.contextPath}/img/homepage/brand.png" alt="Brand" id="welcome-brand-image">
                 <h3>I nostri Brand</h3>
-                <a href="${pageContext.request.contextPath}/jsp/products/Brand.jsp" class="button">Scopri di pi&ugrave;</a>
+                <a href="${pageContext.request.contextPath}/BrandServlet" class="button">Scopri di pi&ugrave;</a>
                  </div>
 
                 <div class="shop-section">
