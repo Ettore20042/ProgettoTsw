@@ -61,3 +61,5 @@
     </div>
     <script src="${pageContext.request.contextPath}/Js/common/footer.js"></script>
 </footer>
+</body>
+</html>

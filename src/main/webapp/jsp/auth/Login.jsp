@@ -2,7 +2,7 @@
     request.setAttribute("title", "Accedi");
 %>
 <jsp:include page="/jsp/common/Header.jsp" />
-<body>
+
 <main>
     <div class="auth-form-container">
         <h2 class="auth-form-container__title">Accedi</h2>
@@ -25,6 +25,6 @@
         </form>
     </div>
 </main>
-</body>
 <jsp:include page="/jsp/common/Footer.jsp" />
-</html>
+
+

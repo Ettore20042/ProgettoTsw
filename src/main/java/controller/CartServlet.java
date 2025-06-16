@@ -24,6 +24,8 @@ public class CartServlet extends HttpServlet {
         try {
             String productIdParam = request.getParameter("productId");
             String quantityParam = request.getParameter("quantity");
+            String updateParam = request.getParameter("update");
+            boolean isUpdate = updateParam != null && updateParam.equalsIgnoreCase("true");
 
             if (productIdParam == null || quantityParam == null) {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameters");
@@ -47,7 +49,11 @@ public class CartServlet extends HttpServlet {
             boolean found = false;
             for (CartItem item : cart) {
                 if (item.getProductId() == productId) {
-                    item.setQuantity(item.getQuantity() + quantity);
+                    if (isUpdate) {
+                        item.setQuantity(quantity); // ✅ aggiornamento diretto
+                    } else {
+                        item.setQuantity(item.getQuantity() + quantity); // ➕ aggiunta
+                    }
                     found = true;
                     break;
                 }

@@ -7,7 +7,7 @@
     <title><c:out value="${pageTitle}" default="BricoShop"/></title>
     <jsp:include page="/jsp/common/HeadContent.jsp" />
 </head>
-
+<body>
 <header class="main-header">
     <div class="main-header_content">
         <button id="openNavButton" tabindex="0">&#9776;</button>
