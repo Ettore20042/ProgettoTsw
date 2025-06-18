@@ -56,6 +56,51 @@ public class ProductDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public List<Product> doRetrieveByBrandId(int id) {
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT ProductID,ProductName,Description,Price FROM product WHERE BrandID=?");
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Product> products = new ArrayList<>();
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setProductId(resultSet.getInt("ProductID"));
+                product.setProductName(resultSet.getString("ProductName"));
+                product.setDescription(resultSet.getString("Description"));
+                product.setPrice(resultSet.getFloat("Price"));
+                products.add(product);
+            }
+            return products;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public List<Product> doRetrieveByCategoryId(int id) {
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT ProductID, ProductName, Description, Price " +
+                    "FROM product " +
+                    "WHERE CategoryID = ? OR CategoryID IN (SELECT CategoryID FROM category WHERE ParentCategory = ?)");
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Product> products = new ArrayList<>();
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setProductId(resultSet.getInt("ProductID"));
+                product.setProductName(resultSet.getString("ProductName"));
+                product.setDescription(resultSet.getString("Description"));
+                product.setPrice(resultSet.getFloat("Price"));
+                products.add(product);
+            }
+            return products;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+
     public List<Product> doretrieveAll() {
         try (Connection connection = ConnPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM product");
