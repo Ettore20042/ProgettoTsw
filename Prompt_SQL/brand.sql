@@ -1,0 +1,12 @@
+INSERT INTO tswproject.brand (BrandID, LogoPath, BrandName) VALUES (1, 'img/logos/bosch.webp', 'Bosch');
+INSERT INTO tswproject.brand (BrandID, LogoPath, BrandName) VALUES (2, 'img/logos/makita.png', 'Makita');
+INSERT INTO tswproject.brand (BrandID, LogoPath, BrandName) VALUES (3, 'img/logos/dewalt.png', 'DeWalt');
+INSERT INTO tswproject.brand (BrandID, LogoPath, BrandName) VALUES (4, 'img/logos/gardena.png', 'Gardena');
+INSERT INTO tswproject.brand (BrandID, LogoPath, BrandName) VALUES (5, 'img/logos/samsung.png', 'Samsung');
+INSERT INTO tswproject.brand (BrandID, LogoPath, BrandName) VALUES (6, 'img/logos/lg.png', 'LG');
+INSERT INTO tswproject.brand (BrandID, LogoPath, BrandName) VALUES (7, 'img/logos/bialetti.png', 'Bialetti');
+INSERT INTO tswproject.brand (BrandID, LogoPath, BrandName) VALUES (8, 'img/logos/lagostina.png', 'Lagostina');
+INSERT INTO tswproject.brand (BrandID, LogoPath, BrandName) VALUES (9, 'img/logos/foppapedretti.png', 'Foppapedretti');
+INSERT INTO tswproject.brand (BrandID, LogoPath, BrandName) VALUES (10, 'img/logos/black_decker.png', 'Black+Decker');
+INSERT INTO tswproject.brand (BrandID, LogoPath, BrandName) VALUES (11, 'img/logos/philips.png', 'Philips');
+INSERT INTO tswproject.brand (BrandID, LogoPath, BrandName) VALUES (12, 'img/logos/weber.png', 'Weber');
