@@ -1,7 +1,7 @@
 /* Base styles for mobile */
 .brands-container{
     margin-bottom: 0.5rem;
-    padding: 0 8 px;
+    padding: 0 8px;
 }
 
 .brands-grid{
@@ -46,6 +46,8 @@
     align-items: center;
     gap: 8px;
 }
+
+
 
 .brands-main-title--h2{
     margin-top: 1rem;
@@ -97,5 +99,8 @@
         font-size: 2rem;
     }
 
+    .brands-container .view-btn{
+        display: flex;
+    }
 
 }
