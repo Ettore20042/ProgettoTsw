@@ -214,6 +214,7 @@ header.main-header{
     top: 0;
     right: 0;
 }
+
 /*CSS Desktop*/
 @media (min-width: 992px){
     .main-header_content{

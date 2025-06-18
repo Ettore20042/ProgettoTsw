@@ -34,12 +34,12 @@ function toggleDropdown() {
 
 function closeOnClickOutside(event) {
     if (mobileNav.style.width === "65%" &&
-            !mobileNav.contains(event.target)) {
-       closeNav();
+        !mobileNav.contains(event.target)) {
+        closeNav();
     }
     if (profileActionsDropdown.style.display === "flex" &&
-            !profileActionsButton.contains(event.target) &&
-            !profileActionsDropdown.contains(event.target)) {
+        !profileActionsButton.contains(event.target) &&
+        !profileActionsDropdown.contains(event.target)) {
         toggleDropdown();
     }
 }

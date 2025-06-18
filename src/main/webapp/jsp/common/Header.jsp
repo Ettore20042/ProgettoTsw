@@ -33,12 +33,12 @@
             <div class="user-actions_dropdown" id="userActionsDropdown">
                 <% if (request.getSession().getAttribute("user") != null) {
                     User user = (User) session.getAttribute("user");%>
-                    <span class="user-actions_dropdown_name-user"><%= user.getFirstName()%></span>
-                    <a href="${pageContext.request.contextPath}/jsp/profile/User.jsp" class="user-actions_dropdown--first-link">Account</a>
-                    <a href="${pageContext.request.contextPath}/LogoutServlet">Logout</a>
+                <span class="user-actions_dropdown_name-user"><%= user.getFirstName()%></span>
+                <a href="${pageContext.request.contextPath}/jsp/profile/User.jsp" class="user-actions_dropdown--first-link">Account</a>
+                <a href="${pageContext.request.contextPath}/LogoutServlet">Logout</a>
                 <% } else { %>
-                    <a href="${pageContext.request.contextPath}/jsp/auth/Login.jsp" class="user-actions_dropdown--first-link">Accedi</a>
-                    <a href="${pageContext.request.contextPath}/jsp/auth/Registration.jsp">Registrati</a>
+                <a href="${pageContext.request.contextPath}/jsp/auth/Login.jsp" class="user-actions_dropdown--first-link">Accedi</a>
+                <a href="${pageContext.request.contextPath}/jsp/auth/Registration.jsp">Registrati</a>
                 <% } %>
             </div>
 
