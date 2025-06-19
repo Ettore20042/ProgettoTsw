@@ -9,7 +9,7 @@
 </head>
 <body>
 <script> //passo il contextPath a JavaScript
-    const contextPath = '${pageContext.request.contextPath}';
+const contextPath = '${pageContext.request.contextPath}';
 </script>
 <header class="main-header">
     <div class="main-header_content">
