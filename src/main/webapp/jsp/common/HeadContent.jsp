@@ -1,17 +1,10 @@
 <!-- Add these lines at the top of the head section -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="${pageContext.request.contextPath}/img/favicon/favicon.ico" type="image/x-icon" />
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/homepage.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
-<script src="${pageContext.request.contextPath}/Js/Homepage.js?v=<%=System.currentTimeMillis()%>"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
+<script src="${pageContext.request.contextPath}/Js/common/header.js" defer></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/categories.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
-<script src="${pageContext.request.contextPath}/Js/products/CategoryList.js?v=<%=System.currentTimeMillis()%>"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
-<script src="${pageContext.request.contextPath}/Js/products/ProductPage.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
-<script src="${pageContext.request.contextPath}/Js/CheckCredential.js"></script>
+<script src="${pageContext.request.contextPath}/Js/common/footer.js" defer></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
 <script src="${pageContext.request.contextPath}/Js/profile/cart.js" defer></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/brands.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/productList.css">

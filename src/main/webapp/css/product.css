@@ -108,3 +108,16 @@ main{
     background: transparent;
     border: none;
 }
+
+@media (min-width: 992px){
+    .product-card{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .product-card_images{
+        width: 65%;
+        height: auto;
+    }
+}
+

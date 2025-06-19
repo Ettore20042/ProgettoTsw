@@ -1,22 +1,20 @@
 <%@ page import="model.Bean.Product" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: ettor
-  Date: 29/04/2025
-  Time: 11:39
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     Product product = (Product) request.getAttribute("product");
     request.setAttribute("pageTitle", product.getProductName());
 %>
-<jsp:include page="/jsp/common/Header.jsp"/>
-
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <title><c:out value="${pageTitle}" default="BricoShop"/></title>
+    <jsp:include page="/jsp/common/HeadContent.jsp" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
+</head>
 <body>
-
+    <jsp:include page="/jsp/common/Header.jsp"/>
     <main class="product-page">
         <section class="product-card">
             <h2 class="product-card--brand">${productBrand.getBrandName()}</h2>
@@ -56,6 +54,6 @@
     </main>
 
 
+    <jsp:include page="/jsp/common/Footer.jsp"/>
 </body>
-<jsp:include page="/jsp/common/Footer.jsp"/>
 </html>

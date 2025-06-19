@@ -21,13 +21,12 @@ public class CategoryServlet extends HttpServlet {
       CategoryDAO categoryDAO = new CategoryDAO();
       List<Category> categories = categoryDAO.doRetrieveAll();
       request.setAttribute("categories", categories);
-        ProductDAO productDAO = new ProductDAO();
-        List<Product> products=new ArrayList<>();
-        products=productDAO.doretrieveAll();
-        request.setAttribute("products", products);
+      ProductDAO productDAO = new ProductDAO();
+      List<Product> products = new ArrayList<>();
+      products = productDAO.doretrieveAll();
+      request.setAttribute("products", products);
       RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/products/CategoryList.jsp");
-
-        dispatcher.forward(request, response);
+      dispatcher.forward(request, response);
     }
 
 

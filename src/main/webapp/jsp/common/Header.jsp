@@ -1,13 +1,6 @@
 <%@ page import="model.Bean.User" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <title><c:out value="${pageTitle}" default="BricoShop"/></title>
-    <jsp:include page="/jsp/common/HeadContent.jsp" />
-</head>
-<body>
+
 <header class="main-header">
     <div class="main-header_content">
         <button id="openNavButton" tabindex="0">&#9776;</button>
@@ -24,7 +17,6 @@
                 </button>
             </form>
         </div>
-
         <div class="main-header_user-actions">
             <button class="user-actions_button user-actions_button--profile" id="userProfileButton">
                 <img src="${pageContext.request.contextPath}/img/header/icona_profilo.svg" alt="Icona profilo" id="profileIcon" tabindex="0"/>
@@ -59,7 +51,7 @@
         <ul class="mobile-nav_list">
             <li class="mobile-nav_item--close"><button id="closeNavButton">&times;</button></li>
             <li><a href="${pageContext.request.contextPath}/" class="mobile-nav_link">Home</a></li>
-            <li><a href="${pageContext.request.contextPath}/prodotti" class="mobile-nav_link">Prodotti</a></li>
+            <li><a href="${pageContext.request.contextPath}/CategoryServlet" class="mobile-nav_link">Prodotti</a></li>
             <li><a href="${pageContext.request.contextPath}/contatti" class="mobile-nav_link">Contatti</a></li>
             <li><a href="${pageContext.request.contextPath}/ProductServlet" class="mobile-nav_link">TestProdotto</a></li>
         </ul>

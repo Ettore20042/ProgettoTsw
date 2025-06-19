@@ -1,17 +1,13 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Utente
-  Date: 03/05/2025
-  Time: 19:13
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    request.setAttribute("pageTitle", "BricoShop - Admin");
-%>
-<jsp:include page="/jsp/common/Header.jsp" />
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <title><c:out value="${pageTitle}" default="BricoShop"/></title>
+    <jsp:include page="/jsp/common/HeadContent.jsp" />
+</head>
 <body>
+    <jsp:include page="/jsp/common/Header.jsp" />
 
+    <jsp:include page="/jsp/common/Footer.jsp" />
 </body>
-<jsp:include page="/jsp/common/Footer.jsp" />
 </html>

@@ -1,18 +1,12 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Utente
-  Date: 06/05/2025
-  Time: 12:35
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%
-    request.setAttribute("pageTitle", " Brand");
-%>
-
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <title><c:out value="${pageTitle}" default="BricoShop"/></title>
+    <jsp:include page="/jsp/common/HeadContent.jsp" />
+</head>
 <body>
 <jsp:include page="/jsp/common/Header.jsp"/>
 
@@ -38,6 +32,6 @@
 
 </main>
 
-</body>
 <jsp:include page="/jsp/common/Footer.jsp"/>
+</body>
 </html>

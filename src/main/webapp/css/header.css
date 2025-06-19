@@ -129,7 +129,7 @@ header.main-header{
     padding: 7px;
 }
 .user-actions_dropdown{
-    display: none; /*Attualmente impostato none per comodità. Da impostare flex, e rendere visivamente dinamico con js*/
+    display: none;
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: center;
@@ -168,13 +168,14 @@ header.main-header{
 }
 
 .mobile-nav{
-    display: block;       /*Da impostare block con js*/
+    display: block;
     position: fixed;
     width: 0;
     height: 100%;
     background-color: #392E23;
     overflow: hidden;
     z-index: 2;
+    font-family: 'Poppins', sans-serif;
 }
 .mobile-nav_list{
     list-style: none;

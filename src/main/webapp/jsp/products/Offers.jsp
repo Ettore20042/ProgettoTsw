@@ -1,17 +1,17 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ettor
-  Date: 14/05/2025
-  Time: 10:20
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     request.setAttribute("pageTitle", "BricoShop - Offers");
 %>
-<jsp:include page="/jsp/common/Header.jsp"/>
-<body>
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <title><c:out value="${pageTitle}" default="BricoShop"/></title>
+        <jsp:include page="/jsp/common/HeadContent.jsp" />
+    </head>
+    <body>
+        <jsp:include page="/jsp/common/Header.jsp"/>
 
-</body>
-<jsp:include page="/jsp/common/Footer.jsp"/>
+        <jsp:include page="/jsp/common/Footer.jsp"/>
+    </body>
 </html>

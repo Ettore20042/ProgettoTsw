@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class ImageDAO {
-    public List<Image> doRetrieveById(int id) {
+    public List<Image> doRetrieveAllByProduct(int id) {
         try(Connection conn= ConnPool.getConnection()) {
             String sql = "SELECT * FROM image WHERE ProductID = ?";
             PreparedStatement ps = conn.prepareStatement(sql);

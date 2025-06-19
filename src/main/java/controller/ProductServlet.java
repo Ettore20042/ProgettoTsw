@@ -41,7 +41,7 @@ public class ProductServlet extends HttpServlet {
                     ImageDAO imageDAO = new ImageDAO();
                     BrandDAO brandDAO = new BrandDAO();
                     Brand brand = brandDAO.doRetrieveById(product.getBrandId());
-                    List<Image> images = imageDAO.doRetrieveById(id);
+                    List<Image> images = imageDAO.doRetrieveAllByProduct(id);
                     request.setAttribute("product", product);
                     request.setAttribute("productImages", images);
                     request.setAttribute("productBrand", brand);
