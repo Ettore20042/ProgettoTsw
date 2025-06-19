@@ -8,10 +8,7 @@
     <jsp:include page="/jsp/common/HeadContent.jsp" />
 </head>
 <body>
-<script> //passo il contextPath a JavaScript
-    const contextPath = '${pageContext.request.contextPath}';
-</script>
-<header class="main-header">
+<header class="main-header" data-context-path="${pageContext.request.contextPath}">
     <div class="main-header_content">
         <button id="openNavButton" tabindex="0">&#9776;</button>
 
@@ -21,7 +18,7 @@
 
         <div class="search-bar main-header_search-bar">
             <form id="searchForm" action="ProductListServlet" method="get" class="search-bar_form" autocomplete="off">
-                <input type="search" id="searchBar" name="q" placeholder="Cerca..." autocomplete="off">
+                <input type="search" id="searchBar" name="searchBar" placeholder="Cerca..." autocomplete="off">
                 <button type="submit" aria-label="Cerca">
                     <img src="${pageContext.request.contextPath}/img/header/lente.svg" id="searchLens" alt="Cerca">
                 </button>
@@ -68,7 +65,7 @@
         <ul class="mobile-nav_list">
             <li class="mobile-nav_item--close"><button id="closeNavButton">&times;</button></li>
             <li><a href="${pageContext.request.contextPath}/" class="mobile-nav_link">Home</a></li>
-            <li><a href="${pageContext.request.contextPath}/prodotti" class="mobile-nav_link">Prodotti</a></li>
+            <li><a href="${pageContext.request.contextPath}/CategoryServlet" class="mobile-nav_link">Prodotti</a></li>
             <li><a href="${pageContext.request.contextPath}/contatti" class="mobile-nav_link">Contatti</a></li>
             <li><a href="${pageContext.request.contextPath}/ProductServlet" class="mobile-nav_link">TestProdotto</a></li>
         </ul>

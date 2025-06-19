@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
 const input = document.getElementById('searchBar');
 const suggestionBox = document.getElementById('suggestions');
 const searchBarWrapper = document.querySelector('.main-header_search-bar');
+const contextPath = document.body.dataset.contextPath;
 
 let timeout = null;
 
