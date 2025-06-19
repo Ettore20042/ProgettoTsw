@@ -39,8 +39,18 @@ public class ImageServlet extends HttpServlet {
                 return;
             }
 
-            String imagePath = request.getContextPath() + images.get(0).getImagePath();
+            String imagePath = images.get(0).getImagePath();
+            // ******* AGGIUNGI QUESTO LOG DI DEBUG FONDAMENTALE *******
+            System.out.println("DEBUG - Tentativo di forward al percorso: '" + imagePath + "'");
+
+// Ora fai il forward
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(imagePath);
+            if (dispatcher == null) {
+                // Aggiungiamo un altro controllo per vedere se il dispatcher stesso è null
+                System.err.println("ERRORE - Nessun dispatcher trovato per il percorso: " + imagePath);
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Risorsa interna non valida.");
+                return;
+            }
             dispatcher.forward(request, response);
 
         } catch (NumberFormatException e) {
