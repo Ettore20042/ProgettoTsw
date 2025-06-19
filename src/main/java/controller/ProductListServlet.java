@@ -14,7 +14,6 @@ import java.util.List;
 public class ProductListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO: Elabora la richiesta
         String brandIdParam = request.getParameter("brandId");
         String categoryIdParam = request.getParameter("categoryId");
         ProductDAO productDAO = new ProductDAO();
@@ -32,7 +31,8 @@ public class ProductListServlet extends HttpServlet {
                 request.setAttribute("productList", productList);
                 dispatcher = request.getRequestDispatcher("/jsp/products/ProductsList.jsp");
                 dispatcher.forward(request, response);
-            }else if(categoryIdParam != null){
+            }
+            if(categoryIdParam != null){
                 List<Product> productList = productDAO.doRetrieveByCategoryId(Integer.parseInt(categoryIdParam));
                 request.setAttribute("productList", productList);
                 dispatcher = request.getRequestDispatcher("/jsp/products/ProductsList.jsp");

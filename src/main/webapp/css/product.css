@@ -115,9 +115,16 @@ main{
         flex-direction: row;
         flex-wrap: wrap;
     }
+    .product-card--name{
+
+    }
+    .product-card--brand{
+
+    }
     .product-card_images{
         width: 65%;
         height: auto;
+        order: -1;
     }
 }
 

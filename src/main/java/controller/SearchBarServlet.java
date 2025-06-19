@@ -22,7 +22,7 @@ public class SearchBarServlet extends HttpServlet {
             ProductDAO productDAO = new ProductDAO();
             List<Product> products = productDAO.findByNameLike(searchQuery);
 
-            request.setAttribute("products", products);
+            request.setAttribute("productList", products);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/products/ProductsList.jsp");
             dispatcher.forward(request, response);  

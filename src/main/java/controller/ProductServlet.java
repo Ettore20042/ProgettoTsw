@@ -28,7 +28,7 @@ public class ProductServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String idParam = request.getParameter("productId");  commentato per implementare e provare la pagina product.jsp
+//        String idParam = request.getParameter("productId");
         String idParam = "4"; // Simulazione di un ID prodotto per il test
         ProductDAO service = new ProductDAO();
         RequestDispatcher rd = request.getRequestDispatcher("/jsp/products/Product.jsp");

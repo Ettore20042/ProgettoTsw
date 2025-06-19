@@ -18,46 +18,25 @@
 
             <section class="productList">
                 <h2 class="productList-main-title--h2">Elenco prodotti</h2>
-                <div class="productList-grid">
-                    <c:forEach var="product" items="${productList}">
-                        <div class="productList-product-card">
-                                <img src="${pageContext.request.contextPath}/ProductServlet?productId=${product.productId}" alt="${product.productName}" />
-                                <h6 class="productList-product-card_name--title">${product.productName}</h6>
-                                <c:if test="${product.getQuantity() == 0}">
-                                    <p class="productList-product-card--out-of-stock">Non disponibile</p>
-                                </c:if>
-                                <p class="productList-product-card-price">Prezzo: €${product.price}</p>
-                                <form action="${pageContext.request.contextPath}/CartServlet" class="add-to-cart-form" data-product-id="${product.productId}" method="post" style="display: contents;">
-                                    <input type="hidden" name="productId" value="${product.productId}" />
-                                    <input type="hidden" name="quantity" value="1" />
-                                    <button type="submit" class="productList-product-card-add-to-cart--button">Aggiungi al carrello</button>
-                                </form>
-                        </div>
-                    </c:forEach>
-                </div>
                 <c:choose>
-                    <c:when test="${empty products}">
+                    <c:when test="${empty productList}">
                         <p>Nessun prodotto trovato.</p>
                     </c:when>
                     <c:otherwise>
                         <div class="productList-grid">
-                            <c:forEach var="product" items="${products}">
+                            <c:forEach var="product" items="${productList}">
                                 <div class="productList-product-card">
-                                    <img src="${pageContext.request.contextPath}/ProductServlet?productId=${product.productId}" alt="${product.productName}" />
-
-                                    <h6 class="productList-product-card_name--title">${product.productName}</h6>
-
-                                    <c:if test="${product.quantity == 0}">
-                                        <p class="productList-product-card--out-of-stock">Non disponibile</p>
-                                    </c:if>
-
-                                    <p class="productList-product-card-price">Prezzo: €${product.price}</p>
-
-                                    <form action="${pageContext.request.contextPath}/CartServlet" method="post" class="add-to-cart-form" data-product-id="${product.productId}" style="display: contents;">
-                                        <input type="hidden" name="productId" value="${product.productId}" />
-                                        <input type="hidden" name="quantity" value="1" />
-                                        <button type="submit" class="productList-product-card-add-to-cart--button">Aggiungi al carrello</button>
-                                    </form>
+                                        <img src="${pageContext.request.contextPath}/ProductServlet?productId=${product.productId}" alt="${product.productName}" />
+                                        <h6 class="productList-product-card_name--title">${product.productName}</h6>
+                                        <c:if test="${product.getQuantity() == 0}">
+                                            <p class="productList-product-card--out-of-stock">Non disponibile</p>
+                                        </c:if>
+                                        <p class="productList-product-card-price">Prezzo: €${product.price}</p>
+                                        <form action="${pageContext.request.contextPath}/CartServlet" class="add-to-cart-form" data-product-id="${product.productId}" method="post" style="display: contents;">
+                                            <input type="hidden" name="productId" value="${product.productId}" />
+                                            <input type="hidden" name="quantity" value="1" />
+                                            <button type="submit" class="productList-product-card-add-to-cart--button">Aggiungi al carrello</button>
+                                        </form>
                                 </div>
                             </c:forEach>
                         </div>

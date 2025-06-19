@@ -124,21 +124,24 @@ public class ProductDAO {
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
+    }
 
-}
     public List<String> searchProductsByName(String name) {
-    try (Connection connection = ConnPool.getConnection()) {
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT ProductName FROM product WHERE ProductName LIKE ?");
-        preparedStatement.setString(1, name + "%");
-        ResultSet resultSet = preparedStatement.executeQuery();
-        List<String> productNames = new ArrayList<>();
-        while (resultSet.next()) {
-            productNames.add(resultSet.getString("ProductName"));
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT ProductName FROM product WHERE ProductName LIKE ?");
+            preparedStatement.setString(1, name + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<String> productNames = new ArrayList<>();
+            while (resultSet.next()) {
+                productNames.add(resultSet.getString("ProductName"));
+            }
+            return productNames;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
-        return productNames;
-    } catch (SQLException ex) {
-        throw new RuntimeException(ex);
-    }}
+    }
+
+
     public List<Product> findByNameLike(String name) {
         try (Connection connection = ConnPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE ProductName LIKE ?");
