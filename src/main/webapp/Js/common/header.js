@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener("click", closeOnClickOutside);
 });
 
-const input = document.getElementById('searchBar');
+const input = document.getElementById('searchQuery');
 const suggestionBox = document.getElementById('suggestions');
 const searchBarWrapper = document.querySelector('.main-header_search-bar');
 const contextPath = document.body.dataset.contextPath;
@@ -69,7 +69,7 @@ input.addEventListener('input', function() {
         return;
     }
 
-    const url = `${contextPath}/SuggestionsServlet?searchBar=${encodeURIComponent(value)}`;
+    const url = `${contextPath}/SuggestionsServlet?searchQuery=${encodeURIComponent(value)}`;
 
     timeout = setTimeout(() => {
         fetch(url)

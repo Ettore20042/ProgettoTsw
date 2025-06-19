@@ -16,7 +16,7 @@ public class SuggestionsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String query = request.getParameter("searchBar");
+        String query = request.getParameter("searchQuery");
         if (query == null) query = "";
 
         List<String> results = dao.searchProductsByName(query);
