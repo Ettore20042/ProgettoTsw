@@ -24,7 +24,7 @@ public class ImageDAO {
                 image.setProductId(rs.getInt("ProductID"));
                 image.setImageDescription(rs.getString("ImageDescription"));
                 image.setDisplayOrder(rs.getInt("DisplayOrder"));
-                image.setImagePath(rs.getString("ImagePath"));
+                image.setImagePath("/" + rs.getString("ImagePath"));
                 images.add(image);
             }
          return images;
@@ -32,26 +32,5 @@ public class ImageDAO {
             e.printStackTrace();
             return null;
         }
-    }
-    public List<Image> doRetrieveByProductId(String id) {
-        List<Image> images = new ArrayList<>();
-        try (Connection conn = ConnPool.getConnection()) {
-            String sql = "SELECT * FROM image WHERE ProductID = ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Image image = new Image();
-                image.setImageId(rs.getInt("ImageID"));
-                image.setProductId(rs.getInt("ProductID"));
-                image.setImageDescription(rs.getString("ImageDescription"));
-                image.setDisplayOrder(rs.getInt("DisplayOrder"));
-                image.setImagePath(rs.getString("ImagePath"));
-                images.add(image);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return images;
     }
 }

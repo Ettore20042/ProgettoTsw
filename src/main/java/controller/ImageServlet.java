@@ -39,7 +39,7 @@ public class ImageServlet extends HttpServlet {
                 return;
             }
 
-            String imagePath = request.getContextPath() + images.get(0).getImagePath();
+            String imagePath = images.get(0).getImagePath();
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(imagePath);
             dispatcher.forward(request, response);
 
