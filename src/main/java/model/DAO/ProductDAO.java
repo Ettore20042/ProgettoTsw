@@ -139,5 +139,30 @@ public class ProductDAO {
     } catch (SQLException ex) {
         throw new RuntimeException(ex);
     }}
+    public List<Product> findByNameLike(String name) {
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE ProductName LIKE ?");
+            preparedStatement.setString(1, "%" + name + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Product> products = new ArrayList<>();
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setProductId(resultSet.getInt("ProductID"));
+                product.setProductName(resultSet.getString("ProductName"));
+                product.setDescription(resultSet.getString("Description"));
+                product.setPrice(resultSet.getFloat("Price"));
+                product.setColor(resultSet.getString("Color"));
+                product.setMaterial(resultSet.getString("Material"));
+                product.setQuantity(resultSet.getInt("Quantity"));
+                product.setsalePrice(resultSet.getFloat("SalePrice"));
+                product.setBrandId(resultSet.getInt("BrandID"));
+                product.setCategoryId(resultSet.getInt("CategoryID"));
+                products.add(product);
+            }
+            return products;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 }
 
