@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener("click", closeOnClickOutside);
 });
 
-const input = document.getElementById('searchQuery');
+const input = document.getElementById('searchBar');
 const suggestionBox = document.getElementById('suggestions');
 const searchBarWrapper = document.querySelector('.main-header_search-bar');
 const contextPath = document.body.dataset.contextPath;

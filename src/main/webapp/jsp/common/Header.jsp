@@ -17,7 +17,7 @@
         </a>
 
         <div class="search-bar main-header_search-bar">
-            <form id="searchForm" action="ProductListServlet" method="get" class="search-bar_form" autocomplete="off">
+            <form id="searchForm" action="SearchBarServlet" method="get" class="search-bar_form" autocomplete="off">
                 <input type="search" id="searchBar" name="searchQuery" placeholder="Cerca..." autocomplete="off">
                 <button type="submit" aria-label="Cerca">
                     <img src="${pageContext.request.contextPath}/img/header/lente.svg" id="searchLens" alt="Cerca">
