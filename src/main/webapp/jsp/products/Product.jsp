@@ -12,6 +12,7 @@
     <title><c:out value="${pageTitle}" default="BricoShop"/></title>
     <jsp:include page="/jsp/common/HeadContent.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
+    <script src="${pageContext.request.contextPath}/Js/products/ProductPage.js" defer></script>
 </head>
 <body>
     <jsp:include page="/jsp/common/Header.jsp"/>
@@ -20,11 +21,21 @@
             <h2 class="product-card--brand">${productBrand.getBrandName()}</h2>
             <h1 class="product-card--name">${product.getProductName()}</h1>
             <div class="product-card_images">
-                <div class="product-card_slider-track">
+                <div class="product-card_slider">
                     <c:forEach var="image" items="${productImages}">
-                        <img src="${pageContext.request.contextPath}/${image.getImagePath()}" alt="${image.getImageDescription()}" class="product-card_slide">
+                        <div class="product-card_slide-container">
+                            <img src="${pageContext.request.contextPath}/${image.getImagePath()}" alt="${image.getImageDescription()}" class="product-card_slide--image">
+                        </div>
                     </c:forEach>
                 </div>
+
+                <button class="product-card_slider-arrow prev-arrow" aria-label="Immagine precedente">❮</button>
+                <button class="product-card_slider-arrow next-arrow" aria-label="Immagine successiva">❯</button>
+
+                <div class="product-card_slider-nav">
+                    <%-- I pallini verranno generati da JavaScript --%>
+                </div>
+
             </div>
             <div class="product-card_details">
                 <p class="product-card_details--price"><fmt:formatNumber value="${product.getPrice()}" pattern="€ #,##0.00" /></p>

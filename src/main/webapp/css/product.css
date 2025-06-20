@@ -4,26 +4,87 @@ main{
 .product-page{
     margin: 0 1rem;
 }
-.product-card_images{
+
+.product-card_images {
     overflow: hidden;
     width: 100%;
     height: auto;
     position: relative;
 }
-.product-card_slider-track{
+
+.product-card_slider {
     display: flex;
-    width: max-content;
-    height: auto;
-    flex-direction: row;
-    margin: 1.5rem 0;
-    gap: 5rem;
+    transition: transform 0.5s ease-in-out;
 }
 
-.product-card_slide{
-    width: auto;
-    height: 18rem;
-    flex-shrink: 0;
-    object-fit: cover;
+.product-card_slide-container {
+    width: 100%; /* Ogni slide occupa il 100% del contenitore */
+    height: auto;
+    flex-shrink: 0; /* Impedisce alle slide di restringersi */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-card_slide--image {
+    max-width: 100%;  /* Assicura che l'immagine non superi la larghezza del contenitore slide */
+    max-height: 22rem; /* Impostiamo una max-height per coerenza visiva */
+    height: auto;
+    object-fit: contain; /* 'contain' evita che l'immagine venga tagliata */
+}
+
+/* --- Stili per le Frecce --- */
+.product-card_slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+.product-card_slider-arrow:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+.product-card_slider-arrow.is-hidden { /* Classe per nascondere le frecce quando non servono */
+    display: none;
+}
+.prev-arrow {
+    left: 10px;
+}
+.next-arrow {
+    right: 10px;
+}
+
+/* --- Stili per i Pallini di Navigazione --- */
+.product-card_slider-nav {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+.slider-nav--dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.slider-nav--dot .current-slide {
+    background-color: rgba(255, 255, 255, 1);
 }
 .product-card--brand{
     font-family: 'Poppins', sans-serif;
@@ -109,7 +170,7 @@ main{
     border: none;
 }
 
-@media (min-width: 992px){
+@media (min-width: 768px){
     .product-card{
         display: flex;
         flex-direction: row;

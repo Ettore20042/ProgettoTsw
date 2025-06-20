@@ -1,104 +1,150 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Seleziona tutti i caroselli di immagini dei prodotti sulla pagina
-    // Questo permette di avere più caroselli indipendenti
-    const productCarousels = document.querySelectorAll('.product-card_images');
 
-    productCarousels.forEach(carouselViewport => {
-        const slideTrack = carouselViewport.querySelector('.product-card_slider-track');
+    const sliderContainer = document.querySelector('.product-card_images');
+    // Se non c'è uno slider in questa pagina, esci per non causare errori.
+    if (!sliderContainer) {
+        return;
+    }
 
-        if (!slideTrack) {
-            console.error("Elemento .product-card_slider-track non trovato dentro:", carouselViewport);
-            return; // Salta questo carosello se il track non c'è
-        }
+    const sliderTrack = sliderContainer.querySelector('.product-card_slider');
+    const slides = Array.from(sliderTrack.children);
+    const nextButton = sliderContainer.querySelector('.next-arrow');
+    const prevButton = sliderContainer.querySelector('.prev-arrow');
+    const dotsNav = sliderContainer.querySelector('.product-card_slider-nav');
 
-        let isDragging = false;
-        let startX;
-        let scrollLeftStart;
+    // Se non ci sono slide, non fare nulla
+    if (slides.length === 0) {
+        return;
+    }
 
-        // --- Eventi Mouse ---
-        carouselViewport.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            // startX è la posizione iniziale del mouse SULLA PAGINA
-            startX = e.pageX;
-            // scrollLeftStart è quanto il track è già scrollato all'inizio del drag
-            scrollLeftStart = slideTrack.scrollLeft;
-            carouselViewport.classList.add('active-dragging'); // Per feedback visivo (opzionale)
-            // Non preveniamo il default qui per permettere lo scroll verticale se necessario
+    // Se c'è solo una o nessuna immagine, nascondere la navigazione.
+    if (slides.length <= 1) {
+        if(nextButton) nextButton.style.display = 'none';
+        if(prevButton) prevButton.style.display = 'none';
+        if(dotsNav) dotsNav.style.display = 'none';
+        return;
+    }
+
+    // --- SETUP INIZIALE ---
+    const slideWidth = slides[0].getBoundingClientRect().width;
+    let currentIndex = 0;
+
+    // Creiamo i pallini di navigazione
+    dotsNav.innerHTML = ''; // Pulisci eventuali pallini esistenti
+    slides.forEach((_, index) => {
+        const button = document.createElement('button');
+        button.classList.add('slider-nav--dot');
+        button.addEventListener('click', () => {
+            moveToSlide(index);
         });
-
-        carouselViewport.addEventListener('mouseleave', () => {
-            // Se il mouse esce dall'area del carosello mentre si trascina, interrompi il drag
-            if (isDragging) {
-                isDragging = false;
-                carouselViewport.classList.remove('active-dragging');
-            }
-        });
-
-        window.addEventListener('mouseup', () => {
-            // Se il pulsante del mouse viene rilasciato ovunque, interrompi il drag
-            if (isDragging) {
-                isDragging = false;
-                carouselViewport.classList.remove('active-dragging');
-            }
-        });
-
-        window.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault(); // Previene la selezione del testo durante il drag
-
-            // Posizione corrente del mouse SULLA PAGINA
-            const currentX = e.pageX;
-            // Di quanto il mouse si è spostato dall'inizio del drag
-            const walk = currentX - startX;
-
-            // La nuova posizione di scroll è dove era all'inizio, meno lo spostamento
-            // (segno negativo perché scrollLeft aumenta verso destra,
-            // ma un drag verso destra dovrebbe mostrare contenuto più a destra, quindi scrollare a sinistra)
-            let newScrollLeft = scrollLeftStart - walk;
-
-            // Applica i limiti (non necessario se vuoi lo "snap" ai bordi nativo, ma utile per evitare overscroll visivo strano)
-            // const trackWidth = slideTrack.scrollWidth;
-            // const viewportWidth = carouselViewport.offsetWidth;
-            // const maxScroll = trackWidth - viewportWidth;
-            // if (newScrollLeft < 0) newScrollLeft = 0;
-            // if (newScrollLeft > maxScroll && maxScroll > 0) newScrollLeft = maxScroll;
-
-
-            slideTrack.scrollLeft = newScrollLeft;
-        });
-
-        // --- Eventi Touch (per mobile) ---
-        carouselViewport.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            startX = e.touches[0].pageX;
-            scrollLeftStart = slideTrack.scrollLeft;
-            carouselViewport.classList.add('active-dragging');
-            // Potrebbe essere necessario un event.preventDefault() qui se lo swipe
-            // interferisce con lo scroll verticale della pagina in modo indesiderato,
-            // ma fai attenzione perché potrebbe bloccare anche lo scroll verticale intenzionale.
-        }, { passive: true }); // { passive: true } può aiutare con la performance dello scroll
-
-        window.addEventListener('touchend', () => {
-            if (isDragging) {
-                isDragging = false;
-                carouselViewport.classList.remove('active-dragging');
-            }
-        });
-
-        window.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            // e.preventDefault(); // Decommenta con cautela, vedi nota sopra
-
-            const currentX = e.touches[0].pageX;
-            const walk = currentX - startX;
-            // Potresti voler aggiungere i limiti anche qui come per mousemove
-            // const trackWidth = slideTrack.scrollWidth;
-            // const viewportWidth = carouselViewport.offsetWidth;
-            // const maxScroll = trackWidth - viewportWidth;
-            // if (newScrollLeft < 0) newScrollLeft = 0;
-            // if (newScrollLeft > maxScroll && maxScroll > 0) newScrollLeft = maxScroll;
-
-            slideTrack.scrollLeft = scrollLeftStart - walk;
-        }, { passive: false }); // { passive: false } se usi e.preventDefault()
+        dotsNav.appendChild(button);
     });
+    const dots = Array.from(dotsNav.children);
+
+    // --- FUNZIONI PRINCIPALI ---
+
+    // Funzione centrale per muovere lo slider a un indice specifico
+    const moveToSlide = (targetIndex) => {
+        // Applica la transizione CSS per un movimento fluido
+        sliderTrack.style.transition = 'transform 0.5s ease-in-out';
+
+        const amountToMove = targetIndex * slideWidth;
+        sliderTrack.style.transform = `translateX(-${amountToMove}px)`;
+
+        // Aggiorna lo stato corrente
+        currentIndex = targetIndex;
+
+        // Aggiorna la UI (frecce e pallini)
+        updateNav();
+    };
+
+    // Funzione per aggiornare lo stato visivo delle frecce e dei pallini
+    const updateNav = () => {
+        // Gestione delle frecce
+        prevButton.classList.toggle('is-hidden', currentIndex === 0);
+        nextButton.classList.toggle('is-hidden', currentIndex === slides.length - 1);
+
+        // Gestione dei pallini
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('current-slide', index === currentIndex);
+        });
+    };
+
+    // --- GESTIONE EVENTI FRECCE ---
+    nextButton.addEventListener('click', () => {
+        if (currentIndex < slides.length - 1) {
+            moveToSlide(currentIndex + 1);
+        }
+    });
+
+    prevButton.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            moveToSlide(currentIndex - 1);
+        }
+    });
+
+    // --- LOGICA PER LO SWIPE (TOUCH E MOUSE) ---
+    let isDragging = false;
+    let startPos = 0;
+    let currentTranslate = 0;
+
+    const getPositionX = (event) => {
+        return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+    };
+
+    const dragStart = (event) => {
+        isDragging = true;
+        startPos = getPositionX(event);
+        // Rimuovi la transizione CSS durante il drag per un movimento immediato
+        sliderTrack.style.transition = 'none';
+    };
+
+    const dragMove = (event) => {
+        if (isDragging) {
+            const currentPosition = getPositionX(event);
+            // Calcola lo spostamento rispetto all'inizio del drag
+            const dragOffset = currentPosition - startPos;
+            // La nuova posizione è la posizione della slide corrente più lo spostamento
+            currentTranslate = (currentIndex * -slideWidth) + dragOffset;
+            sliderTrack.style.transform = `translateX(${currentTranslate}px)`;
+        }
+    };
+
+    const dragEnd = (event) => {
+        if (!isDragging) return;
+        isDragging = false;
+
+        const movedBy = currentTranslate - (currentIndex * -slideWidth);
+        const swipeThreshold = slideWidth * 0.2; // Soglia: 20% della larghezza della slide
+
+        // Se lo swipe è abbastanza lungo e c'è una slide successiva/precedente
+        if (movedBy < -swipeThreshold && currentIndex < slides.length - 1) {
+            // Swipe a sinistra -> vai alla prossima slide
+            moveToSlide(currentIndex + 1);
+        } else if (movedBy > swipeThreshold && currentIndex > 0) {
+            // Swipe a destra -> vai alla slide precedente
+            moveToSlide(currentIndex - 1);
+        } else {
+            // Swipe non sufficiente, torna alla slide corrente con animazione
+            moveToSlide(currentIndex);
+        }
+    };
+
+    // Aggiungi event listeners al contenitore principale dello slider
+    sliderTrack.addEventListener('mousedown', dragStart);
+    sliderTrack.addEventListener('touchstart', dragStart, { passive: true });
+
+    document.addEventListener('mousemove', dragMove);
+    document.addEventListener('touchmove', dragMove, { passive: true });
+
+    document.addEventListener('mouseup', dragEnd);
+    document.addEventListener('touchend', dragEnd);
+
+    // Prevenire il comportamento di default del drag delle immagini che può interferire
+    slides.forEach(slide => {
+        slide.querySelector('img').addEventListener('dragstart', (e) => e.preventDefault());
+    });
+
+    // --- INIZIALIZZAZIONE ---
+    updateNav(); // Imposta lo stato iniziale corretto per frecce e pallini
 });
