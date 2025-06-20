@@ -16,12 +16,13 @@ public class ProductListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String brandIdParam = request.getParameter("brandId");
         String categoryIdParam = request.getParameter("categoryId");
+        String offersParam = request.getParameter("offers");
         ProductDAO productDAO = new ProductDAO();
         RequestDispatcher dispatcher;
 
 
         try{
-            if(brandIdParam == null && categoryIdParam == null){
+            if(brandIdParam == null && categoryIdParam == null && offersParam == null){
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameters");
                 return;
             }
@@ -32,10 +33,18 @@ public class ProductListServlet extends HttpServlet {
                 dispatcher = request.getRequestDispatcher("/jsp/products/ProductsList.jsp");
                 dispatcher.forward(request, response);
             }
+
             if(categoryIdParam != null){
                 List<Product> productList = productDAO.doRetrieveByCategoryId(Integer.parseInt(categoryIdParam));
                 request.setAttribute("productList", productList);
                 dispatcher = request.getRequestDispatcher("/jsp/products/ProductsList.jsp");
+                dispatcher.forward(request, response);
+            }
+
+            if(offersParam.equals("true")){
+                List<Product> productList = productDAO.doRetrieveBySalePrice();
+                request.setAttribute("productList", productList);
+                dispatcher = request.getRequestDispatcher("/jsp/products/Offers.jsp");
                 dispatcher.forward(request, response);
             }
         }catch (Exception e){
