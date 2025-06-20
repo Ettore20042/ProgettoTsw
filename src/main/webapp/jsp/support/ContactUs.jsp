@@ -9,7 +9,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/info.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
-    <title>Contataci</title>
+    <title>Contattaci</title>
 </head>
 <body>
 <jsp:include page="/jsp/common/Header.jsp"/>

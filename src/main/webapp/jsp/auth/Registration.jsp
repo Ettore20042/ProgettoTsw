@@ -2,6 +2,14 @@
 <%
     request.setAttribute("pageTitle", " Registrazione");
 %>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <title><c:out value="${pageTitle}" default="BricoShop"/></title>
+    <jsp:include page="/jsp/common/HeadContent.jsp" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css">
+    <script src="${pageContext.request.contextPath}/Js/CheckCredential.js" defer></script>
+</head>
 <body>
 <jsp:include page="/jsp/common/Header.jsp" />
 <main>

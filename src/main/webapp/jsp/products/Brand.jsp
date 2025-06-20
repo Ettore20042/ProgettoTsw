@@ -6,6 +6,7 @@
 <head>
     <title><c:out value="${pageTitle}" default="BricoShop"/></title>
     <jsp:include page="/jsp/common/HeadContent.jsp" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/brands.css">
 </head>
 <body>
 <jsp:include page="/jsp/common/Header.jsp"/>

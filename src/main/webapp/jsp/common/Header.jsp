@@ -66,7 +66,7 @@
             <li class="mobile-nav_item--close"><button id="closeNavButton">&times;</button></li>
             <li><a href="${pageContext.request.contextPath}/" class="mobile-nav_link">Home</a></li>
             <li><a href="${pageContext.request.contextPath}/CategoryServlet" class="mobile-nav_link">Prodotti</a></li>
-            <li><a href="${pageContext.request.contextPath}/contatti" class="mobile-nav_link">Contatti</a></li>
+            <li><a href="${pageContext.request.contextPath}/" class="mobile-nav_link">Contatti</a></li>
             <li><a href="${pageContext.request.contextPath}/ProductServlet" class="mobile-nav_link">TestProdotto</a></li>
         </ul>
     </nav>
