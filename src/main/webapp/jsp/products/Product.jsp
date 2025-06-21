@@ -1,4 +1,5 @@
 <%@ page import="model.Bean.Product" %>
+<%@ page import="model.Bean.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -71,7 +72,17 @@
                     <p class="product-card_stock-status">Non disponibile momentaneamente</p>
                 </c:if>
                 <button class="product-card_button product-card_button--add-to-cart">Aggiungi al carrello</button>
-                <button class="product-card_button product-card_button--buy-now">Acquista Ora</button>
+                <% if (request.getSession().getAttribute("user") == null) { %>
+                <a href="${pageContext.request.contextPath}/jsp/auth/Login.jsp?redirectAfterLogin=CheckoutServlet"
+                   class="product-card_button product-card_button--buy-now"
+                   style="display: inline-block; text-decoration: none; text-align: center; cursor: pointer;">
+                    Acquista Ora</a>
+                <% } else { %>
+                <form action="${pageContext.request.contextPath}/CheckoutServlet" method="post">
+                    <button type="submit" class="product-card_button product-card_button--buy-now">Acquista Ora</button>
+                </form>
+                <% } %>
+
             </div>
 
 
