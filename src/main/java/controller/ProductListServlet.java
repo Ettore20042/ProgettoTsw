@@ -1,6 +1,7 @@
 package controller;
 
 
+import com.google.gson.Gson;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -10,6 +11,7 @@ import model.DAO.CategoryDAO;
 import model.DAO.ProductDAO;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -25,14 +27,43 @@ public class ProductListServlet extends HttpServlet {
         String brandIdParam = request.getParameter("brandId");
         String categoryIdParam = request.getParameter("categoryId");
         String offersParam = request.getParameter("offers");
-        boolean filterQuery = Boolean.parseBoolean(request.getParameter("filter"));
+        String filterParam = request.getParameter("filter");
+
+        ProductDAO productDAO = new ProductDAO();
+        RequestDispatcher dispatcher;
+
+        if (filterParam != null && filterParam.equalsIgnoreCase("true")) {
+            Float minPrice = null;
+            Float maxPrice = null;
+            String color = request.getParameter("color");
+            String material = request.getParameter("material");
+            try {
+
+                if (request.getParameter("minPrice") != null && !request.getParameter("minPrice").isBlank()
+                    && request.getParameter("maxPrice") != null && !request.getParameter("maxPrice").isBlank()) {
+                    minPrice = Float.parseFloat(request.getParameter("minPrice"));
+                    maxPrice = Float.parseFloat(request.getParameter("maxPrice"));
+                }
+            } catch (Exception e){
+                NumberFormatException nfe = new NumberFormatException("Invalid price format");
+            }
+            List<Product> productList = productDAO.doRetrieveByFilter(
+                     brandIdParam, color, material, minPrice, maxPrice);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+
+            String json = new Gson().toJson(productList);
+
+            PrintWriter out = response.getWriter();
+            out.print(json);
+            out.flush();
+        }
 
         ServletContext context = getServletContext();
         CategoryServlet.checkCategoryCache(context);
         Map<Integer, Category> categoryCacheMap = (Map<Integer, Category>) context.getAttribute("categoryCacheMap");
-        ProductDAO productDAO = new ProductDAO();
-        RequestDispatcher dispatcher;
-
+        request.setAttribute("categoryCacheMap", categoryCacheMap);
 
         try{
             if(brandIdParam == null && categoryIdParam == null && offersParam == null){
@@ -54,7 +85,7 @@ public class ProductListServlet extends HttpServlet {
                 dispatcher.forward(request, response);
             }
 
-            if(offersParam.equals("true")){
+            if(offersParam != null && offersParam.equals("true")){
                 List<Product> productList = productDAO.doRetrieveBySalePrice();
                 request.setAttribute("productList", productList);
                 dispatcher = request.getRequestDispatcher("/jsp/products/Offers.jsp");
@@ -70,7 +101,6 @@ public class ProductListServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO: Elabora la richiesta
-
+        doGet(request, response);
     }
 } 

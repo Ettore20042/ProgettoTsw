@@ -33,11 +33,11 @@ public class ProductDAO {
     }
 
     public Product doRetrieveById(int id) {
-        try(Connection con = ConnPool.getConnection()){
+        try (Connection con = ConnPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM product WHERE ProductID=?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 Product p = new Product();
                 p.setProductId(rs.getInt("ProductID"));
                 p.setProductName(rs.getString("ProductName"));
@@ -52,7 +52,7 @@ public class ProductDAO {
                 return p;
             }
             return null;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -100,7 +100,7 @@ public class ProductDAO {
         }
     }
 
-    public List<Product> doRetrieveBySalePrice(){
+    public List<Product> doRetrieveBySalePrice() {
         try (Connection connection = ConnPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "SELECT ProductID, ProductName, Description, Price, SalePrice " +
@@ -190,6 +190,59 @@ public class ProductDAO {
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    public List<Product> doRetrieveByFilter(String brand, String color, String material, Float minPrice, Float maxPrice) {
+        List<Product> products = new ArrayList<>();
+        StringBuilder query = new StringBuilder("SELECT * FROM product WHERE 1=1");
+
+        if (brand != null && !brand.isEmpty()) {
+            query.append(" AND BrandID = ?");
+        }
+        if (color != null && !color.isEmpty()) {
+            query.append(" AND Color = ?");
+        }
+        if (material != null && !material.isEmpty()) {
+            query.append(" AND Material = ?");
+        }
+        if (minPrice != null) {
+            query.append(" AND Price >= ?");
+        }
+        if (maxPrice != null) {
+            query.append(" AND Price <= ?");
+        }
+
+        try (Connection connection = ConnPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query.toString())) {
+
+            int index = 1;
+            preparedStatement.setString(index++, brand);
+            preparedStatement.setString(index++, color);
+            preparedStatement.setString(index++, material);
+            preparedStatement.setFloat(index++, minPrice);
+            preparedStatement.setFloat(index++, maxPrice);
+
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setProductId(resultSet.getInt("ProductID"));
+                product.setProductName(resultSet.getString("ProductName"));
+                product.setDescription(resultSet.getString("Description"));
+                product.setPrice(resultSet.getFloat("Price"));
+                product.setColor(resultSet.getString("Color"));
+                product.setMaterial(resultSet.getString("Material"));
+                product.setQuantity(resultSet.getInt("Quantity"));
+                product.setSalePrice(resultSet.getFloat("SalePrice"));
+                product.setBrandId(resultSet.getInt("BrandID"));
+                product.setCategoryId(resultSet.getInt("CategoryID"));
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return products;
     }
 }
 
