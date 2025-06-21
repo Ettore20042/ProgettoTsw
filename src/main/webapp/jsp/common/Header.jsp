@@ -33,6 +33,7 @@
 
         <div class="main-header_user-actions">
             <button class="user-actions_button user-actions_button--profile" id="userProfileButton">
+                <span class="user-actions_button-name">${user.firstName}</span>
                 <img src="${pageContext.request.contextPath}/img/header/icona_profilo.svg" alt="Icona profilo" id="profileIcon" tabindex="0"/>
             </button>
 

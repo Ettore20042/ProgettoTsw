@@ -119,6 +119,16 @@ header.main-header{
     background: none;
     border: none;
 }
+.user-actions_button-name{
+    font-size: 1rem;
+}
+.user-actions_button--profile{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+}
 .user-actions_button--profile:hover{
     cursor: pointer;
 }
