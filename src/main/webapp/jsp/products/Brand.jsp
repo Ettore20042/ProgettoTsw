@@ -21,7 +21,7 @@
                         <div class="brand-card-maincategory">
                             <img src="${pageContext.request.contextPath}/${brand.logoPath}" alt="${brand.brandName}" />
                             <h3>${brand.brandName}</h3>
-                            <a class = "brand-card-maincategory-view" href="${pageContext.request.contextPath}/ProductListServlet?brandId=${brand.brandId}" >Vedi prodotti</a>
+                            <a  href="${pageContext.request.contextPath}/ProductListServlet?brandId=${brand.brandId}" class = "brand-card-maincategory-view" >Vedi prodotti</a>
 
 
 
