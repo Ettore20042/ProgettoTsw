@@ -28,11 +28,11 @@ public class Product {
 
   }
 
-    public double getsalePrice() {
+    public double getSalePrice() {
         return salePrice;
     }
 
-    public void setsalePrice(double salePrice) {
+    public void setSalePrice(double salePrice) {
         this.salePrice = salePrice;
     }
 

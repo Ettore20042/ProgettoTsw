@@ -40,7 +40,7 @@
                         <div class="offers-section">
                             <img src="${pageContext.request.contextPath}/img/homepage/promo.png" alt="Promo" id="welcome-promo-image">
                             <h3>Le nostre offerte</h3>
-                            <a href="${pageContext.request.contextPath}/jsp/products/Offers.jsp" class="button">Scopri di più</a>
+                            <a href="${pageContext.request.contextPath}/ProductListServlet?offers=true" class="button">Scopri di più</a>
                         </div>
 
                 </div>

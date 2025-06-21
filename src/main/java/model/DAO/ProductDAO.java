@@ -46,7 +46,7 @@ public class ProductDAO {
                 p.setMaterial(rs.getString("Material"));
                 p.setQuantity(rs.getInt("Quantity"));
                 p.setDescription(rs.getString("Description"));
-                p.setsalePrice(rs.getFloat("salePrice"));
+                p.setSalePrice(rs.getFloat("salePrice"));
                 p.setBrandId(rs.getInt("BrandID"));
                 p.setCategoryId(rs.getInt("CategoryID"));
                 return p;
@@ -100,6 +100,30 @@ public class ProductDAO {
         }
     }
 
+    public List<Product> doRetrieveBySalePrice(){
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT ProductID, ProductName, Description, Price, SalePrice " +
+                            "FROM product " +
+                            "WHERE SalePrice > 0"
+            );
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Product> products = new ArrayList<>();
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setProductId(resultSet.getInt("ProductID"));
+                product.setProductName(resultSet.getString("ProductName"));
+                product.setDescription(resultSet.getString("Description"));
+                product.setPrice(resultSet.getFloat("Price"));
+                product.setSalePrice(resultSet.getFloat("SalePrice"));
+                products.add(product);
+            }
+            return products;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
 
     public List<Product> doretrieveAll() {
         try (Connection connection = ConnPool.getConnection()) {
@@ -115,7 +139,7 @@ public class ProductDAO {
                 product.setColor(resultSet.getString("Color"));
                 product.setMaterial(resultSet.getString("Material"));
                 product.setQuantity(resultSet.getInt("Quantity"));
-                product.setsalePrice(resultSet.getFloat("SalePrice"));
+                product.setSalePrice(resultSet.getFloat("SalePrice"));
                 product.setBrandId(resultSet.getInt("BrandID"));
                 product.setCategoryId(resultSet.getInt("CategoryID"));
                 products.add(product);
@@ -157,7 +181,7 @@ public class ProductDAO {
                 product.setColor(resultSet.getString("Color"));
                 product.setMaterial(resultSet.getString("Material"));
                 product.setQuantity(resultSet.getInt("Quantity"));
-                product.setsalePrice(resultSet.getFloat("SalePrice"));
+                product.setSalePrice(resultSet.getFloat("SalePrice"));
                 product.setBrandId(resultSet.getInt("BrandID"));
                 product.setCategoryId(resultSet.getInt("CategoryID"));
                 products.add(product);
