@@ -65,9 +65,8 @@
         <ul class="mobile-nav_list">
             <li class="mobile-nav_item--close"><button id="closeNavButton">&times;</button></li>
             <li><a href="${pageContext.request.contextPath}/" class="mobile-nav_link">Home</a></li>
-            <li><a href="${pageContext.request.contextPath}/CategoryServlet" class="mobile-nav_link">Prodotti</a></li>
-            <li><a href="${pageContext.request.contextPath}/" class="mobile-nav_link">Contatti</a></li>
-            <li><a href="${pageContext.request.contextPath}/ProductServlet" class="mobile-nav_link">TestProdotto</a></li>
+            <li><a href="${pageContext.request.contextPath}/CategoryServlet" class="mobile-nav_link">Categorie</a></li>
+            <li><a href="${pageContext.request.contextPath}/jsp/support/ContactUs.jsp" class="mobile-nav_link">Contatti</a></li>
         </ul>
     </nav>
     <script src="${pageContext.request.contextPath}/Js/common/header.js"></script>
