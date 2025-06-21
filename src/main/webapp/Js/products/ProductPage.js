@@ -1,16 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const sliderContainer = document.querySelector('.product-card_images');
+    const sliderContainer = document.querySelector('.product-card_gallery');
     // Se non c'è uno slider in questa pagina, esci per non causare errori.
     if (!sliderContainer) {
         return;
     }
 
-    const sliderTrack = sliderContainer.querySelector('.product-card_slider');
+    const sliderTrack = sliderContainer.querySelector('.product-card_gallery-track');
     const slides = Array.from(sliderTrack.children);
-    const nextButton = sliderContainer.querySelector('.next-arrow');
-    const prevButton = sliderContainer.querySelector('.prev-arrow');
-    const dotsNav = sliderContainer.querySelector('.product-card_slider-nav');
+    const nextButton = sliderContainer.querySelector('.product-card_arrow--next');
+    const prevButton = sliderContainer.querySelector('.product-card_arrow--prev');
+    const dotsNav = sliderContainer.querySelector('.product-card_gallery-dots');
 
     // Se non ci sono slide, non fare nulla
     if (slides.length === 0) {

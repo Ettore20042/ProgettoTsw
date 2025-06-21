@@ -17,34 +17,50 @@
 <body>
     <jsp:include page="/jsp/common/Header.jsp"/>
     <main class="product-page">
+
+        <div class="breadcrumb">
+            <div class="breadcrumb_wrapper">
+                <c:forEach var="category" items="${breadcrumbCategories}">
+                    <a href="${pageContext.request.contextPath}/ProductListServlet?categoryId=${category.categoryId}" class="breadcrumb_item breadcrumb_link">${category.categoryName}</a>
+                    <span class="material-symbols-rounded">keyboard_arrow_right</span>
+                </c:forEach>
+                <span class="breadcrumb_item">${product.getProductName()}</span>
+            </div>
+        </div>
+
+
         <section class="product-card">
-            <h2 class="product-card--brand">${productBrand.getBrandName()}</h2>
-            <h1 class="product-card--name">${product.getProductName()}</h1>
-            <div class="product-card_images">
-                <div class="product-card_slider">
+            <div class="product-card_header-info">
+                <h2 class="product-card_brand">${productBrand.getBrandName()}</h2>
+                <h1 class="product-card_name">${product.getProductName()}</h1>
+            </div>
+
+            <div class="product-card_gallery">
+                <div class="product-card_gallery-track">
                     <c:forEach var="image" items="${productImages}">
-                        <div class="product-card_slide-container">
-                            <img src="${pageContext.request.contextPath}/${image.getImagePath()}" alt="${image.getImageDescription()}" class="product-card_slide--image">
+                        <div class="product-card_gallery-item">
+                            <img src="${pageContext.request.contextPath}/${image.getImagePath()}" alt="${image.getImageDescription()}" class="product-card_image">
                         </div>
                     </c:forEach>
                 </div>
 
-                <button class="product-card_slider-arrow prev-arrow" aria-label="Immagine precedente">❮</button>
-                <button class="product-card_slider-arrow next-arrow" aria-label="Immagine successiva">❯</button>
+                <button class="product-card_arrow product-card_arrow--prev" aria-label="Immagine precedente">❮</button>
+                <button class="product-card_arrow product-card_arrow--next" aria-label="Immagine successiva">❯</button>
 
-                <div class="product-card_slider-nav">
+                <div class="product-card_gallery-dots">
                     <%-- I pallini verranno generati da JavaScript --%>
                 </div>
-
             </div>
+
+
             <div class="product-card_details">
-                <p class="product-card_details--price"><fmt:formatNumber value="${product.getPrice()}" pattern="€ #,##0.00" /></p>
-                <p class="product-card_details--shipping">Iva inclusa. Spedizione gratuita</p>
+                <p class="product-card_price"><fmt:formatNumber value="${product.getPrice()}" pattern="€ #,##0.00" /></p>
+                <p class="product-card_shipping-info">Iva inclusa. Spedizione gratuita</p>
                 <%--Aggiungere elemento per quantità, da vedere se gestire con js oppure da server--%>
                 <c:if test="${product.getQuantity() > 0}">
                     <div class="product-card_quantity">
-                        <label class="product-card_quantity--label">Quantità: </label>
-                        <select name="quantity" id="quantity" class="product-card_quantity--select">
+                        <label class="product-card_quantity-label">Quantità: </label>
+                        <select name="quantity" id="quantity" class="product-card_quantity-select">
                             <c:forEach begin="1" end="${product.getQuantity()}" var="i">
                                 <option value="${i}">${i}</option>
                             </c:forEach>
@@ -52,13 +68,15 @@
                     </div>
                 </c:if>
                 <c:if test="${product.getQuantity() == 0}">
-                    <p class="product-card_details--out-of-stock">Non disponibile momentaneamente</p>
+                    <p class="product-card_stock-status">Non disponibile momentaneamente</p>
                 </c:if>
-                <button class="product-card_buy-buttons product-card_add-to-cart--button">Aggiungi al carrello</button>
-                <button class="product-card_buy-buttons product-card_buy-now--button">Acquista Ora</button>
+                <button class="product-card_button product-card_button--add-to-cart">Aggiungi al carrello</button>
+                <button class="product-card_button product-card_button--buy-now">Acquista Ora</button>
             </div>
+
+
             <div class="product-card_description">
-                <h2 class="product-card_description--heading">Descrizione</h2>
+                <h2 class="product-card_description-heading">Descrizione</h2>
                 <p>${product.getDescription()}</p>
             </div>
         </section>

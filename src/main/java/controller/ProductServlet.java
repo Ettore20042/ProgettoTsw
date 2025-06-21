@@ -4,10 +4,7 @@ package controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import model.Bean.Brand;
-import model.Bean.Image;
-import model.Bean.Product;
-import model.Bean.User;
+import model.Bean.*;
 import model.DAO.BrandDAO;
 import model.DAO.ImageDAO;
 import model.DAO.ProductDAO;
@@ -15,6 +12,7 @@ import model.DAO.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "ProductServlet", value = "/ProductServlet",loadOnStartup = 1)
 public class ProductServlet extends HttpServlet {
@@ -28,15 +26,17 @@ public class ProductServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String idParam = request.getParameter("productId");
-        String idParam = "4"; // Simulazione di un ID prodotto per il test
+        String idParam = request.getParameter("productId");
         ProductDAO service = new ProductDAO();
-        RequestDispatcher rd = request.getRequestDispatcher("/jsp/products/Product.jsp");
+        ServletContext context = getServletContext();
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/products/Product.jsp");
 
         if(idParam != null) {
             try{
                 int id = Integer.parseInt(idParam);
                 Product product = service.doRetrieveById(id);
+                Map<Integer, Category> categoryCacheMap = (Map<Integer, Category>) context.getAttribute("categoryCacheMap");
+                List<Category> breadcrumbCategories = CategoryServlet.buildBreadcrumbFromMap(categoryCacheMap, product.getCategoryId());
                 if(product != null) {
                     ImageDAO imageDAO = new ImageDAO();
                     BrandDAO brandDAO = new BrandDAO();
@@ -45,7 +45,8 @@ public class ProductServlet extends HttpServlet {
                     request.setAttribute("product", product);
                     request.setAttribute("productImages", images);
                     request.setAttribute("productBrand", brand);
-                    rd.forward(request, response);
+                    request.setAttribute("breadcrumbCategories", breadcrumbCategories);
+                    dispatcher.forward(request, response);
                 }else{
                     response.sendError(HttpServletResponse.SC_NOT_FOUND, "Prodotto non trovato");
                 }
@@ -55,14 +56,11 @@ public class ProductServlet extends HttpServlet {
         }else{
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parametro 'productId' mancante");
         }
-
-
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO: Elabora la richiesta
+        doGet(request, response);
     }
 
 }
