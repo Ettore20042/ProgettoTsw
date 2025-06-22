@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="it">
     <head>
-        <title><c:out value="${pageTitle}" default="BricoShop"/></title>
+        <title>User</title>
         <jsp:include page="/jsp/common/HeadContent.jsp" />
 
     </head>

@@ -1,6 +1,5 @@
 package controller;
 
-
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -9,38 +8,46 @@ import model.DAO.UserDAO;
 
 import java.io.IOException;
 
-@WebServlet(name = "LoginServlet", value = "/LoginServlet")
+@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO: Elabora la richiesta
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Mostra la pagina di login
+        request.getRequestDispatcher("/jsp/auth/Login.jsp").forward(request, response);
     }
-    
+
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-/*
-        boolean rememberMe = request.getParameter("remember-me") != null;
-*/
+        String redirectAfterLogin = request.getParameter("redirectAfterLogin");
+
         UserDAO userDAO = new UserDAO();
-        User userLogged = userDAO.doLogin(email, password);
-        if(userLogged != null) {
-            request.getSession().setAttribute("user", userLogged);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/profile/User.jsp");
-            dispatcher.forward(request, response);
+        User user = userDAO.doLogin(email, password);
+
+        if (user != null) {
+            // Salva l'utente nella sessione
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+
+            // Se non viene passato alcun redirectAfterLogin, imposto default
+            if (redirectAfterLogin == null || redirectAfterLogin.isEmpty()) {
+                redirectAfterLogin = "jsp/HomePage.jsp";
+            }
+
+            // Effettuo sempre un redirect per evitare problemi di refresh dopo POST
+            response.sendRedirect(request.getContextPath() + "/" + redirectAfterLogin);
+
+        } else {
+            // Login fallito
+            request.setAttribute("loginError", "Credenziali errate");
+            request.getRequestDispatcher("/jsp/auth/Login.jsp").forward(request, response);
+            return;
         }
-
-        /*if(rememberMe) {
-            Cookie emailCookie = new Cookie("email", email);
-            emailCookie.setMaxAge(60 * 60 * 24 * 30); // 30 giorni
-            emailCookie.setSecure(true);
-            response.addCookie(emailCookie);
-            Cookie rememberMeCookie = new Cookie("remember-me", "true");
-            rememberMeCookie.setMaxAge(60 * 60 * 24 * 30); // 30 giorni
-            rememberMeCookie.setSecure(true);
-            response.addCookie(rememberMeCookie);
-        }*/
-
     }
-} 
+
+}

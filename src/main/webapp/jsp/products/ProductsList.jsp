@@ -32,6 +32,7 @@
                                             <p class="productList-product-card--out-of-stock">Non disponibile</p>
                                         </c:if>
                                         <p class="productList-product-card-price">Prezzo: €${product.price}</p>
+                                            //
                                         <form action="${pageContext.request.contextPath}/CartServlet" class="add-to-cart-form" data-product-id="${product.productId}" method="post" style="display: contents;">
                                             <input type="hidden" name="productId" value="${product.productId}" />
                                             <input type="hidden" name="quantity" value="1" />

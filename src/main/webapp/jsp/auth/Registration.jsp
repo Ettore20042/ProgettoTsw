@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <title><c:out value="${pageTitle}" default="BricoShop"/></title>
+    <title>Registrati</title>
     <jsp:include page="/jsp/common/HeadContent.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css">
     <script src="${pageContext.request.contextPath}/Js/CheckCredential.js" defer></script>
@@ -13,9 +13,16 @@
 <body>
 <jsp:include page="/jsp/common/Header.jsp" />
 <main>
+
     <div class="auth-form-container">
+        <% if (request.getAttribute("error") != null) { %>
+        <div style=" color: #fff; background-color: #e74c3c; padding: 15px;border-radius: 5px;margin-bottom: 20px;font-weight: bold;text-align: center;">
+            <%= request.getAttribute("error") %>
+        </div>
+        <% } %>
+
         <h2 class="auth-form-container__title auth-form-container__title--registration">Registrati</h2>
-        <form id="registerForm" action="RegistrationServlet" method="post">
+        <form id="registerForm" action="${pageContext.request.contextPath}/RegistrationServlet" method="post">
             <div class="auth-form-container__name-row">
                 <input type="text" class="auth-form-container__input" name="name" placeholder="Nome*" required>
                 <input type="text" class="auth-form-container__input" name="surname" placeholder="Cognome*" required>

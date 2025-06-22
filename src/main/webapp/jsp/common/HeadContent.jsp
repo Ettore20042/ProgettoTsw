@@ -7,7 +7,6 @@
 <script src="${pageContext.request.contextPath}/Js/common/header.js" defer></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css" type="text/css">
 <script src="${pageContext.request.contextPath}/Js/common/footer.js" defer></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
-<script src="${pageContext.request.contextPath}/Js/profile/cart.js" defer></script>
+
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">

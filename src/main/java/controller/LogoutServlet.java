@@ -1,5 +1,6 @@
 package controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -18,8 +19,8 @@ public class LogoutServlet extends HttpServlet {
 		if (session != null) {
 			session.invalidate();
 		}
-		// Reindirizzare l'utente alla pagina di login o alla home page
-		response.sendRedirect(request.getContextPath() + "/jsp/auth/Login.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/HomePage.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	@Override

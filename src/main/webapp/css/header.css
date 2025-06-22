@@ -133,10 +133,10 @@ header.main-header{
     cursor: pointer;
 }
 .user-actions_button--profile #profileIcon{
-     width: 2.9rem;
-     height: auto;
-     padding: 7px;
- }
+    width: 2.9rem;
+    height: auto;
+    padding: 7px;
+}
 .user-actions_button--cart #cartIcon{
     width: 3.7rem;
     height: auto;

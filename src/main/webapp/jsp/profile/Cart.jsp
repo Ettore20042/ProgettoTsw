@@ -8,8 +8,9 @@
 <!DOCTYPE html>
 <html lang="it">
     <head>
-        <title><c:out value="${pageTitle}" default="BricoShop"/></title>
-        <jsp:include page="/jsp/common/HeadContent.jsp" />
+        <title>Cart</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
+        <script src="${pageContext.request.contextPath}/Js/profile/cart.js" defer></script>
     </head>
     <body>
         <jsp:include page="/jsp/common/Header.jsp"/>
