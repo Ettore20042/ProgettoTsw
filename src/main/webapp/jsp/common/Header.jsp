@@ -1,14 +1,7 @@
 <%@ page import="model.Bean.User" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <title><c:out value="${pageTitle}" default="BricoShop"/></title>
-    <jsp:include page="/jsp/common/HeadContent.jsp" />
-</head>
-<body data-context-path="${pageContext.request.contextPath}">
-<header class="main-header">
+
+<header class="main-header" data-context-path="${pageContext.request.contextPath}">
     <div class="main-header_content">
         <button id="openNavButton" tabindex="0">&#9776;</button>
 

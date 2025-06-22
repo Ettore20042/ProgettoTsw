@@ -9,7 +9,7 @@
 :root{
     color-scheme: only light !important;
 }
-header{
+html{
     font-family: 'Inter', sans-serif;
     font-weight: 400;
 }
