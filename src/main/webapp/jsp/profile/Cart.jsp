@@ -9,6 +9,7 @@
 <html lang="it">
     <head>
         <title>Cart</title>
+        <jsp:include page="/jsp/common/HeadContent.jsp"/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
         <script src="${pageContext.request.contextPath}/Js/profile/cart.js" defer></script>
     </head>
