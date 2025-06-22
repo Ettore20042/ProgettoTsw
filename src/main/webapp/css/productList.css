@@ -6,10 +6,9 @@
  */
 
 /* --- Stili Generali della Pagina Lista --- */
-.product-list_page {
-    padding: 3rem;
+.product-list-page {
     max-width: 1200px; /* Limita la larghezza massima della pagina */
-    margin: 0 auto; /* Centra la pagina */
+    padding: 0 0.5rem;
 }
 
 .product-list_heading {
@@ -46,6 +45,7 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     padding: 0.5rem;
+    max-width: 250px;
 }
 
 .product-list_grid .product-card:hover {
@@ -103,7 +103,7 @@
 }
 
 .product-list_grid .product-card_price {
-    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem); /* Più piccolo */
+    font-size: clamp(1.1rem, 0.75rem + 0.5vw, 1.3rem); /* Più piccolo */
     margin: 1rem 0 0;
 }
 
