@@ -1,5 +1,6 @@
 package model.DAO;
 
+import model.Bean.Brand;
 import model.Bean.Product;
 import model.ConnPool;
 
@@ -59,7 +60,7 @@ public class ProductDAO {
 
     public List<Product> doRetrieveByBrandId(int id) {
         try (Connection connection = ConnPool.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT ProductID,ProductName,Description,Price FROM product WHERE BrandID=?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE BrandID=?");
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             List<Product> products = new ArrayList<>();
@@ -69,6 +70,12 @@ public class ProductDAO {
                 product.setProductName(resultSet.getString("ProductName"));
                 product.setDescription(resultSet.getString("Description"));
                 product.setPrice(resultSet.getFloat("Price"));
+                product.setColor(resultSet.getString("Color"));
+                product.setMaterial(resultSet.getString("Material"));
+                product.setQuantity(resultSet.getInt("Quantity"));
+                product.setSalePrice(resultSet.getFloat("SalePrice"));
+                product.setBrandId(resultSet.getInt("BrandID"));
+                product.setCategoryId(resultSet.getInt("CategoryID"));
                 products.add(product);
             }
             return products;
@@ -79,7 +86,7 @@ public class ProductDAO {
 
     public List<Product> doRetrieveByCategoryId(int id) {
         try (Connection connection = ConnPool.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT ProductID, ProductName, Description, Price " +
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * " +
                     "FROM product " +
                     "WHERE CategoryID = ? OR CategoryID IN (SELECT CategoryID FROM category WHERE ParentCategory = ?)");
             preparedStatement.setInt(1, id);
@@ -92,6 +99,12 @@ public class ProductDAO {
                 product.setProductName(resultSet.getString("ProductName"));
                 product.setDescription(resultSet.getString("Description"));
                 product.setPrice(resultSet.getFloat("Price"));
+                product.setColor(resultSet.getString("Color"));
+                product.setMaterial(resultSet.getString("Material"));
+                product.setQuantity(resultSet.getInt("Quantity"));
+                product.setSalePrice(resultSet.getFloat("SalePrice"));
+                product.setBrandId(resultSet.getInt("BrandID"));
+                product.setCategoryId(resultSet.getInt("CategoryID"));
                 products.add(product);
             }
             return products;
@@ -103,7 +116,7 @@ public class ProductDAO {
     public List<Product> doRetrieveBySalePrice() {
         try (Connection connection = ConnPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "SELECT ProductID, ProductName, Description, Price, SalePrice " +
+                    "SELECT * " +
                             "FROM product " +
                             "WHERE SalePrice > 0"
             );
@@ -115,7 +128,12 @@ public class ProductDAO {
                 product.setProductName(resultSet.getString("ProductName"));
                 product.setDescription(resultSet.getString("Description"));
                 product.setPrice(resultSet.getFloat("Price"));
+                product.setColor(resultSet.getString("Color"));
+                product.setMaterial(resultSet.getString("Material"));
+                product.setQuantity(resultSet.getInt("Quantity"));
                 product.setSalePrice(resultSet.getFloat("SalePrice"));
+                product.setBrandId(resultSet.getInt("BrandID"));
+                product.setCategoryId(resultSet.getInt("CategoryID"));
                 products.add(product);
             }
             return products;
@@ -132,6 +150,7 @@ public class ProductDAO {
             List<Product> products = new ArrayList<>();
             while (resultSet.next()) {
                 Product product = new Product();
+                Brand brand = new Brand();
                 product.setProductId(resultSet.getInt("ProductID"));
                 product.setProductName(resultSet.getString("ProductName"));
                 product.setDescription(resultSet.getString("Description"));

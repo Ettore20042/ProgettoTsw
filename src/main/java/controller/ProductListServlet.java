@@ -9,6 +9,8 @@ import model.Bean.Category;
 import model.Bean.Product;
 import model.DAO.CategoryDAO;
 import model.DAO.ProductDAO;
+import service.BrandService;
+import service.CategoryService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,6 +31,7 @@ public class ProductListServlet extends HttpServlet {
         String offersParam = request.getParameter("offers");
         String filterParam = request.getParameter("filter");
 
+        ServletContext context = getServletContext();
         ProductDAO productDAO = new ProductDAO();
         RequestDispatcher dispatcher;
 
@@ -49,6 +52,7 @@ public class ProductListServlet extends HttpServlet {
             }
             List<Product> productList = productDAO.doRetrieveByFilter(
                      brandIdParam, color, material, minPrice, maxPrice);
+            BrandService.addBrandToProductBean(productList, context);
 
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
@@ -60,12 +64,14 @@ public class ProductListServlet extends HttpServlet {
             out.flush();
         }
 
-        ServletContext context = getServletContext();
-        CategoryServlet.checkCategoryCache(context);
-        Map<Integer, Category> categoryCacheMap = (Map<Integer, Category>) context.getAttribute("categoryCacheMap");
-        request.setAttribute("categoryCacheMap", categoryCacheMap);
+
 
         try{
+
+            CategoryService.checkCategoryCache(context);
+            Map<Integer, Category> categoryCacheMap = (Map<Integer, Category>) context.getAttribute("categoryCacheMap");
+            request.setAttribute("categoryCacheMap", categoryCacheMap);
+
             if(brandIdParam == null && categoryIdParam == null && offersParam == null){
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameters");
                 return;
@@ -73,6 +79,7 @@ public class ProductListServlet extends HttpServlet {
 
             if(brandIdParam != null){
                 List<Product> productList = productDAO.doRetrieveByBrandId(Integer.parseInt(brandIdParam));
+                BrandService.addBrandToProductBean(productList, context);
                 request.setAttribute("productList", productList);
                 dispatcher = request.getRequestDispatcher("/jsp/products/ProductsList.jsp");
                 dispatcher.forward(request, response);
@@ -80,13 +87,17 @@ public class ProductListServlet extends HttpServlet {
 
             if(categoryIdParam != null){
                 List<Product> productList = productDAO.doRetrieveByCategoryId(Integer.parseInt(categoryIdParam));
+                BrandService.addBrandToProductBean(productList, context);
+                List<Category> breadcrumbCategories = CategoryService.buildBreadcrumbFromMap(categoryCacheMap, Integer.parseInt(categoryIdParam));
                 request.setAttribute("productList", productList);
+                request.setAttribute("breadcrumbCategories", breadcrumbCategories);
                 dispatcher = request.getRequestDispatcher("/jsp/products/ProductsList.jsp");
                 dispatcher.forward(request, response);
             }
 
             if(offersParam != null && offersParam.equals("true")){
                 List<Product> productList = productDAO.doRetrieveBySalePrice();
+                BrandService.addBrandToProductBean(productList, context);
                 request.setAttribute("productList", productList);
                 dispatcher = request.getRequestDispatcher("/jsp/products/Offers.jsp");
                 dispatcher.forward(request, response);

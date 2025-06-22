@@ -8,6 +8,7 @@ import model.Bean.*;
 import model.DAO.BrandDAO;
 import model.DAO.ImageDAO;
 import model.DAO.ProductDAO;
+import service.CategoryService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,7 +37,7 @@ public class ProductServlet extends HttpServlet {
                 int id = Integer.parseInt(idParam);
                 Product product = service.doRetrieveById(id);
                 Map<Integer, Category> categoryCacheMap = (Map<Integer, Category>) context.getAttribute("categoryCacheMap");
-                List<Category> breadcrumbCategories = CategoryServlet.buildBreadcrumbFromMap(categoryCacheMap, product.getCategoryId());
+                List<Category> breadcrumbCategories = CategoryService.buildBreadcrumbFromMap(categoryCacheMap, product.getCategoryId());
                 if(product != null) {
                     ImageDAO imageDAO = new ImageDAO();
                     BrandDAO brandDAO = new BrandDAO();

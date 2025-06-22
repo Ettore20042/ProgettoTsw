@@ -11,6 +11,7 @@ public class Product {
     private int brandId;
     private int categoryId;
     private double salePrice;
+    private Brand brand;
 
   public Product(int idProduct, int idCategory, int idBrand, String description, int stock, String material, String colour, float price, String nameProduct,double salePrice) {
       this.productId = idProduct;
@@ -27,7 +28,13 @@ public class Product {
   public Product(){
 
   }
+    public Brand getBrand() {
+        return brand;
+    }
 
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
     public double getSalePrice() {
         return salePrice;
     }

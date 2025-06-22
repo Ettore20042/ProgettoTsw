@@ -1,135 +1,137 @@
-/* Mobile first */
-.productList-container {
-    margin-bottom: 0.5rem;
-    padding: 0 8px;
+/*
+ *  File: productList.css
+ *  Scopo: Contiene gli stili per la pagina della lista prodotti
+ *  e sovrascrive/adatta gli stili del componente .product-card
+ *  quando si trova all'interno della griglia .product-list_grid.
+ */
+
+/* --- Stili Generali della Pagina Lista --- */
+.product-list_page {
+    padding: 3rem;
+    max-width: 1200px; /* Limita la larghezza massima della pagina */
+    margin: 0 auto; /* Centra la pagina */
 }
 
-.productList-main-title--h2 {
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-    margin-left: 0;
-    font-size: 1.5rem;
+.product-list_heading {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+    text-align: left;
+    margin: 2rem 0;
 }
 
-.productList-grid {
+/* --- IL CUORE DEL LAYOUT A GRIGLIA ADATTIVA --- */
+.product-list_grid {
+    display: grid;
+
+    /*
+     *  SPIEGAZIONE:
+     *  - auto-fit: Crea quante colonne possibili possono entrare nello spazio.
+     *  - minmax(280px, 1fr): Ogni colonna deve essere larga ALMENO 280px.
+     *    Se c'è spazio extra, questo viene distribuito equamente tra le colonne (1fr).
+     *  Questo crea un layout a 2 colonne su mobile, e passa a 3, 4, ecc. su schermi più grandi
+     *  in modo completamente automatico.
+     */
+    grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+    gap: 0.65rem;
+    margin-bottom: 3rem;
+}
+
+
+.product-list_grid .product-card {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-}
-
-.productList-product-card {
-    border: 1px solid #f3eed8;
+    border: 1px solid #eee;
     border-radius: 8px;
-    padding: 8px;
-    text-align: center;
-    height: auto;
-    min-height: 250px;
-    display: flex;
-    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    padding: 0.5rem;
 }
 
-.productList-product-card img{
+.product-list_grid .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+
+.product-list_grid .product-card_gallery {
+    position: relative;
     width: 100%;
-    max-width: 100%;
-    height: auto;
-    max-height: 120px;
+    padding-top: 100%;
+    background-color: #f8f8f8;
+    overflow: hidden;
+}
+
+.product-list_grid .product-card_link {
+    display: block;
+    text-decoration: none;
+    color: inherit; /* Mantiene il colore del testo ereditato */
+    position: relative; /* Necessario per posizionare l'immagine assolutamente */
+}
+
+.product-list_grid .product-card_image {
+    /* Posiziona l'immagine in modo assoluto dentro il wrapper */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
 }
 
-.productList-product-card_name--title{
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-    margin-top: 0.3rem;
-    line-height: 1.2;
+/* Adattiamo i font e i margini per la card più piccola */
+.product-list_grid .product-card_brand {
+    font-size: clamp(0.85rem, 0.75rem + 0.2vw, 0.9rem); /* Più piccolo */
+    margin: 0.25rem 0;
+}
+
+.product-list_grid .product-card_name {
+    font-size: clamp(1rem, 0.9rem + 0.4vw, 1.1rem); /* Più piccolo */
+    margin: 0 0 1rem 0;
+    line-height: 1.3;
     display: -webkit-box;
-    /*
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 2; /* Numero massimo di righe da visualizzare */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    */
-    display: block;
+    /* Diamo un'altezza minima per mantenere le card allineate anche se il titolo è corto */
+    min-height: 2.6em; /* Altezza di 2 righe (2 * 1.3em) */
 }
 
-/* out of stock */
+.product-list_grid .product-card_details {
 
-.productList-product-card-price{
-    font-size: 0.9rem;
-    margin: 0.5rem 0;
 }
 
-.productList-product-card-add-to-cart--button{
-    font-family: 'Inter', sans-serif;
+.product-list_grid .product-card_price {
+    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem); /* Più piccolo */
+    margin: 1rem 0 0;
+}
+
+.product-list_grid .product-card_button--add-to-cart {
+    width: fit-content;
+    margin: 0;
+    padding: 0.2rem 0.57rem 0.1rem;
+    font-size: clamp(0.9rem, 0.8rem + 0.2vw, 1rem);
+    align-self: flex-end;
+    background: none;
+    border: 1px solid #7fa836;
+}
+.product-list_grid .product-card_button--add-to-cart:hover {
+    background-color: #7fa836;
+    color: white;
+}
+.product-card_button .material-symbols-rounded {
+    line-height: normal;
+}
+
+.product-card_stock-status--available,
+.product-card_stock-status--not-available {
+    font-size: 0.8rem;
     font-weight: 600;
-    font-size: 0.85rem;
-    width: 100%;
-    color: #392e23;
-    padding: 0.5rem;
-    border-radius: 1.5rem;
-    border: none;
-    cursor: pointer;
-    background-color: #FFE312;
-    margin-top: auto;
-    margin-left: 0;
 }
-
-/* Layout for desktop */
-@media (min-width: 992px){
-    .productList-container {
-        margin-bottom: 2rem;
-        padding: 0;
-    }
-
-    .productList-main-title--h2{
-        margin-top: 2rem;
-        margin-bottom: 1rem;
-        font-size: 2rem;
-    }
-
-    .productList-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 16px;
-    }
-
-    .productList-product-card {
-        height: auto;
-        min-height: 350px;
-        padding: 16px;
-        border: 2px solid #f3eed8;
-        display: flex;
-        flex-direction: column;
-        flex: 0 1 30%;
-        box-sizing: border-box;
-    }
-
-    .productList-product-card img{
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-        max-height: 180px;
-        object-fit: contain;
-    }
-
-    .productList-product-card_name--title{
-        font-size: 1.3rem;
-        margin-bottom: 0.75rem;
-        margin-top: 0.5rem;
-        flex-grow: 0; /* don't let it expand */
-    }
-
-    .productList-product-card-price{
-        margin: 0.5rem 0 1rem 0; /* add bottom margin to create space before button */
-    }
-
-    .productList-product-card-add-to-cart--button{
-        font-size: 1rem;
-        width: 100%;
-        padding: 0.85rem;
-        margin-top: auto; /* push button to bottom */
-        margin-left: 0;
-    }
+.product-card_stock-status--available {
+    color: #28a745;
 }
-
+.product-card_stock-status--not-available {
+    color: #dc3545;
+}

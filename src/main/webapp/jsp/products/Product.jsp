@@ -11,7 +11,6 @@
 <head>
     <title><c:out value="${pageTitle}" default="BricoShop"/></title>
     <jsp:include page="/jsp/common/HeadContent.jsp" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
     <script src="${pageContext.request.contextPath}/Js/products/ProductPage.js" defer></script>
 </head>
 <body>
@@ -68,7 +67,7 @@
                     </div>
                 </c:if>
                 <c:if test="${product.getQuantity() == 0}">
-                    <p class="product-card_stock-status">Non disponibile momentaneamente</p>
+                    <p class="product-card_stock-status--not-available">Non disponibile momentaneamente</p>
                 </c:if>
                 <button class="product-card_button product-card_button--add-to-cart">Aggiungi al carrello</button>
                 <button class="product-card_button product-card_button--buy-now">Acquista Ora</button>

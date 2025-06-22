@@ -46,8 +46,6 @@ public class BrandDAO {
 				brand.setBrandName(rs.getString("BrandName"));
 				brand.setLogoPath(rs.getString("LogoPath"));
 
-
-
 				brands.add(brand);
 			}
 

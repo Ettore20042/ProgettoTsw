@@ -18,7 +18,7 @@
             <section class="categories">
                 <h2 class="categories-main_title--h2">Categorie</h2>
                 <div class="category-grid">
-                    <c:forEach var="category" items="${categories}">
+                    <c:forEach var="category" items="${categoryCacheMap.values()}">
                         <c:if test="${category.parentCategory == null || category.categoryPath == ''}">
                             <div class="category-card">
                                 <div class="category-card_maincategory">
@@ -30,7 +30,7 @@
 
 
                                 <div class="subcategory-menu">
-                                    <c:forEach var="subcat" items="${categories}">
+                                    <c:forEach var="subcat" items="${categoryCacheMap.values()}">
                                         <c:if test="${subcat.parentCategory == category.categoryId}">
                                             <a href="${pageContext.request.contextPath}/ProductListServlet?categoryId=${subcat.categoryId}">
                                                     ${subcat.categoryName}
