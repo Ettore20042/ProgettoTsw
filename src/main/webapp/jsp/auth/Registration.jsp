@@ -16,7 +16,7 @@
 
     <div class="auth-form-container">
         <% if (request.getAttribute("error") != null) { %>
-        <div style=" color: #fff; background-color: #e74c3c; padding: 15px;border-radius: 5px;margin-bottom: 20px;font-weight: bold;text-align: center;">
+        <div style="color: #fff; background-color: #e74c3c; padding: 15px; border-radius: 5px; margin-bottom: 20px; font-weight: bold; text-align: center;">
             <%= request.getAttribute("error") %>
         </div>
         <% } %>
@@ -30,16 +30,32 @@
 
             <input type="number" class="auth-form-container__input" name="phone" placeholder="Telefono*" required>
             <input type="email" class="auth-form-container__input" name="email" placeholder="Email*" required>
+
             <div class="auth-form-container__input-wrapper">
                 <input type="password" class="auth-form-container__input" name="password" placeholder="Password*" required>
-                <span onclick="togglePassword()"><img src="${pageContext.request.contextPath}/img/icon/eye.png" class="auth-form-container__icon"></span>
             </div>
+
             <div class="auth-form-container__input-wrapper">
                 <input type="password" class="auth-form-container__input" name="confirmPassword" placeholder="Conferma Password*" required>
-                <img src="${pageContext.request.contextPath}/img/icon/return.png" class="auth-form-container__icon">
+                <span onclick="togglePassword('confirmPassword')" style="cursor: pointer;" role="button" tabindex="0"
+                      onkeydown="if(event.key==='Enter'||event.key===' ') togglePassword('confirmPassword')"
+                      aria-label="Mostra/Nascondi conferma password">
+
+                </span>
+            </div>
+            <div class="password-requirements" style="font-size: 12px; color: #666; margin-bottom: 15px;">
+                La password deve contenere:
+                <ul style="margin: 5px 0; padding-left: 20px;">
+                    <li>8-20 caratteri</li>
+                    <li>Almeno una lettera maiuscola</li>
+                    <li>Almeno una lettera minuscola</li>
+                    <li>Almeno un numero</li>
+                    <li>Almeno un carattere speciale ($@#&!)</li>
+                </ul>
             </div>
             <button type="submit" class="auth-form-container__button">Registrati</button>
         </form>
+
         <div class="auth-form-container__prompt--registration">
             <span>Hai già un account?</span>
             <a href="${pageContext.request.contextPath}/jsp/auth/Login.jsp" class="auth-form-container__link">Accedi</a>

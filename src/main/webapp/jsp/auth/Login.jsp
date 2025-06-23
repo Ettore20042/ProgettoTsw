@@ -8,7 +8,6 @@
     <title>Login</title>
     <jsp:include page="/jsp/common/HeadContent.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css">
-    <script src="${pageContext.request.contextPath}/Js/CheckCredential.js" defer></script>
 </head>
 <body data-context-path="${pageContext.request.contextPath}">
 <jsp:include page="/jsp/common/Header.jsp" />
