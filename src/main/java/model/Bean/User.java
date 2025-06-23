@@ -91,4 +91,7 @@ public class User {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+    public boolean getAdmin() {
+        return admin;
+    }
 }

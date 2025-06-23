@@ -35,6 +35,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
 
+
             // Se non viene passato alcun redirectAfterLogin, imposto default
             if (redirectAfterLogin == null || redirectAfterLogin.isEmpty()) {
                 redirectAfterLogin = "jsp/HomePage.jsp";

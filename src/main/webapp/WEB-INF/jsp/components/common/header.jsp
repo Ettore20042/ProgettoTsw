@@ -29,7 +29,13 @@
                 <span class="user-actions_button-name">${user.firstName}</span>
                 <img src="${pageContext.request.contextPath}/img/header/icona_profilo.svg" alt="Icona profilo" id="profileIcon" tabindex="0"/>
             </button>
-
+            <div class="user-role_container">
+                <%if (request.getSession().getAttribute("user") != null) {
+                    User user = (User) session.getAttribute("user");
+                    if (user.isAdmin()) { %>
+                <a href="${pageContext.request.contextPath}/jsp/profile/ManageProducts.jsp" class="user-role-button">Admin</a>
+                <% } } %>
+            </div>
             <div class="user-actions_dropdown" id="userActionsDropdown">
                 <% if (request.getSession().getAttribute("user") != null) {
                     User user = (User) session.getAttribute("user");%>

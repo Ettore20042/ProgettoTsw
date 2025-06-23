@@ -32,7 +32,26 @@ function validatePasswordMatch() {
     return passwordInput.value === confirmInput.value;
 }
 
+function togglePassword(fieldName = 'password') {
+    const passwordInput = document.querySelector(`input[name="${fieldName}"]`);
+    if (!passwordInput) return;
 
+    const eyeIcon = passwordInput.parentElement.querySelector('.auth-form-container__icon');
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        if (eyeIcon) {
+            eyeIcon.src = eyeIcon.src.replace('eye.png', 'view.png');
+            eyeIcon.alt = "Nascondi password";
+        }
+    } else {
+        passwordInput.type = "password";
+        if (eyeIcon) {
+            eyeIcon.src = eyeIcon.src.replace('view.png', 'eye.png');
+            eyeIcon.alt = "Mostra password";
+        }
+    }
+}
 
 function validateForm() {
     let isValid = true;

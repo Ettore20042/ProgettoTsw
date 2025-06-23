@@ -8,7 +8,7 @@
     <title>Registrati</title>
     <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css">
-    <script src="${pageContext.request.contextPath}/Js/CheckCredential.js" defer></script>
+    <script src="${pageContext.request.contextPath}/Js/CheckCredential.js?v=2349" defer></script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/components/common/header.jsp" />
@@ -33,6 +33,9 @@
 
             <div class="auth-form-container__input-wrapper">
                 <input type="password" class="auth-form-container__input" name="password" placeholder="Password*" required>
+                <img src="${pageContext.request.contextPath}/img/icon/eye.png"
+                     class="auth-form-container__icon"
+                     alt="Mostra password">
             </div>
 
             <div class="auth-form-container__input-wrapper">
@@ -40,7 +43,9 @@
                 <span onclick="togglePassword('confirmPassword')" style="cursor: pointer;" role="button" tabindex="0"
                       onkeydown="if(event.key==='Enter'||event.key===' ') togglePassword('confirmPassword')"
                       aria-label="Mostra/Nascondi conferma password">
-
+                         <img src="${pageContext.request.contextPath}/img/icon/eye.png"
+                              class="auth-form-container__icon"
+                              alt="Mostra password">
                 </span>
             </div>
             <div class="password-requirements" style="font-size: 12px; color: #666; margin-bottom: 15px;">

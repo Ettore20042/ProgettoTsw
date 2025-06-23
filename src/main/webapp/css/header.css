@@ -111,7 +111,6 @@ header.main-header{
     flex-wrap: nowrap;
     align-items: center;
     margin-left: auto;
-    margin-right: 3%;
     position: relative;
     gap: 0.1vw;
 }
@@ -138,7 +137,7 @@ header.main-header{
     padding: 7px;
 }
 .user-actions_button--cart #cartIcon{
-    width: 3.7rem;
+    width: 3.9rem;
     height: auto;
     padding: 7px;
 }
@@ -265,6 +264,22 @@ header.main-header{
     font-size: 1rem;
     color: #392E23;
 
+}
+.user-role-button{
+    font-size:1rem;
+    color: #392E23;
+    font-weight: 500;
+    margin-left: 0.5rem;
+    background: rgb(255, 188, 0);
+    border:1px solid #392E23;
+    border-radius: 0.5rem;
+    padding: 0.2rem 0.5rem;
+
+}
+.user-role-button:hover{
+    background: rgba(19, 175, 19, 0.62);
+    color: #F3EED8;
+    cursor: pointer;
 }
 
 
