@@ -18,12 +18,12 @@
         <form id="loginForm" action="${pageContext.request.contextPath}/LoginServlet" method="post">
         <div class="auth-form-container__input-wrapper">
                 <input type="text" id="email" name="email" placeholder="Email" required class="auth-form-container__input">
-                <img src="${pageContext.request.contextPath}/img/icon/email.png" class="auth-form-container__icon"><br><br>
+                <img src="${pageContext.request.contextPath}/img/icon/email.png" class="auth-form-container__icon auth-form-container__icon-email"><br><br>
             </div>
             <span id="emailError" style="color: #E71D36; display: none;">Email non valida</span>
             <div class="auth-form-container__input-wrapper">
                 <input type="password" id="password" name="password" placeholder="Password" required class="auth-form-container__input"><br><br>
-                <img src="${pageContext.request.contextPath}/img/icon/padlock.png" class="auth-form-container__icon"><br><br>
+                <img src="${pageContext.request.contextPath}/img/icon/padlock.png" class="auth-form-container__icon auth-form-container__icon-password"><br><br>
             </div>
             <span id="passwordError" style="color: #E71D36; display: none;">Password non valida</span>
             <c:if test="${not empty loginError}">
@@ -45,5 +45,7 @@
     </div>
 </main>
 <jsp:include page="/WEB-INF/jsp/components/common/footer.jsp" />
+</body>
+</html>
 
 

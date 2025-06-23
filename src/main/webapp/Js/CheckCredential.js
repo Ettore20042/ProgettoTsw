@@ -53,7 +53,7 @@ function togglePassword(fieldName) {
     const passwordInput = document.querySelector(`input[name="${fieldName}"]`);
     if (!passwordInput) return;
 
-    const eyeIcon = passwordInput.parentElement.querySelector('.auth-form-container__icon');
+    const eyeIcon = passwordInput.parentElement.querySelector('.auth-form-container__icon-password');
 
     if (passwordInput.type === "password") {
         passwordInput.type = "text";
@@ -178,14 +178,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Setup toggle password
-    document.querySelectorAll('.auth-form-container__icon').forEach(icon => {
-        icon.addEventListener('click', function () {
-            const input = this.parentElement.querySelector('input[type="password"], input[type="text"]');
-            if (input) {   //Parent-> restituisce l'elemento genitore diretto nell'albero DOM
+    document.querySelector('.auth-form-container__icon-password')
+        .addEventListener('click', function () {
+            const input = document.getElementById('password')
+            if (input) {
                 togglePassword(input.name);
             }
         });
-    });
-
 
 });
