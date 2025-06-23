@@ -34,6 +34,7 @@
                     User user = (User) session.getAttribute("user");
                     if (user.isAdmin()) { %>
                 <a href="${pageContext.request.contextPath}/jsp/profile/ManageProducts.jsp" class="user-role-button">Admin</a>
+
                 <% } } %>
             </div>
             <div class="user-actions_dropdown" id="userActionsDropdown">

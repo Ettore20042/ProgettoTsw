@@ -146,6 +146,7 @@ body {
     -webkit-appearance: none;
 }
 
+
 /* Desktop styles */
 @media (min-width: 768px) {
     .auth-form-container {
@@ -175,7 +176,7 @@ body {
     .auth-form-container__icon {
         width: 1.5rem;
     }
-
+   
     .auth-form-container__name-row {
         gap: 6%;
         flex-direction: row;

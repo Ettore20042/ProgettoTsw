@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    request.setAttribute("pageTitle", " Registrazione");
+    request.setAttribute("pageTitle", "Registrazione");
 %>
 <!DOCTYPE html>
 <html lang="it">
@@ -8,57 +8,105 @@
     <title>Registrati</title>
     <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css">
-    <script src="${pageContext.request.contextPath}/Js/CheckCredential.js?v=2349" defer></script>
+    <script src="${pageContext.request.contextPath}/Js/CheckCredential.js?v=2350" defer></script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/components/common/header.jsp" />
 <main>
-
     <div class="auth-form-container">
         <% if (request.getAttribute("error") != null) { %>
-        <div style="color: #fff; background-color: #e74c3c; padding: 15px; border-radius: 5px; margin-bottom: 20px; font-weight: bold; text-align: center;">
+        <div class="server-error-message" style="color: #fff; background-color: #e74c3c; padding: 15px; border-radius: 5px; margin-bottom: 20px; font-weight: bold; text-align: center;">
             <%= request.getAttribute("error") %>
         </div>
         <% } %>
 
+        <% if (request.getAttribute("success") != null) { %>
+        <div class="server-success-message" style="color: #fff; background-color: #27ae60; padding: 15px; border-radius: 5px; margin-bottom: 20px; font-weight: bold; text-align: center;">
+            <%= request.getAttribute("success") %>
+        </div>
+        <% } %>
+
         <h2 class="auth-form-container__title auth-form-container__title--registration">Registrati</h2>
-        <form id="registerForm" action="${pageContext.request.contextPath}/RegistrationServlet" method="post">
+        <form id="registerForm" action="${pageContext.request.contextPath}/RegistrationServlet" method="post" novalidate>
             <div class="auth-form-container__name-row">
-                <input type="text" class="auth-form-container__input" name="name" placeholder="Nome*" required>
-                <input type="text" class="auth-form-container__input" name="surname" placeholder="Cognome*" required>
+                <input type="text"
+                       class="auth-form-container__input"
+                       name="name"
+                       placeholder="Nome*"
+                       required
+                       value="<%= request.getParameter("name") != null ? request.getParameter("name") : "" %>"
+                       autocomplete="given-name">
+                <input type="text"
+                       class="auth-form-container__input"
+                       name="surname"
+                       placeholder="Cognome*"
+                       required
+                       value="<%= request.getParameter("surname") != null ? request.getParameter("surname") : "" %>"
+                       autocomplete="family-name">
             </div>
 
-            <input type="number" class="auth-form-container__input" name="phone" placeholder="Telefono*" required>
-            <input type="email" class="auth-form-container__input" name="email" placeholder="Email*" required>
+            <input type="tel"
+                   class="auth-form-container__input"
+                   name="phone"
+                   placeholder="Telefono* (es. 3123456789)"
+                   required
+                   pattern="[0-9]{8,15}"
+                   value="<%= request.getParameter("phone") != null ? request.getParameter("phone") : "" %>"
+                   autocomplete="tel">
+
+            <input type="email"
+                   class="auth-form-container__input"
+                   name="email"
+                   placeholder="Email*"
+                   required
+                   value="<%= request.getParameter("email") != null ? request.getParameter("email") : "" %>"
+                   autocomplete="email">
 
             <div class="auth-form-container__input-wrapper">
-                <input type="password" class="auth-form-container__input" name="password" placeholder="Password*" required>
+                <input type="password"
+                       class="auth-form-container__input"
+                       name="password"
+                       placeholder="Password*"
+                       required
+                       autocomplete="new-password">
                 <img src="${pageContext.request.contextPath}/img/icon/eye.png"
                      class="auth-form-container__icon"
-                     alt="Mostra password">
+                     alt="Mostra password"
+                     role="button"
+                     tabindex="0">
             </div>
 
             <div class="auth-form-container__input-wrapper">
-                <input type="password" class="auth-form-container__input" name="confirmPassword" placeholder="Conferma Password*" required>
-                <span onclick="togglePassword('confirmPassword')" style="cursor: pointer;" role="button" tabindex="0"
-                      onkeydown="if(event.key==='Enter'||event.key===' ') togglePassword('confirmPassword')"
-                      aria-label="Mostra/Nascondi conferma password">
-                         <img src="${pageContext.request.contextPath}/img/icon/eye.png"
-                              class="auth-form-container__icon"
-                              alt="Mostra password">
-                </span>
+                <input type="password"
+                       class="auth-form-container__input"
+                       name="confirmPassword"
+                       placeholder="Conferma Password*"
+                       required
+                       autocomplete="new-password">
+                <img src="${pageContext.request.contextPath}/img/icon/eye.png"
+                     class="auth-form-container__icon"
+                     alt="Mostra password"
+                     role="button"
+                     tabindex="0">
             </div>
-            <div class="password-requirements" style="font-size: 12px; color: #666; margin-bottom: 15px;">
-                La password deve contenere:
-                <ul style="margin: 5px 0; padding-left: 20px;">
+
+            <div class="password-requirements" style="font-size: 12px; color: #666; margin-bottom: 15px; line-height: 1.4;">
+                <strong>La password deve contenere:</strong>
+                <ul style="margin: 8px 0; padding-left: 20px; list-style-type: disc;">
                     <li>8-20 caratteri</li>
-                    <li>Almeno una lettera maiuscola</li>
-                    <li>Almeno una lettera minuscola</li>
-                    <li>Almeno un numero</li>
+                    <li>Almeno una lettera maiuscola (A-Z)</li>
+                    <li>Almeno una lettera minuscola (a-z)</li>
+                    <li>Almeno un numero (0-9)</li>
                     <li>Almeno un carattere speciale ($@#&!)</li>
                 </ul>
             </div>
-            <button type="submit" class="auth-form-container__button">Registrati</button>
+
+            <div class="form-actions">
+                <button type="submit" class="auth-form-container__button">
+                    <span class="button-text">Registrati</span>
+                    <span class="button-loader" style="display: none;">Caricamento...</span>
+                </button>
+            </div>
         </form>
 
         <div class="auth-form-container__prompt--registration">
@@ -68,5 +116,48 @@
     </div>
 </main>
 <jsp:include page="/WEB-INF/jsp/components/common/footer.jsp" />
+
+<script>
+    // Script aggiuntivo per migliorare l'UX
+    document.addEventListener('DOMContentLoaded', function() {
+        // Gestione loading button
+        const form = document.getElementById('registerForm');
+        const submitButton = form.querySelector('button[type="submit"]');
+        const buttonText = submitButton.querySelector('.button-text');
+        const buttonLoader = submitButton.querySelector('.button-loader');
+
+        form.addEventListener('submit', function(e) {
+            if (validateForm()) {
+                submitButton.disabled = true;
+                buttonText.style.display = 'none';
+                buttonLoader.style.display = 'inline';
+            }
+        });
+
+        // Gestione accessibilità per toggle password
+        document.querySelectorAll('.auth-form-container__icon').forEach(icon => {
+            icon.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.click();
+                }
+            });
+        });
+
+        // Auto-hide messaggi del server dopo 5 secondi
+        const serverMessages = document.querySelectorAll('.server-error-message, .server-success-message');
+        serverMessages.forEach(message => {
+            setTimeout(() => {
+                message.style.opacity = '0';
+                message.style.transition = 'opacity 0.5s ease-out';
+                setTimeout(() => {
+                    if (message.parentNode) {
+                        message.remove();
+                    }
+                }, 500);
+            }, 5000);
+        });
+    });
+</script>
 </body>
 </html>
