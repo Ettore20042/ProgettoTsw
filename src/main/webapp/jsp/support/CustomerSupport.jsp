@@ -10,6 +10,7 @@
 <head>
     <title>Assistenza clienti</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/support.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
+    <jsp:include page="/jsp/common/HeadContent.jsp" />
 </head>
 <body>
     <jsp:include page="/jsp/common/Header.jsp"/>

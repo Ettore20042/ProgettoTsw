@@ -10,6 +10,7 @@
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/info.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
     <title>Privacy e policy</title>
+    <jsp:include page="/jsp/common/HeadContent.jsp" />
 </head>
 <body>
 <jsp:include page="/jsp/common/Header.jsp"/>
