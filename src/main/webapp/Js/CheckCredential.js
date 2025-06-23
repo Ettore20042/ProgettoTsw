@@ -2,37 +2,54 @@
  * Validates password strength
  */
 function checkCredential(password) {
-    if(password.length < 8) return false;
-    if(password.length > 20) return false;
-    if(password.search(/[a-z]/i) < 0) return false;
-    if(password.search(/[0-9]/) < 0) return false;
-    if(password.search(/[$@#&!]/) < 0) return false;
-    if(password.search(/[A-Z]/) < 0) return false;
-    if(password.search(/[^a-zA-Z0-9$@#&!]/) >= 0) return false;
+    if (password.length < 8) return false;
+    if (password.length > 20) return false;
+    if (password.search(/[a-z]/) < 0) return false;
+    if (password.search(/[A-Z]/) < 0) return false;
+    if (password.search(/[0-9]/) < 0) return false;
+    if (password.search(/[$@#&!]/) < 0) return false;
+    if (password.search(/[^a-zA-Z0-9$@#&!]/) >= 0) return false;
     return true;
 }
 
-function validateEmailField(){
+function validateEmailField() {
     const emailInput = document.querySelector('input[name="email"]');
-    const email = emailInput.value;
+    if (!emailInput) return false;
+    const email = emailInput.value.trim();
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return regex.test(email);
 }
 
 function validatePasswordField() {
     const passwordInput = document.querySelector('input[name="password"]');
+    if (!passwordInput) return false;
     return checkCredential(passwordInput.value);
 }
 
 function validatePasswordMatch() {
     const passwordInput = document.querySelector('input[name="password"]');
     const confirmInput = document.querySelector('input[name="confirmPassword"]');
-
-    if (!confirmInput) return true; // Skip if not on registration page
+    if (!confirmInput) return true; // Non presente nel login
     return passwordInput.value === confirmInput.value;
 }
 
-function togglePassword(fieldName = 'password') {
+function validateNameFields() {
+    const nameInput = document.querySelector('input[name="name"]');
+    const surnameInput = document.querySelector('input[name="surname"]');
+    if (!nameInput || !surnameInput) return true; // Non presente nel login
+    return nameInput.value.trim() !== "" && surnameInput.value.trim() !== "";
+}
+
+function validatePhoneField() {
+    const phoneInput = document.querySelector('input[name="phone"]');
+    if (!phoneInput) return true; // Non presente nel login
+    const phone = phoneInput.value.trim();
+    // Validazione base per numero di telefono (almeno 8 cifre)
+    const phoneRegex = /^\d{8,15}$/;
+    return phoneRegex.test(phone);
+}
+
+function togglePassword(fieldName) {
     const passwordInput = document.querySelector(`input[name="${fieldName}"]`);
     if (!passwordInput) return;
 
@@ -53,66 +70,12 @@ function togglePassword(fieldName = 'password') {
     }
 }
 
-function validateForm() {
-    let isValid = true;
-    const errors = [];
-    const isRegistrationForm = !!document.getElementById("registerForm");
-
-    // Validate email
-    if (!validateEmailField()) {
-        errors.push("Email non valida");
-        isValid = false;
-    }
-
-    // Validate password
-    if (!validatePasswordField()) {
-        errors.push("La password deve contenere tra 8-20 caratteri, almeno una lettera maiuscola, una minuscola, un numero e un carattere speciale ($@#&!)");
-        isValid = false;
-    }
-
-    // Only validate password match on registration form
-    if (isRegistrationForm && !validatePasswordMatch()) {
-        errors.push("Le password non corrispondono");
-        isValid = false;
-    }
-
-    // Display errors in a centralized container
+function showErrors(errors) {
     const form = document.getElementById("loginForm") || document.getElementById("registerForm");
+    if (!form) return;
+
+    // Rimuovi container errori precedente
     let errorContainer = document.getElementById("formErrorContainer");
-
-    // Remove existing error container if it exists
-    if (errorContainer) {
-        errorContainer.remove();
-    }
-
-    if (!isValid && errors.length > 0) {
-        errorContainer = document.createElement("div");
-        errorContainer.id = "formErrorContainer";
-        errorContainer.style.color = "#fff";
-        errorContainer.style.backgroundColor = "#e74c3c";
-        errorContainer.style.padding = "15px";
-        errorContainer.style.borderRadius = "5px";
-        errorContainer.style.marginBottom = "20px";
-        errorContainer.style.fontWeight = "bold";
-        errorContainer.style.textAlign = "center";
-        errorContainer.innerHTML = errors.join("<br>");
-
-        // Insert at the top of the form
-        form.insertBefore(errorContainer, form.firstChild);
-
-        // Scroll to error container
-        errorContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    return isValid;
-}
-
-// Real-time validation helper
-function showFormErrors(errors) {
-    const form = document.getElementById("loginForm") || document.getElementById("registerForm");
-    let errorContainer = document.getElementById("formErrorContainer");
-
-    // Remove existing error container if it exists
     if (errorContainer) {
         errorContainer.remove();
     }
@@ -120,31 +83,86 @@ function showFormErrors(errors) {
     if (errors.length > 0) {
         errorContainer = document.createElement("div");
         errorContainer.id = "formErrorContainer";
-        errorContainer.style.color = "#fff";
-        errorContainer.style.backgroundColor = "#e74c3c";
-        errorContainer.style.padding = "15px";
-        errorContainer.style.borderRadius = "5px";
-        errorContainer.style.marginBottom = "20px";
-        errorContainer.style.fontWeight = "bold";
-        errorContainer.style.textAlign = "center";
+        errorContainer.style.cssText = `
+            color: #fff;
+            background-color: #e74c3c;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+            animation: slideDown 0.3s ease-out;
+        `;
         errorContainer.innerHTML = errors.join("<br>");
 
-        // Insert at the top of the form
+        // Inserisci all'inizio del form
         form.insertBefore(errorContainer, form.firstChild);
 
-        // Scroll to error container
+        // Scroll smooth verso l'errore
         errorContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // Auto-rimozione dopo 5 secondi
+        setTimeout(() => {
+            if (errorContainer && errorContainer.parentNode) {
+                errorContainer.style.opacity = '0';
+                errorContainer.style.transition = 'opacity 0.3s ease-out';
+                setTimeout(() => errorContainer.remove(), 300);
+            }
+        }, 5000);
     }
 }
 
-// Initialize event listeners
-document.addEventListener("DOMContentLoaded", function() {
+function validateForm() {
+    const errors = [];
+    const isRegistrationForm = !!document.getElementById("registerForm");
+
+    // Validazione email
+    if (!validateEmailField()) {
+        errors.push("Email non valida");
+    }
+
+    // Validazione password
+    if (!validatePasswordField()) {
+        errors.push("La password deve contenere tra 8-20 caratteri, almeno una lettera maiuscola, una minuscola, un numero e un carattere speciale ($@#&!)");
+    }
+
+    // Validazioni specifiche per la registrazione
+    if (isRegistrationForm) {
+        // Validazione nome e cognome
+        if (!validateNameFields()) {
+            errors.push("Inserisci nome e cognome");
+        }
+
+        // Validazione telefono
+        if (!validatePhoneField()) {
+            errors.push("Inserisci un numero di telefono valido (8-15 cifre)");
+        }
+
+        // Validazione conferma password
+        if (!validatePasswordMatch()) {
+            errors.push("Le password non corrispondono");
+        }
+    }
+
+    // Mostra errori se presenti
+    if (errors.length > 0) {
+        showErrors(errors);
+        return false;
+    }
+
+    return true;
+}
+
+
+
+// Event listeners principali
+document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.getElementById("loginForm");
     const registerForm = document.getElementById("registerForm");
 
-    // Form submission validation
+    // Setup validazione form
     if (registerForm) {
-        registerForm.addEventListener("submit", function(event) {
+        registerForm.addEventListener("submit", function (event) {
             if (!validateForm()) {
                 event.preventDefault();
             }
@@ -152,46 +170,22 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (loginForm) {
-        loginForm.addEventListener("submit", function(event) {
+        loginForm.addEventListener("submit", function (event) {
             if (!validateForm()) {
                 event.preventDefault();
             }
         });
     }
 
-    // Real-time validation for email
-    const emailInput = document.querySelector('input[name="email"]');
-    if (emailInput) {
-        emailInput.addEventListener('blur', function() {
-            const errors = [];
-            if (this.value && !validateEmailField()) {
-                errors.push("Email non valida");
+    // Setup toggle password
+    document.querySelectorAll('.auth-form-container__icon').forEach(icon => {
+        icon.addEventListener('click', function () {
+            const input = this.parentElement.querySelector('input[type="password"], input[type="text"]');
+            if (input) {   //Parent-> restituisce l'elemento genitore diretto nell'albero DOM
+                togglePassword(input.name);
             }
-            showFormErrors(errors);
         });
-    }
+    });
 
-    // Real-time validation for password
-    const passwordInput = document.querySelector('input[name="password"]');
-    if (passwordInput) {
-        passwordInput.addEventListener('blur', function() {
-            const errors = [];
-            if (this.value && !checkCredential(this.value)) {
-                errors.push("La password deve contenere tra 8-20 caratteri, almeno una lettera maiuscola, una minuscola, un numero e un carattere speciale ($@#&!)");
-            }
-            showFormErrors(errors);
-        });
-    }
 
-    // Real-time validation for password confirmation
-    const confirmPasswordInput = document.querySelector('input[name="confirmPassword"]');
-    if (confirmPasswordInput) {
-        confirmPasswordInput.addEventListener('blur', function() {
-            const errors = [];
-            if (this.value && !validatePasswordMatch()) {
-                errors.push("Le password non corrispondono");
-            }
-            showFormErrors(errors);
-        });
-    }
 });
