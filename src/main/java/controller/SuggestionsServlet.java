@@ -17,6 +17,7 @@ public class SuggestionsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String query = request.getParameter("searchQuery");
+
         if (query == null) query = "";
 
         List<String> results = dao.searchProductsByName(query);
@@ -29,5 +30,7 @@ public class SuggestionsServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.print(json);
         out.flush();
+
+
     }
 }

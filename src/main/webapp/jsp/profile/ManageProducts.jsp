@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Lenovo
-  Date: 21/06/2025
-  Time: 17:18
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -13,53 +6,69 @@
 <head>
     <title><c:out value="${pageTitle}" default="BricoShop"/></title>
     <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/brands.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/manageproducts.css">
+    <script src="${pageContext.request.contextPath}/Js/profile/ManageProducts.js" defer></script>
 </head>
 
-<body>
+<body data-context-path="${pageContext.request.contextPath}">
 <jsp:include page="/WEB-INF/jsp/components/common/header.jsp"/>
 
-<main class="manage-products-container">
-    <section class="admin-button">
-        <a href="${pageContext.request.contextPath}/Admin.jsp" class="admin-button-toggle">Gestione Admin</a>
-    </section>
 
-    <section class="search-products">
-        <div class="search-products-add-product-button">
+
+<main class="manage-components-container">
+    <div class="manage-components-container-filter">
+        <%-- peppe rossetti --%>
+            <a href="${pageContext.request.contextPath}/Admin.jsp" class="admin-button-toggle">Gestione Admin</a>
+    </div>
+
+    <div class="manage-components-container-right">
+        <div class="search-bar manage-components-container-right_search-bar">
+            <form id="searchForm" action="${pageContext.request.contextPath}/ManageProductServlet" method="get" class="search-bar-form" autocomplete="off">
+                <input type="search" id="searchBarTable" name="searchQueryTable" placeholder="Cerca..." autocomplete="off">
+                <button type="submit" aria-label="Cerca">
+                    <img src="${pageContext.request.contextPath}/img/header/lente.svg" id="searchLensTable" alt="Cerca">
+                </button>
+            </form>
+
+
+            <div id="suggestions-for-table">
+            </div>
+
+
+        </div>
+        <div class="manage-products-container-right--add-button">
             <a href="${pageContext.request.contextPath}/AddProduct.jsp" class="add-product-button-toggle">Aggiungi un prodotto</a>
         </div>
 
-        <div class="search-products-search-bar">
-            <form id="searchForm" action="SearchBarServlet" method="get" class="search-bar-form" autocomplete="off">
-                <input type="search" id="searchBar" name="searchQueryTable" placeholder="Cerca..." autocomplete="off">
-                <button type="submit" aria-label="Cerca">
-                    <img src="${pageContext.request.contextPath}/img/header/lente.svg" id="searchLens" alt="Cerca">
-                </button>
-            </form>
-        </div>
-
-        <div class="search-products-on-table">
-            <table class="search-products-on-table--table">
+        <div class="manage-products-container-right--search-table">
+            <table class="search-components-on-table--table">
+                <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Prezzo</th>
                     <th>Colore</th>
                     <th>Quantità</th>
+                    <th colspan="2"></th>
                 </tr>
+                </thead>
+                <tbody id="productTableBody">
                 <c:forEach var="product" items="${productList}">
-                    <tr id="tableBody">
+                    <tr>
                         <td>${product.productId}</td>
                         <td>${product.productName}</td>
                         <td>${product.price}</td>
                         <td>${product.color}</td>
                         <td>${product.quantity}</td>
+                        <td><a href="Modifica.jsp">Modifica</a> </td>
+                        <td><a href="Elimina.jsp">Elimina</a> </td>
                     </tr>
                 </c:forEach>
+                </tbody>
             </table>
-        </div>
 
-    </section>
+        </div>
+    </div>
 </main>
 
 <jsp:include page="/WEB-INF/jsp/components/common/footer.jsp"/>

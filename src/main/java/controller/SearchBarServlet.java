@@ -20,12 +20,14 @@ public class SearchBarServlet extends HttpServlet {
             String searchQuery = request.getParameter("searchQuery");
 
             ProductDAO productDAO = new ProductDAO();
-            List<Product> products = productDAO.findByNameLike(searchQuery);
+            if(searchQuery != null){
+                List<Product> products = productDAO.findByNameLike(searchQuery);
+                request.setAttribute("productList", products);
 
-            request.setAttribute("productList", products);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/products/ProductsList.jsp");
+                dispatcher.forward(request, response);
+            }
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/products/ProductsList.jsp");
-            dispatcher.forward(request, response);  
         }
     }
 
