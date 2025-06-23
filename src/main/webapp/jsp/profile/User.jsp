@@ -7,15 +7,15 @@
 <html lang="it">
     <head>
         <title>User</title>
-        <jsp:include page="/jsp/common/HeadContent.jsp" />
+        <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
 
     </head>
     <body>
-        <jsp:include page="/jsp/common/Header.jsp" />
+        <jsp:include page="/WEB-INF/jsp/components/common/header.jsp" />
             <% if (request.getSession().getAttribute("user") != null) {
             User user = (User) session.getAttribute("user");%>
             <h1><%= user.getFirstName()%></h1><% }%>
 
-        <jsp:include page="/jsp/common/Footer.jsp" />
+        <jsp:include page="/WEB-INF/jsp/components/common/footer.jsp" />
     </body>
 </html>

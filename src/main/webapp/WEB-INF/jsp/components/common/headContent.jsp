@@ -9,4 +9,4 @@
 <script src="${pageContext.request.contextPath}/Js/common/footer.js" defer></script>
 
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/_productCard.css">

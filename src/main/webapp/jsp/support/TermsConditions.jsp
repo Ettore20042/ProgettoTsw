@@ -10,10 +10,10 @@
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/info.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
     <title>Termini e condizioni</title>
-    <jsp:include page="/jsp/common/HeadContent.jsp" />
+    <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
 </head>
 <body>
-<jsp:include page="/jsp/common/Header.jsp"/>
+<jsp:include page="/WEB-INF/jsp/components/common/header.jsp"/>
 
 <section class="main-info">
     <h2 class="main-info_title">Termini e Condizioni</h2>
@@ -51,6 +51,6 @@
     </p>
 </section>
 
-<jsp:include page="/jsp/common/Footer.jsp"/>
+<jsp:include page="/WEB-INF/jsp/components/common/footer.jsp"/>
 </body>
 </html>

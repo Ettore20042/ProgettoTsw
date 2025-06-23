@@ -12,12 +12,12 @@
 <html lang="it">
 <head>
     <title><c:out value="${pageTitle}" default="BricoShop"/></title>
-    <jsp:include page="/jsp/common/HeadContent.jsp" />
+    <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/brands.css">
 </head>
 
 <body>
-<jsp:include page="/jsp/common/Header.jsp"/>
+<jsp:include page="/WEB-INF/jsp/components/common/header.jsp"/>
 
 <main class="manage-products-container">
     <section class="admin-button">
@@ -62,6 +62,6 @@
     </section>
 </main>
 
-<jsp:include page="/jsp/common/Footer.jsp"/>
+<jsp:include page="/WEB-INF/jsp/components/common/footer.jsp"/>
 </body>
 </html>

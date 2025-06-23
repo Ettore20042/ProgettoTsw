@@ -28,14 +28,14 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idParam = request.getParameter("productId");
-        ProductDAO service = new ProductDAO();
+        ProductDAO productDAO = new ProductDAO();
         ServletContext context = getServletContext();
         RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/products/Product.jsp");
 
         if(idParam != null) {
             try{
                 int id = Integer.parseInt(idParam);
-                Product product = service.doRetrieveById(id);
+                Product product = productDAO.doRetrieveById(id);
                 Map<Integer, Category> categoryCacheMap = (Map<Integer, Category>) context.getAttribute("categoryCacheMap");
                 List<Category> breadcrumbCategories = CategoryService.buildBreadcrumbFromMap(categoryCacheMap, product.getCategoryId());
                 if(product != null) {

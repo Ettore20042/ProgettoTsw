@@ -10,12 +10,12 @@
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/info.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
     <title>Contattaci</title>
-    <jsp:include page="/jsp/common/HeadContent.jsp" />
+    <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
 
 </head>
 
 <body>
-<jsp:include page="/jsp/common/Header.jsp"/>
+<jsp:include page="/WEB-INF/jsp/components/common/header.jsp"/>
 <section class="main-info contact-section">
     <h2 class="main-info_title contact-title">Contattaci</h2>
 
@@ -45,6 +45,6 @@
     </div>
 </section>
 
-<jsp:include page="/jsp/common/Footer.jsp"/>
+<jsp:include page="/WEB-INF/jsp/components/common/footer.jsp"/>
 </body>
 </html>

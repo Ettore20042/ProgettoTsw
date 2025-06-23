@@ -8,12 +8,12 @@
 <html lang="it">
     <head>
         <title><c:out value="${pageTitle}" default="BricoShop"/></title>
-        <jsp:include page="/jsp/common/HeadContent.jsp" />
+        <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/homepage.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
         <script src="${pageContext.request.contextPath}/Js/Homepage.js" defer></script>
     </head>
     <body>
-        <jsp:include page="common/Header.jsp"/>
+        <jsp:include page="../WEB-INF/jsp/components/common/header.jsp"/>
         <main>
             <!-- Aggiungi all'inizio della pagina, dopo i tag iniziali -->
 
@@ -80,6 +80,6 @@
 
         </main>
 
-        <jsp:include page="common/Footer.jsp" />
+        <jsp:include page="../WEB-INF/jsp/components/common/footer.jsp" />
     </body>
 </html>

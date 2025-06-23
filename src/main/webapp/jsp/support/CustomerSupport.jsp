@@ -10,10 +10,10 @@
 <head>
     <title>Assistenza clienti</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/support.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
-    <jsp:include page="/jsp/common/HeadContent.jsp" />
+    <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
 </head>
 <body>
-    <jsp:include page="/jsp/common/Header.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/components/common/header.jsp"/>
 
     <div class="main-support">
         <h2 class="main-support_title"> Assistenza clienti</h2>
@@ -65,6 +65,6 @@
 
         </div>
     </div>
-    <jsp:include page="/jsp/common/Footer.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/components/common/footer.jsp"/>
 </body>
 </html>

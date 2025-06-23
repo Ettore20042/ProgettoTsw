@@ -6,12 +6,12 @@
 <html lang="it">
 <head>
     <title>Registrati</title>
-    <jsp:include page="/jsp/common/HeadContent.jsp" />
+    <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css">
     <script src="${pageContext.request.contextPath}/Js/CheckCredential.js" defer></script>
 </head>
 <body>
-<jsp:include page="/jsp/common/Header.jsp" />
+<jsp:include page="/WEB-INF/jsp/components/common/header.jsp" />
 <main>
 
     <div class="auth-form-container">
@@ -62,6 +62,6 @@
         </div>
     </div>
 </main>
-<jsp:include page="/jsp/common/Footer.jsp" />
+<jsp:include page="/WEB-INF/jsp/components/common/footer.jsp" />
 </body>
 </html>

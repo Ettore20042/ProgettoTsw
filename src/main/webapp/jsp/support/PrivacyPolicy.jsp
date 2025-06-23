@@ -10,10 +10,10 @@
 <head>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/info.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
     <title>Privacy e policy</title>
-    <jsp:include page="/jsp/common/HeadContent.jsp" />
+    <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
 </head>
 <body>
-<jsp:include page="/jsp/common/Header.jsp"/>
+<jsp:include page="/WEB-INF/jsp/components/common/header.jsp"/>
 
 <section class="main-info">
     <h2 class="main-info_title">Informativa sulla privacy</h2>
@@ -50,6 +50,6 @@
     <p class="main-info_text">Possiamo condividere le tue informazioni con: fornitori di servizi (es. pagamento, spedizione, IT), partner pubblicitari e commerciali, affiliate aziendali, autorità legali o nell'ambito di una transazione aziendale (es. fusione). Ogni condivisione avverrà nel rispetto della normativa e dei tuoi diritti.</p>
 </section>
 
-<jsp:include page="/jsp/common/Footer.jsp"/>
+<jsp:include page="/WEB-INF/jsp/components/common/footer.jsp"/>
 </body>
 </html>

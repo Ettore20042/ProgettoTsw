@@ -9,12 +9,12 @@
 <html lang="it">
     <head>
         <title>Cart</title>
-        <jsp:include page="/jsp/common/HeadContent.jsp"/>
+        <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp"/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
         <script src="${pageContext.request.contextPath}/Js/profile/cart.js" defer></script>
     </head>
     <body>
-        <jsp:include page="/jsp/common/Header.jsp"/>
+        <jsp:include page="/WEB-INF/jsp/components/common/header.jsp"/>
 
         <div class="cart-container">
             <h1 class="cart-title">Il tuo carrello</h1>
@@ -105,6 +105,6 @@
             %>
         </div>
 
-        <jsp:include page="/jsp/common/Footer.jsp"/>
+        <jsp:include page="/WEB-INF/jsp/components/common/footer.jsp"/>
     </body>
 </html>

@@ -3,11 +3,11 @@
 <html lang="it">
 <head>
     <title><c:out value="${pageTitle}" default="BricoShop"/></title>
-    <jsp:include page="/jsp/common/HeadContent.jsp" />
+    <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
 </head>
 <body>
-    <jsp:include page="/jsp/common/Header.jsp" />
+    <jsp:include page="/WEB-INF/jsp/components/common/header.jsp" />
 
-    <jsp:include page="/jsp/common/Footer.jsp" />
+    <jsp:include page="/WEB-INF/jsp/components/common/footer.jsp" />
 </body>
 </html>

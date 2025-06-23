@@ -1,12 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <jsp:include page="/jsp/common/HeadContent.jsp" />
+    <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
     <title>Mappa Store</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/store.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
 </head>
 <body>
-<jsp:include page="/jsp/common/Header.jsp" />
+<jsp:include page="/WEB-INF/jsp/components/common/header.jsp" />
 <h2 id="idtext">Trova lo Store più vicino a te</h2>
 <div class="button-search-container">
 
@@ -17,7 +17,7 @@
     <div id="map" ></div>
 </div>
 
-<jsp:include page="/jsp/common/Footer.jsp" />
+<jsp:include page="/WEB-INF/jsp/components/common/footer.jsp" />
 
 <script>
     // Global variables for map functionality
