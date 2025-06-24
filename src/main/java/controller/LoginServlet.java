@@ -5,6 +5,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import model.Bean.User;
 import model.DAO.UserDAO;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 
@@ -24,11 +25,14 @@ public class LoginServlet extends HttpServlet {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        // Hash della password per sicurezza
+        //gensalt() genera un "salt" casuale (una stringa casuale lunga).
+        //hashpw() usa il salt e la password per calcolare un hash.
         String redirectAfterLogin = request.getParameter("redirectAfterLogin");
 
         UserDAO userDAO = new UserDAO();
-        User user = userDAO.doLogin(email, password);
+        User user = userDAO.doLogin(email, hashedPassword);
 
         if (user != null) {
             // Salva l'utente nella sessione

@@ -55,17 +55,6 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {   // password è
-
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-1");
-            digest.reset();
-            digest.update(password.getBytes(StandardCharsets.UTF_8));
-            this.password = String.format("%040x", new BigInteger(1, digest.digest()));
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
     public String getPhone() {
