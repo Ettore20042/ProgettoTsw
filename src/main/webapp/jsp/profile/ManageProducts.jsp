@@ -22,8 +22,8 @@
     </div>
 
     <div class="manage-components-container-right">
-        <div class="search-bar manage-components-container-right_search-bar">
-            <form id="searchForm" action="${pageContext.request.contextPath}/ManageProductServlet" method="get" class="search-bar-form" autocomplete="off">
+        <div class="search-bar-tab manage-components-container-right_search-bar">
+            <form id="searchForm" action="${pageContext.request.contextPath}/ManageProductServlet" method="get" class="search-bar-form-tab" autocomplete="off">
                 <input type="search" id="searchBarTable" name="searchQueryTable" placeholder="Cerca..." autocomplete="off">
                 <button type="submit" aria-label="Cerca">
                     <img src="${pageContext.request.contextPath}/img/header/lente.svg" id="searchLensTable" alt="Cerca">
@@ -36,11 +36,11 @@
 
 
         </div>
-        <div class="manage-products-container-right--add-button">
-            <a href="${pageContext.request.contextPath}/AddProduct.jsp" class="add-product-button-toggle">Aggiungi un prodotto</a>
+        <div class="manage-components-container-right--add-button">
+            <a href="${pageContext.request.contextPath}/AddProduct.jsp" class="add-component-button-toggle">Aggiungi un prodotto</a>
         </div>
 
-        <div class="manage-products-container-right--search-table">
+        <div class="manage-components-container-right--search-table">
             <table class="search-components-on-table--table">
                 <thead>
                 <tr>
@@ -52,7 +52,7 @@
                     <th colspan="2"></th>
                 </tr>
                 </thead>
-                <tbody id="productTableBody">
+                <tbody id="componentTableBody">
                 <c:forEach var="product" items="${productList}">
                     <tr>
                         <td>${product.productId}</td>
