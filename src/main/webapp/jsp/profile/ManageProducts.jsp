@@ -44,7 +44,7 @@
             <div class="modal-content" >
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2>Aggiungi un prodotto</h2>
-                <form id="addProductForm1" action="${pageContext.request.contextPath}/AddProductServlet" method="post" enctype="multipart/form-data">
+                <form id="addProductForm" action="${pageContext.request.contextPath}/AddProductServlet" method="post" enctype="multipart/form-data">
                     <label for="productName">Nome Prodotto:</label>
                     <input type="text" id="productName" name="productName" required>
 
@@ -66,6 +66,10 @@
                     <label for="images">Immagini:</label>
                     <input type="file" id="images" name="images" accept="image/*" multiple>
 
+                    <label for="descriptionImage">Descrizione Immagine:</label>
+                    <input type="text" id="descriptionImage" name="descriptionImage" placeholder="Descrizione dell'immagine">
+
+
                     <label for="category">Categoria:</label>
                     <select id="category" name="category" required>
                         <option value="">Seleziona una categoria</option>
@@ -84,12 +88,12 @@
 
                     <button type="submit">Aggiungi Prodotto</button>
                 </form>
-                <p id="message"></p>
+
             </div>
         </div>
 
 
-
+        <div id="message" style="display: none" ></div>
         <div class="manage-components-container-right--search-table">
             <table class="search-components-on-table--table">
                 <thead>

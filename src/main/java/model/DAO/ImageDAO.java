@@ -33,4 +33,18 @@ public class ImageDAO {
             return null;
         }
     }
+    public boolean addImage(int productId, String imagePath, String imageDescription, int displayOrder) {
+        try (Connection conn = ConnPool.getConnection()) {
+            String sql = "INSERT INTO image (ProductID, ImagePath, ImageDescription, DisplayOrder) VALUES (?, ?, ?, ?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, productId);
+            ps.setString(2, imagePath);
+            ps.setString(3, imageDescription);
+            ps.setInt(4, displayOrder);
+            return true == ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

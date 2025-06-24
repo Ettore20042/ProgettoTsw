@@ -79,13 +79,67 @@ document.getElementById('addProductForm').addEventListener('submit', function(ev
     fetch(url, {
         method: 'POST',
         body: formData
-    }).then(resp => resp.text())
-        .then(text => {
-            document.getElementById("message").innerText = text;
-            this.reset();
-            closeModal(); // chiude la modale dopo il submit
-        }).catch(error => {
-        document.getElementById("message").innerText = "Errore durante l'invio.";
-    });
-});
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const messageElement = document.getElementById("message");
 
+            // Applica le proprietà stile "cart-notification"
+            Object.assign(messageElement.style, {
+                display: 'flex',
+                position: 'fixed',
+                top: '20px',
+                right: '20px',
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                padding: '15px',
+                borderRadius: '5px',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                opacity: '1',
+                transform: 'translateY(0)',
+                transition: 'all 0.3s ease',
+                zIndex: '1000'
+            });
+
+            messageElement.innerText = data.success ? '✅ Caricamento riuscito' : '❌ Caricamento fallito';
+
+            closeModal();
+
+            // Nasconde il messaggio dopo 2 secondi con animazione inversa
+            setTimeout(() => {
+                messageElement.style.opacity = '0';
+                messageElement.style.transform = 'translateY(-20px)';
+            }, 2000);
+        })
+        .catch(error => {
+            const messageElement = document.getElementById("message");
+
+            Object.assign(messageElement.style, {
+                display: 'flex',
+                position: 'fixed',
+                top: '20px',
+                right: '20px',
+                backgroundColor: '#f44336', // rosso errore
+                color: 'white',
+                padding: '15px',
+                borderRadius: '5px',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                opacity: '1',
+                transform: 'translateY(0)',
+                transition: 'all 0.3s ease',
+                zIndex: '1000'
+            });
+
+            messageElement.innerText = `❌ Errore: ${error.message}`;
+
+            setTimeout(() => {
+                messageElement.style.opacity = '0';
+                messageElement.style.transform = 'translateY(-20px)';
+            }, 2000);
+        });
+});
