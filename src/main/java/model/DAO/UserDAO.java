@@ -8,10 +8,12 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
     public void doSaveUser(User user) {
-        try(Connection conn = ConnPool.getConnection()) {
+        try (Connection conn = ConnPool.getConnection()) {
             String sql = "INSERT INTO useraccount (FirstName,LastName,Admin,Phone,Email,Password) VALUES (?, ?,?, ?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, user.getFirstName());
@@ -23,8 +25,9 @@ public class UserDAO {
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
+        }
     }
-}
+
     public User doLogin(String email, String plainPassword) {
         try (Connection conn = ConnPool.getConnection()) {
             String sql = "SELECT * FROM useraccount WHERE Email = ?";
@@ -72,4 +75,44 @@ public class UserDAO {
         }
     }
 
+    public List<User> doRetrieveAll() {
+        List<User> users = new ArrayList<>();
+        try (Connection conn = ConnPool.getConnection()) {
+            String sql = "SELECT * FROM useraccount";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                User user = new User();
+                user.setUserId(resultSet.getInt("UserID"));
+                user.setFirstName(resultSet.getString("FirstName"));
+                user.setLastName(resultSet.getString("LastName"));
+                user.setPhone(resultSet.getString("Phone"));
+                user.setAdmin(resultSet.getBoolean("Admin"));
+                user.setEmail(resultSet.getString("Email"));
+                user.setPassword(resultSet.getString("Password"));
+                users.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    public boolean updatePasswordByEmail(String email, String newPassword) {
+        try (Connection conn = ConnPool.getConnection()) {
+
+            String sql = "UPDATE useraccount SET Password = ? WHERE Email = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, newPassword);
+            ps.setString(2, email);
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+
+        }
+    }
 }
