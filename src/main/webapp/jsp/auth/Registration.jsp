@@ -63,31 +63,18 @@
                    autocomplete="email">
 
             <div class="auth-form-container__input-wrapper">
-                <input type="password"
-                       class="auth-form-container__input"
-                       name="password"
-                       placeholder="Password*"
-                       required
-                       autocomplete="new-password">
+                <input type="password" id="password" name="password" placeholder="Conferma Password" required class="auth-form-container__input">
                 <img src="${pageContext.request.contextPath}/img/icon/eye.png"
-                     class="auth-form-container__icon"
+                     class="auth-form-container__icon auth-form-container__icon-password"
                      alt="Mostra password"
-                     role="button"
-                     tabindex="0">
+                     onclick="togglePassword(this)">
             </div>
-
             <div class="auth-form-container__input-wrapper">
-                <input type="password"
-                       class="auth-form-container__input"
-                       name="confirmPassword"
-                       placeholder="Conferma Password*"
-                       required
-                       autocomplete="new-password">
+                <input type="password" id="password" name="password" placeholder="Conferma Password" required class="auth-form-container__input">
                 <img src="${pageContext.request.contextPath}/img/icon/eye.png"
-                     class="auth-form-container__icon"
+                     class="auth-form-container__icon auth-form-container__icon-password"
                      alt="Mostra password"
-                     role="button"
-                     tabindex="0">
+                     onclick="togglePassword(this)">
             </div>
 
             <div class="password-requirements" style="font-size: 12px; color: #666; margin-bottom: 15px; line-height: 1.4;">

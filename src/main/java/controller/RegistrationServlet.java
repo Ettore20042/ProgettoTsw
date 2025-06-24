@@ -6,6 +6,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import model.Bean.User;
 import model.DAO.UserDAO;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 
@@ -23,6 +24,7 @@ public class RegistrationServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt()); // Hash della password per sicurezza
         UserDAO userDAO = new UserDAO();
         if (userDAO.isEmailAlreadyUsed(email)) {
             request.setAttribute("error", "Email already in use");
@@ -30,7 +32,7 @@ public class RegistrationServlet extends HttpServlet {
             requestDispatcher.forward(request, response);
             return;
         }
-        User user= new User(0, name, surname, phone, false, password, email);
+        User user= new User(0, name, surname, phone, false, hashedPassword, email);
         userDAO.doSaveUser(user);
         HttpSession session = request.getSession();
         session.setAttribute("user", user);

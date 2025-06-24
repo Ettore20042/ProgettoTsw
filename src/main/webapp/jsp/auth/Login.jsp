@@ -22,8 +22,11 @@
             </div>
             <span id="emailError" style="color: #E71D36; display: none;">Email non valida</span>
             <div class="auth-form-container__input-wrapper">
-                <input type="password" id="password" name="password" placeholder="Password" required class="auth-form-container__input"><br><br>
-                <img src="${pageContext.request.contextPath}/img/icon/padlock.png" class="auth-form-container__icon auth-form-container__icon-password"><br><br>
+                <input type="password" id="password" name="password" placeholder="Conferma Password" required class="auth-form-container__input">
+                <img src="${pageContext.request.contextPath}/img/icon/eye.png"
+                     class="auth-form-container__icon auth-form-container__icon-password"
+                     alt="Mostra password"
+                     onclick="togglePassword(this)">
             </div>
             <span id="passwordError" style="color: #E71D36; display: none;">Password non valida</span>
             <c:if test="${not empty loginError}">

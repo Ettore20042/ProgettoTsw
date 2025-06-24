@@ -49,24 +49,19 @@ function validatePhoneField() {
     return phoneRegex.test(phone);
 }
 
-function togglePassword(fieldName) {
-    const passwordInput = document.querySelector(`input[name="${fieldName}"]`);
+function togglePassword(iconElement) {
+    // Trova l'input password nel contenitore padre
+    const passwordInput = iconElement.parentElement.querySelector('input[type="password"], input[type="text"]');
     if (!passwordInput) return;
-
-    const eyeIcon = passwordInput.parentElement.querySelector('.auth-form-container__icon-password');
 
     if (passwordInput.type === "password") {
         passwordInput.type = "text";
-        if (eyeIcon) {
-            eyeIcon.src = eyeIcon.src.replace('eye.png', 'view.png');
-            eyeIcon.alt = "Nascondi password";
-        }
+        iconElement.src = iconElement.src.replace('eye.png', 'view.png');
+        iconElement.alt = "Nascondi password";
     } else {
         passwordInput.type = "password";
-        if (eyeIcon) {
-            eyeIcon.src = eyeIcon.src.replace('view.png', 'eye.png');
-            eyeIcon.alt = "Mostra password";
-        }
+        iconElement.src = iconElement.src.replace('view.png', 'eye.png');
+        iconElement.alt = "Mostra password";
     }
 }
 
