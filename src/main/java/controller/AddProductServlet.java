@@ -216,7 +216,7 @@ public class AddProductServlet extends HttpServlet {
      * Costruisce il percorso di upload basato sulla categoria
      */
     private String buildUploadPath(List<Category> breadcrumb) {
-        StringBuilder path = new StringBuilder("uploads" + File.separator + "products");
+        StringBuilder path = new StringBuilder("img" + File.separator + "categories");
 
         for (Category category : breadcrumb) {
             String categoryName = category.getCategoryName()
