@@ -9,25 +9,25 @@
     <head>
         <title><c:out value="${pageTitle}" default="BricoShop"/></title>
         <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/productList.css" />
     </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/components/common/header.jsp"/>
 
         <main class="offers-container">
 
-            <section class="offers">
-                <h2 class="offers-main-title--h2">Offerte imperdibili</h2>
-                <div class="offers-grid">
-                    <c:forEach var="product" items="${productList}">
-                        <div class="offers-product-card">
-                            <img src="${pageContext.request.contextPath}/ProductServlet?productId=${product.productId}" alt="${product.productName}"/>
-                            <h6 class="offers-product-card-name--title">${product.productName}</h6>
-                            <p class="offers-product-card-sale-price">Prezzo: <fmt:formatNumber value="${product.salePrice}" pattern="€ #,##0.00" /></p>
-                            <p class="offers-product-card-text">SPEDIZIONE GRATUITA</p>
-                            <%-- aggiungere bottone "Aggiungi al carrello" --%>
+            <section class="product-list">
+                <h2 class="product-list_heading">Offerte imperdibili</h2>
+                <c:choose>
+                    <c:when test="${empty productList}">
+                        <p>Nessun prodotto trovato.</p>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="product-list_grid">
+                            <jsp:include page="../../WEB-INF/jsp/components/products/_productListCard.jsp"/>
                         </div>
-                    </c:forEach>
-                </div>
+                    </c:otherwise>
+                </c:choose>
             </section>
         </main>
 
