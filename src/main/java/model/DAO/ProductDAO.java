@@ -263,5 +263,29 @@ public class ProductDAO {
         }
         return products;
     }
+    public int addProduct(String productName, double productPrice, double productDiscount, String productDescription, String productCategory, String productQuantity, String productBrand, String productColor) {
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO product (ProductName, Price, SalePrice, Description, CategoryID, Quantity, BrandID, Color) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, productName);
+            preparedStatement.setDouble(2, productPrice);
+            preparedStatement.setDouble(3, productDiscount);
+            preparedStatement.setString(4, productDescription);
+            preparedStatement.setInt(5, Integer.parseInt(productCategory));
+            preparedStatement.setInt(6, Integer.parseInt(productQuantity));
+            preparedStatement.setInt(7, Integer.parseInt(productBrand));
+            preparedStatement.setString(8, productColor);
+
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows > 0) {
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
 }
 

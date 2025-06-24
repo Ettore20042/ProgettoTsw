@@ -63,3 +63,29 @@ inputTable.addEventListener('input', function (e) {
             });
     }, 300);
 })
+function openModal() {
+    document.getElementById("productModal").style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById("productModal").style.display = 'none';
+}
+
+document.getElementById('addProductForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+    const url = `${contextPathTable}/AddProductServlet`;
+
+    fetch(url, {
+        method: 'POST',
+        body: formData
+    }).then(resp => resp.text())
+        .then(text => {
+            document.getElementById("message").innerText = text;
+            this.reset();
+            closeModal(); // chiude la modale dopo il submit
+        }).catch(error => {
+        document.getElementById("message").innerText = "Errore durante l'invio.";
+    });
+});
+
