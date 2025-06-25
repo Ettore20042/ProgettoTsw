@@ -1,8 +1,6 @@
 package service;
 
-import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletContext;
-import jakarta.servlet.ServletException;
 import model.Bean.Category;
 import model.DAO.CategoryDAO;
 
@@ -15,36 +13,36 @@ import java.util.stream.Collectors;
 
 public class CategoryService {
 	private static final long CACHE_EXPIRATION_MS = 60 * 60 * 12 * 1000;
+	private final ServletContext context;
 
 	public CategoryService(ServletContext context) {
-		refreshCategoryCache(context);
+		this.context = context;
+		refreshCategoryCache();
 	}
 
 
-	public static void checkCategoryCache(ServletContext context) {
-		Long lastUpdate = (Long) context.getAttribute("categoryCacheTimestamp");
+	public void checkCategoryCache() {
+		Long lastUpdate = (Long) this.context.getAttribute("categoryCacheTimestamp");
 		if (lastUpdate == null || System.currentTimeMillis() - lastUpdate > CACHE_EXPIRATION_MS) { // 1 ora
-			refreshCategoryCache(context);
+			refreshCategoryCache();
 		}
 	}
 
 	/**
-	 * Metodo statico e pubblico per caricare o ricaricare la cache delle categorie.
-	 * Può essere chiamato dall'init() o da qualsiasi altra servlet quando necessario.
-	 * @param context Il ServletContext in cui memorizzare i dati.
+	 * Metodo privato per caricare o ricaricare la cache delle categorie.
 	 */
-	private static void refreshCategoryCache(ServletContext context) {
+	private void refreshCategoryCache() {
 		CategoryDAO categoryDAO = new CategoryDAO();
 		List<Category> allCategories = categoryDAO.doRetrieveAll();
 
 		Map<Integer, Category> categoryMap = allCategories.stream()
 				.collect(Collectors.toMap(Category::getCategoryId, Function.identity()));
 
-		context.setAttribute("categoryCacheMap", categoryMap);
-		context.setAttribute("categoryCacheTimestamp", System.currentTimeMillis());
+		this.context.setAttribute("categoryCacheMap", categoryMap);
+		this.context.setAttribute("categoryCacheTimestamp", System.currentTimeMillis());
 	}
 
-	public static List<Category> buildBreadcrumbFromMap(Map<Integer, Category> categoryMap, int leafCategoryId) {
+	public List<Category> buildBreadcrumbFromMap(Map<Integer, Category> categoryMap, int leafCategoryId) {
 		List<Category> breadcrumb = new ArrayList<>();
 		if (categoryMap == null) return breadcrumb;
 

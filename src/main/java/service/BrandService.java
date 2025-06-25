@@ -4,6 +4,7 @@ import jakarta.servlet.ServletContext;
 import model.Bean.Brand;
 import model.Bean.Product;
 import model.DAO.BrandDAO;
+
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -11,36 +12,31 @@ import java.util.stream.Collectors;
 
 public class BrandService {
 	private static final long CACHE_EXPIRATION_MS = 60 * 60 * 12 * 1000;
+	private final ServletContext context;
 
 	public BrandService(ServletContext context) {
-		refreshBrandCache(context);
+		this.context = context;
 	}
 
-
-	public static void checkBrandCache(ServletContext context) {
+	public void checkBrandCache() {
 		Long lastUpdate = (Long) context.getAttribute("brandCacheTimestamp");
 		if (lastUpdate == null || System.currentTimeMillis() - lastUpdate > CACHE_EXPIRATION_MS) { // 1 ora
-			refreshBrandCache(context);
+			refreshBrandCache();
 		}
 	}
 
-	/**
-	 * Metodo statico e pubblico per caricare o ricaricare la cache dei brand.
-	 * Può essere chiamato dall'init() o da qualsiasi altra servlet quando necessario.
-	 * @param context Il ServletContext in cui memorizzare i dati.
-	 */
-	private static void refreshBrandCache(ServletContext context) {
+	private void refreshBrandCache() {
 		BrandDAO brandDAO = new BrandDAO();
-		List<Brand> allCategories = brandDAO.doRetrieveAll();
+		List<Brand> allBrands = brandDAO.doRetrieveAll();
 
-		Map<Integer, Brand> brandMap = allCategories.stream()
+		Map<Integer, Brand> brandMap = allBrands.stream()
 				.collect(Collectors.toMap(Brand::getBrandId, Function.identity()));
 
 		context.setAttribute("brandCacheMap", brandMap);
 		context.setAttribute("brandCacheTimestamp", System.currentTimeMillis());
 	}
 
-	public static List<Product> addBrandToProductBean(List<Product> productList, ServletContext context) {
+	public List<Product> addBrandToProductBean(List<Product> productList) {
 		if (productList == null || productList.isEmpty()) {
 			return productList; // Restituisce la lista vuota se non ci sono prodotti
 		}
@@ -50,5 +46,10 @@ public class BrandService {
 			product.setBrand(brandCacheMap.get(product.getBrandId()));
 		}
 		return productList;
+	}
+
+	public List<Brand> getAllBrands() {
+		BrandDAO brandDAO = new BrandDAO();
+		return brandDAO.doRetrieveAll();
 	}
 }

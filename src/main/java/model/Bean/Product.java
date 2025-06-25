@@ -1,5 +1,7 @@
 package model.Bean;
 
+import java.util.List;
+
 public class Product {
     private int productId;
     private String productName;
@@ -12,6 +14,7 @@ public class Product {
     private int categoryId;
     private double salePrice;
     private Brand brand;
+    private List<Image> images;
 
   public Product(int idProduct, int idCategory, int idBrand, String description, int stock, String material, String colour, float price, String nameProduct,double salePrice) {
       this.productId = idProduct;
@@ -28,6 +31,15 @@ public class Product {
   public Product(){
 
   }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
     public Brand getBrand() {
         return brand;
     }
@@ -115,6 +127,3 @@ public class Product {
         this.productName = productName;
     }
 }
-
-
-

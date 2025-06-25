@@ -69,7 +69,7 @@ input.addEventListener('input', function() {
         return;
     }
 
-    const url = `${contextPath}/SuggestionsServlet?searchQuery=${encodeURIComponent(value)}`;
+    const url = `${contextPath}/SuggestionsServlet?entity=products&query=${encodeURIComponent(value)}`;
 
     timeout = setTimeout(() => {
         fetch(url)

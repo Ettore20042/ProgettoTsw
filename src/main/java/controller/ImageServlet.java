@@ -4,14 +4,20 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import model.Bean.Image;
-import model.DAO.ImageDAO;
+import service.ImageService;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "ImageServlet", value = "/ImageServlet", loadOnStartup = 1)
 public class ImageServlet extends HttpServlet {
+    private ImageService imageService;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        this.imageService = new ImageService(config.getServletContext());
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -28,18 +34,17 @@ public class ImageServlet extends HttpServlet {
         try {
             // Converte il productId in intero
             int id = Integer.parseInt(productIdParam);
-            ImageDAO service = new ImageDAO();
 
             // Recupera l'immagine dal database utilizzando l'ID
-            List<Image> images = service.doRetrieveAllByProduct(id);
+            Image image = imageService.getFirstImageByProductId(id);
 
             // Verifica che l'immagine esista
-            if (images == null) {
+            if (image == null) {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Immagine non trovata");
                 return;
             }
 
-            String imagePath = images.get(0).getImagePath();
+            String imagePath = image.getImagePath();
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(imagePath);
             dispatcher.forward(request, response);
 

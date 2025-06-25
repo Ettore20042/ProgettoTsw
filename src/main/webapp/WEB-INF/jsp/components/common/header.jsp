@@ -33,7 +33,7 @@
                 <%if (request.getSession().getAttribute("user") != null) {
                     User user = (User) session.getAttribute("user");
                     if (user.isAdmin()) { %>
-                <a href="${pageContext.request.contextPath}/jsp/profile/ManageProducts.jsp" class="user-role-button">Admin</a>
+                <a href="${pageContext.request.contextPath}/ManageServlet?entity=products" class="user-role-button">Admin</a>
 
                 <% } } %>
             </div>

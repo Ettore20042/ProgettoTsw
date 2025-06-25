@@ -18,9 +18,6 @@
             </div>
         </a>
 
-
-
-
         <div class="product-card_details">
             <div class="product-card_price">
                 <c:choose>

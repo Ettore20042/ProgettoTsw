@@ -9,9 +9,13 @@ import model.DAO.UserDAO;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "RegistrationServlet", value = "/RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {
+
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO: Elabora la richiesta

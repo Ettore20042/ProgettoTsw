@@ -11,9 +11,9 @@
     <div class="product-card_gallery">
         <div class="product-card_gallery-track">
             <c:choose>
-                <c:when test="${not empty productImages}">
+                <c:when test="${not empty product.images}">
                     <%-- Se ci sono immagini del prodotto --%>
-                    <c:forEach var="image" items="${productImages}">
+                    <c:forEach var="image" items="${product.images}">
                         <div class="product-card_gallery-item">
                             <img src="${pageContext.request.contextPath}/${image.getImagePath()}" alt="${image.getImageDescription()}" class="product-card_image">
                         </div>

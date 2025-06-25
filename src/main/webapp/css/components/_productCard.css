@@ -21,7 +21,6 @@
     font-weight: 500;
     font-size: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
     color: #392E23;
-    margin-right: 0.5rem;
     white-space: nowrap;
 }
 

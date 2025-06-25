@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <title><c:out value="${pageTitle}" default="BricoShop"/></title>
+    <title>Pannello di Gestione - ${entity}</title>
     <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/manageproducts.css">
     <script src="${pageContext.request.contextPath}/Js/profile/ManageProducts.js" defer></script>
@@ -13,35 +13,36 @@
 <body data-context-path="${pageContext.request.contextPath}">
 <jsp:include page="/WEB-INF/jsp/components/common/header.jsp"/>
 
-
-
 <main class="manage-components-container">
     <div class="manage-components-container-filter">
-        <%-- peppe rossetti --%>
-            <a href="${pageContext.request.contextPath}/Admin.jsp" class="admin-button-toggle">Gestione Admin</a>
+        <%-- Qui andrà la componente dei filtri riutilizzabile --%>
+        <nav class="admin-nav">
+            <a href="${pageContext.request.contextPath}/ManageServlet?entity=products" class="admin-button-toggle ${entity == 'products' ? 'active' : ''}">Gestione Prodotti</a>
+            <a href="#" class="admin-button-toggle">Gestione Utenti</a> <%-- Esempio per il futuro --%>
+            <a href="#" class="admin-button-toggle">Gestione Categorie</a> <%-- Esempio per il futuro --%>
+        </nav>
     </div>
 
     <div class="manage-components-container-right">
         <div class="search-bar-tab manage-components-container-right_search-bar">
-            <form id="searchForm" action="${pageContext.request.contextPath}/ManageProductServlet" method="get" class="search-bar-form-tab" autocomplete="off">
-                <input type="search" id="searchBarTable" name="searchQueryTable" placeholder="Cerca..." autocomplete="off">
+            <form id="searchForm" action="${pageContext.request.contextPath}/ManageServlet" method="get" class="search-bar-form-tab" autocomplete="off">
+                <input type="hidden" name="entity" value="${entity}">
+                <input type="search" id="searchBarTable" name="searchQuery" placeholder="Cerca in ${entity}..." autocomplete="off" value="${param.searchQuery}">
                 <button type="submit" aria-label="Cerca">
                     <img src="${pageContext.request.contextPath}/img/header/lente.svg" id="searchLensTable" alt="Cerca">
                 </button>
             </form>
+            <div id="suggestions-for-table"></div>
+        </div>
 
-
-            <div id="suggestions-for-table">
+        <c:if test="${entity == 'products'}">
+            <div class="manage-components-container-right--add-button">
+                <button onclick="openModal()" class="add-component-button-toggle">Aggiungi un prodotto</button>
             </div>
+        </c:if>
 
-
-        </div>
-        <div class="manage-components-container-right--add-button">
-            <button onclick="openModal()" class="add-component-button-toggle">Aggiungi un prodotto</button>
-        </div>
-
-        <div class="manage-components-container-right--modal" id="productModal" >
-            <div class="modal-content" >
+        <div class="manage-components-container-right--modal" id="productModal">
+            <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2>Aggiungi un prodotto</h2>
                 <form id="addProductForm" action="${pageContext.request.contextPath}/AddProductServlet" method="post" enctype="multipart/form-data">
@@ -69,7 +70,6 @@
                     <label for="descriptionImage">Descrizione Immagine:</label>
                     <input type="text" id="descriptionImage" name="descriptionImage" placeholder="Descrizione dell'immagine">
 
-
                     <label for="category">Categoria:</label>
                     <select id="category" name="category" required>
                         <option value="">Seleziona una categoria</option>
@@ -88,39 +88,44 @@
 
                     <button type="submit">Aggiungi Prodotto</button>
                 </form>
-
             </div>
         </div>
 
-
-        <div id="message" style="display: none" ></div>
+        <div id="message" style="display: none"></div>
         <div class="manage-components-container-right--search-table">
-            <table class="search-components-on-table--table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Prezzo</th>
-                    <th>Colore</th>
-                    <th>Quantità</th>
-                    <th colspan="2"></th>
-                </tr>
-                </thead>
-                <tbody id="componentTableBody">
-                <c:forEach var="product" items="${productList}">
-                    <tr>
-                        <td>${product.productId}</td>
-                        <td>${product.productName}</td>
-                        <td>${product.price}</td>
-                        <td>${product.color}</td>
-                        <td>${product.quantity}</td>
-                        <td><a href="Modifica.jsp">Modifica</a> </td>
-                        <td><a href="Elimina.jsp">Elimina</a> </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-
+            <c:choose>
+                <c:when test="${entity == 'products'}">
+                    <table class="search-components-on-table--table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Prezzo</th>
+                            <th>Colore</th>
+                            <th>Quantità</th>
+                            <th colspan="2"></th>
+                        </tr>
+                        </thead>
+                        <tbody id="componentTableBody">
+                        <c:forEach var="item" items="${itemList}">
+                            <tr>
+                                <td>${item.productId}</td>
+                                <td>${item.productName}</td>
+                                <td>${item.price}</td>
+                                <td>${item.color}</td>
+                                <td>${item.quantity}</td>
+                                <td><a href="#">Modifica</a></td>
+                                <td><a href="#">Elimina</a></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </c:when>
+                <%-- Aggiungi qui i <c:when> per le altre entità (users, categories, etc.) --%>
+                <c:otherwise>
+                    <p>Seleziona un'entità da gestire.</p>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </main>
@@ -128,3 +133,4 @@
 <jsp:include page="/WEB-INF/jsp/components/common/footer.jsp"/>
 </body>
 </html>
+

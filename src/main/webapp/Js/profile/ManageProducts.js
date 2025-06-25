@@ -6,7 +6,7 @@ const contextPathTable = document.getElementsByTagName("body")[0].dataset.contex
 let timeoutT = null;
 
 inputTable.addEventListener('input', function (e) {
-    /* cancella qualsiasi timer precedentemente impostato e (vedi fine codice) fa aspettare 300 millisec. prima di eseguire subito la ricerca */
+    /* Cancella qualsiasi timer precedentemente impostato e (vedi fine codice) fa aspettare 300 millisec. prima di eseguire subito la ricerca */
     clearTimeout(timeout);
     const value = this.value.trim(); /* prende il testo dalla barra e rimuove eventuali spazi bianchi */
 
@@ -19,7 +19,7 @@ inputTable.addEventListener('input', function (e) {
     }
 
     /* prendiamo l'URL corretto */
-    const url = `${contextPathTable}/SuggestionsTableServlet?searchQueryTable=${encodeURIComponent(value)}`; /* codifica caratteri speciali per renderli sicuri in un URL */
+    const url = `${contextPathTable}/SuggestionsServlet?entity=products&query=${encodeURIComponent(value)}`; /* codifica caratteri speciali per renderli sicuri in un URL */
 
     /* avvia la richiesta asincrona */
     timeoutT = setTimeout(() => {
@@ -86,7 +86,7 @@ document.getElementById('addProductForm').addEventListener('submit', function(ev
             }
             return response.json();
         })
-        .then(data => {
+        .then (data => {
             const messageElement = document.getElementById("message");
 
             // Applica le proprietà stile "cart-notification"
