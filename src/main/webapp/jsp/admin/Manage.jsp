@@ -121,7 +121,9 @@
                                 <td>${item.color}</td>
                                 <td>${item.quantity}</td>
                                 <td><a href="#">Modifica</a></td>
-                                <td><a href="#">Elimina</a></td>
+                                <td><button type="submit" class="remove-button-product remove-item-btn" data-id="${item.productId}" >
+                                    <img src="${pageContext.request.contextPath}/img/icon/delete.png" class="remove-icon">
+                                </button></td>
                             </tr>
                         </c:forEach>
                         </tbody>

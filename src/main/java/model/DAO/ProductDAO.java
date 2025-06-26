@@ -302,4 +302,14 @@ public class ProductDAO {
         }
         return 0;
     }
+    public boolean deleteProduct(int productId) {
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM product WHERE ProductID = ?");
+            preparedStatement.setInt(1, productId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

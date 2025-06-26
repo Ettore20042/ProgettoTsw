@@ -94,4 +94,7 @@ public class ProductService {
         brandService.addBrandToProductBean(productList);
         return productList;
     }
+    public boolean removeProduct(int productId) {
+        return productDAO.deleteProduct(productId);
+    }
 }
