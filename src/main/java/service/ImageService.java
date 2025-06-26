@@ -129,4 +129,25 @@ public class ImageService {
         }
         return ".jpg"; // Default extension
     }
+    public static boolean removeProductImages(ServletContext servletContext,int productId) {
+        ImageDAO imageDAO = new ImageDAO();
+        List<Image> images = imageDAO.doRetrieveAllByProduct(productId);
+        if (images.isEmpty()) {
+            return true; // No images to remove
+        }
+
+        boolean allDeleted = true;
+        for (Image image : images) {
+            String filePath = servletContext.getRealPath("") + File.separator + image.getImagePath();
+            File file = new File(filePath);
+            if (file.exists() && !file.delete()) {
+                allDeleted = false; // At least one file could not be deleted
+            }
+        }
+
+        if (allDeleted) {
+            return imageDAO.removeImagesByProduct(productId);
+        }
+        return false;
+    }
 }

@@ -71,4 +71,17 @@ public class ImageDAO {
             return false;
         }
     }
+
+    public boolean removeImagesByProduct(int productId) {
+        try (Connection conn = ConnPool.getConnection()) {
+            String sql = "DELETE FROM image WHERE ProductID = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, productId);
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0; // Restituisce true se almeno una riga è stata eliminata
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

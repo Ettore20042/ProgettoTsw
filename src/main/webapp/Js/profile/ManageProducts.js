@@ -71,6 +71,50 @@ function closeModal() {
     document.getElementById("productModal").style.display = 'none';
 }
 
+// Funzione per aggiungere event listener ai pulsanti di rimozione
+function addRemoveEventListener(button) {
+    button.addEventListener('click', function (e) {
+        e.preventDefault();
+        const productId = this.getAttribute('data-id');
+        console.log("Deleting productId:", productId);
+        const url = `${contextPathTable}/RemoveProductServlet?productId=${encodeURIComponent(productId)}`;
+
+        const clickedButton = this;
+
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    const productRow = clickedButton.closest('tr');
+                    if (productRow) {
+                        productRow.remove();
+                    }
+                } else {
+                    console.error('Error removing product:', data.message || data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error removing product:', error);
+            });
+    });
+}
+
+// Inizializzazione: aggiungi event listener a tutti i pulsanti di rimozione esistenti
+document.querySelectorAll('.remove-button-product').forEach(button => {
+    addRemoveEventListener(button);
+});
+
+// Gestione del form di aggiunta prodotto
 document.getElementById('addProductForm').addEventListener('submit', function(event) {
     event.preventDefault();
     const formData = new FormData(this);
@@ -86,31 +130,80 @@ document.getElementById('addProductForm').addEventListener('submit', function(ev
             }
             return response.json();
         })
-        .then (data => {
+        .then(data => {
             const messageElement = document.getElementById("message");
 
-            // Applica le proprietà stile "cart-notification"
-            Object.assign(messageElement.style, {
-                display: 'flex',
-                position: 'fixed',
-                top: '20px',
-                right: '20px',
-                backgroundColor: '#4CAF50',
-                color: 'white',
-                padding: '15px',
-                borderRadius: '5px',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-                opacity: '1',
-                transform: 'translateY(0)',
-                transition: 'all 0.3s ease',
-                zIndex: '1000'
-            });
+            if (data.success) {
+                const tableBody = document.getElementById('componentTableBody');
+                if (tableBody && data.product) {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td>${data.product.productId}</td>
+                        <td>${data.product.productName}</td>
+                        <td>${data.product.price}</td>
+                        <td>${data.product.color}</td>
+                        <td>${data.product.quantity}</td>
+                        <td><a href="#">Modifica</a></td>
+                        <td>
+                            <button type="button" class="remove-button-product remove-item-btn" data-id="${data.product.productId}">
+                                <img src="${contextPathTable}/img/icon/delete.png" class="remove-icon">
+                            </button>
+                        </td>
+                    `;
 
-            messageElement.innerText = data.success ? '✅ Caricamento riuscito' : '❌ Caricamento fallito';
+                    tableBody.appendChild(newRow);
+
+                    // Aggiungi event listener al nuovo pulsante di rimozione
+                    const newButton = newRow.querySelector('.remove-button-product');
+                    addRemoveEventListener(newButton);
+                }
+
+                // Mostra messaggio di successo
+                Object.assign(messageElement.style, {
+                    display: 'flex',
+                    position: 'fixed',
+                    top: '20px',
+                    right: '20px',
+                    backgroundColor: '#4CAF50',
+                    color: 'white',
+                    padding: '15px',
+                    borderRadius: '5px',
+                    boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                    opacity: '1',
+                    transform: 'translateY(0)',
+                    transition: 'all 0.3s ease',
+                    zIndex: '1000'
+                });
+
+                messageElement.innerText = '✅ Caricamento riuscito';
+
+                // Resetta il form
+                this.reset();
+
+            } else {
+                // Messaggio di errore
+                Object.assign(messageElement.style, {
+                    display: 'flex',
+                    position: 'fixed',
+                    top: '20px',
+                    right: '20px',
+                    backgroundColor: '#f44336',
+                    color: 'white',
+                    padding: '15px',
+                    borderRadius: '5px',
+                    boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                    opacity: '1',
+                    transform: 'translateY(0)',
+                    transition: 'all 0.3s ease',
+                    zIndex: '1000'
+                });
+
+                messageElement.innerText = '❌ Caricamento fallito';
+            }
 
             closeModal();
 
-            // Nasconde il messaggio dopo 2 secondi con animazione inversa
+            // Nasconde il messaggio dopo 2 secondi con animazione
             setTimeout(() => {
                 messageElement.style.opacity = '0';
                 messageElement.style.transform = 'translateY(-20px)';
@@ -143,39 +236,3 @@ document.getElementById('addProductForm').addEventListener('submit', function(ev
             }, 2000);
         });
 });
-document.querySelectorAll('.remove-button-product').forEach(button => {
-    button.addEventListener('click', function (e) {
-        e.preventDefault(); // Prevent form submission
-        const productId = dataId = this.getAttribute('data-id'); // Get the product ID from the button's data attribute
-        const url = `${contextPathTable}/RemoveProductServlet?productId=${encodeURIComponent(productId)}`; // Construct the URL for the delete request
-
-        fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    // Remove the product row from the UI
-                    const productRow = this.closest('.product-row');
-                    if (productRow) {
-                        productRow.remove();
-                    }
-                } else {
-                    console.error('Error removing product:', data.error);
-                }
-            })
-            .catch(error => {
-                console.error('Error removing product:', error);
-            });
-    });
-});
-
-

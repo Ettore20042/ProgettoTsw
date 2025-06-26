@@ -292,11 +292,23 @@
     justify-content: center;
     box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
 }
+
 .remove-icon {
     width: 18px;
     height: 18px;
-    filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1); /* SEMPRE bianca */
+    transition: transform 0.3s ease;
 }
+
+.remove-button-product:hover {
+    transform: scale(1.2) rotate(10deg);
+    box-shadow: 0 6px 20px rgb(241, 239, 234);
+}
+
+.remove-button-product:hover .remove-icon {
+    transform: scale(1.2) rotate(-10deg);
+}
+
 
 
 /* Media Query (rimangono invariate) */

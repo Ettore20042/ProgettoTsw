@@ -304,6 +304,8 @@ public class ProductDAO {
     }
     public boolean deleteProduct(int productId) {
         try (Connection connection = ConnPool.getConnection()) {
+            System.out.println("Attempting to delete product with ID: " + productId);
+
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM product WHERE ProductID = ?");
             preparedStatement.setInt(1, productId);
             int rowsAffected = preparedStatement.executeUpdate();
