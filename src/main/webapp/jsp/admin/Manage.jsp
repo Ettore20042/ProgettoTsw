@@ -35,61 +35,19 @@
             <div id="suggestions-for-table"></div>
         </div>
 
-        <c:if test="${entity == 'products'}">
-            <div class="manage-components-container-right--add-button">
-                <button onclick="openModal()" class="add-component-button-toggle">Aggiungi un prodotto</button>
-            </div>
-        </c:if>
+        <c:choose>
+            <c:when test="${entity == 'products'}">
+                <div class="manage-components-container-right--add-button">
+                    <button onclick="openModal()" class="add-component-button-toggle">Aggiungi un prodotto</button>
+                </div>
+                <jsp:include page="/WEB-INF/jsp/components/admin/_addProductForm.jsp"/>
+            </c:when>
+            <%-- Aggiungi qui i <c:when> per le altre entità (users, categories, etc.) --%>
+            <c:otherwise>
+                <p>Seleziona un'entità da gestire.</p>
+            </c:otherwise>
+        </c:choose>
 
-        <div class="manage-components-container-right--modal" id="productModal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2>Aggiungi un prodotto</h2>
-                <form id="addProductForm" action="${pageContext.request.contextPath}/AddProductServlet" method="post" enctype="multipart/form-data">
-                    <label for="productName">Nome Prodotto:</label>
-                    <input type="text" id="productName" name="productName" required>
-
-                    <label for="price">Prezzo:</label>
-                    <input type="number" id="price" name="price" step="0.01" required>
-
-                    <label for="salePrice">Prezzo in offerta:</label>
-                    <input type="number" id="salePrice" name="salePrice" step="0.01">
-
-                    <label for="color">Colore:</label>
-                    <input type="text" id="color" name="color">
-
-                    <label for="description">Descrizione:</label>
-                    <textarea id="description" name="description" rows="4" cols="50"></textarea>
-
-                    <label for="quantity">Quantità:</label>
-                    <input type="number" id="quantity" name="quantity" required>
-
-                    <label for="images">Immagini:</label>
-                    <input type="file" id="images" name="images" accept="image/*" multiple>
-
-                    <label for="descriptionImage">Descrizione Immagine:</label>
-                    <input type="text" id="descriptionImage" name="descriptionImage" placeholder="Descrizione dell'immagine">
-
-                    <label for="category">Categoria:</label>
-                    <select id="category" name="category" required>
-                        <option value="">Seleziona una categoria</option>
-                        <c:forEach var="entry" items="${categoryCacheMap}">
-                            <option value="${entry.key}">${entry.value.categoryName}</option>
-                        </c:forEach>
-                    </select>
-
-                    <label for="brand">Marca:</label>
-                    <select id="brand" name="brand" required>
-                        <option value="">Seleziona una marca</option>
-                        <c:forEach var="entry" items="${brandCacheMap}">
-                            <option value="${entry.key}">${entry.value.brandName}</option>
-                        </c:forEach>
-                    </select>
-
-                    <button type="submit">Aggiungi Prodotto</button>
-                </form>
-            </div>
-        </div>
 
         <div id="message" style="display: none"></div>
         <div class="manage-components-container-right--search-table">
