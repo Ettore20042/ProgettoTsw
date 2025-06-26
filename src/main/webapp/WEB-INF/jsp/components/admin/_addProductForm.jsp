@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="manage-components-container-right--modal" id="productModal">
@@ -23,8 +24,14 @@
       <label for="quantity">Quantità:</label>
       <input type="number" id="quantity" name="quantity" required>
 
-      <label for="images">Immagini:</label>
-      <input type="file" id="images" name="images" accept="image/*" multiple>
+      <label for="material">Materiale:</label>
+      <input type="text" id="material" name="material" placeholder="Materiale del prodotto">
+
+      <label for="image1">Immagine di copertina:</label>
+      <input type="file" id="image1" name="image1" accept="image/*">
+
+      <label for="images">Altre immagini:</label>
+      <input type="file" id="images" name="images" accept="image/*" required multiple>
 
       <label for="descriptionImage">Descrizione Immagine:</label>
       <input type="text" id="descriptionImage" name="descriptionImage" placeholder="Descrizione dell'immagine">
