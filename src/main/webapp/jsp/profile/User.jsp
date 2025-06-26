@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="model.Bean.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
@@ -12,9 +13,56 @@
     </head>
     <body>
         <jsp:include page="/WEB-INF/jsp/components/common/header.jsp" />
-            <% if (request.getSession().getAttribute("user") != null) {
+
+        <% if (request.getSession().getAttribute("user") != null) {
             User user = (User) session.getAttribute("user");%>
-            <h1><%= user.getFirstName()%></h1><% }%>
+        <h1><%= user.getFirstName()%></h1><% }%>
+
+        <main class="details-user-container">
+            <div class="overview-user-section">
+                <h1>Dati personali</h1>
+
+                <% if (request.getSession().getAttribute("user") != null) {
+                    User user = (User) session.getAttribute("user");%>
+
+                    <h2>ID utente</h2>
+                    <p><%= user.getUserId()%></p>
+                    <h2>Nome</h2>
+                    <p><%= user.getFirstName()%></p>
+                    <h2>Cognome</h2>
+                    <p><%= user.getLastName()%></p>
+                    <h2>Numero di telefono</h2>
+                    <p><%= user.getPhoneNumber()%></p>
+                    <h2>Email</h2>
+                    <p><%= user.getEmail()%></p>
+                <% } %>
+            </div>
+
+                <div class="overview-user-orders">
+                    <h2>I tuoi ordini</h2>
+
+                    <c:choose >
+                        <c:when test="${error != null}">
+                            <p>Non hai effettuato alcun ordine</p>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="order" items="${orderList}">
+                                <a href="ser">
+                                    <div class="order-card">
+                                        <img src="${pageContext.request.contextPath}/ImageServlet?productId=${productId}">
+                                        <p>${order.orderDate}</p>
+                                        <p>${order.status}</p>
+                                    </div>
+                                </a>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+
+
+                </div>
+
+
+        </main>
 
         <jsp:include page="/WEB-INF/jsp/components/common/footer.jsp" />
     </body>
