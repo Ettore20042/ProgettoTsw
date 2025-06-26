@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class ImageService {
@@ -45,7 +43,9 @@ public class ImageService {
         return imageDAO.doRetrieveFirstByProduct(productId);
     }
 
-    public void saveProductImages(List<Part> imageParts, int productId, int categoryId) throws IOException {
+
+
+    public void saveProductImages(List<Part> imageParts, int productId, int categoryId, String productName, String imageDescription) throws IOException {
         if (imageParts == null || imageParts.isEmpty()) {
             return;
         }
@@ -53,56 +53,80 @@ public class ImageService {
         categoryService.checkCategoryCache();
         Map<Integer, Category> categoryMap = (Map<Integer, Category>) context.getAttribute("categoryCacheMap");
         List<Category> breadcrumb = categoryService.buildBreadcrumbFromMap(categoryMap, categoryId);
-        String uploadPath = buildUploadPath(breadcrumb);
+        String dynamicUploadDir = buildUploadPath(breadcrumb);
+
+        String uploadPath = context.getRealPath("") + File.separator + dynamicUploadDir;
 
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
-            boolean createdDir = uploadDir.mkdirs();
-            if (!createdDir) {
-                throw new RuntimeException("Impossibile creare la directory di upload: " + uploadPath);
+            if (!uploadDir.mkdirs()) {
+                throw new IOException("Impossibile creare la directory di upload: " + uploadPath);
             }
-
         }
 
-        Pattern pattern = Pattern.compile("(.*)_(\\d+)\\.(jpg|jpeg|png|webp|svg)$", Pattern.CASE_INSENSITIVE);
-
+        int displayOrder = 1;
         for (Part part : imageParts) {
             String originalFileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
 
-            if (originalFileName != null && !originalFileName.isEmpty()) {
-                String formattedFileName = originalFileName.trim().replaceAll("\\s+", "_").toLowerCase();
-                Matcher matcher = pattern.matcher(formattedFileName);
+            if (originalFileName != null && !originalFileName.isEmpty() && isValidImageFile(originalFileName)) {
+                String cleanProductName = productName.replaceAll("[^a-zA-Z0-9]", "_").toLowerCase();
+                String newFileName = cleanProductName + "_" + productId + "_" + displayOrder + getFileExtension(originalFileName);
 
-                if (matcher.matches()) {
-                    String baseName = matcher.group(1);
-                    int displayOrder = Integer.parseInt(matcher.group(2));
-                    String imageDescription = baseName.replace("_", " ");
+                String filePath = uploadPath + File.separator + newFileName;
+                File savedFile = new File(filePath);
 
-                    part.write(uploadPath + File.separator + formattedFileName);
+                try {
+                    // Save the file
+                    part.write(filePath);
 
-                    String relativePath = "img/products/" +
-                            breadcrumb.stream()
-                                    .map(cat -> formatForPath(cat.getCategoryName()))
-                                    .collect(Collectors.joining("/")) + "/" + formattedFileName;
-                    imageDAO.addImage(productId, relativePath, imageDescription, displayOrder);
-                } else {
-                    context.log("WARN: Skipped invalid image file name: " + originalFileName);
+                    // Verify file was actually written
+                    if (savedFile.exists() && savedFile.length() > 0) {
+                        // Save to database
+                        String relativePath = dynamicUploadDir.replace(File.separator, "/") + "/" + newFileName;
+                        boolean dbResult = imageDAO.addImage(productId, relativePath, imageDescription, displayOrder);
+
+                        if (dbResult) {
+                            displayOrder++;
+                        } else {
+                            // Delete physical file if DB fails
+                            savedFile.delete();
+                        }
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException("Errore nel salvare l'immagine: " + e.getMessage(), e);
                 }
             }
         }
     }
 
     private String buildUploadPath(List<Category> breadcrumb) {
-        String basePath = context.getRealPath("/") + "img" + File.separator + "products";
-        StringBuilder pathBuilder = new StringBuilder(basePath);
+        StringBuilder path = new StringBuilder("img" + File.separator + "categories");
         for (Category cat : breadcrumb) {
-            pathBuilder.append(File.separator).append(formatForPath(cat.getCategoryName()));
+            path.append(File.separator).append(formatForPath(cat.getCategoryName()));
         }
-        return pathBuilder.toString();
+        return path.toString();
     }
 
     private String formatForPath(String text) {
         if (text == null) return "";
         return text.trim().toLowerCase().replaceAll("\\s+", "-");
+    }
+
+    private boolean isValidImageFile(String fileName) {
+        String lowerFileName = fileName.toLowerCase();
+        return lowerFileName.endsWith(".jpg") ||
+                lowerFileName.endsWith(".jpeg") ||
+                lowerFileName.endsWith(".png") ||
+                lowerFileName.endsWith(".gif") ||
+                lowerFileName.endsWith(".webp") ||
+                lowerFileName.endsWith(".svg");
+    }
+
+    private String getFileExtension(String fileName) {
+        int lastDot = fileName.lastIndexOf('.');
+        if (lastDot > 0 && lastDot < fileName.length() - 1) {
+            return fileName.substring(lastDot);
+        }
+        return ".jpg"; // Default extension
     }
 }

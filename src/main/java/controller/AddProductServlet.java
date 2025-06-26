@@ -39,8 +39,12 @@ public class AddProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean success = false;
-        try {
+        Map<String, Object> jsonResponse = new HashMap<>();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
             // 1. Estrai i dati e crea il bean Product
+        try {
             Product product = new Product();
             product.setProductName(request.getParameter("productName"));
             product.setPrice(Float.parseFloat(request.getParameter("price")));
@@ -50,8 +54,8 @@ public class AddProductServlet extends HttpServlet {
             product.setQuantity(Integer.parseInt(request.getParameter("quantity")));
             product.setCategoryId(Integer.parseInt(request.getParameter("category")));
             product.setBrandId(Integer.parseInt(request.getParameter("brand")));
+            String imageDescription = request.getParameter("imageDescription");
 
-            // 2. Chiama il service per aggiungere il prodotto e ottenere l'ID
             int newProductId = productService.addProduct(product);
 
             if (newProductId > 0) {
@@ -61,7 +65,7 @@ public class AddProductServlet extends HttpServlet {
                         .collect(Collectors.toList());
 
                 if (!imageParts.isEmpty()) {
-                    imageService.saveProductImages(imageParts, newProductId, product.getCategoryId());
+                    imageService.saveProductImages(imageParts, newProductId, product.getCategoryId(), product.getProductName(), imageDescription);
                 }
                 success = true;
             }
@@ -75,7 +79,7 @@ public class AddProductServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        Map<String, Boolean> jsonResponse = new HashMap<>();
+        jsonResponse.put("success", success);
         jsonResponse.put("success", success);
 
         PrintWriter out = response.getWriter();
