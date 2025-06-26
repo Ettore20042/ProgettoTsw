@@ -143,3 +143,39 @@ document.getElementById('addProductForm').addEventListener('submit', function(ev
             }, 2000);
         });
 });
+document.querySelectorAll('.remove-button-product').forEach(button => {
+    button.addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent form submission
+        const productId = dataId = this.getAttribute('data-id'); // Get the product ID from the button's data attribute
+        const url = `${contextPathTable}/RemoveProductServlet?productId=${encodeURIComponent(productId)}`; // Construct the URL for the delete request
+
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    // Remove the product row from the UI
+                    const productRow = this.closest('.product-row');
+                    if (productRow) {
+                        productRow.remove();
+                    }
+                } else {
+                    console.error('Error removing product:', data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error removing product:', error);
+            });
+    });
+});
+
+

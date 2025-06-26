@@ -35,6 +35,8 @@
             <div id="suggestions-for-table"></div>
         </div>
 
+
+
         <c:choose>
             <c:when test="${entity == 'products'}">
                 <div class="manage-components-container-right--add-button">
@@ -47,7 +49,6 @@
                 <p>Seleziona un'entità da gestire.</p>
             </c:otherwise>
         </c:choose>
-
 
         <div id="message" style="display: none"></div>
         <div class="manage-components-container-right--search-table">
@@ -73,7 +74,9 @@
                                 <td>${item.color}</td>
                                 <td>${item.quantity}</td>
                                 <td><a href="#">Modifica</a></td>
-                                <td><a href="#">Elimina</a></td>
+                                <td><button type="submit" class="remove-button-product remove-item-btn" data-id="${item.productId}" >
+                                    <img src="${pageContext.request.contextPath}/img/icon/delete.png" class="remove-icon">
+                                </button></td>
                             </tr>
                         </c:forEach>
                         </tbody>
