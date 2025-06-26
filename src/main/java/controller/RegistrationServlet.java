@@ -36,7 +36,7 @@ public class RegistrationServlet extends HttpServlet {
             requestDispatcher.forward(request, response);
             return;
         }
-        User user= new User(0, name, surname, phone, false, hashedPassword, email);
+        User user= new User(0, name, surname, phone, hashedPassword, email);
         userDAO.doSaveUser(user);
         HttpSession session = request.getSession();
         session.setAttribute("user", user);

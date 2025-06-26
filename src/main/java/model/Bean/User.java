@@ -1,38 +1,45 @@
 package model.Bean;
 
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 public class User {
     private int userId;
     private String firstName;
     private String lastName;
-    private String phone;
-    private boolean admin;
-    private String password;
     private String email;
+    private String password;
+    private boolean isAdmin;
+    private String phoneNumber;
+    private List<UserAddress> addresses;
 
-
-   public User(int idUser, String name, String surname, String number, boolean admin, String password, String email) {
+    public User(int idUser, String firstName, String lastName, String email, String password, String phoneNumber) {
         this.userId = idUser;
-        this.firstName = name;
-        this.lastName = surname;
-        this.phone = number;
-        this.admin = admin;
-        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
+        this.password = password;
+        this.isAdmin = false;
+        this.phoneNumber = phoneNumber;
     }
+
     public User() {
+
     }
 
-    public boolean isAdmin() {
-        return admin;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public List<UserAddress> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<UserAddress> addresses) {
+        this.addresses = addresses;
     }
 
     public int getUserId() {
@@ -57,14 +64,6 @@ public class User {
 
     public void setPassword(String password) {this.password = password;}
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getLastName() {
         return lastName;
     }
@@ -80,7 +79,11 @@ public class User {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    public boolean getAdmin() {
-        return admin;
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.isAdmin = admin;
     }
 }
