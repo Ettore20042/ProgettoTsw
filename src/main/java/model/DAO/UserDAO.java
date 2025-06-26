@@ -45,8 +45,8 @@ public class UserDAO {
                     user.setUserId(resultSet.getInt("UserID"));
                     user.setFirstName(resultSet.getString("FirstName"));
                     user.setLastName(resultSet.getString("LastName"));
-                    user.setPhoneNumber(resultSet.getString("PhoneNumber"));
-                    user.setAdmin(resultSet.getBoolean("IsAdmin"));
+                    user.setPhoneNumber(resultSet.getString("Phone"));
+                    user.setAdmin(resultSet.getBoolean("Admin"));
                     user.setEmail(resultSet.getString("Email"));
                     return user;
                 } else {
@@ -84,8 +84,8 @@ public class UserDAO {
                 user.setUserId(resultSet.getInt("UserID"));
                 user.setFirstName(resultSet.getString("FirstName"));
                 user.setLastName(resultSet.getString("LastName"));
-                user.setPhoneNumber(resultSet.getString("PhoneNumber"));
-                user.setAdmin(resultSet.getBoolean("IsAdmin"));
+                user.setPhoneNumber(resultSet.getString("Phone"));
+                user.setAdmin(resultSet.getBoolean("Admin"));
                 user.setEmail(resultSet.getString("Email"));
                 user.setPassword(resultSet.getString("Password"));
                 users.add(user);
@@ -123,7 +123,7 @@ public class UserDAO {
                 p.setLastName(rs.getString("LastName"));
                 p.setEmail(rs.getString("Email"));
                 p.setPassword(rs.getString("Password"));
-                p.setAdmin(rs.getBoolean("IsAdmin"));
+                p.setAdmin(rs.getBoolean("Admin"));
                 p.setPhoneNumber(rs.getString("PhoneNumber"));
                 return p;
             }

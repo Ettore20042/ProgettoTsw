@@ -56,7 +56,7 @@ public class ImageDAO {
         }
     }
 
-    public void addImage(int productId, String imagePath, String imageDescription, int displayOrder) {
+    public boolean addImage(int productId, String imagePath, String imageDescription, int displayOrder) {
         try (Connection conn = ConnPool.getConnection()) {
             String sql = "INSERT INTO image (ProductID, ImagePath, ImageDescription, DisplayOrder) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -64,9 +64,11 @@ public class ImageDAO {
             ps.setString(2, imagePath);
             ps.setString(3, imageDescription);
             ps.setInt(4, displayOrder);
-            ps.executeUpdate();
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0; // Restituisce true se almeno una riga è stata inserita
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return false;
         }
     }
 }
