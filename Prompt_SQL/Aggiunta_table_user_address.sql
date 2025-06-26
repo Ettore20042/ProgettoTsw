@@ -7,11 +7,11 @@ CREATE TABLE user_address (
 
                               PRIMARY KEY (UserID, AddressID, address_type),
 
-                              FOREIGN KEY (UserID) REFERENCES UserAccount(UserID)
+                              FOREIGN KEY (UserID) REFERENCES user_account(UserID)
                                   ON DELETE CASCADE
                                   ON UPDATE CASCADE,
 
-                              FOREIGN KEY (AddressID) REFERENCES Address(AddressID)
+                              FOREIGN KEY (AddressID) REFERENCES address(AddressID)
                                   ON DELETE CASCADE
                                   ON UPDATE CASCADE
 );
