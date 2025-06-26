@@ -13,7 +13,7 @@ import java.util.List;
 public class UserDAO {
     public void doSaveUser(User user) {
         try (Connection conn = ConnPool.getConnection()) {
-            String sql = "INSERT INTO user_account (FirstName, LastName, Email, Password, IsAdmin, PhoneNumber) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO user_account (FirstName, LastName, Email, Password, Admin, Phone) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, user.getFirstName());
             ps.setString(2, user.getLastName());
