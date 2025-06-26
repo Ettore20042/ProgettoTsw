@@ -16,6 +16,7 @@ import service.ProductService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +52,7 @@ public class AddProductServlet extends HttpServlet {
             product.setSalePrice(Double.parseDouble(request.getParameter("salePrice")));
             product.setColor(request.getParameter("color"));
             product.setDescription(request.getParameter("description"));
+            product.setMaterial(request.getParameter("material"));
             product.setQuantity(Integer.parseInt(request.getParameter("quantity")));
             product.setCategoryId(Integer.parseInt(request.getParameter("category")));
             product.setBrandId(Integer.parseInt(request.getParameter("brand")));
@@ -60,9 +62,23 @@ public class AddProductServlet extends HttpServlet {
 
             if (newProductId > 0) {
                 // 3. Estrai le immagini e chiama il service per salvarle
-                List<Part> imageParts = request.getParts().stream()
+                List<Part> imageParts = new ArrayList<>();
+
+                // First find Image1 if it exists
+                Part image1 = request.getParts().stream()
+                        .filter(part -> "image1".equals(part.getName()) && part.getSize() > 0)
+                        .findFirst()
+                        .orElse(null);
+
+                // Add Image1 at the beginning if found
+                if (image1 != null) {
+                    imageParts.add(image1);
+                }
+
+                // Add the rest of the images
+                imageParts.addAll(request.getParts().stream()
                         .filter(part -> "images".equals(part.getName()) && part.getSize() > 0)
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toList()));
 
                 if (!imageParts.isEmpty()) {
                     imageService.saveProductImages(imageParts, newProductId, product.getCategoryId(), product.getProductName(), imageDescription);
@@ -80,7 +96,7 @@ public class AddProductServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         jsonResponse.put("success", success);
-        jsonResponse.put("success", success);
+
 
         PrintWriter out = response.getWriter();
         out.print(new Gson().toJson(jsonResponse));
