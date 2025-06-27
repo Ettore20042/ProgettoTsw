@@ -74,7 +74,7 @@
                             <th colspan="2"></th>
                         </tr>
                         </thead>
-                        <tbody id="componentTableBody">
+                        <tbody class="componentTableBody">
                         <c:forEach var="item" items="${itemList}">
                             <tr>
                                 <td>${item.productId}</td>
@@ -91,9 +91,41 @@
                         </tbody>
                     </table>
                 </c:when>
-                    <c:when test="${entity == 'users'}">
-                        <jsp:include page="/jsp/admin/Admin.jsp"/>
-                    </c:when>
+                <c:when test="${entity == 'users'}">
+                    <table class="search-components-on-table--table">
+                        <thead>
+                        <tr>
+                            <th>ID Utente</th>
+                            <th>Nome</th>
+                            <th>Cognome</th>
+                            <th>Email</th>
+                            <th>Telefono</th>
+                            <th>Admin</th>
+                            <th colspan="1"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="componentTableBody">
+                        <c:forEach var="item" items="${itemList}">
+                            <tr>
+                                <td>${item.userId}</td>
+                                <td>${item.firstName}</td>
+                                <td>${item.lastName}</td>
+                                <td>${item.email}</td>
+                                <td>${item.phoneNumber}</td>
+                                <c:choose>
+                                    <c:when test="${item.isAdmin() == true}">
+                                        <td>SI</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td>NO</td>
+                                    </c:otherwise>
+                                </c:choose>
+                                <td><a href="#">Modifica</a></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </c:when>
                 <c:otherwise>
                     <p>Seleziona un'entità da gestire.</p>
                 </c:otherwise>

@@ -7,7 +7,7 @@ const entity = document.body.dataset.entity;
 let timeoutT = null;
 
 inputTable.addEventListener('input', function (e) {
-    /* Cancella qualsiasi timer precedentemente impostato e (vedi fine codice) fa aspettare 300 millisec. prima di eseguire subito la ricerca */
+    /* Cancella qualsiasi timer precedentemente impostato e (vedi fine codice) fa aspettare 300 millisec. Prima di eseguire subito la ricerca */
     clearTimeout(timeout);
     const value = this.value.trim(); /* prende il testo dalla barra e rimuove eventuali spazi bianchi */
 
@@ -134,7 +134,7 @@ document.getElementById('addProductForm').addEventListener('submit', function(ev
             const messageElement = document.getElementById("message");
 
             if (data.success && data.product) { // Controlla se i dati sono validi, la risposta e se ce un oggetto prodotto
-                const tableBody = document.getElementById('componentTableBody');
+                const tableBody = document.getElementsByTagName('componentTableBody')[0];
 
                 // Aggiunta riga nuova alla tabella
                 const newRow = document.createElement('tr');
