@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import model.Bean.Image;
 import model.Bean.Product;
 import service.ImageService;
 import service.ProductService;
@@ -105,4 +106,43 @@ public class AddProductServlet extends HttpServlet {
         out.print(new Gson().toJson(jsonResponse));
         out.flush();
     }
-}
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        Map<String, Object> jsonResponse = new HashMap<>();
+
+        String azione = request.getParameter("azione");
+        if ("modifica".equals(azione)) {
+            String productIdStr = request.getParameter("productId");
+            if (productIdStr == null || productIdStr.trim().isEmpty()) {
+                throw new IllegalArgumentException("Product ID is required");
+            }
+
+            int productId = Integer.parseInt(productIdStr);
+            Product product = productService.getProductById(productId);
+            product.setProductId(productId); // anche se probabilmente è già settato
+
+            if (product != null) {
+                jsonResponse.put("success", true);
+                jsonResponse.put("product", product);
+
+                // eventualmente puoi caricare anche l'immagine
+                Image image = imageService.getFirstImageByProductId(productId);
+                jsonResponse.put("image", image);
+                List<Image> images = imageService.getImagesByProductId(productId);
+                jsonResponse.put("images", images);
+            } else {
+                jsonResponse.put("success", false);
+                jsonResponse.put("error", "Product not found");
+            }
+        } else {
+            jsonResponse.put("success", false);
+            jsonResponse.put("error", "Invalid action parameter");
+        }
+
+        PrintWriter out = response.getWriter();
+        out.print(new Gson().toJson(jsonResponse));
+        out.flush();
+    }}

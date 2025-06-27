@@ -82,7 +82,7 @@
                                 <td>${item.price}</td>
                                 <td>${item.color}</td>
                                 <td>${item.quantity}</td>
-                                <td><a href="#">Modifica</a></td>
+                                <td><a href="#" class="edit-link" data-product-id="${item.productId}">Modifica</a></td>
                                 <td><button type="submit" class="remove-button-product remove-item-btn" data-id="${item.productId}" >
                                     <img src="${pageContext.request.contextPath}/img/icon/delete.png" class="remove-icon">
                                 </button></td>

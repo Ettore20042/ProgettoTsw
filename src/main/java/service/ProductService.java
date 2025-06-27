@@ -97,4 +97,10 @@ public class ProductService {
     public boolean removeProduct(int productId) {
         return productDAO.deleteProduct(productId);
     }
+    public Product getProductById(int productId) {
+        return productDAO.doRetrieveById(productId);
+    }
+    public boolean updateProduct(Product product) {
+        return productDAO.updateProduct(product);
+    }
 }

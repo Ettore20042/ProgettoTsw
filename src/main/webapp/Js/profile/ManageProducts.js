@@ -70,6 +70,7 @@ function openModal() {
 
 function closeModal() {
     document.getElementById("productModal").style.display = 'none';
+    resetForm();
 }
 
 // Funzione per aggiungere event listener ai pulsanti di rimozione
@@ -204,3 +205,127 @@ document.getElementById('addProductForm').addEventListener('submit', function(ev
         }, 2000);
     }
 });
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.edit-link').forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault(); // previeni il comportamento di default
+            const productId = this.getAttribute('data-product-id');
+            loadProductForEdit(productId);
+        });
+    });
+});
+
+function loadProductForEdit(productId) {
+    fetch(`${contextPathTable}/AddProductServlet?azione=modifica&productId=${productId}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+        .then(response => {
+
+
+            // Controlla se la risposta è effettivamente JSON
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                throw new Error('Response is not JSON');
+            }
+
+            return response.json();
+        })
+        .then(data => {
+            if(data.success && data.product) {
+                const product = data.product;
+                const image=data.image;
+
+                // Questi dovrebbero funzionare
+                document.getElementById('productName').value = product.productName || '';
+                document.getElementById('price').value = product.price || '';
+                document.getElementById('salePrice').value = product.salePrice || '';
+                document.getElementById('color').value = product.color || '';
+                document.getElementById('description').value = product.description || '';
+                document.getElementById('quantity').value = product.quantity || '';
+                document.getElementById('material').value = product.material || '';
+                document.getElementById('category').value = product.categoryId || '';
+                document.getElementById('brand').value = product.brandId || '';
+                document.getElementById('descriptionImage').value = image.imageDescription || '';
+
+
+
+
+                const imagePreview = document.getElementById('imagePreview');
+                imagePreview.style.display = 'block'; // Assicurati che il preview sia visibile
+                if (image && image.imagePath && imagePreview) {
+
+                    imagePreview.src = contextPathTable+image.imagePath;
+                    imagePreview.style.marginBottom = "1.5rem"; // Imposta una larghezza massima per il preview
+                }
+
+
+
+                const imageListDiv = document.getElementById("imageList");
+                imageListDiv.innerHTML = ""; // Pulisce vecchie immagini
+                imageListDiv.style.display = 'block'; // Assicurati che il contenitore sia visibile
+
+                if (Array.isArray(data.images)) {
+                    data.images.forEach(img => {
+                        const imageElement = document.createElement("img");
+                        imageElement.src = contextPath + img.imagePath;
+                        imageElement.alt = img.imageDescription || "immagine prodotto";
+                        imageElement.style.maxWidth = "150px";
+                        imageElement.style.margin = "5px";
+
+                        imageListDiv.appendChild(imageElement);
+
+                        console.log("Aggiunta immagine:", imageElement.src);
+                    });
+                } else {
+                    console.warn("Nessuna lista immagini trovata");
+                }
+
+
+
+
+
+
+                const submitBtn = document.getElementById('submitBtn');
+                if (submitBtn) {
+                    submitBtn.textContent = 'Modifica Prodotto';
+                }
+
+                // Cambia anche il titolo del modal se ne hai uno
+                const modalTitle = document.getElementById('modalTitle');
+                if (modalTitle) {
+                    modalTitle.textContent = 'Modifica Prodotto';
+                }
+                // Ora apri il modal (se usi modal)
+                openModal();
+            } else {
+                alert("Errore nel caricamento del prodotto");
+            }
+        })
+        .catch(err => console.error('Fetch error:', err));
+}
+function resetForm ()  {
+    document.getElementById('productName').value = '';
+    document.getElementById('price').value = '';
+    document.getElementById('salePrice').value = '';
+    document.getElementById('color').value = '';
+    document.getElementById('description').value = '';
+    document.getElementById('quantity').value = '';
+    document.getElementById('material').value = '';
+    document.getElementById('category').value = '';
+    document.getElementById('brand').value = '';
+
+    const submitBtn = document.getElementById('submitBtn');
+    if (submitBtn) {
+        submitBtn.textContent = 'Aggiungi Prodotto';
+    }
+
+    // Cambia anche il titolo del modal se ne hai uno
+    const modalTitle = document.getElementById('modalTitle');
+    if (modalTitle) {
+        modalTitle.textContent = 'Aggiungi Prodotto';
+    }
+}
+
