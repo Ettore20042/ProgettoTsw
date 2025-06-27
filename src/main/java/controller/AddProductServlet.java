@@ -40,13 +40,14 @@ public class AddProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean success = false;
+        Product product = null;
         Map<String, Object> jsonResponse = new HashMap<>();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
             // 1. Estrai i dati e crea il bean Product
         try {
-            Product product = new Product();
+            product = new Product();
             product.setProductName(request.getParameter("productName"));
             product.setPrice(Float.parseFloat(request.getParameter("price")));
             product.setSalePrice(Double.parseDouble(request.getParameter("salePrice")));
@@ -56,9 +57,10 @@ public class AddProductServlet extends HttpServlet {
             product.setQuantity(Integer.parseInt(request.getParameter("quantity")));
             product.setCategoryId(Integer.parseInt(request.getParameter("category")));
             product.setBrandId(Integer.parseInt(request.getParameter("brand")));
-            String imageDescription = request.getParameter("imageDescription");
+            String imageDescription = request.getParameter("descriptionImage");
 
             int newProductId = productService.addProduct(product);
+            product.setProductId(newProductId);
 
             if (newProductId > 0) {
                 // 3. Estrai le immagini e chiama il service per salvarle
@@ -96,6 +98,7 @@ public class AddProductServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         jsonResponse.put("success", success);
+        jsonResponse.put("product",success? product :null);
 
 
         PrintWriter out = response.getWriter();
