@@ -112,11 +112,11 @@ public class UserDAO {
         }
     }
 
-    public List<User> doRetrieveByEmail(String email) {
+    public List<User> findByEmailLike(String email) {
         try (Connection con = ConnPool.getConnection()) {
             String sql = "SELECT * FROM user_account WHERE Email LIKE ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, email);
+            ps.setString(1, "%" + email + "%");
             ResultSet rs = ps.executeQuery();
             List<User> users = new ArrayList<>();
             while(rs.next()){

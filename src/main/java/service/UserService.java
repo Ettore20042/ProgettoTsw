@@ -28,7 +28,7 @@ public class UserService {
     }
 
     public List<String> getUserEmails(String email) {
-        List<User> userList = userDAO.doRetrieveByEmail(email);
+        List<User> userList = userDAO.findByEmailLike(email);
         List<String> emailList = new ArrayList<>();
         for(User user : userList){
             emailList.add(user.getEmail());
