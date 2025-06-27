@@ -40,7 +40,7 @@
             <div class="user-actions_dropdown" id="userActionsDropdown">
                 <% if (request.getSession().getAttribute("user") != null) {
                     User user = (User) session.getAttribute("user");%>
-                <a href="${pageContext.request.contextPath}/jsp/profile/User.jsp" class="user-actions_dropdown--first-link">Account</a>
+                <a href="${pageContext.request.contextPath}/OrderServlet?UserId=<%= user.getUserId()%>" class="user-actions_dropdown--first-link">Account</a>
                 <a href="${pageContext.request.contextPath}/LogoutServlet">Logout</a>
                 <% } else { %>
                 <a href="${pageContext.request.contextPath}/jsp/auth/Login.jsp" class="user-actions_dropdown--first-link">Accedi</a>

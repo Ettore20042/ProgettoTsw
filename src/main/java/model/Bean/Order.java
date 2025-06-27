@@ -2,6 +2,7 @@ package model.Bean;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 
 public class Order {
@@ -13,6 +14,9 @@ public class Order {
     private int billingAddressId;
     private int shippingAddressId;
     private int userId;
+    private List<OrderItem> orderItems;
+
+
 
     public Order(int idOrder, int idUser, int idBillingAddress, int idShippingAddress, float total, LocalTime time, LocalDate date, String status) {
         this.orderId = idOrder;
@@ -90,5 +94,13 @@ public class Order {
 
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 }
