@@ -81,5 +81,10 @@ public class ManageServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher(forwardPage);
         dispatcher.forward(request, response);
     }
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
 }
 

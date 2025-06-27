@@ -21,11 +21,21 @@
             <a href="${pageContext.request.contextPath}/ManageServlet?entity=users" class="admin-button-toggle ${entity == 'users' ? 'active' : ''}">Gestione Utenti</a> <%-- Esempio per il futuro --%>
             <a href="#" class="admin-button-toggle">Gestione Categorie</a> <%-- Esempio per il futuro --%>
         </nav>
+
+        <%--<jsp:include page="/WEB-INF/jsp/components/products/_productsFilter.jsp">
+            <jsp:param name="entity" value="${entity}"/>
+            <jsp:param name="priceMax" value="${priceMax}"/>
+            <jsp:param name="brandChaceMap" value="${brandChaceMap}"/>
+            <jsp:param name="categoryChaceMap" value="${categoryChaceMap}"/>
+            <jsp:param name="colorsList" value="${colorsList}"/>
+        </jsp:include>--%>
+
     </div>
 
     <div class="manage-components-container-right">
         <div class="search-bar-tab manage-components-container-right_search-bar">
             <form id="searchForm" action="${pageContext.request.contextPath}/ManageServlet" method="get" class="search-bar-form-tab" autocomplete="off">
+                <input type="hidden" name="entity" value="${entity}">
                 <input type="search" id="searchBarTable" name="searchQuery" placeholder="Cerca in ${entity}..." autocomplete="off" value="${param.searchQuery}">
                 <button type="submit" aria-label="Cerca">
                     <img src="${pageContext.request.contextPath}/img/header/lente.svg" id="searchLensTable" alt="Cerca">

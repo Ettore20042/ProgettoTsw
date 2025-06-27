@@ -2,6 +2,7 @@ const inputTable = document.getElementById("searchBarTable"); /* campo di testo 
 const suggestionBoxTable = document.getElementById("suggestions-for-table"); /* contenitore dove verranno mostrati i suggerimenti */
 const searchBarWrapperTable = document.querySelector('.manage-components-container-right_search-bar'); /* usato per applicare stili comuni, comprende sia barra di ricerca che suggerimenti */
 const contextPathTable = document.getElementsByTagName("body")[0].dataset.contextPath; /* usato per avere l'URL corretto */
+const entity = document.body.dataset.entity;
 
 let timeoutT = null;
 
@@ -19,7 +20,7 @@ inputTable.addEventListener('input', function (e) {
     }
 
     /* prendiamo l'URL corretto */
-    const url = `${contextPathTable}/SuggestionsServlet?entity=products&query=${encodeURIComponent(value)}`; /* codifica caratteri speciali per renderli sicuri in un URL */
+    const url = `${contextPathTable}/SuggestionsServlet?entity=${entity}&query=${encodeURIComponent(value)}`; /* codifica caratteri speciali per renderli sicuri in un URL */
 
     /* avvia la richiesta asincrona */
     timeoutT = setTimeout(() => {
