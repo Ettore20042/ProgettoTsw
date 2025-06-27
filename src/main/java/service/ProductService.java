@@ -34,6 +34,7 @@ public class ProductService {
         if (product != null) {
             List<Image> images = imageService.getImagesByProductId(productId);
             product.setImages(images);
+            /* recupera informazioni sul brand e le associa all'oggetto */
             brandService.addBrandToProductBean(List.of(product));
         }
         return product;
