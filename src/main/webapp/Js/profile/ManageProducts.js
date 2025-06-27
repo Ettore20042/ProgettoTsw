@@ -114,7 +114,6 @@ document.querySelectorAll('.remove-button-product').forEach(button => {
     addRemoveEventListener(button);
 });
 
-// Gestione del form di aggiunta prodotto
 document.getElementById('addProductForm').addEventListener('submit', function(event) {
     event.preventDefault();
     const formData = new FormData(this);
@@ -133,106 +132,74 @@ document.getElementById('addProductForm').addEventListener('submit', function(ev
         .then(data => {
             const messageElement = document.getElementById("message");
 
-            if (data.success) {
+            if (data.success && data.product) { // Controlla se i dati sono validi, la risposta e se ce un oggetto prodotto
                 const tableBody = document.getElementById('componentTableBody');
-                if (tableBody && data.product) {
-                    const newRow = document.createElement('tr');
-                    newRow.innerHTML = `
-                        <td>${data.product.productId}</td>
-                        <td>${data.product.productName}</td>
-                        <td>${data.product.price}</td>
-                        <td>${data.product.color}</td>
-                        <td>${data.product.quantity}</td>
-                        <td><a href="#">Modifica</a></td>
-                        <td>
-                            <button type="button" class="remove-button-product remove-item-btn" data-id="${data.product.productId}">
-                                <img src="${contextPathTable}/img/icon/delete.png" class="remove-icon">
-                            </button>
-                        </td>
-                    `;
 
-                    tableBody.appendChild(newRow);
+                // Aggiunta riga nuova alla tabella
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                <td>${data.product.productId}</td>
+                <td>${data.product.productName}</td>
+                <td>${data.product.price}</td>
+                <td>${data.product.color}</td>
+                <td>${data.product.quantity}</td>
+                <td><a href="#">Modifica</a></td>
+                <td>
+                    <button type="button" class="remove-button-product remove-item-btn" data-id="${data.product.productId}">
+                        <img src="${contextPathTable}/img/icon/delete.png" class="remove-icon">
+                    </button>
+                </td>
+            `;
 
-                    // Aggiungi event listener al nuovo pulsante di rimozione
-                    const newButton = newRow.querySelector('.remove-button-product');
+                tableBody.appendChild(newRow);
+
+                // Aggiunta event listener per rimozione (se definito)
+                const newButton = newRow.querySelector('.remove-button-product');
+                if (typeof addRemoveEventListener === 'function') {
                     addRemoveEventListener(newButton);
                 }
 
                 // Mostra messaggio di successo
-                Object.assign(messageElement.style, {
-                    display: 'flex',
-                    position: 'fixed',
-                    top: '20px',
-                    right: '20px',
-                    backgroundColor: '#4CAF50',
-                    color: 'white',
-                    padding: '15px',
-                    borderRadius: '5px',
-                    boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-                    opacity: '1',
-                    transform: 'translateY(0)',
-                    transition: 'all 0.3s ease',
-                    zIndex: '1000'
-                });
-
-                messageElement.innerText = '✅ Caricamento riuscito';
-
-                // Resetta il form
-                this.reset();
-
+                mostraMessaggio("✅ Caricamento riuscito", "#4CAF50");
+                this.reset(); // reset del form
             } else {
-                // Messaggio di errore
-                Object.assign(messageElement.style, {
-                    display: 'flex',
-                    position: 'fixed',
-                    top: '20px',
-                    right: '20px',
-                    backgroundColor: '#f44336',
-                    color: 'white',
-                    padding: '15px',
-                    borderRadius: '5px',
-                    boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-                    opacity: '1',
-                    transform: 'translateY(0)',
-                    transition: 'all 0.3s ease',
-                    zIndex: '1000'
-                });
-
-                messageElement.innerText = '❌ Caricamento fallito';
+                console.warn("Dati non validi:", data);
+                mostraMessaggio("❌ Caricamento fallito", "#f44336");
             }
 
             closeModal();
 
-            // Nasconde il messaggio dopo 2 secondi con animazione
-            setTimeout(() => {
-                messageElement.style.opacity = '0';
-                messageElement.style.transform = 'translateY(-20px)';
-            }, 2000);
         })
         .catch(error => {
-            const messageElement = document.getElementById("message");
-
-            Object.assign(messageElement.style, {
-                display: 'flex',
-                position: 'fixed',
-                top: '20px',
-                right: '20px',
-                backgroundColor: '#f44336', // rosso errore
-                color: 'white',
-                padding: '15px',
-                borderRadius: '5px',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-                opacity: '1',
-                transform: 'translateY(0)',
-                transition: 'all 0.3s ease',
-                zIndex: '1000'
-            });
-
-            messageElement.innerText = `❌ Errore: ${error.message}`;
-
-            setTimeout(() => {
-                messageElement.style.opacity = '0';
-                messageElement.style.transform = 'translateY(-20px)';
-            }, 2000);
+            console.error("Errore nella richiesta:", error);
+            mostraMessaggio(`❌ Errore: ${error.message}`, "#f44336");
         });
+
+    // Funzione per mostrare il messaggio
+    function mostraMessaggio(testo, coloreSfondo) {
+        const messageElement = document.getElementById("message");
+        Object.assign(messageElement.style, {
+            display: 'flex',
+            position: 'fixed',
+            top: '20px',
+            right: '20px',
+            backgroundColor: coloreSfondo,
+            color: 'white',
+            padding: '15px',
+            borderRadius: '5px',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+            opacity: '1',
+            transform: 'translateY(0)',
+            transition: 'all 0.3s ease',
+            zIndex: '1000'
+        });
+
+        messageElement.innerText = testo;
+
+        // Rimuove il messaggio dopo 2 secondi
+        setTimeout(() => {
+            messageElement.style.opacity = '0';
+            messageElement.style.transform = 'translateY(-20px)';
+        }, 2000);
+    }
 });
