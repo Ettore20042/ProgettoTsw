@@ -4,7 +4,7 @@
 <div class="manage-components-container-right--modal" id="productModal">
   <div class="modal-content">
     <span class="close" onclick="closeModal()">&times;</span>
-    <h2>Aggiungi un prodotto</h2>
+    <h2 id="modalTitle">Aggiungi un prodotto</h2>
     <form id="addProductForm" action="${pageContext.request.contextPath}/AddProductServlet" method="post" enctype="multipart/form-data">
       <label for="productName">Nome Prodotto:</label>
       <input type="text" id="productName" name="productName" required>
@@ -28,10 +28,13 @@
       <input type="text" id="material" name="material" placeholder="Materiale del prodotto">
 
       <label for="image1">Immagine di copertina:</label>
+      <img id="imagePreview" src="" alt="Anteprima immagine" style="max-width: 200px; display: none;">
       <input type="file" id="image1" name="image1" accept="image/*">
 
       <label for="images">Altre immagini:</label>
-      <input type="file" id="images" name="images" accept="image/*" required multiple>
+      <div id="imageList"></div>
+      <input type="file" id="images" name="images" accept="image/*"  multiple>
+
 
       <label for="descriptionImage">Descrizione Immagine:</label>
       <input type="text" id="descriptionImage" name="descriptionImage" placeholder="Descrizione dell'immagine">
@@ -52,7 +55,7 @@
         </c:forEach>
       </select>
 
-      <button type="submit">Aggiungi Prodotto</button>
+      <button type="submit" id="submitBtn">Aggiungi Prodotto</button>
     </form>
   </div>
 </div>

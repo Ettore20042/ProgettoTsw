@@ -314,4 +314,24 @@ public class ProductDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean updateProduct(Product product) {
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE product SET ProductName=?, Price=?, SalePrice=?, Description=?, CategoryID=?, Quantity=?, BrandID=?, Color=? WHERE ProductID=?");
+            preparedStatement.setString(1, product.getProductName());
+            preparedStatement.setFloat(2, product.getPrice());
+            preparedStatement.setDouble(3, product.getSalePrice());
+            preparedStatement.setString(4, product.getDescription());
+            preparedStatement.setInt(5, product.getCategoryId());
+            preparedStatement.setInt(6, product.getQuantity());
+            preparedStatement.setInt(7, product.getBrandId());
+            preparedStatement.setString(8, product.getColor());
+            preparedStatement.setInt(9, product.getProductId());
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+    }
 }

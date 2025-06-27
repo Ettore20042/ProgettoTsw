@@ -4,6 +4,7 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.Part;
 import model.Bean.Category;
 import model.Bean.Image;
+import model.Bean.Product;
 import model.DAO.ImageDAO;
 
 import java.io.File;
@@ -166,4 +167,6 @@ public class ImageService {
         }
         return false;
     }
+
+
 }

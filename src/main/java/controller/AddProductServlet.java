@@ -59,7 +59,6 @@ public class AddProductServlet extends HttpServlet {
             product.setBrandId(Integer.parseInt(request.getParameter("brand")));
             String imageDescription = request.getParameter("descriptionImage");
 
-            /* chiama il metodo per eseguire l'effettivo salvataggio nel database*/
             int newProductId = productService.addProduct(product);
             product.setProductId(newProductId);
 
@@ -69,7 +68,7 @@ public class AddProductServlet extends HttpServlet {
 
                 // First find Image1 if it exists
                 Part image1 = request.getParts().stream()
-                        .filter(part -> "image1".equals(part.getName()) && part.getSize() > 0) /* si assicura di prendere solo la parte con quel nome e che un file sia stato effettivamente caricato*/
+                        .filter(part -> "image1".equals(part.getName()) && part.getSize() > 0)
                         .findFirst()
                         .orElse(null);
 
@@ -80,11 +79,10 @@ public class AddProductServlet extends HttpServlet {
 
                 // Add the rest of the images
                 imageParts.addAll(request.getParts().stream()
-                        .filter(part -> "images".equals(part.getName()) && part.getSize() > 0) /* cerca tutte le parti chiamate "images", questo permette di caricare più immagini da un singolo campo*/
+                        .filter(part -> "images".equals(part.getName()) && part.getSize() > 0)
                         .collect(Collectors.toList()));
 
                 if (!imageParts.isEmpty()) {
-                    /* questo metodo di servizio si occuperà di leggere i dati binari di ogni file(Part), salvarli in una cartella sul server e salvare i percorsi delle immagini nel database associandoli al newProductId*/
                     imageService.saveProductImages(imageParts, newProductId, product.getCategoryId(), product.getProductName(), imageDescription);
                 }
                 success = true;
