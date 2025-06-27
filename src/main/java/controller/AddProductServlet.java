@@ -40,102 +40,191 @@ public class AddProductServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        boolean success = false;
-        Product product = null;
         Map<String, Object> jsonResponse = new HashMap<>();
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-            // 1. Estrai i dati e crea il bean Product
-        try {
-            product = new Product();
-            product.setProductName(request.getParameter("productName"));
-            product.setPrice(Float.parseFloat(request.getParameter("price")));
-            product.setSalePrice(Double.parseDouble(request.getParameter("salePrice")));
-            product.setColor(request.getParameter("color"));
-            product.setDescription(request.getParameter("description"));
-            product.setMaterial(request.getParameter("material"));
-            product.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-            product.setCategoryId(Integer.parseInt(request.getParameter("category")));
-            product.setBrandId(Integer.parseInt(request.getParameter("brand")));
-            String imageDescription = request.getParameter("descriptionImage");
+        String azione = request.getParameter("azione");
 
-            int newProductId = productService.addProduct(product);
-            product.setProductId(newProductId);
 
-            if (newProductId > 0) {
-                // 3. Estrai le immagini e chiama il service per salvarle
-                List<Part> imageParts = new ArrayList<>();
+        if ("confermaModifica".equals(azione)) {
+            try {
+                // Debug: print all parameters
+                System.out.println("=== DEBUG PARAMETERS ===");
+                request.getParameterMap().forEach((key, values) -> {
+                    System.out.println(key + " = " + String.join(", ", values));
+                });
+                System.out.println("========================");
 
-                // First find Image1 if it exists
-                Part image1 = request.getParts().stream()
-                        .filter(part -> "image1".equals(part.getName()) && part.getSize() > 0)
-                        .findFirst()
-                        .orElse(null);
+                String productIdStr = request.getParameter("id");
+                System.out.println("Product ID received: " + productIdStr);
 
-                // Add Image1 at the beginning if found
-                if (image1 != null) {
-                    imageParts.add(image1);
+                if (productIdStr == null || productIdStr.trim().isEmpty()) {
+                    throw new IllegalArgumentException("Product ID is required");
                 }
+                int productId = Integer.parseInt(productIdStr);
 
-                // Add the rest of the images
-                imageParts.addAll(request.getParts().stream()
-                        .filter(part -> "images".equals(part.getName()) && part.getSize() > 0)
-                        .collect(Collectors.toList()));
+                Product product = productService.getProductById(productId);
+                System.out.println("Product found: " + (product != null));
 
-                if (!imageParts.isEmpty()) {
-                    imageService.saveProductImages(imageParts, newProductId, product.getCategoryId(), product.getProductName(), imageDescription);
+                if (product == null) {
+                    jsonResponse.put("success", false);
+                    jsonResponse.put("error", "Product not found");
+                } else {
+                    // Log original product data
+                    System.out.println("Original product: " + product.getProductName() + ", Price: " + product.getPrice());
+
+                    // Update fields
+                    product.setProductName(request.getParameter("productName"));
+                    product.setColor(request.getParameter("color"));
+                    product.setDescription(request.getParameter("description"));
+                    product.setMaterial(request.getParameter("material"));
+
+                    String priceStr = request.getParameter("price");
+                    if (priceStr != null && !priceStr.isEmpty()) {
+                        product.setPrice(Float.parseFloat(priceStr));
+                    }
+
+                    String salePriceStr = request.getParameter("salePrice");
+                    if (salePriceStr != null && !salePriceStr.isEmpty()) {
+                        product.setSalePrice(Double.parseDouble(salePriceStr));
+                    }
+
+                    String quantityStr = request.getParameter("quantity");
+                    if (quantityStr != null && !quantityStr.isEmpty()) {
+                        product.setQuantity(Integer.parseInt(quantityStr));
+                    }
+
+                    String categoryIdStr = request.getParameter("category");
+                    if (categoryIdStr != null && !categoryIdStr.isEmpty()) {
+                        product.setCategoryId(Integer.parseInt(categoryIdStr));
+                    }
+
+                    String brandIdStr = request.getParameter("brand");
+                    if (brandIdStr != null && !brandIdStr.isEmpty()) {
+                        product.setBrandId(Integer.parseInt(brandIdStr));
+                    }
+
+                    // Log updated product data
+                    System.out.println("Updated product: " + product.getProductName() + ", Price: " + product.getPrice());
+                    System.out.println("Calling updateProduct for ID: " + product.getProductId());
+
+                    boolean updated = productService.updateProduct(product);
+                    System.out.println("Update result: " + updated);
+
+                    if (updated) {
+                        jsonResponse.put("success", true);
+                        jsonResponse.put("message", "Prodotto aggiornato con successo");
+                    } else {
+                        jsonResponse.put("success", false);
+                        jsonResponse.put("error", "Errore durante l'aggiornamento del prodotto");
+                    }
                 }
-                success = true;
+            } catch (Exception e) {
+                jsonResponse.put("success", false);
+                jsonResponse.put("error", e.getMessage());
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            // Log dell'errore per il debug
-            e.printStackTrace();
-            success = false;
+        }
+        // Handle new product creation (normal flow)
+        else {
+            Product product = null;
+            boolean success = false;
+
+            try {
+                product = new Product();
+                product.setProductName(request.getParameter("productName"));
+                product.setPrice(Float.parseFloat(request.getParameter("price")));
+
+                String salePriceStr = request.getParameter("salePrice");
+                if (salePriceStr != null && !salePriceStr.isEmpty()) {
+                    product.setSalePrice(Double.parseDouble(salePriceStr));
+                }
+
+                product.setColor(request.getParameter("color"));
+                product.setDescription(request.getParameter("description"));
+                product.setMaterial(request.getParameter("material"));
+                product.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+                product.setCategoryId(Integer.parseInt(request.getParameter("category")));
+                product.setBrandId(Integer.parseInt(request.getParameter("brand")));
+                String imageDescription = request.getParameter("descriptionImage");
+
+                int newProductId = productService.addProduct(product);
+                product.setProductId(newProductId);
+
+                if (newProductId > 0) {
+                    List<Part> imageParts = new ArrayList<>();
+
+                    Part image1 = request.getParts().stream()
+                            .filter(part -> "image1".equals(part.getName()) && part.getSize() > 0)
+                            .findFirst()
+                            .orElse(null);
+
+                    if (image1 != null) {
+                        imageParts.add(image1);
+                    }
+
+                    imageParts.addAll(request.getParts().stream()
+                            .filter(part -> "images".equals(part.getName()) && part.getSize() > 0)
+                            .collect(Collectors.toList()));
+
+                    if (!imageParts.isEmpty()) {
+                        imageService.saveProductImages(imageParts, newProductId, product.getCategoryId(),
+                                product.getProductName(), imageDescription);
+                    }
+                    success = true;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                success = false;
+            }
+
+            jsonResponse.put("success", success);
+            jsonResponse.put("product", success ? product : null);
         }
 
-        // 4. Invia una risposta JSON corretta
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-
-        jsonResponse.put("success", success);
-        jsonResponse.put("product",success? product :null);
-
-
+        // Send the JSON response
         PrintWriter out = response.getWriter();
         out.print(new Gson().toJson(jsonResponse));
         out.flush();
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
         Map<String, Object> jsonResponse = new HashMap<>();
 
         String azione = request.getParameter("azione");
+
+        // Only handle the "modifica" action in GET to retrieve product info
         if ("modifica".equals(azione)) {
-            String productIdStr = request.getParameter("productId");
-            if (productIdStr == null || productIdStr.trim().isEmpty()) {
-                throw new IllegalArgumentException("Product ID is required");
-            }
+            try {
+                String productIdStr = request.getParameter("productId");
+                if (productIdStr == null || productIdStr.trim().isEmpty()) {
+                    throw new IllegalArgumentException("Product ID is required");
+                }
 
-            int productId = Integer.parseInt(productIdStr);
-            Product product = productService.getProductById(productId);
-            product.setProductId(productId); // anche se probabilmente è già settato
+                int productId = Integer.parseInt(productIdStr);
+                Product product = productService.getProductById(productId);
 
-            if (product != null) {
-                jsonResponse.put("success", true);
-                jsonResponse.put("product", product);
+                if (product != null) {
+                    jsonResponse.put("success", true);
+                    jsonResponse.put("product", product);
 
-                // eventualmente puoi caricare anche l'immagine
-                Image image = imageService.getFirstImageByProductId(productId);
-                jsonResponse.put("image", image);
-                List<Image> images = imageService.getImagesByProductId(productId);
-                jsonResponse.put("images", images);
-            } else {
+                    Image image = imageService.getFirstImageByProductId(productId);
+                    jsonResponse.put("image", image);
+
+                    List<Image> images = imageService.getImagesByProductId(productId);
+                    jsonResponse.put("images", images);
+                } else {
+                    jsonResponse.put("success", false);
+                    jsonResponse.put("error", "Product not found");
+                }
+            } catch (Exception e) {
                 jsonResponse.put("success", false);
-                jsonResponse.put("error", "Product not found");
+                jsonResponse.put("error", e.getMessage());
+                e.printStackTrace();
             }
         } else {
             jsonResponse.put("success", false);
@@ -145,4 +234,5 @@ public class AddProductServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.print(new Gson().toJson(jsonResponse));
         out.flush();
-    }}
+    }
+}
