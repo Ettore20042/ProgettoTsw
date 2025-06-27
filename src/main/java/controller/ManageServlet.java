@@ -9,7 +9,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Bean.Product;
+import model.Bean.User;
 import service.ProductService;
+import service.UserService;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,7 +20,7 @@ import java.util.List;
 public class ManageServlet extends HttpServlet {
 
     private ProductService productService;
-    // private UserService userService; // Futuri service per altre entità
+    private UserService userService; // Futuri service per altre entità
     // private CategoryService categoryService;
 
     @Override
@@ -26,6 +28,7 @@ public class ManageServlet extends HttpServlet {
         super.init(config);
         ServletContext context = config.getServletContext();
         this.productService = new ProductService(context);
+        this.userService = new UserService(context);
         // Inizializza gli altri service qui quando verranno creati
     }
 
@@ -51,12 +54,18 @@ public class ManageServlet extends HttpServlet {
                 }
                 request.setAttribute("itemList", productList);
                 break;
-            /*
+
             case "users":
-                // Qui andrà la logica per gestire gli utenti
-                // List<User> userList = userService.searchUsers(searchQuery);
-                // request.setAttribute("itemList", userList);
+                List<User> userList;
+                if(searchQuery != null && !searchQuery.trim().isEmpty()) {
+                    userList = userService.searchUsers(searchQuery);
+                }else{
+                    userList = userService.getAllUsers();
+                }
+
+                request.setAttribute("itemList", userList);
                 break;
+                /*
             case "categories":
                 // Qui andrà la logica per le categorie
                 break;

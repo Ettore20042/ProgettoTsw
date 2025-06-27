@@ -1,5 +1,6 @@
 package model.DAO;
 
+import model.Bean.Product;
 import model.Bean.User;
 import model.ConnPool;
 import org.mindrot.jbcrypt.BCrypt;
@@ -7,6 +8,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,13 +112,14 @@ public class UserDAO {
         }
     }
 
-    public User doRetrieveByEmail(String email) {
+    public List<User> doRetrieveByEmail(String email) {
         try (Connection con = ConnPool.getConnection()) {
-            String sql = "SELECT * FROM user_account WHERE Email=?";
+            String sql = "SELECT * FROM user_account WHERE Email LIKE ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            List<User> users = new ArrayList<>();
+            while(rs.next()){
                 User p = new User();
                 p.setUserId(rs.getInt("UserID"));
                 p.setFirstName(rs.getString("FirstName"));
@@ -125,11 +128,37 @@ public class UserDAO {
                 p.setPassword(rs.getString("Password"));
                 p.setAdmin(rs.getBoolean("Admin"));
                 p.setPhoneNumber(rs.getString("Phone"));
-                return p;
+                users.add(p);
             }
-            return null;
+            return users;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
+
+    public List<User> findByNameLike(String name) {
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user_account WHERE FirstName LIKE ?");
+            preparedStatement.setString(1, "%" + name + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<User> users = new ArrayList<>();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setUserId(resultSet.getInt("UserID"));
+                user.setFirstName(resultSet.getString("FirstName"));
+                user.setLastName(resultSet.getString("LastName"));
+                user.setEmail(resultSet.getString("Email"));
+                user.setPassword(resultSet.getString("Password"));
+                user.setAdmin(resultSet.getBoolean("Admin"));
+                user.setPhoneNumber(resultSet.getString("Phone"));
+                users.add(user);
+            }
+            return users;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+
 }

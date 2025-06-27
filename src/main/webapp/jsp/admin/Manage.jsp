@@ -10,7 +10,7 @@
     <script src="${pageContext.request.contextPath}/Js/profile/ManageProducts.js" defer></script>
 </head>
 
-<body data-context-path="${pageContext.request.contextPath}">
+<body data-context-path="${pageContext.request.contextPath}" data-entity = "${entity}">
 <jsp:include page="/WEB-INF/jsp/components/common/header.jsp"/>
 
 <main class="manage-components-container">
@@ -18,7 +18,7 @@
         <%-- Qui andrà la componente dei filtri riutilizzabile --%>
         <nav class="admin-nav">
             <a href="${pageContext.request.contextPath}/ManageServlet?entity=products" class="admin-button-toggle ${entity == 'products' ? 'active' : ''}">Gestione Prodotti</a>
-            <a href="#" class="admin-button-toggle">Gestione Utenti</a> <%-- Esempio per il futuro --%>
+            <a href="${pageContext.request.contextPath}/ManageServlet?entity=users" class="admin-button-toggle ${entity == 'users' ? 'active' : ''}">Gestione Utenti</a> <%-- Esempio per il futuro --%>
             <a href="#" class="admin-button-toggle">Gestione Categorie</a> <%-- Esempio per il futuro --%>
         </nav>
     </div>
@@ -26,7 +26,6 @@
     <div class="manage-components-container-right">
         <div class="search-bar-tab manage-components-container-right_search-bar">
             <form id="searchForm" action="${pageContext.request.contextPath}/ManageServlet" method="get" class="search-bar-form-tab" autocomplete="off">
-                <input type="hidden" name="entity" value="${entity}">
                 <input type="search" id="searchBarTable" name="searchQuery" placeholder="Cerca in ${entity}..." autocomplete="off" value="${param.searchQuery}">
                 <button type="submit" aria-label="Cerca">
                     <img src="${pageContext.request.contextPath}/img/header/lente.svg" id="searchLensTable" alt="Cerca">
@@ -82,7 +81,9 @@
                         </tbody>
                     </table>
                 </c:when>
-                <%-- Aggiungi qui i <c:when> per le altre entità (users, categories, etc.) --%>
+                    <c:when test="${entity == 'users'}">
+                        <jsp:include page="/jsp/admin/Admin.jsp"/>
+                    </c:when>
                 <c:otherwise>
                     <p>Seleziona un'entità da gestire.</p>
                 </c:otherwise>

@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import service.ProductService;
+import service.UserService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,12 +20,14 @@ import java.util.List;
 public class SuggestionsServlet extends HttpServlet {
 
     private ProductService productService;
+    private UserService userService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         ServletContext context = config.getServletContext();
         this.productService = new ProductService(context);
+        this.userService = new UserService(context);
     }
 
     @Override
@@ -37,6 +40,10 @@ public class SuggestionsServlet extends HttpServlet {
             switch (entity) {
                 case "products":
                     results = productService.getSearchSuggestions(query);
+                    break;
+
+                case "users":
+                    results = userService.getUserEmails(query);
                     break;
                 // Altri casi per altre entità da fare, tipo "Users" "categories" o "brands"
             }
