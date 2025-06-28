@@ -7,7 +7,7 @@
     <title>Pannello di Gestione - ${entity}</title>
     <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/manageproducts.css">
-    <script src="${pageContext.request.contextPath}/Js/profile/ManageProducts.js" defer></script>
+    <script src="${pageContext.request.contextPath}/Js/profile/Manage.js" defer></script>
 </head>
 
 <body data-context-path="${pageContext.request.contextPath}" data-entity = "${entity}">
