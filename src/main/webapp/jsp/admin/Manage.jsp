@@ -62,10 +62,18 @@
                 </div>
                 <jsp:include page="/WEB-INF/jsp/components/admin/_addProductForm.jsp"/>
             </c:when>
-            <%-- Aggiungi qui i <c:when> per le altre entità (users, categories, etc.) --%>
-            <c:otherwise>
-                <p>Seleziona un'entità da gestire.</p>
-            </c:otherwise>
+            <c:when test="${entity == 'brands'}">
+                <div class="manage-components-container-right--add-button">
+                    <button  class="add-component-button-toggle" id="add-btn">Aggiungi un brand</button>
+                </div>
+                <jsp:include page="/WEB-INF/jsp/components/admin/_addBrandForm.jsp"/>
+            </c:when>
+            <c:when test="${entity == 'categories'}">
+                <div class="manage-components-container-right--add-button">
+                    <button  class="add-component-button-toggle" id="add-btn">Aggiungi una categoria</button>
+                </div>
+                <jsp:include page="/WEB-INF/jsp/components/admin/_addCategoryForm.jsp"/>
+            </c:when>
         </c:choose>
 
         <div id="message" style="display: none"></div>
