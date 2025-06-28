@@ -78,9 +78,10 @@ class ProductManager extends BaseManager {
                 throw new Error("Nessun elemento di modifica trovato");
             }
 
-            const productId = link.dataset.productId;
+            const productId = form.querySelector('[name="productId"]').value;
             const formData = new FormData(form);
             const url = `${this.contextPath}/AddProductServlet?azione=confermaModifica&id=${productId}`;
+
 
             const response = await fetch(url, {
                 method: 'POST',
@@ -182,10 +183,8 @@ class ProductManager extends BaseManager {
      * Gestione dei link di modifica
      */
     initializeEditLinks() {
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.edit-link').forEach(link => {
-                this.addEditEventListener(link);
-            });
+        document.querySelectorAll('.edit-link').forEach(link => {
+            this.addEditEventListener(link);
         });
     }
 
@@ -235,7 +234,7 @@ class ProductManager extends BaseManager {
      */
     populateFormForEdit(data) {
         const { product, image, images } = data;
-
+        this.setFormValue('productId', product.productId);
         this.setFormValue('productName', product.productName);
         this.setFormValue('price', product.price);
         this.setFormValue('salePrice', product.salePrice);

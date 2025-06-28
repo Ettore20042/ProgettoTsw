@@ -54,7 +54,7 @@
           <option value="${entry.key}">${entry.value.brandName}</option>
         </c:forEach>
       </select>
-
+      <input type="hidden" id="productId" name="productId">
       <button type="submit" id="submitBtn">Aggiungi Prodotto</button>
     </form>
   </div>
