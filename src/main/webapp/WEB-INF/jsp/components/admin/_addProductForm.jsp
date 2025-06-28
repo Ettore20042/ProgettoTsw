@@ -3,7 +3,7 @@
 
 <div class="manage-components-container-right--modal" id="productModal">
   <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
+    <span class="close" id="close-modal">&times;</span>
     <h2 id="modalTitle">Aggiungi un prodotto</h2>
     <form id="addProductForm" action="${pageContext.request.contextPath}/AddProductServlet" method="post" enctype="multipart/form-data">
       <label for="productName">Nome Prodotto:</label>

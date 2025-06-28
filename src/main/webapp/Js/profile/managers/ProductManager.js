@@ -186,7 +186,11 @@ class ProductManager extends BaseManager {
         document.querySelectorAll('.edit-link').forEach(link => {
             this.addEditEventListener(link);
         });
+        console.log("✅ Event listeners per i link di modifica inizializzati");
     }
+
+
+
 
     addEditEventListener(link) {
         link.addEventListener('click', (event) => {
@@ -194,6 +198,8 @@ class ProductManager extends BaseManager {
             const productId = link.dataset.productId;
             this.loadProductForEdit(productId);
         });
+
+        console.log(`✅ Event listener aggiunto con successo per productId: ${link.dataset.productId}`);
     }
 
     /**
