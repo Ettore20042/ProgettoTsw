@@ -18,13 +18,11 @@ public class UserService {
     }
 
     public List<User> searchUsers(String query) {
-        List<User> userList = userDAO.findByNameLike(query);
-        return userList;
+	    return userDAO.findByEmailLike(query);
     }
 
     public List<User> getAllUsers() {
-        List<User> userList = userDAO.doRetrieveAll();
-        return userList;
+	    return userDAO.doRetrieveAll();
     }
 
     public List<String> getUserEmails(String email) {
