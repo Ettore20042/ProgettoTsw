@@ -7,7 +7,6 @@
     <title>Pannello di Gestione - ${entity}</title>
     <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/manageproducts.css">
-    <!-- POI il gestore principale -->
     <script src="${pageContext.request.contextPath}/Js/profile/Manage.js" defer></script>
     <script src="${pageContext.request.contextPath}/Js/profile/managers/ProductManager.js" defer></script>
     <script src="${pageContext.request.contextPath}/Js/profile/managers/UserManager.js" defer></script>
@@ -26,9 +25,10 @@
     <div class="manage-components-container-filter">
         <%-- Qui andrà la componente dei filtri riutilizzabile --%>
         <nav class="admin-nav">
-            <a href="${pageContext.request.contextPath}/ManageServlet?entity=products" class="admin-button-toggle ${entity == 'products' ? 'active' : ''}">Gestione Prodotti</a>
-            <a href="${pageContext.request.contextPath}/ManageServlet?entity=users" class="admin-button-toggle ${entity == 'users' ? 'active' : ''}">Gestione Utenti</a> <%-- Esempio per il futuro --%>
-            <a href="#" class="admin-button-toggle">Gestione Categorie</a> <%-- Esempio per il futuro --%>
+            <a href="${pageContext.request.contextPath}/ManageServlet?entity=products" class="admin-button-toggle ${entity == 'products' ? '' : 'active'}">Gestione Prodotti</a>
+            <a href="${pageContext.request.contextPath}/ManageServlet?entity=users" class="admin-button-toggle ${entity == 'users' ? '' : 'active'}">Gestione Utenti</a> <%-- Esempio per il futuro --%>
+            <a href="${pageContext.request.contextPath}/ManageServlet?entity=brands" class="admin-button-toggle ${entity == 'brands' ? '' : 'active'}">Gestione Brands</a>
+            <a href="${pageContext.request.contextPath}/ManageServlet?entity=categories" class="admin-button-toggle ${entity == 'categories' ? '' : 'active'}">Gestione Categorie</a>
         </nav>
 
         <%--<jsp:include page="/WEB-INF/jsp/components/products/_productsFilter.jsp">
