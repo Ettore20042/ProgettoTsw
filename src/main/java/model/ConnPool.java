@@ -15,18 +15,23 @@ public class ConnPool {
 
     public static Connection getConnection() throws SQLException {
         if (datasource == null) {
-            PoolProperties p = new PoolProperties();
-            p.setUrl("jdbc:mysql://localhost:3306/tswproject?serverTimezone=" + TimeZone.getDefault().getID());
-            p.setDriverClassName("com.mysql.cj.jdbc.Driver");
-            p.setUsername("root");
-            p.setPassword("Ettore2004*");
-            p.setMaxActive(100);
-            p.setInitialSize(10);
-            p.setMinIdle(10);
-            p.setRemoveAbandonedTimeout(60);
-            p.setRemoveAbandoned(true);
-            datasource = new DataSource();
-            datasource.setPoolProperties(p);
+            synchronized (ConnPool.class) {
+                if (datasource == null) {
+                    PoolProperties p = new PoolProperties();
+                    p.setUrl("jdbc:mysql://localhost:3306/tswproject?serverTimezone=" + TimeZone.getDefault().getID());
+                    p.setDriverClassName("com.mysql.cj.jdbc.Driver");
+                    p.setUsername("root");
+                    p.setPassword("VostraPassword");
+                    p.setMaxActive(100);
+                    p.setInitialSize(10);
+                    p.setMinIdle(10);
+                    p.setRemoveAbandonedTimeout(60);
+                    p.setRemoveAbandoned(true);
+                    datasource = new DataSource();
+                    datasource.setPoolProperties(p);
+                }
+            }
+
         }
         return datasource.getConnection();
     }
