@@ -313,6 +313,23 @@
     transform: scale(1.2) rotate(-10deg);
 }
 
+.admin-icon {
+    width: 16px;
+    height: 16px;
+    margin-left:1.5rem;
+    vertical-align: middle;
+}
+
+
+
+/* Oppure con classi specifiche */
+.admin-icon.check {
+    tint-color: green;
+}
+
+.admin-icon.remove {
+    tint-color: red;
+}
 
 
 /* Media Query (rimangono invariate) */

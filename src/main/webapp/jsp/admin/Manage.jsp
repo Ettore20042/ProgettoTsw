@@ -118,7 +118,7 @@
                             <th>Email</th>
                             <th>Telefono</th>
                             <th>Admin</th>
-                            <th colspan="1"></th>
+                            <th>Modifica</th>
                         </tr>
                         </thead>
                         <tbody class="componentTableBody">
@@ -132,12 +132,13 @@
                                 <c:choose>
                                     <c:when test="${item.isAdmin() == true}">
                                         <td>SI</td>
+                                        <td><img src="${pageContext.request.contextPath}/img/icon/check.png" alt="yes" class="icon admin-icon"></td>
                                     </c:when>
                                     <c:otherwise>
                                         <td>NO</td>
+                                        <td><img src="${pageContext.request.contextPath}/img/icon/remove.png" alt="yes" class="icon admin-icon"></td>
                                     </c:otherwise>
                                 </c:choose>
-                                <td><a href="#">Modifica</a></td>
                             </tr>
                         </c:forEach>
                         </tbody>
