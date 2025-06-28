@@ -7,7 +7,16 @@
     <title>Pannello di Gestione - ${entity}</title>
     <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/manageproducts.css">
+    <!-- POI il gestore principale -->
     <script src="${pageContext.request.contextPath}/Js/profile/Manage.js" defer></script>
+    <script src="${pageContext.request.contextPath}/Js/profile/managers/ProductManager.js" defer></script>
+    <script src="${pageContext.request.contextPath}/Js/profile/managers/UserManager.js" defer></script>
+    <script src="${pageContext.request.contextPath}/Js/profile/managers/CategoryManager.js" defer></script>
+    <script src="${pageContext.request.contextPath}/Js/profile/managers/BrandManager.js" defer></script>
+
+
+
+
 </head>
 
 <body data-context-path="${pageContext.request.contextPath}" data-entity = "${entity}">
@@ -49,7 +58,7 @@
         <c:choose>
             <c:when test="${entity == 'products'}">
                 <div class="manage-components-container-right--add-button">
-                    <button onclick="openModal()" class="add-component-button-toggle">Aggiungi un prodotto</button>
+                    <button  class="add-component-button-toggle" id="add-btn">Aggiungi un prodotto</button>
                 </div>
                 <jsp:include page="/WEB-INF/jsp/components/admin/_addProductForm.jsp"/>
             </c:when>

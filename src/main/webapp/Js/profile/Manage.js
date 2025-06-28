@@ -12,15 +12,9 @@
  * - Factory: Crea il manager appropriato in base all'entità
  * - Observer: Sistema di eventi personalizzati
  *
- * @author BricoShop Team
- * @version 1.0
  */
 
-/**
- * Classe principale del sistema di gestione amministrativa.
- * Implementa il pattern Singleton per garantire una sola istanza attiva.
- * Gestisce il caricamento dinamico dei manager specifici e coordina tutte le funzionalità comuni.
- */
+
 class ManageSystem {
     /**
      * Costruttore della classe ManageSystem.
@@ -30,7 +24,7 @@ class ManageSystem {
         // Configurazione del sistema recuperata dal DOM
         this.config = {
             // Context path dell'applicazione per costruire URL corretti
-            contextPath: document.getElementsByTagName("body")[0]?.dataset.contextPath,
+            contextPath: document.body.dataset.contextPath,
             // Tipo di entità gestita (products, brands, categories, admins, users)
             entity: document.body?.dataset.entity || 'products',
             // Flag per abilitare/disabilitare il logging di debug
@@ -60,24 +54,11 @@ class ManageSystem {
             // Fase 1: Inizializza gli elementi comuni dell'interfaccia (modale, messaggi, barra di ricerca)
             this.initializeCommonElements();
 
-            // Fase 2: Carica dinamicamente il manager specifico per l'entità corrente
-            await this.loadManagers();
 
             // Fase 3: Istanzia e configura il manager appropriato
             this.initializeManager();
 
-            // Fase 4: Configura tutti gli event listener globali (pulsanti, shortcut, etc.)
-            this.setupGlobalEventListeners();
 
-            // Fase 5: Marca il sistema come inizializzato
-            this.isInitialized = true;
-            this.log('✅ Sistema inizializzato con successo');
-
-            // Fase 6: Notifica a tutti i listener che il sistema è pronto
-            this.dispatchEvent('manage:system:ready', {
-                entity: this.config.entity,
-                manager: this.currentManager
-            });
 
         } catch (error) {
             // In caso di errore durante l'inizializzazione, attiva la modalità fallback
@@ -90,13 +71,13 @@ class ManageSystem {
      * Carica dinamicamente il manager specifico per l'entità corrente.
      * Utilizza una mappa per associare ogni entità al suo file JavaScript corrispondente.
      */
-    async loadManagers() {
+   /* async loadManagers() {
         // Mappa delle entità ai loro file manager corrispondenti
         const managers = {
             products: 'ProductManager.js',      // Gestione prodotti
             brands: 'BrandManager.js',         // Gestione brand/marchi
             categories: 'CategoryManager.js',   // Gestione categorie
-            admins: 'UserManager.js',          // Gestione amministratori
+            admins: 'UserManager.js',           // Gestione admin (usa lo stesso manager degli utenti)
             users: 'UserManager.js'            // Gestione utenti (usa lo stesso manager degli admin)
         };
 
@@ -114,7 +95,7 @@ class ManageSystem {
                 this.log(`⚠️ Errore caricamento manager ${currentManagerFile}:`, error);
             }
         }
-    }
+    }*/
 
     /**
      * Utility per caricare script JavaScript dinamicamente.
@@ -123,7 +104,7 @@ class ManageSystem {
      * @param {string} src - URL del file JavaScript da caricare
      * @returns {Promise} Promise che si risolve quando lo script è caricato
      */
-    loadScript(src) {
+    /*loadScript(src) {
         return new Promise((resolve, reject) => {
             // Controlla se lo script è già stato caricato per evitare duplicati
             if (document.querySelector(`script[src="${src}"]`)) {
@@ -143,7 +124,7 @@ class ManageSystem {
             // Aggiunge lo script al DOM per avviare il caricamento
             document.head.appendChild(script);
         });
-    }
+    }*/
 
     /**
      * Inizializza tutti gli elementi comuni dell'interfaccia utente.
@@ -168,37 +149,56 @@ class ManageSystem {
     }
 
     /**
-     * Inizializza il manager appropriato basandosi sul tipo di entità.
-     * Utilizza il pattern Factory per creare l'istanza corretta del manager.
-     * In caso di manager non disponibile, utilizza BaseManager come fallback.
+     Il metodo `initializeManager()` implementa un sistema di polling che attende fino a 5 secondi che il manager specifico
+     per l'entità corrente (ProductManager, BrandManager, etc.) sia disponibile nella finestra globale.
+     Se il manager viene trovato, lo istanzia e completa l'inizializzazione del sistema; altrimenti,
+     dopo il timeout, utilizza il BaseManager come fallback per garantire che l'applicazione rimanga funzionale.
+     Utilizza un approccio ricorsivo con `setTimeout` per verificare periodicamente la disponibilità del manager
+     senza bloccare il thread principale.
+     *
      */
     initializeManager() {
-        const { entity } = this.config;
+        const maxAttempts = 50; // 5 secondi massimo (50 * 100ms)
+        let attempts = 0;
 
-        // Factory pattern: crea il manager appropriato in base all'entità
-        switch(entity) {
-            case 'products':
-                // Verifica se ProductManager è disponibile (caricato dinamicamente), altrimenti usa BaseManager
-                this.currentManager = window.ProductManager ? new window.ProductManager(this) : new BaseManager(this);
-                break;
-            case 'brands':
-                this.currentManager = window.BrandManager ? new window.BrandManager(this) : new BaseManager(this);
-                break;
-            case 'categories':
-                this.currentManager = window.CategoryManager ? new window.CategoryManager(this) : new BaseManager(this);
-                break;
-            case 'admins':
-            case 'users':
-                // Entrambe le entità usano lo stesso UserManager
-                this.currentManager = window.UserManager ? new window.UserManager(this) : new BaseManager(this);
-                break;
-            default:
-                // Caso di entità non riconosciuta: usa BaseManager
-                this.log(`⚠️ Entità non riconosciuta: ${entity}, utilizzo manager base`);
+        const checkAndInitialize = () => {
+            const managers = {
+                products: window.ProductManager,
+                brands: window.BrandManager,
+                categories: window.CategoryManager,
+                admins: window.UserManager,
+                users: window.UserManager
+            };
+
+            const ManagerClass = managers[this.config.entity];
+
+            if (ManagerClass) {
+                // ✅ Il manager è disponibile, procedi con l'inizializzazione
+                this.currentManager = new ManagerClass(this);
+                this.log(`✅ Manager inizializzato: ${ManagerClass.name}`);
+
+                // Continua con l'inizializzazione
+                this.setupGlobalEventListeners();
+                this.isInitialized = true;
+               /* this.dispatchEvent('manage:system:ready', {
+                    entity: this.config.entity,
+                    manager: this.currentManager
+                });*/
+            } else if (attempts < maxAttempts) {
+                // ⏳ Il manager non è ancora disponibile, riprova tra 100ms
+                attempts++;
+                this.log(`⏳ Tentativo ${attempts}/${maxAttempts} per ${this.config.entity}...`);
+                setTimeout(checkAndInitialize, 100);
+            } else {
+                // ❌ Timeout raggiunto, usa BaseManager come fallback
+                this.log(`⚠️ Timeout nel caricamento del manager per ${this.config.entity}, uso BaseManager`);
                 this.currentManager = new BaseManager(this);
-        }
+                this.setupGlobalEventListeners();
+                this.isInitialized = true;
+            }
+        };
 
-        this.log(`✅ Manager inizializzato per: ${entity}`);
+        checkAndInitialize();
     }
 
     /**
@@ -314,7 +314,8 @@ class ManageSystem {
         // Configura gli eventi del modale (apertura, chiusura)
         this.setupModalEvents();
         // Configura il cambio dinamico di entità
-        this.setupEntitySwitching();
+       /* this.setupEntitySwitching();*/
+
         // Configura le scorciatoie da tastiera
         this.setupKeyboardShortcuts();
     }
@@ -325,22 +326,26 @@ class ManageSystem {
      */
     setupModalEvents() {
         // Configura i pulsanti di apertura del modale
-        const addButtons = document.querySelectorAll('[data-action="add"], .add-btn, #addButton, .add-component-button-toggle');
-        addButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault(); // Previene il comportamento di default del link/button
-                this.openModal();
+        const addButton = document.getElementById("add-btn");
+            if(addButton) {
+                addButton.addEventListener('click', (e) => {
+                    e.preventDefault(); // Previene il comportamento di default del link/button
+                    this.openModal();
             });
-        });
+        }
+
 
         // Configura i pulsanti di chiusura del modale
-        const closeButtons = document.querySelectorAll('[data-action="close"], .close-modal, #closeModal');
-        closeButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.closeModal();
-            });
-        });
+        const closeModal = document.getElementById("close-modal");
+            if(closeModal){
+                // Aggiunge l'evento di click per chiudere il modale
+                closeModal.addEventListener('click', (e) => {
+                    e.preventDefault(); // Previene il comportamento di default del link/button
+                    this.closeModal();
+                });
+            }
+
+
 
         // Configura la chiusura del modale con il tasto ESC
         document.addEventListener('keydown', (e) => {
@@ -364,9 +369,9 @@ class ManageSystem {
      * Configura il sistema di cambio dinamico di entità.
      * Permette di passare da una gestione all'altra (es. da prodotti a brand) senza ricaricare la pagina.
      */
-    setupEntitySwitching() {
+    /*setupEntitySwitching() {
         // Trova tutti gli elementi che permettono di cambiare entità
-        const entitySwitchers = document.querySelectorAll('[data-entity]');
+        const entitySwitchers = document.querySelectorAll('[data-entity]:not(body)'); //Esclude il body per evitare conflitti
         entitySwitchers.forEach(switcher => {
             switcher.addEventListener('click', async (e) => {
                 // Ottiene la nuova entità dall'attributo data-entity
@@ -377,7 +382,7 @@ class ManageSystem {
                 }
             });
         });
-    }
+    }*/
 
     /**
      * Configura le scorciatoie da tastiera per migliorare l'usabilità.
@@ -412,7 +417,7 @@ class ManageSystem {
      *
      * @param {string} newEntity - Nuova entità da gestire (products, brands, etc.)
      */
-    async switchEntity(newEntity) {
+    /*async switchEntity(newEntity) {
         try {
             this.log(`🔄 Cambio entità da ${this.config.entity} a ${newEntity}`);
 
@@ -422,7 +427,7 @@ class ManageSystem {
             document.body.dataset.entity = newEntity;
 
             // Carica il nuovo manager specifico per l'entità
-            await this.loadManagers();
+           /!* await this.loadManagers();*!/
             // Inizializza il nuovo manager
             this.initializeManager();
 
@@ -438,7 +443,7 @@ class ManageSystem {
         } catch (error) {
             this.log(`❌ Errore nel cambio entità:`, error);
         }
-    }
+    }*/
 
     /**
      * Apre il modale utilizzando il manager corrente se disponibile, altrimenti usa il fallback.
@@ -454,6 +459,7 @@ class ManageSystem {
         }
         // Notifica l'apertura del modale
         this.dispatchEvent('manage:modal:opened');
+
     }
 
     /**
@@ -826,3 +832,7 @@ window.BaseManager = BaseManager;
 window.openModal = () => ManageSystem.getInstance().openModal();
 window.closeModal = () => ManageSystem.getInstance().closeModal();
 window.getCurrentManager = () => ManageSystem.getInstance().getCurrentManager();
+if(window.ProductManager) {
+   console.log('🚀 ProductManager è già caricato e disponibile globalmente');
+}
+
