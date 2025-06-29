@@ -1,6 +1,5 @@
 package model.DAO;
 
-import model.Bean.Product;
 import model.Bean.User;
 import model.ConnPool;
 import org.mindrot.jbcrypt.BCrypt;
@@ -159,6 +158,42 @@ public class UserDAO {
             throw new RuntimeException(ex);
         }
     }
+    public User doRetrieveById(int userId) {
+        try (Connection conn = ConnPool.getConnection()) {
+            String sql = "SELECT * FROM user_account WHERE UserID = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, userId);
+            ResultSet resultSet = ps.executeQuery();
+
+            if (resultSet.next()) {
+                User user = new User();
+                user.setUserId(resultSet.getInt("UserID"));
+                user.setFirstName(resultSet.getString("FirstName"));
+                user.setLastName(resultSet.getString("LastName"));
+                user.setPhoneNumber(resultSet.getString("Phone"));
+                user.setAdmin(resultSet.getBoolean("Admin"));
+                user.setEmail(resultSet.getString("Email"));
+                return user;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
+    public boolean doUpdateAdminStatus(User user) {
+        try(Connection conn = ConnPool.getConnection()) {
+            // Aggiorna solo lo status admin invece di tutti i campi
+            String sql = "UPDATE user_account SET Admin = ? WHERE UserID = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setBoolean(1, user.isAdmin());
+            ps.setInt(2, user.getUserId());
+
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

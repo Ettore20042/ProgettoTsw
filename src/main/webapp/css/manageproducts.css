@@ -319,6 +319,13 @@
     margin-left:1.5rem;
     vertical-align: middle;
 }
+.admin-icon:hover {
+    transform: scale(2);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+
+
+}
 
 
 

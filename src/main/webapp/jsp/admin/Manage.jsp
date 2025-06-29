@@ -132,11 +132,11 @@
                                 <c:choose>
                                     <c:when test="${item.isAdmin() == true}">
                                         <td>SI</td>
-                                        <td><img src="${pageContext.request.contextPath}/img/icon/check.png" alt="yes" class="icon admin-icon" onclick="setAdmin(${item.userId})"></td>
+                                        <td><img src="${pageContext.request.contextPath}/img/icon/check.png" alt="yes" class="icon admin-icon" onclick="setAdmin(this,${item.userId})"></td>
                                     </c:when>
                                     <c:otherwise>
                                         <td>NO</td>
-                                        <td><img src="${pageContext.request.contextPath}/img/icon/remove.png" alt="no" class="icon admin-icon" onclick="setAdmin(${item.userId})"></td>
+                                        <td><img src="${pageContext.request.contextPath}/img/icon/remove.png" alt="no" class="icon admin-icon" onclick="setAdmin(this,${item.userId})"></td>
                                     </c:otherwise>
                                 </c:choose>
                             </tr>

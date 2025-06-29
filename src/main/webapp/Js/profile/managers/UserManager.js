@@ -1,56 +1,59 @@
-/**
- * UserManager.js - Manager specifico per la gestione di utenti e amministratori
- * Estende BaseManager con funzionalità specifiche per utenti/admin
- */
-
 class UserManager extends BaseManager {
     constructor(system) {
         super(system);
-        this.initializeUserEvents();
+        this.initializeAdminToggle();
     }
 
-    initializeUserEvents() {
-        this.initializeFormSubmission();
-        this.initializeRemoveButtons();
-        this.initializeEditLinks();
+
+    initializeAdminToggle() {
+        window.setAdmin = (iconElement, userId) => {
+            this.toggleAdminStatus(iconElement, userId);
+        };
     }
 
-    setAdmin(userId) {
-        const url = `${this.contextPath}/SetAdminServlet`; // URL del servlet per promuovere l'utente ad amministratore
+    async toggleAdminStatus(imgElement, userId) {
+        const url = `${this.contextPath}/SetAdminServlet`;
+        const altAttribute = imgElement.getAttribute('alt');
+        const formData = new URLSearchParams();
+        formData.append('userId', userId);
+        formData.append('isAdmin', (altAttribute === 'yes') ? 'no' : 'yes'); // Inverti lo stato
 
-            fetch(url, {
+        try {
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: JSON.stringify({ userId: userId })
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Errore nella richiesta');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        alert('Utente promosso ad amministratore con successo!');
-                        window.location.reload(); // Ricarica la pagina per aggiornare lo stato
-                    } else {
-                        alert('Errore nella promozione dell\'utente: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Errore:', error);
-                    alert('Errore durante la promozione.');
-                });
+                body: formData
+            });
+
+            if (!response.ok) throw new Error('Errore nella richiesta');
+            const data = await response.json();
+
+            if (data.success) {
+                const row = imgElement.closest('tr');
+                const statusTextCell = row.querySelector('td:nth-child(6)'); // Colonna SI/NO
+                const statusIconCell = row.querySelector('td:nth-child(7)'); // Colonna icona
+
+                if (altAttribute === 'yes') {
+                    // Era admin → diventa utente normale
+                    statusTextCell.textContent = 'NO';
+                    statusIconCell.innerHTML = `<img src="${this.contextPath}/img/icon/remove.png" alt="no" class="icon admin-icon" onclick="setAdmin(this,${userId})">`;
+                } else {
+                    // utente normale → diventa admin
+                    statusTextCell.textContent = 'SI';
+                    statusIconCell.innerHTML = `<img src="${this.contextPath}/img/icon/check.png" alt="yes" class="icon admin-icon" onclick="setAdmin(this,${userId})">`;
+                }
+
+                this.showMessage('✅ Status admin aggiornato', "#4CAF50");
+            } else {
+                this.showMessage('❌ Errore: ' + data.message, "#f44336");
+            }
+        } catch (error) {
+            console.error('Errore:', error);
+            this.showMessage('❌ Errore durante l\'aggiornamento', "#f44336");
         }
-
-
-
-
-
+    }
 }
 
-
-// Esposizione globale per il sistema
 window.UserManager = UserManager;
