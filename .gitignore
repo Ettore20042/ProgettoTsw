@@ -1,6 +1,6 @@
 # Escludi tutti i file di build generati
 target/
-/ConnPool.java
+/src/main/java/model/ConnPool.java
 # Includi maven-wrapper.jar ma escludi altre cose nella cartella .mvn
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
