@@ -283,7 +283,7 @@
 .close:hover {
     color: #d32f2f;
 }
-.remove-button-product {
+.remove-item-btn {
     background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
     border: none;
     border-radius: 50%;
@@ -304,12 +304,12 @@
     transition: transform 0.3s ease;
 }
 
-.remove-button-product:hover {
+.remove-item-btn:hover {
     transform: scale(1.2) rotate(10deg);
     box-shadow: 0 6px 20px rgb(241, 239, 234);
 }
 
-.remove-button-product:hover .remove-icon {
+.remove-item-btn:hover .remove-icon {
     transform: scale(1.2) rotate(-10deg);
 }
 

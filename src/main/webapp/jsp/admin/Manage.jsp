@@ -7,6 +7,9 @@
     <title>Pannello di Gestione - ${entity}</title>
     <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/manageproducts.css">
+
+    <!-- Prima carichiamo BaseManager, poi Manage.js, infine i manager specifici -->
+    <script src="${pageContext.request.contextPath}/Js/profile/managers/BaseManager.js" defer></script>
     <script src="${pageContext.request.contextPath}/Js/profile/Manage.js" defer></script>
     <script src="${pageContext.request.contextPath}/Js/profile/managers/ProductManager.js" defer></script>
     <script src="${pageContext.request.contextPath}/Js/profile/managers/UserManager.js" defer></script>
@@ -181,14 +184,12 @@
                         <c:forEach var="item" items="${itemList}">
                             <tr>
                                 <td>${item.brandId}</td>
-                                <td>${item.brandName}</td>
                                 <td>${item.logoPath}</td>
+                                <td>${item.brandName}</td>
                                 <td><a href="#" class="edit-link" data-brand-id="${item.brandId}">Modifica</a></td>
-                               <td>
-                                   <button type="submit" class="remove-button-product remove-item-btn" data-id="${item.brandId}" >
+                                <td><button type="button" class="remove-button-brand remove-item-btn" data-id="${item.brandId}" >
                                     <img src="${pageContext.request.contextPath}/img/icon/delete.png" class="remove-icon">
-                                   </button>
-                               </td>
+                                </button></td>
 
                             </tr>
                         </c:forEach>
