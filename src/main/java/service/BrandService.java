@@ -63,4 +63,64 @@ public class BrandService {
 		BrandDAO brandDAO = new BrandDAO();
 		return brandDAO.doRetrieveByName(name);
 	}
+
+	public Brand addBrand(String name, String logoPath) {
+		BrandDAO brandDAO = new BrandDAO();
+		Brand brand = new Brand();
+		brand.setBrandName(name);
+		brand.setLogoPath(logoPath);
+
+		Brand savedBrand = brandDAO.doSave(brand);
+		if (savedBrand != null) {
+			// Refresh cache after adding new brand
+			refreshBrandCache();
+			return savedBrand;
+		}
+		return null;
+	}
+
+	public boolean deleteBrand(int brandId) {
+		BrandDAO brandDAO = new BrandDAO();
+		boolean deleted = brandDAO.doDelete(brandId);
+		if (deleted) {
+			// Refresh cache after deleting brand
+			refreshBrandCache();
+		}
+		return deleted;
+	}
+
+	public Brand getBrandById(int brandId) {
+		BrandDAO brandDAO = new BrandDAO();
+		return brandDAO.doRetrieveById(brandId);
+	}
+
+	public Brand updateBrand(int brandId, String name, String logoPath) {
+		BrandDAO brandDAO = new BrandDAO();
+		Brand brand = new Brand();
+		brand.setBrandId(brandId);
+		brand.setBrandName(name);
+		brand.setLogoPath(logoPath);
+
+		Brand updatedBrand = brandDAO.doUpdate(brand);
+		if (updatedBrand != null) {
+			// Refresh cache after updating brand
+			refreshBrandCache();
+			return updatedBrand;
+		}
+		return null;
+	}
+
+	public List<String> getBrandSuggestions(String query) {
+		checkBrandCache(); // Assicurati che la cache sia aggiornata
+		Map<Integer, Brand> brandCacheMap = (Map<Integer, Brand>) context.getAttribute("brandCacheMap");
+
+		if (brandCacheMap == null || brandCacheMap.isEmpty()) {
+			return List.of(); // Restituisce una lista vuota se la cache è vuota
+		}
+
+		return brandCacheMap.values().stream()
+				.filter(brand -> brand.getBrandName().toLowerCase().contains(query.toLowerCase()))
+				.map(Brand::getBrandName)
+				.collect(Collectors.toList());
+	}
 }

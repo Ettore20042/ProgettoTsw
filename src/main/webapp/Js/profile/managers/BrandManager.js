@@ -19,7 +19,7 @@ class BrandManager extends BaseManager {
      * Gestione del form di aggiunta/modifica brand
      */
     initializeFormSubmission() {
-        const form = document.getElementById('addBrandForm') || document.getElementById('addProductForm');
+        const form = document.getElementById('addBrandForm') ;
         if (!form) return;
 
         form.addEventListener('submit', (event) => {
@@ -39,14 +39,26 @@ class BrandManager extends BaseManager {
      * Aggiunta nuovo brand
      */
     async addBrand(form) {
+        console.log("BrandManager: addBrand chiamato");
         try {
             const formData = new FormData(form);
-            const url = `${this.contextPath}/BrandServlet`;
+
+            // Debug: verifichiamo i dati del form
+            console.log("Form data:");
+            for (let [key, value] of formData.entries()) {
+                console.log(key, value);
+            }
+
+            const url = `${this.contextPath}/ManageBrandServlet`;
+            console.log("URL chiamata:", url);
 
             const response = await fetch(url, {
                 method: 'POST',
                 body: formData
             });
+
+            console.log("Response status:", response.status);
+            console.log("Response ok:", response.ok);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -75,7 +87,7 @@ class BrandManager extends BaseManager {
         try {
             const brandId = this.getCurrentEditId();
             const formData = new FormData(form);
-            const url = `${this.contextPath}/BrandServlet?action=update&id=${brandId}`;
+            const url = `${this.contextPath}/ManageBrandServlet?action=update&id=${brandId}`;
 
             const response = await fetch(url, {
                 method: 'POST',
@@ -111,15 +123,15 @@ class BrandManager extends BaseManager {
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
             <td>${brand.brandId}</td>
+            <td>${brand.logoPath || ''}</td>
             <td>${brand.brandName}</td>
-            <td>${brand.description || ''}</td>
             <td>
                 <a href="#" class="edit-link" data-brand-id="${brand.brandId}">Modifica</a>
             </td>
             <td>
-                <button type="button" class="remove-button-brand remove-item-btn" data-id="${brand.brandId}">
-                    <img src="${this.contextPath}/img/icon/delete.png" class="remove-icon">
-                </button>
+               <button type="button" class="remove-button-brand remove-item-btn" data-id="${brand.brandId}" >
+                   <img src="${this.contextPath}/img/icon/delete.png" class="remove-icon">
+               </button>
             </td>
         `;
 
@@ -136,7 +148,7 @@ class BrandManager extends BaseManager {
      * Gestione dei pulsanti di rimozione
      */
     initializeRemoveButtons() {
-        document.querySelectorAll('.remove-button-brand').forEach(button => {
+        document.querySelectorAll('.remove-item-btn').forEach(button => {
             this.addRemoveEventListener(button);
         });
     }
@@ -151,9 +163,26 @@ class BrandManager extends BaseManager {
 
             try {
                 const brandId = button.getAttribute('data-id');
-                const url = `${this.contextPath}/BrandServlet?action=delete&id=${brandId}`;
+                console.log("Tentativo di eliminazione brand ID:", brandId);
 
-                const data = await this.makeRequest(url, { method: 'DELETE' });
+                const url = `${this.contextPath}/ManageBrandServlet`;
+
+                const response = await fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `brandId=${brandId}`
+                });
+
+                console.log("Response status:", response.status);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log("Response data:", data);
 
                 if (data.success) {
                     const brandRow = button.closest('tr');
@@ -162,7 +191,7 @@ class BrandManager extends BaseManager {
                         this.showMessage("✅ Brand eliminato con successo", "#4CAF50");
                     }
                 } else {
-                    this.showMessage("❌ Errore nell'eliminazione del brand", "#f44336");
+                    this.showMessage(`❌ ${data.message}`, "#f44336");
                 }
             } catch (error) {
                 console.error('Errore nell\'eliminazione del brand:', error);
@@ -175,10 +204,10 @@ class BrandManager extends BaseManager {
      * Gestione dei link di modifica
      */
     initializeEditLinks() {
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.edit-link').forEach(link => {
-                this.addEditEventListener(link);
-            });
+        console.log("Inizializzazione dei link di modifica");
+        document.querySelectorAll('.edit-link').forEach(link => {
+            console.log("Link di modifica trovato:", link);
+            this.addEditEventListener(link);
         });
     }
 
@@ -186,6 +215,7 @@ class BrandManager extends BaseManager {
         link.addEventListener('click', (event) => {
             event.preventDefault();
             const brandId = link.dataset.brandId;
+            console.log("Link di modifica cliccato per brand ID:", brandId);
             this.loadBrandForEdit(brandId);
         });
     }
@@ -195,10 +225,11 @@ class BrandManager extends BaseManager {
      */
     async loadBrandForEdit(brandId) {
         try {
-            const url = `${this.contextPath}/BrandServlet?action=edit&id=${brandId}`;
+            const url = `${this.contextPath}/ManageBrandServlet?action=edit&id=${brandId}`;
             const data = await this.makeRequest(url);
 
             if (data.success && data.brand) {
+                console.log("Dati del brand caricati per la modifica:", data.brand);
                 this.populateFormForEdit(data.brand);
                 this.openModal();
             } else {
@@ -215,7 +246,7 @@ class BrandManager extends BaseManager {
      */
     populateFormForEdit(brand) {
         this.setFormValue('brandName', brand.brandName);
-        this.setFormValue('description', brand.description);
+        this.setFormValue('brandPath', brand.logoPath);
 
         // Salva l'ID per l'aggiornamento
         this.currentEditId = brand.brandId;

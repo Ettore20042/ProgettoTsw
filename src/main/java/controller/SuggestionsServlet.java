@@ -52,7 +52,9 @@ public class SuggestionsServlet extends HttpServlet {
                 case "categories":
                     results = categoryService.getSearchSuggestions(query);
                     break;
-                // Altri casi per altre entità da fare, tipo "Users" "categories" o "brands"
+                case "brands":
+                    results = productService.getBrandSuggestions(query);
+                    break;
             }
         }
 

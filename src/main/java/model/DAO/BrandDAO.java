@@ -73,4 +73,61 @@ public class BrandDAO {
 		}
 		return brands;
 	}
+	public Brand doSave(Brand brand) {
+		String sql = "INSERT INTO brand (BrandName, LogoPath) VALUES (?, ?)";
+		try (Connection conn = ConnPool.getConnection();
+			 PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+			ps.setString(1, brand.getBrandName());
+			ps.setString(2, brand.getLogoPath());
+
+			int affectedRows = ps.executeUpdate();
+			if (affectedRows > 0) {
+				try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+					if (generatedKeys.next()) {
+						brand.setBrandId(generatedKeys.getInt(1));
+						return brand;
+					}
+				}
+			}
+		} catch (SQLException e) {
+			System.err.println("BrandDAO ERROR in doSave: " + e.getMessage());
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public boolean doDelete(int brandId) {
+		String sql = "DELETE FROM brand WHERE BrandID = ?";
+		try (Connection conn = ConnPool.getConnection();
+			 PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, brandId);
+			int affectedRows = ps.executeUpdate();
+			System.out.println("BrandDAO: doDelete - righe eliminate: " + affectedRows);
+			return affectedRows > 0;
+		} catch (SQLException e) {
+			System.err.println("BrandDAO ERROR in doDelete: " + e.getMessage());
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public Brand doUpdate(Brand brand) {
+		String sql = "UPDATE brand SET BrandName = ?, LogoPath = ? WHERE BrandID = ?";
+		try (Connection conn = ConnPool.getConnection();
+			 PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, brand.getBrandName());
+			ps.setString(2, brand.getLogoPath());
+			ps.setInt(3, brand.getBrandId());
+
+			int affectedRows = ps.executeUpdate();
+			if (affectedRows > 0) {
+				System.out.println("BrandDAO: doUpdate - brand aggiornato: " + brand.getBrandId());
+				return brand;
+			}
+		} catch (SQLException e) {
+			System.err.println("BrandDAO ERROR in doUpdate: " + e.getMessage());
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

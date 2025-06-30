@@ -104,4 +104,8 @@ public class ProductService {
     public boolean updateProduct(Product product) {
         return productDAO.updateProduct(product);
     }
+
+    public List<String> getBrandSuggestions(String query) {
+        return brandService.getBrandSuggestions(query);
+    }
 }

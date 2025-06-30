@@ -8,8 +8,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Bean.Brand;
+import model.Bean.Category;
 import model.Bean.Product;
 import model.Bean.User;
+import service.BrandService;
+import service.CategoryService;
 import service.ProductService;
 import service.UserService;
 
@@ -21,6 +25,8 @@ public class ManageServlet extends HttpServlet {
 
     private ProductService productService;
     private UserService userService; // Futuri service per altre entità
+    private BrandService brandService; // Servizio per gestire i brand
+    private CategoryService categoryService; // Servizio per gestire le categorie
     // private CategoryService categoryService;
 
     @Override
@@ -29,6 +35,8 @@ public class ManageServlet extends HttpServlet {
         ServletContext context = config.getServletContext();
         this.productService = new ProductService(context);
         this.userService = new UserService(context);
+        this.brandService = new BrandService(context); // Inizializza il servizio Brand
+        this.categoryService = new CategoryService(context); // Inizializza il servizio Category
         // Inizializza gli altri service qui quando verranno creati
     }
 
@@ -65,11 +73,28 @@ public class ManageServlet extends HttpServlet {
 
                 request.setAttribute("itemList", userList);
                 break;
-                /*
-            case "categories":
-                // Qui andrà la logica per le categorie
+            case  "brands":
+                List<Brand> brandList;
+                if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+                    brandList = brandService.searchBrands(searchQuery);
+                } else {
+                    brandList = brandService.getAllBrands();
+                }
+                request.setAttribute("itemList", brandList);
                 break;
-            */
+
+            case "categories":
+                List<Category> categoryList;
+
+                if(searchQuery != null && !searchQuery.trim().isEmpty()){
+                    categoryList = categoryService.searchCategories(searchQuery);
+                }else{
+                    categoryList = categoryService.getAllCategories();
+                }
+
+                request.setAttribute("itemList", categoryList);
+                break;
+
             default:
                 // In caso di entità non riconosciuta, imposta una lista vuota
                 request.setAttribute("itemList", List.of());
@@ -87,4 +112,3 @@ public class ManageServlet extends HttpServlet {
         doGet(request, response);
     }
 }
-

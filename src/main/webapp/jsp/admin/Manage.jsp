@@ -144,6 +144,57 @@
                         </tbody>
                     </table>
                 </c:when>
+                <c:when test="${entity == 'categories'}">
+                <table class="search-components-on-table--table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Path</th>
+                        <th colspan="1"></th>
+                    </tr>
+                    </thead>
+                    <tbody class="componentTableBody">
+                    <c:forEach var="item" items="${itemList}">
+                        <tr>
+                            <td>${item.categoryId}</td>
+                            <td>${item.categoryName}</td>
+                            <td>${item.categoryPath}</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </c:when>
+
+                <c:when test="${entity == 'brands'}">
+                    <table class="search-components-on-table--table">
+                        <thead>
+                        <tr>
+                            <th>ID Brand</th>
+                            <th>Path</th>
+                            <th>Nome</th>
+                            <th><img src="${pageContext.request.contextPath}/img/icon/wrench.png" alt="wrench" class="icon-wrench"></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody class="componentTableBody">
+                        <c:forEach var="item" items="${itemList}">
+                            <tr>
+                                <td>${item.brandId}</td>
+                                <td>${item.brandName}</td>
+                                <td>${item.logoPath}</td>
+                                <td><a href="#" class="edit-link" data-brand-id="${item.brandId}">Modifica</a></td>
+                               <td>
+                                   <button type="submit" class="remove-button-product remove-item-btn" data-id="${item.brandId}" >
+                                    <img src="${pageContext.request.contextPath}/img/icon/delete.png" class="remove-icon">
+                                   </button>
+                               </td>
+
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </c:when>
                 <c:otherwise>
                     <p>Seleziona un'entità da gestire.</p>
                 </c:otherwise>
@@ -154,5 +205,5 @@
 
 <jsp:include page="/WEB-INF/jsp/components/common/footer.jsp"/>
 </body>
+<jsp:include page="/WEB-INF/jsp/components/common/footer.jsp"/>
 </html>
-
