@@ -32,6 +32,7 @@
             <a href="${pageContext.request.contextPath}/ManageServlet?entity=users" class="admin-button-toggle ${entity == 'users' ? '' : 'active'}">Gestione Utenti</a> <%-- Esempio per il futuro --%>
             <a href="${pageContext.request.contextPath}/ManageServlet?entity=brands" class="admin-button-toggle ${entity == 'brands' ? '' : 'active'}">Gestione Brands</a>
             <a href="${pageContext.request.contextPath}/ManageServlet?entity=categories" class="admin-button-toggle ${entity == 'categories' ? '' : 'active'}">Gestione Categorie</a>
+
         </nav>
 
         <%--<jsp:include page="/WEB-INF/jsp/components/products/_productsFilter.jsp">
@@ -154,7 +155,8 @@
                         <th>ID</th>
                         <th>Nome</th>
                         <th>Path</th>
-                        <th colspan="1"></th>
+                        <th><img src="${pageContext.request.contextPath}/img/icon/wrench.png" alt="wrench" class="icon-wrench"></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody class="componentTableBody">
@@ -163,6 +165,10 @@
                             <td>${item.categoryId}</td>
                             <td>${item.categoryName}</td>
                             <td>${item.categoryPath}</td>
+                            <td><a href="#" class="edit-link" data-category-id="${item.categoryId}">Modifica</a></td>
+                            <td><button type="button" class="remove-button-category remove-item-btn" data-id="${item.categoryId}" >
+                                <img src="${pageContext.request.contextPath}/img/icon/delete.png" class="remove-icon">
+                            </button></td>
                         </tr>
                     </c:forEach>
                     </tbody>

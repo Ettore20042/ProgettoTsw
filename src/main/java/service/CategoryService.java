@@ -80,4 +80,58 @@ public class CategoryService {
 	public List<String> getSearchSuggestions(String query) {
 		return CategoryDAO.searchCategoriesByName(query);
 	}
+
+    public Category getCategoryById(int categoryId) {
+		checkCategoryCache(); // Assicura che la cache sia aggiornata
+		Map<Integer, Category> categoryMap = (Map<Integer, Category>) context.getAttribute("categoryCacheMap");
+		if (categoryMap != null) {
+			return categoryMap.get(categoryId);
+		}
+		return null; // Se la categoria non è trovata nella cache
+    }
+
+
+	public Category updateCategory(int categoryId, String trim, String path) {
+		CategoryDAO categoryDAO = new CategoryDAO();
+		Category category = categoryDAO.doRetrieveById(categoryId);
+		if (category != null) {
+			category.setCategoryName(trim);
+			category.setCategoryPath(path);
+			if (categoryDAO.doUpdate(category)) {
+				refreshCategoryCache(); // Ricarica la cache dopo l'aggiornamento
+				return category;
+			}
+		}
+		return null; // Se l'aggiornamento fallisce o la categoria non esiste
+	}
+
+
+	public Category addCategory(String categoryName, String categoryPath) {
+		try {
+			CategoryDAO categoryDAO = new CategoryDAO();
+			Category newCategory = categoryDAO.doSave(categoryName, categoryPath);
+
+			if (newCategory != null && newCategory.getCategoryId() > 0) {
+				refreshCategoryCache(); // Ricarica la cache dopo l'aggiunta
+				return newCategory;
+			}
+			return null;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public boolean deleteCategory(int categoryId) {
+		CategoryDAO categoryDAO = new CategoryDAO();
+		Category category = categoryDAO.doRetrieveById(categoryId);
+		if (category != null) {
+			if (categoryDAO.doDelete(categoryId)) {
+				refreshCategoryCache(); // Ricarica la cache dopo la cancellazione
+				return true;
+			}
+		}
+		return false; // Se la cancellazione fallisce o la categoria non esiste
+	}
 }

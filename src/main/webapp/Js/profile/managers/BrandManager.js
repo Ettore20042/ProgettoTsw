@@ -129,7 +129,7 @@ class BrandManager extends BaseManager {
                 <a href="#" class="edit-link" data-brand-id="${brand.brandId}">Modifica</a>
             </td>
             <td>
-                <button type="button" class="remove-button-product remove-item-btn" data-id="${brand.brandId}">
+                <button type="button" class="remove-button-brand remove-item-btn" data-id="${brand.brandId}">
                     <img src="${this.contextPath}/img/icon/delete.png" class="remove-icon">
                 </button>
             </td>
