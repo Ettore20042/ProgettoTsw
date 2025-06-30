@@ -1,0 +1,290 @@
+/* Reset e stili base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f9fa;
+
+}
+
+/* Titolo principale utente - mobile first */
+body > h1 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin: 1rem;
+    text-transform: capitalize;
+    text-align: left;
+}
+
+/* Container principale - mobile first */
+.details-user-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+/* Sezioni comuni - mobile first */
+.overview-user-section,
+.overview-user-orders {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+}
+
+/* Sezione dati personali */
+.overview-user-section h1 {
+    color: #2c3e50;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #00c300;
+}
+
+.overview-user-section h2 {
+    color: #34495e;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.overview-user-section h2:first-of-type {
+    margin-top: 0;
+}
+
+.overview-user-section p {
+    color: #555;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f1f3f4;
+    transition: color 0.2s ease;
+    line-height: 1.5;
+}
+
+.overview-user-section p:hover {
+    color: #2c3e50;
+}
+
+/* Sezione ordini */
+.overview-user-orders h2 {
+    color: #2c3e50;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #6e4545;
+}
+
+/* Grid degli ordini - mobile first */
+.order-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+/* Card singolo ordine */
+.order-card {
+    background: #f8f9fa;
+    border-radius: 6px;
+    padding: 1rem;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.order-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-color: #3498db;
+}
+
+.order-card img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.order-card:hover img {
+    transform: scale(1.05);
+}
+
+.order-card p {
+    margin: 0.25rem 0;
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.order-card p:first-of-type {
+    font-weight: 600;
+    color: #27ae60;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+/* Messaggi di stato */
+.error-message {
+    text-align: center;
+    color: #e74c3c;
+    font-style: italic;
+    padding: 1.5rem;
+    background: #fdf2f2;
+    border-radius: 6px;
+    border: 1px solid #f5c6cb;
+}
+
+/* Focus states per accessibilità */
+.order-card:focus {
+    outline: 2px solid #3498db;
+    outline-offset: 2px;
+}
+
+/* MEDIA QUERIES - Mobile First approach */
+
+/* Tablet (min-width: 480px) */
+@media (min-width: 480px) {
+    body > h1 {
+        font-size: 2rem;
+        margin: 1.5rem;
+    }
+
+    .overview-user-section,
+    .overview-user-orders {
+        padding: 1.5rem;
+    }
+
+    .order-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .order-card img {
+        height: 110px;
+    }
+}
+
+/* Tablet Large (min-width: 768px) */
+@media (min-width: 768px) {
+    body > h1 {
+        font-size: 2.2rem;
+        margin: 2rem auto 1rem 1rem;
+        max-width: 1200px;
+    }
+
+    .details-user-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+
+    .overview-user-section,
+    .overview-user-orders {
+        padding: 2rem;
+        border-radius: 12px;
+    }
+
+    .overview-user-section h1,
+    .overview-user-orders h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .overview-user-section h2 {
+        font-size: 0.95rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .overview-user-section p {
+        font-size: 1.1rem;
+        padding: 0.75rem 0;
+    }
+
+    .order-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .order-card {
+        padding: 1.25rem;
+        border-radius: 8px;
+    }
+
+    .order-card img {
+        height: 120px;
+        border-radius: 6px;
+        margin-bottom: 0.75rem;
+    }
+
+    .order-card p {
+        font-size: 0.9rem;
+        margin: 0.5rem 0;
+    }
+
+    .order-card p:first-of-type {
+        font-size: 0.8rem;
+    }
+}
+
+/* Desktop (min-width: 1024px) */
+@media (min-width: 1024px) {
+    body > h1 {
+        font-size: 2.5rem;
+        margin: 2rem 1rem 1rem 1rem;
+    }
+
+    .order-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+/* Desktop Large (min-width: 1200px) */
+@media (min-width: 1200px) {
+    body > h1 {
+        font-size: 2.8rem;
+        margin: 2.5rem auto 1rem 10rem;
+        max-width: 1400px;
+    }
+
+    .details-user-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        padding: 0 2rem;
+    }
+
+    .overview-user-section,
+    .overview-user-orders {
+        padding: 2.5rem;
+    }
+
+    .overview-user-section h1,
+    .overview-user-orders h2 {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+    }
+
+    .order-card {
+        padding: 1.5rem;
+    }
+}

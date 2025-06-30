@@ -9,6 +9,7 @@
     <head>
         <title>User</title>
         <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user.css">
 
     </head>
     <body>
