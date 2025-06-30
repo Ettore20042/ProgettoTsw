@@ -26,12 +26,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- SETUP INIZIALE ---
+    //calcola la latghezza esatta della prima slide
     const slideWidth = slides[0].getBoundingClientRect().width;
     let currentIndex = 0;
 
     // Creiamo i pallini di navigazione
     dotsNav.innerHTML = ''; // Pulisci eventuali pallini esistenti
     slides.forEach((_, index) => {
+        //a ogni bottone/pallino viene aggiunto un evento click che chiama la funzione per spostarsi direttamente a quella slide.
         const button = document.createElement('button');
         button.classList.add('slider-nav--dot');
         button.addEventListener('click', () => {
@@ -48,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Applica la transizione CSS per un movimento fluido
         sliderTrack.style.transition = 'transform 0.5s ease-in-out';
 
+        //calcola la distanza totale da spostare
         const amountToMove = targetIndex * slideWidth;
         sliderTrack.style.transform = `translateX(-${amountToMove}px)`;
 

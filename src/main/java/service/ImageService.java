@@ -47,17 +47,21 @@ public class ImageService {
 
 
     public void saveProductImages(List<Part> imageParts, int productId, int categoryId, String productName, String imageDescription) throws IOException {
+        /* se non ci sono immagini non fa nulla*/
         if (imageParts == null || imageParts.isEmpty()) {
             return;
         }
 
         categoryService.checkCategoryCache();
+        /* crea una mappa delle categorie*/
         Map<Integer, Category> categoryMap = (Map<Integer, Category>) context.getAttribute("categoryCacheMap");
-        List<Category> breadcrumb = categoryService.buildBreadcrumbFromMap(categoryMap, categoryId);
-        String dynamicUploadDir = buildUploadPath(breadcrumb);
+        List<Category> breadcrumb = categoryService.buildBreadcrumbFromMap(categoryMap, categoryId); /* ES. [Category(Uomo), Category(Scarpe), Category(Sneakers)] */
+        String dynamicUploadDir = buildUploadPath(breadcrumb); /* usa la lista per costruire una stringa di percorso ad es. img/categories/uomo/scarpe/sneakers */
 
+        /*ottiene il percorso fisico della root dell'applicazione sul server e costruisce il percorso completo */
         String uploadPath = context.getRealPath("") + File.separator + dynamicUploadDir;
 
+        /* se la cartella non esiste, mkdirs() la crea*/
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
             if (!uploadDir.mkdirs()) {
@@ -65,11 +69,14 @@ public class ImageService {
             }
         }
 
-        int displayOrder = 1;
+        /* itera su ogni file(Part) inviato dall'utente*/
+        int displayOrder = 1; /* serve a numerare le immagini*/
         for (Part part : imageParts) {
+            /* controlla che un file sia stato effettivamente inviato e che la sua estensione sia tra quelle permesse*/
             String originalFileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
 
             if (originalFileName != null && !originalFileName.isEmpty() && isValidImageFile(originalFileName)) {
+                /* crea un nuovo nome file sicuro per evitare problemi di sicurezza e compatibilità ad es. sedia_in_legno_123_1.jpg */
                 String cleanProductName = productName.replaceAll("[^a-zA-Z0-9]", "_").toLowerCase();
                 String newFileName = cleanProductName + "_" + productId + "_" + displayOrder + getFileExtension(originalFileName);
 
@@ -100,6 +107,7 @@ public class ImageService {
         }
     }
 
+    /* costruisce la stringa del percorso delle cartelle*/
     private String buildUploadPath(List<Category> breadcrumb) {
         StringBuilder path = new StringBuilder("img" + File.separator + "categories");
         for (Category cat : breadcrumb) {
@@ -108,11 +116,13 @@ public class ImageService {
         return path.toString();
     }
 
+    /* pulisce il nome di una categoria per renderlo sicuro come nome di cartella*/
     private String formatForPath(String text) {
         if (text == null) return "";
         return text.trim().toLowerCase().replaceAll("\\s+", "-");
     }
 
+    /* controlla l'estensione del file*/
     private boolean isValidImageFile(String fileName) {
         String lowerFileName = fileName.toLowerCase();
         return lowerFileName.endsWith(".jpg") ||
@@ -123,6 +133,7 @@ public class ImageService {
                 lowerFileName.endsWith(".svg");
     }
 
+    /* estrae l'estensione da un nome di file*/
     private String getFileExtension(String fileName) {
         int lastDot = fileName.lastIndexOf('.');
         if (lastDot > 0 && lastDot < fileName.length() - 1) {
@@ -130,14 +141,18 @@ public class ImageService {
         }
         return ".jpg"; // Default extension
     }
+
+    /* rimuove tutte le imamgini associate a un prodotto */
     public static boolean removeProductImages(ServletContext servletContext,int productId) {
         ImageDAO imageDAO = new ImageDAO();
+        /* recupera dal db la lista di tutti i percorsi delle immagini per quel prodotto */
         List<Image> images = imageDAO.doRetrieveAllByProduct(productId);
         if (images.isEmpty()) {
             return true; // No images to remove
         }
 
         boolean allDeleted = true;
+        /* ricostruisce il percorso fisico completo del file e usa file.delete() per cancellarlo dal disco e tiene traccia se tutte le cancellazioni fisiche sono andate a buon fine*/
         for (Image image : images) {
             String filePath = servletContext.getRealPath("") + File.separator + image.getImagePath();
             File file = new File(filePath);
@@ -146,6 +161,7 @@ public class ImageService {
             }
         }
 
+        /* se tutti i file fisici sono stati cancellati con successo, procediamo a cancellare i record corrispondenti dal db */
         if (allDeleted) {
             return imageDAO.removeImagesByProduct(productId);
         }

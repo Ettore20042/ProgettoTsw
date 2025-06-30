@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import service.CategoryService;
 import service.ProductService;
 import service.UserService;
 
@@ -21,6 +22,7 @@ public class SuggestionsServlet extends HttpServlet {
 
     private ProductService productService;
     private UserService userService;
+    private CategoryService categoryService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -28,6 +30,7 @@ public class SuggestionsServlet extends HttpServlet {
         ServletContext context = config.getServletContext();
         this.productService = new ProductService(context);
         this.userService = new UserService(context);
+        this.categoryService = new CategoryService(context);
     }
 
     @Override
@@ -44,6 +47,10 @@ public class SuggestionsServlet extends HttpServlet {
 
                 case "users":
                     results = userService.getUserEmails(query);
+                    break;
+
+                case "categories":
+                    results = categoryService.getSearchSuggestions(query);
                     break;
                 // Altri casi per altre entità da fare, tipo "Users" "categories" o "brands"
             }

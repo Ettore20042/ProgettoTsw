@@ -1,6 +1,10 @@
 /**
  * Validates password strength
  */
+
+//controlliamo i dati inseriti dall'utente direttamente nel browser, prima che il form venga inviato al server
+
+//controlla la robustezza della password
 function checkCredential(password) {
     if (password.length < 8) return false;
     if (password.length > 20) return false;
@@ -8,10 +12,11 @@ function checkCredential(password) {
     if (password.search(/[A-Z]/) < 0) return false;
     if (password.search(/[0-9]/) < 0) return false;
     if (password.search(/[$@#&!]/) < 0) return false;
-    if (password.search(/[^a-zA-Z0-9$@#&!]/) >= 0) return false;
+    if (password.search(/[^a-zA-Z0-9$@#&!]/) >= 0) return false; //cerca qualsiasi carattere che non sia una lettera, un numero o uno dei caratteri speciali ammessi
     return true;
 }
 
+//usa una regex per verificare che il formato dell'email sia corretto (es. testo@dominio.com)
 function validateEmailField() {
     const emailInput = document.querySelector('input[name="email"]');
     if (!emailInput) return false;
@@ -20,12 +25,14 @@ function validateEmailField() {
     return regex.test(email);
 }
 
+//chiama la funzione checkCredential() per verificare la robustezza della password
 function validatePasswordField() {
     const passwordInput = document.querySelector('input[name="password"]');
     if (!passwordInput) return false;
     return checkCredential(passwordInput.value);
 }
 
+//controlla che il valore del campo "password" sia identico a quello del campo "confirmPassword"
 function validatePasswordMatch() {
     const passwordInput = document.querySelector('input[name="password"]');
     const confirmInput = document.querySelector('input[name="confirmPassword"]');
@@ -33,6 +40,8 @@ function validatePasswordMatch() {
     return passwordInput.value === confirmInput.value;
 }
 
+
+//si assicura che i campi nome e cognome non siano vuoti.
 function validateNameFields() {
     const nameInput = document.querySelector('input[name="name"]');
     const surnameInput = document.querySelector('input[name="surname"]');
@@ -40,6 +49,8 @@ function validateNameFields() {
     return nameInput.value.trim() !== "" && surnameInput.value.trim() !== "";
 }
 
+
+//usa una regex per controllare che il numero di telefono contenga solo cifre e abbia lunghezza compresa tra 8 e 15
 function validatePhoneField() {
     const phoneInput = document.querySelector('input[name="phone"]');
     if (!phoneInput) return true; // Non presente nel login
@@ -49,11 +60,19 @@ function validatePhoneField() {
     return phoneRegex.test(phone);
 }
 
+
+
+/**
+ * funzioni per migliorare l'interazione dell'utente con il form
+ */
+
+//permette all'utente di mostrare/nascondere la password cliccando sull'icona
 function togglePassword(iconElement) {
     // Trova l'input password nel contenitore padre
     const passwordInput = iconElement.parentElement.querySelector('input[type="password"], input[type="text"]');
     if (!passwordInput) return;
 
+    //controlla il type attuale dell'input, se è password lo cambia in text (rendendo visibile il testo) e cambia l'immagine dell'icona, se è text fa l'inverso
     if (passwordInput.type === "password") {
         passwordInput.type = "text";
         iconElement.src = iconElement.src.replace('eye.png', 'view.png');
@@ -65,7 +84,9 @@ function togglePassword(iconElement) {
     }
 }
 
+//mostra all'utente una lista di tutti gli errori di validazione trovati in modo chiaro e visibile
 function showErrors(errors) {
+    //trova il form
     const form = document.getElementById("loginForm") || document.getElementById("registerForm");
     if (!form) return;
 
@@ -75,7 +96,9 @@ function showErrors(errors) {
         errorContainer.remove();
     }
 
+    //se ci sono errori
     if (errors.length > 0) {
+        //crea un div e applica stile css direttamente tramite JavaScript
         errorContainer = document.createElement("div");
         errorContainer.id = "formErrorContainer";
         errorContainer.style.cssText = `
@@ -93,7 +116,7 @@ function showErrors(errors) {
         // Inserisci all'inizio del form
         form.insertBefore(errorContainer, form.firstChild);
 
-        // Scroll smooth verso l'errore
+        // fa scorrere la pagina automaticamente per portare il messaggio di errore al centro della visuale dell'utente
         errorContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
         // Auto-rimozione dopo 5 secondi
@@ -107,9 +130,11 @@ function showErrors(errors) {
     }
 }
 
+
+//chiama tutte le singole funzioni di validazione e decide se il form è valido
 function validateForm() {
     const errors = [];
-    const isRegistrationForm = !!document.getElementById("registerForm");
+    const isRegistrationForm = !!document.getElementById("registerForm"); //verifica se si trova in un form di registrazione
 
     // Validazione email
     if (!validateEmailField()) {
@@ -158,8 +183,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Setup validazione form
     if (registerForm) {
         registerForm.addEventListener("submit", function (event) {
-            if (!validateForm()) {
-                event.preventDefault();
+            if (!validateForm()) { //se questo restituisce false (cioè ci sono errori), viene eseguito event.preventDefault()
+                event.preventDefault();  //impedisce l'azione predefinita, che in questo caso è l'invio del form al server
             }
         });
     }
@@ -173,6 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Setup toggle password
+    //aggiunge l'evento "click" all'icona dell'occhio per attivare la funzione togglePassword
     document.querySelector('.auth-form-container__icon-password')
         .addEventListener('click', function () {
             const input = document.getElementById('password')

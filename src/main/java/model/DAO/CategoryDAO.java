@@ -1,6 +1,7 @@
 package model.DAO;
 
 import model.Bean.Category;
+import model.Bean.User;
 import model.ConnPool;
 
 import java.sql.Connection;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDAO {
-    public List<Category> doRetrieveAll() {
+    public static List<Category> doRetrieveAll() {
         List<Category> categories = new ArrayList<>();
 
         try (Connection conn = ConnPool.getConnection();
@@ -41,5 +42,41 @@ public class CategoryDAO {
         }
 
         return categories;
+    }
+
+    public static List<Category> findByNameLike(String name) {
+        try (Connection con = ConnPool.getConnection()) {
+            String sql = "SELECT * FROM category WHERE CategoryName LIKE ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + name + "%");
+            ResultSet rs = ps.executeQuery();
+            List<Category> categories = new ArrayList<>();
+            while(rs.next()){
+                Category c = new Category();
+                c.setCategoryId(rs.getInt("CategoryID"));
+                c.setCategoryName(rs.getString("CategoryName"));
+                c.setCategoryPath(rs.getString("CategoryPath"));
+                c.setParentCategory(rs.getInt("ParentCategory"));
+                categories.add(c);
+            }
+            return categories;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static List<String> searchCategoriesByName(String name) {
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT CategoryName FROM category WHERE CategoryName LIKE ?");
+            preparedStatement.setString(1, name + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<String> categoriesNames = new ArrayList<>();
+            while (resultSet.next()) {
+               categoriesNames.add(resultSet.getString("CategoryName"));
+            }
+            return categoriesNames;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }
