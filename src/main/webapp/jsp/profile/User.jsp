@@ -40,7 +40,10 @@
             </div>
 
                 <div class="overview-user-orders">
-                    <h2>I tuoi ordini</h2>
+                    <a href="${pageContext.request.contextPath}/OrderServlet?userId=${user.userId}" method="post">
+                        <h2>I tuoi ordini</h2>
+                    </a>
+
 
                     <c:choose>
                         <c:when test="${not empty orderMessage}">
@@ -64,6 +67,13 @@
                             <p class="error-message">${errorMessage}</p>
                         </c:otherwise>
                     </c:choose>
+
+                    <% if (request.getSession().getAttribute("user") != null) {
+                        User user = (User) session.getAttribute("user");%>
+                    <form action="${pageContext.request.contextPath}/OrderServlet?userId=<%= user.getUserId()%>" method="post">
+                        <button type="submit" class="overview-user-orders-buttons">Vedi tutti</button>
+                    </form>
+                    <% } %>
                 </div>
         </main>
 
