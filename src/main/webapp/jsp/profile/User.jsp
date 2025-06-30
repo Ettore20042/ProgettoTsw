@@ -41,27 +41,29 @@
                 <div class="overview-user-orders">
                     <h2>I tuoi ordini</h2>
 
-                    <c:choose >
-                        <c:when test="${error != null}">
-                            <p>Non hai effettuato alcun ordine</p>
+                    <c:choose>
+                        <c:when test="${not empty orderMessage}">
+                            <p>${orderMessage}</p>
+                        </c:when>
+
+                        <c:when test="${not empty recentOrderList}">
+                            <div class="order-grid">
+                                <c:forEach var="order" items="${recentOrderList}">
+                                    <div class="order-card">
+                                        <c:if test="${not empty order.orderItems}">
+                                            <p>${order.status}</p>
+                                            <p>${order.orderDate}</p>
+                                            <img src="${pageContext.request.contextPath}/ImageServlet?productId=${order.orderItems[0].productId}" alt="Immagine prodotto">
+                                        </c:if>
+                                    </div>
+                                </c:forEach>
+                            </div>
                         </c:when>
                         <c:otherwise>
-                            <c:forEach var="order" items="${orderList}">
-                                <a href="ser">
-                                    <div class="order-card">
-                                        <img src="${pageContext.request.contextPath}/ImageServlet?productId=${productId}">
-                                        <p>${order.orderDate}</p>
-                                        <p>${order.status}</p>
-                                    </div>
-                                </a>
-                            </c:forEach>
+                            <p class="error-message">${errorMessage}</p>
                         </c:otherwise>
                     </c:choose>
-
-
                 </div>
-
-
         </main>
 
         <jsp:include page="/WEB-INF/jsp/components/common/footer.jsp" />

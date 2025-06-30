@@ -27,8 +27,8 @@ public class OrderDAO {
                 Order o = new Order();
                 o.setOrderId(resultSet.getInt("OrderID"));
                 o.setStatus(resultSet.getString("Status"));
-                o.setOrderDate(LocalDate.parse(resultSet.getString("OrderDate")));
-                o.setOrderTime(LocalTime.from(LocalDate.parse(resultSet.getString("OrderTime"))));
+                o.setOrderDate(resultSet.getDate("OrderDate").toLocalDate());
+                o.setOrderTime(resultSet.getTime("OrderTime").toLocalTime());
                 o.setBillingAddressId(resultSet.getInt("BillingAddressID"));
                 o.setShippingAddressId(resultSet.getInt("ShippingAddressID"));
                 o.setTotalAmount(resultSet.getFloat("TotalAmount"));
@@ -41,4 +41,27 @@ public class OrderDAO {
     }
 
 
+    public List<Order> doRetrieveLastNOrdersByUserId(int userId) {
+        try(Connection connection = ConnPool.getConnection()){
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM orders WHERE UserID=? ORDER BY OrderDate DESC, OrderTime DESC LIMIT 3");
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Order> orders = new ArrayList<>();
+            while (resultSet.next()){
+                Order o = new Order();
+                o.setOrderId(resultSet.getInt("OrderID"));
+                o.setStatus(resultSet.getString("Status"));
+                o.setOrderDate(resultSet.getDate("OrderDate").toLocalDate());
+                o.setOrderTime(resultSet.getTime("OrderTime").toLocalTime());
+                System.out.println("pppppppppppppppp");
+                o.setBillingAddressId(resultSet.getInt("BillingAddressID"));
+                o.setShippingAddressId(resultSet.getInt("ShippingAddressID"));
+                o.setTotalAmount(resultSet.getFloat("TotalAmount"));
+                orders.add(o);
+            }
+            return orders;
+        }catch (SQLException ex){
+            throw new RuntimeException(ex);
+        }
+    }
 }
