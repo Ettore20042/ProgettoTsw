@@ -1,20 +1,19 @@
 package service;
 
 import jakarta.servlet.ServletContext;
-import model.Bean.Product;
 import model.Bean.User;
 import model.DAO.UserDAO;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class UserService {
+
     private final UserDAO userDAO;
-    private final ServletContext context;
 
     public UserService(ServletContext context){
         this.userDAO = new UserDAO();
-        this.context = context;
     }
 
     public List<User> searchUsers(String query) {
@@ -33,5 +32,24 @@ public class UserService {
         }
         return emailList;
     }
+   public boolean updateAdmin(String userId, boolean isAdmin) {
+       try {
+           int id = Integer.parseInt(userId);
+           User user = userDAO.doRetrieveById(id);
+           if (user != null) {
+               user.setAdmin(isAdmin);
+               return userDAO.doUpdateAdminStatus(user);
+           }
+       } catch (NumberFormatException e) {
+           System.err.println("Errore conversione userId: " + userId + " - " + e.getMessage());
+
+       } catch (Exception e) {
+           System.err.println("Errore aggiornamento admin status: " + e.getMessage());
+           e.printStackTrace(); // Stampa lo stack trace completo
+
+       }
+       return false;
+   }
 
 }
+

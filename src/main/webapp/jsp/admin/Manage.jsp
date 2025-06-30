@@ -7,7 +7,6 @@
     <title>Pannello di Gestione - ${entity}</title>
     <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/manageproducts.css">
-    <!-- POI il gestore principale -->
     <script src="${pageContext.request.contextPath}/Js/profile/Manage.js" defer></script>
     <script src="${pageContext.request.contextPath}/Js/profile/managers/ProductManager.js" defer></script>
     <script src="${pageContext.request.contextPath}/Js/profile/managers/UserManager.js" defer></script>
@@ -26,9 +25,10 @@
     <div class="manage-components-container-filter">
         <%-- Qui andrà la componente dei filtri riutilizzabile --%>
         <nav class="admin-nav">
-            <a href="${pageContext.request.contextPath}/ManageServlet?entity=products" class="admin-button-toggle ${entity == 'products' ? 'active' : ''}">Gestione Prodotti</a>
-            <a href="${pageContext.request.contextPath}/ManageServlet?entity=users" class="admin-button-toggle ${entity == 'users' ? 'active' : ''}">Gestione Utenti</a> <%-- Esempio per il futuro --%>
-            <a href="#" class="admin-button-toggle">Gestione Categorie</a> <%-- Esempio per il futuro --%>
+            <a href="${pageContext.request.contextPath}/ManageServlet?entity=products" class="admin-button-toggle ${entity == 'products' ? '' : 'active'}">Gestione Prodotti</a>
+            <a href="${pageContext.request.contextPath}/ManageServlet?entity=users" class="admin-button-toggle ${entity == 'users' ? '' : 'active'}">Gestione Utenti</a> <%-- Esempio per il futuro --%>
+            <a href="${pageContext.request.contextPath}/ManageServlet?entity=brands" class="admin-button-toggle ${entity == 'brands' ? '' : 'active'}">Gestione Brands</a>
+            <a href="${pageContext.request.contextPath}/ManageServlet?entity=categories" class="admin-button-toggle ${entity == 'categories' ? '' : 'active'}">Gestione Categorie</a>
         </nav>
 
         <%--<jsp:include page="/WEB-INF/jsp/components/products/_productsFilter.jsp">
@@ -62,10 +62,18 @@
                 </div>
                 <jsp:include page="/WEB-INF/jsp/components/admin/_addProductForm.jsp"/>
             </c:when>
-            <%-- Aggiungi qui i <c:when> per le altre entità (users, categories, etc.) --%>
-            <c:otherwise>
-                <p>Seleziona un'entità da gestire.</p>
-            </c:otherwise>
+            <c:when test="${entity == 'brands'}">
+                <div class="manage-components-container-right--add-button">
+                    <button  class="add-component-button-toggle" id="add-btn">Aggiungi un brand</button>
+                </div>
+                <jsp:include page="/WEB-INF/jsp/components/admin/_addBrandForm.jsp"/>
+            </c:when>
+            <c:when test="${entity == 'categories'}">
+                <div class="manage-components-container-right--add-button">
+                    <button  class="add-component-button-toggle" id="add-btn">Aggiungi una categoria</button>
+                </div>
+                <jsp:include page="/WEB-INF/jsp/components/admin/_addCategoryForm.jsp"/>
+            </c:when>
         </c:choose>
 
         <div id="message" style="display: none"></div>
@@ -110,7 +118,7 @@
                             <th>Email</th>
                             <th>Telefono</th>
                             <th>Admin</th>
-                            <th colspan="1"></th>
+                            <th>Modifica</th>
                         </tr>
                         </thead>
                         <tbody class="componentTableBody">
@@ -124,12 +132,13 @@
                                 <c:choose>
                                     <c:when test="${item.isAdmin() == true}">
                                         <td>SI</td>
+                                        <td><img src="${pageContext.request.contextPath}/img/icon/check.png" alt="yes" class="icon admin-icon" onclick="setAdmin(this,${item.userId})"></td>
                                     </c:when>
                                     <c:otherwise>
                                         <td>NO</td>
+                                        <td><img src="${pageContext.request.contextPath}/img/icon/remove.png" alt="no" class="icon admin-icon" onclick="setAdmin(this,${item.userId})"></td>
                                     </c:otherwise>
                                 </c:choose>
-                                <td><a href="#">Modifica</a></td>
                             </tr>
                         </c:forEach>
                         </tbody>

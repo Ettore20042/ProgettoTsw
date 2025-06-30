@@ -458,7 +458,7 @@ class ManageSystem {
             this.modal.style.display = 'flex';
         }
         // Notifica l'apertura del modale
-        this.dispatchEvent('manage:modal:opened');
+        /*this.dispatchEvent('manage:modal:opened');*/
 
     }
 
@@ -475,7 +475,7 @@ class ManageSystem {
             this.modal.style.display = 'none';
         }
         // Notifica la chiusura del modale
-        this.dispatchEvent('manage:modal:closed');
+       /* this.dispatchEvent('manage:modal:closed');*/
     }
 
     /**

@@ -1,6 +1,6 @@
 # Escludi tutti i file di build generati
 target/
-
+/src/main/java/model/ConnPool.java
 # Includi maven-wrapper.jar ma escludi altre cose nella cartella .mvn
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -2955,3 +2955,5 @@ build/
 /node_modules/xml/package.json
 /node_modules/xml/readme.md
 /node_modules/.package-lock.json
+/ s r c / m a i n / j a v a / m o d e l / C o n n P o o l . j a v a  
+ 

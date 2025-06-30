@@ -19,7 +19,7 @@
 }
 
 .admin-button-toggle{
-    display: block;
+    display: none;
     padding: 0.8rem 1rem;
     background-color: #4CAF50;
     color: white;
@@ -29,6 +29,10 @@
     border-radius: 5px;
     transition: background-color 0.3s;
 
+}
+
+.admin-button-toggle.active{
+    display: block;
 }
 
 .admin-button-toggle:hover{
@@ -309,6 +313,30 @@
     transform: scale(1.2) rotate(-10deg);
 }
 
+.admin-icon {
+    width: 16px;
+    height: 16px;
+    margin-left:1.5rem;
+    vertical-align: middle;
+}
+.admin-icon:hover {
+    transform: scale(2);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+
+
+}
+
+
+
+/* Oppure con classi specifiche */
+.admin-icon.check {
+    tint-color: green;
+}
+
+.admin-icon.remove {
+    tint-color: red;
+}
 
 
 /* Media Query (rimangono invariate) */
