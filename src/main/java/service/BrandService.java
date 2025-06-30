@@ -50,6 +50,11 @@ public class BrandService {
 
 	public List<Brand> getAllBrands() {
 		BrandDAO brandDAO = new BrandDAO();
-		return brandDAO.doRetrieveAll();
+		List<Brand> brands = brandDAO.doRetrieveAll();
+		return brands;
+	}
+	public List<Brand> searchBrands(String name) {
+		BrandDAO brandDAO = new BrandDAO();
+		return brandDAO.doRetrieveByName(name);
 	}
 }

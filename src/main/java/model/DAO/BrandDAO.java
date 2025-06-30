@@ -39,16 +39,13 @@ public class BrandDAO {
 			 PreparedStatement ps = conn.prepareStatement("SELECT * FROM brand");
 			 ResultSet rs = ps.executeQuery()) {
 
-
 			while (rs.next()) {
 				Brand brand = new Brand();
 				brand.setBrandId(rs.getInt("BrandID"));
 				brand.setBrandName(rs.getString("BrandName"));
 				brand.setLogoPath(rs.getString("LogoPath"));
-
 				brands.add(brand);
 			}
-
 
 		} catch (SQLException e) {
 			System.err.println("BrandDAO ERROR in doRetrieveAll: " + e.getMessage());
@@ -57,5 +54,23 @@ public class BrandDAO {
 
 		return brands;
 	}
+	public  List<Brand> doRetrieveByName(String name) {
+		List<Brand> brands = new ArrayList<>();
+		try (Connection conn = ConnPool.getConnection();
+			 PreparedStatement ps = conn.prepareStatement("SELECT * FROM brand WHERE BrandName LIKE ?")) {
+			ps.setString(1, "%" + name + "%");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Brand brand = new Brand();
+				brand.setBrandId(rs.getInt("BrandID"));
+				brand.setBrandName(rs.getString("BrandName"));
+				brand.setLogoPath(rs.getString("LogoPath"));
+				brands.add(brand);
+			}
+		} catch (SQLException e) {
+			System.err.println("BrandDAO ERROR in doRetrieveByName: " + e.getMessage());
+			e.printStackTrace();
+		}
+		return brands;
+	}
 }
-
