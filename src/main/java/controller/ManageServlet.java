@@ -8,8 +8,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Bean.Category;
 import model.Bean.Product;
 import model.Bean.User;
+import service.CategoryService;
 import service.ProductService;
 import service.UserService;
 
@@ -21,7 +23,7 @@ public class ManageServlet extends HttpServlet {
 
     private ProductService productService;
     private UserService userService; // Futuri service per altre entità
-    // private CategoryService categoryService;
+    private CategoryService categoryService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -29,6 +31,7 @@ public class ManageServlet extends HttpServlet {
         ServletContext context = config.getServletContext();
         this.productService = new ProductService(context);
         this.userService = new UserService(context);
+        this.categoryService = new CategoryService(context);
         // Inizializza gli altri service qui quando verranno creati
     }
 
@@ -65,11 +68,18 @@ public class ManageServlet extends HttpServlet {
 
                 request.setAttribute("itemList", userList);
                 break;
-                /*
+
             case "categories":
-                // Qui andrà la logica per le categorie
+                List<Category> categoryList;
+                if(searchQuery != null && !searchQuery.trim().isEmpty()){
+                    categoryList = categoryService.searchCategories(searchQuery);
+                }else{
+                    categoryList = categoryService.getAllCategories();
+                }
+
+                request.setAttribute("itemList", categoryList);
                 break;
-            */
+
             default:
                 // In caso di entità non riconosciuta, imposta una lista vuota
                 request.setAttribute("itemList", List.of());

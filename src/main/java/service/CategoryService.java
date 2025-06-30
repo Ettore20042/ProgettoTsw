@@ -68,4 +68,16 @@ public class CategoryService {
 		Collections.reverse(breadcrumb);
 		return breadcrumb;
 	}
+
+	public List<Category> getAllCategories() {
+		return CategoryDAO.doRetrieveAll();
+	}
+
+	public List<Category> searchCategories(String query) {
+		return CategoryDAO.findByNameLike(query);
+	}
+
+	public List<String> getSearchSuggestions(String query) {
+		return CategoryDAO.searchCategoriesByName(query);
+	}
 }

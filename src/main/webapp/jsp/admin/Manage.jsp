@@ -144,6 +144,27 @@
                         </tbody>
                     </table>
                 </c:when>
+                <c:when test="${entity == 'categories'}">
+                    <table class="search-components-on-table--table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Path</th>
+                            <th colspan="1"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="componentTableBody">
+                        <c:forEach var="item" items="${itemList}">
+                            <tr>
+                                <td>${item.categoryId}</td>
+                                <td>${item.categoryName}</td>
+                                <td>${item.categoryPath}</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </c:when>
                 <c:otherwise>
                     <p>Seleziona un'entità da gestire.</p>
                 </c:otherwise>
