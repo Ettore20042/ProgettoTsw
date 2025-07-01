@@ -11,8 +11,8 @@ h2.main-support_title {
 }
 .disclosure-box.main-support_disclosure
 {
-    background-color: #F3EED8;
-    border: 2px solid black;
+    /*background-color: #F3EED8;*/
+    background-color: whitesmoke;
     margin-top: 1rem;
     padding-top: 1rem;
     padding-left: 1rem;
@@ -35,6 +35,9 @@ h2.main-support_title {
     margin-top: 1rem;
     margin-right: 1rem;
 }
+.main-support_image{
+    margin-left: 1rem;
+}
 @media (min-width: 768px) {
 
     .support_disclosure_link {
@@ -50,19 +53,24 @@ h2.main-support_title {
     h2.main-support_title {
         font-size: 2.0rem;
     }
+
 @media (min-width: 992px) {
     .disclosure-box_title{
         font-size:2.0rem;
         font-weight: 450;
     }
     .main-support_disclosure_text{
-        font-size: 1.5rem;
+        font-size: 1.0rem;
     }
     h2.main-support_title {
-        font-size: 2.5rem;
+        font-size: 2.0rem;
     }
     .support_disclosure_link {
-        font-size: 1.5rem; /* Larger on desktop */
+        font-size: 1.0rem; /* Larger on desktop */
     }
+        .disclosure-box.main-support_disclosure {
+            width: fit-content;
+        }
+
 }
 }

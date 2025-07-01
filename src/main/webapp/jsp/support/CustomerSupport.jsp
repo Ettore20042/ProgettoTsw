@@ -16,11 +16,14 @@
     <jsp:include page="/WEB-INF/jsp/components/common/header.jsp"/>
 
     <div class="main-support">
-        <h2 class="main-support_title"> Assistenza clienti</h2>
-        <div class="main-support_questions">
+        <div class="main-support_header">
+            <h2 class="main-support_title"> Assistenza clienti</h2>
+            <img src="${pageContext.request.contextPath}/img/icon/paperQuestions.png" alt="Customer Support" class="main-support_image">
+        </div>
+            <div class="main-support_questions">
             <details class="disclosure-box main-support_disclosure">
                 <summary class="disclosure-box_button main-support_disclosure_button">
-                    <h3 class=" disclosure-box_title">Come posso contattare il servizio clienti?</h3>
+                    <h3 class=" disclosure-box_title">Come posso contattare il servizio clienti❓</h3>
                 </summary>
                 <p class=" main-support_disclosure_text">
                     Puoi contattare il nostro servizio clienti tramite email,
@@ -30,7 +33,7 @@
             </details>
             <details class="disclosure-box main-support_disclosure">
                 <summary class="disclosure-box_button main-support_disclosure_button">
-                    <h3 class="disclosure-box_title">Come posso effettuare un reso?</h3>
+                    <h3 class="disclosure-box_title">Come posso effettuare un reso❔</h3>
                 </summary>
                 <p class=" main-support_disclosure_text">
                     Puoi restituire un articolo entro 30 giorni dalla consegna. Assicurati che il prodotto sia nelle stesse condizioni in cui l'hai ricevuto.
@@ -38,7 +41,7 @@
             </details>
             <details class="disclosure-box main-support_disclosure">
                 <summary class="disclosure-box_button main-support_disclosure_button">
-                    <h3 class="disclosure-box_title">Quali metodi di pagamento accettate?</h3>
+                    <h3 class="disclosure-box_title">Quali metodi di pagamento accettate❓</h3>
                 </summary>
                 <p class=" main-support_disclosure_text">
                     Accettiamo carte di credito (Visa, MasterCard), PayPal e bonifico bancario.Per maggiori dettagli, visita la nostra
@@ -47,7 +50,7 @@
             </details>
             <details class="disclosure-box main-support_disclosure">
                 <summary class="disclosure-box_button main-support_disclosure_button">
-                    <h3 class="disclosure-box_title">Quanto tempo occorre per la spedizione?</h3>
+                    <h3 class="disclosure-box_title">Quanto tempo occorre per la spedizione❔</h3>
                 </summary>
                 <p class=" main-support_disclosure_text">
                     Le spedizioni standard richiedono 3-5 giorni lavorativi. La spedizione express richiede 1-2 giorni.
@@ -55,7 +58,7 @@
             </details>
             <details class="disclosure-box main-support_disclosure">
                 <summary class="disclosure-box_button main-support_disclosure_button">
-                    <h3 class="disclosure-box_title">Come posso tracciare il mio ordine?</h3>
+                    <h3 class="disclosure-box_title">Come posso tracciare il mio ordine❓</h3>
                 </summary>
                 <p class=" main-support_disclosure_text">
                     Puoi tracciare l'ordine cliccando sul link inviato via email o accedendo al tuo account.

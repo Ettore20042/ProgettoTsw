@@ -1,162 +1,390 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<html>
+<!DOCTYPE html>
+<html lang="it">
 <head>
     <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
-    <title>Mappa Store</title>
+    <title>I Nostri Store - BricoShop</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/store.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
 </head>
 <body>
-<jsp:include page="/WEB-INF/jsp/components/common/header.jsp" />
-<h2 id="idtext">Trova lo Store più vicino a te</h2>
-<div class="button-search-container">
+    <jsp:include page="/WEB-INF/jsp/components/common/header.jsp" />
 
-    <div id="search-box">
-        <label for="search-input"></label><input type="text" id="search-input" placeholder="Inserisci la tua città o luogo">
-        <button  id="search-button">Cerca</button>
-    </div>
-    <div id="map" ></div>
-</div>
+    <main class="store-main">
+        <div class="store-container">
+            <!-- Header della pagina -->
+            <section class="store-header">
+                <h1>I Nostri Store</h1>
+                <p>Trova il negozio BricoShop più vicino a te e vieni a trovarci!</p>
+            </section>
 
-<jsp:include page="/WEB-INF/jsp/components/common/footer.jsp" />
+            <!-- Sezione ricerca -->
+            <section class="search-section">
+                <div class="search-container">
+                    <h2>Cerca una località</h2>
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="Inserisci città, via o CAP...">
+                        <button id="search-btn">Cerca</button>
+                    </div>
+                </div>
+            </section>
 
-<script>
-    // Global variables for map functionality
-    let map;                // Google Maps instance
-    let markers = [];       // Array to store all store location markers
-    let autocomplete;       // Google Places Autocomplete object
-    let searchMarker = null; // Marker for searched location
-    let geocoder;           // Geocoder for converting addresses to coordinates
+            <!-- Container principale con mappa e lista -->
+            <section class="main-content">
+                <!-- Mappa -->
+                <div class="map-container">
+                    <div id="map"></div>
+                </div>
 
-    // Store locations data
-    const stores = [
-        { name: "Store Roma Centro", lat: 41.9028, lng: 12.4964 },
-        { name: "Store Milano Nord", lat: 45.4642, lng: 9.1900 },
-        { name: "Store Napoli", lat: 40.8518, lng: 14.2681 }
-    ];
+                <!-- Lista store -->
+                <div class="stores-container">
+                    <h2>I Nostri Punti Vendita</h2>
+                    <div id="stores-list">
+                        <!-- Caricamento lista store via JavaScript -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
 
-    /**
-     * Initialize the Google Map and related functionality
-     * Called automatically by Google Maps API when loaded
-     */
-    function initMap() {
-        // Create the map centered on Italy
-        map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: 42.0, lng: 12.0 },
-            zoom: 6,
-        });
+    <jsp:include page="/WEB-INF/jsp/components/common/footer.jsp" />
 
-        // Initialize geocoder for manual address searches
-        geocoder = new google.maps.Geocoder();
+    <!-- JavaScript -->
+    <script>
+        // Variabili globali
+        let map;
+        let markers = [];
+        let searchMarker = null;
+        let geocoder;
+        let autocomplete;
 
-        // Display store markers on the map
-        showMarkers(stores);
-
-        // Setup Google Places Autocomplete for the search input
-        autocomplete = new google.maps.places.Autocomplete(
-            document.getElementById("search-input"),
+        // Dati degli store
+        const stores = [
             {
-                types: ['geocode'],
-                componentRestrictions: { country: 'it' } // Restrict to Italy
+                id: 1,
+                name: "BricoShop Milano",
+                address: "Via Torino 15, 20123 Milano MI",
+                phone: "02 1234567",
+                email: "milano@bricoshop.it",
+                lat: 45.4642,
+                lng: 9.1900,
+                hours: {
+                    weekdays: "8:30 - 19:30",
+                    saturday: "8:30 - 20:00",
+                    sunday: "9:00 - 18:00"
+                }
+            },
+            {
+                id: 2,
+                name: "BricoShop Roma",
+                address: "Via del Corso 123, 00186 Roma RM",
+                phone: "06 9876543",
+                email: "roma@bricoshop.it",
+                lat: 41.9028,
+                lng: 12.4964,
+                hours: {
+                    weekdays: "8:30 - 19:30",
+                    saturday: "8:30 - 20:00",
+                    sunday: "9:00 - 18:00"
+                }
+            },
+            {
+                id: 3,
+                name: "BricoShop Napoli",
+                address: "Via Toledo 456, 80134 Napoli NA",
+                phone: "081 5555555",
+                email: "napoli@bricoshop.it",
+                lat: 40.8518,
+                lng: 14.2681,
+                hours: {
+                    weekdays: "8:30 - 19:30",
+                    saturday: "8:30 - 20:00",
+                    sunday: "9:00 - 18:00"
+                }
             }
-        );
+        ];
 
-        // Add event listeners
-        autocomplete.addListener("place_changed", onPlaceChanged);
-        document.getElementById("search-button").addEventListener("click", onManualSearch);
-    }
+        // Inizializzazione mappa
+        function initMap() {
+            try {
+                console.log("Inizializzazione mappa Google Maps...");
 
-    /**
-     * Handle autocomplete selection
-     */
-    function onPlaceChanged() {
-        const place = autocomplete.getPlace();
-        if (!place.geometry) {
-            alert("Luogo non trovato.");
-            return;
+                // Verifica che Google Maps sia caricato
+                if (typeof google === 'undefined' || !google.maps) {
+                    throw new Error("Google Maps non caricato");
+                }
+
+                // Crea la mappa centrata sull'Italia
+                map = new google.maps.Map(document.getElementById("map"), {
+                    center: { lat: 41.8719, lng: 12.5674 }, // Centro Italia
+                    zoom: 6,
+                    styles: [
+                        {
+                            featureType: "poi",
+                            elementType: "labels",
+                            stylers: [{ visibility: "off" }]
+                        }
+                    ]
+                });
+
+                // Inizializza geocoder
+                geocoder = new google.maps.Geocoder();
+
+                // Mostra i marker degli store
+                showStoreMarkers();
+
+                // Inizializza autocomplete
+                initAutocomplete();
+
+                // Event listener per il pulsante cerca
+                document.getElementById('search-btn').addEventListener('click', searchLocation);
+
+                // Mostra la lista degli store
+                displayStoresList();
+
+                console.log("Mappa inizializzata con successo");
+
+            } catch (error) {
+                console.error("Errore inizializzazione mappa:", error);
+                handleMapError();
+            }
         }
 
-        showSearchMarker(place.geometry.location, place.name);
-    }
-
-    /**
-     * Handle manual search button click
-     */
-    function onManualSearch() {
-        const input = document.getElementById("search-input").value.trim();
-
-        if (!input) {
-            alert("Inserisci una città o un luogo.");
-            return;
+        // Gestione errori mappa
+        function handleMapError() {
+            const mapContainer = document.getElementById("map");
+            mapContainer.innerHTML = `
+                <div class="map-error">
+                    <h3>Mappa non disponibile</h3>
+                    <p>Si è verificato un problema nel caricamento della mappa. Puoi comunque consultare l'elenco dei nostri store qui sotto.</p>
+                </div>
+            `;
+            // Mostra comunque la lista degli store
+            displayStoresList();
         }
 
-        geocoder.geocode({ address: input }, function(results, status) {
-            if (status === "OK" && results[0]) {
-                const location = results[0].geometry.location;
-                const name = results[0].formatted_address;
-                showSearchMarker(location, name);
-            } else {
-                alert("Luogo non trovato.");
-            }
-        });
-    }
+        // Mostra marker degli store
+        function showStoreMarkers() {
+            stores.forEach((store, index) => {
+                const marker = new google.maps.Marker({
+                    position: { lat: store.lat, lng: store.lng },
+                    map: map,
+                    title: store.name,
+                    icon: {
+                        url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                            <svg width="30" height="40" viewBox="0 0 30 40" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15 0C6.7 0 0 6.7 0 15c0 8.3 15 25 15 25s15-16.7 15-25C30 6.7 23.3 0 15 0z" fill="#e74c3c"/>
+                                <circle cx="15" cy="15" r="8" fill="white"/>
+                                <text x="15" y="20" text-anchor="middle" font-family="Arial" font-size="10" fill="#e74c3c" font-weight="bold">${index + 1}</text>
+                            </svg>
+                        `),
+                        scaledSize: new google.maps.Size(30, 40),
+                        anchor: new google.maps.Point(15, 40)
+                    }
+                });
 
-    /**
-     * Display a marker at the searched location
-     * @param {Object} location - The coordinates of the searched location
-     * @param {string} title - The name of the location
-     */
-    function showSearchMarker(location, title) {
-        // Remove existing search marker if present
-        if (searchMarker) {
-            searchMarker.setMap(null);
-        }
+                // Info window
+                const infoWindow = new google.maps.InfoWindow({
+                    content: createInfoWindowContent(store)
+                });
 
-        // Create new marker at search location
-        searchMarker = new google.maps.Marker({
-            position: location,
-            map: map,
-            title: title, // Add title to marker itself, not in icon
-            icon: {
-                url: "https://cdn-icons-png.flaticon.com/512/4874/4874722.png",
-                scaledSize: new google.maps.Size(32, 32)
-            }
-        });
+                marker.addListener('click', () => {
+                    // Chiudi tutte le altre info window
+                    markers.forEach(m => m.infoWindow && m.infoWindow.close());
+                    infoWindow.open(map, marker);
 
-        // Center and zoom the map to the searched location
-        map.setCenter(location);
-        map.setZoom(12);
-    }
+                    // Centra la mappa sul marker
+                    map.setCenter(marker.getPosition());
+                    map.setZoom(15);
+                });
 
-    /**
-     * Display markers for all store locations
-     * @param {Array} storeList - List of store objects with coordinates
-     */
-    function showMarkers(storeList) {
-        clearMarkers();
-        storeList.forEach(store => {
-            const marker = new google.maps.Marker({
-                position: { lat: store.lat, lng: store.lng },
-                map,
-                title: store.name
+                marker.infoWindow = infoWindow;
+                markers.push(marker);
             });
-            markers.push(marker);
+        }
+
+        // Crea contenuto info window
+        function createInfoWindowContent(store) {
+            return `
+                <div class="info-window">
+                    <h3>${store.name}</h3>
+                    <p><strong>📍 Indirizzo:</strong><br>${store.address}</p>
+                    <p><strong>📞 Telefono:</strong> <a href="tel:${store.phone}">${store.phone}</a></p>
+                    <p><strong>✉️ Email:</strong> <a href="mailto:${store.email}">${store.email}</a></p>
+                    <div class="hours">
+                        <strong>🕒 Orari:</strong>
+                        <ul>
+                            <li>Lun-Ven: ${store.hours.weekdays}</li>
+                            <li>Sabato: ${store.hours.saturday}</li>
+                            <li>Domenica: ${store.hours.sunday}</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Inizializza autocomplete
+        function initAutocomplete() {
+            const input = document.getElementById('search-input');
+            autocomplete = new google.maps.places.Autocomplete(input, {
+                types: ['geocode'],
+                componentRestrictions: { country: 'it' }
+            });
+
+            autocomplete.addListener('place_changed', () => {
+                const place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    alert('Luogo non trovato. Riprova con un\'altra ricerca.');
+                    return;
+                }
+                showSearchLocation(place.geometry.location, place.formatted_address);
+            });
+        }
+
+        // Cerca località
+        function searchLocation() {
+            const query = document.getElementById('search-input').value.trim();
+            if (!query) {
+                alert('Inserisci una località da cercare.');
+                return;
+            }
+
+            geocoder.geocode({
+                address: query,
+                componentRestrictions: { country: 'IT' }
+            }, (results, status) => {
+                if (status === 'OK' && results[0]) {
+                    showSearchLocation(results[0].geometry.location, results[0].formatted_address);
+                } else {
+                    alert('Località non trovata. Riprova con un\'altra ricerca.');
+                }
+            });
+        }
+
+        // Mostra località cercata
+        function showSearchLocation(location, address) {
+            // Rimuovi marker precedente
+            if (searchMarker) {
+                searchMarker.setMap(null);
+            }
+
+            // Crea nuovo marker
+            searchMarker = new google.maps.Marker({
+                position: location,
+                map: map,
+                title: 'Località cercata',
+                icon: {
+                    url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                        <svg width="25" height="35" viewBox="0 0 25 35" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.5 0C5.6 0 0 5.6 0 12.5c0 6.9 12.5 22.5 12.5 22.5s12.5-15.6 12.5-22.5C25 5.6 19.4 0 12.5 0z" fill="#3498db"/>
+                            <circle cx="12.5" cy="12.5" r="6" fill="white"/>
+                        </svg>
+                    `),
+                    scaledSize: new google.maps.Size(25, 35),
+                    anchor: new google.maps.Point(12.5, 35)
+                }
+            });
+
+            // Info window per la ricerca
+            const searchInfoWindow = new google.maps.InfoWindow({
+                content: `<div class="search-info"><h4>📍 ${address}</h4></div>`
+            });
+
+            searchMarker.addListener('click', () => {
+                searchInfoWindow.open(map, searchMarker);
+            });
+
+            // Centra mappa sulla località
+            map.setCenter(location);
+            map.setZoom(12);
+        }
+
+        // Mostra lista store
+        function displayStoresList() {
+            const container = document.getElementById('stores-list');
+
+            let html = '';
+            stores.forEach((store, index) => {
+                html += `
+                    <div class="store-card" data-index="${index}">
+                        <div class="store-header">
+                            <h3>${store.name}</h3>
+                            <span class="store-number">${index + 1}</span>
+                        </div>
+                        <div class="store-info">
+                            <p class="address">📍 ${store.address}</p>
+                            <p class="phone">📞 <a href="tel:${store.phone}">${store.phone}</a></p>
+                            <p class="email">✉️ <a href="mailto:${store.email}">${store.email}</a></p>
+                        </div>
+                        <div class="store-hours">
+                            <h4>🕒 Orari di apertura:</h4>
+                            <ul>
+                                <li>Lun-Ven: ${store.hours.weekdays}</li>
+                                <li>Sabato: ${store.hours.saturday}</li>
+                                <li>Domenica: ${store.hours.sunday}</li>
+                            </ul>
+                        </div>
+                        <div class="store-actions">
+                            <button class="locate-btn" onclick="locateStore(${index})">
+                                📍 Mostra sulla Mappa
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Localizza store sulla mappa
+        function locateStore(index) {
+            const store = stores[index];
+            if (!map || !store) return;
+
+            // Centra mappa sullo store
+            map.setCenter({ lat: store.lat, lng: store.lng });
+            map.setZoom(15);
+
+            // Apri info window
+            const marker = markers[index];
+            if (marker && marker.infoWindow) {
+                // Chiudi altre info window
+                markers.forEach(m => m.infoWindow && m.infoWindow.close());
+                marker.infoWindow.open(map, marker);
+            }
+
+            // Scroll verso la mappa
+            document.querySelector('.map-container').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Inizializzazione al caricamento della pagina
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM caricato");
+            // Mostra sempre la lista degli store
+            displayStoresList();
         });
-    }
 
-    /**
-     * Remove all existing store markers from the map
-     */
-    function clearMarkers() {
-        markers.forEach(marker => marker.setMap(null));
-        markers = [];
-    }
-</script>
+        // Gestione errori Google Maps
+        window.gm_authFailure = function() {
+            console.error("Errore autenticazione Google Maps");
+            handleMapError();
+        };
+    </script>
 
+    <!-- Google Maps API -->
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBeuZoLXSQA42geWr_OQJ1nwGUs886BXI&callback=initMap&libraries=places"
+            onerror="handleMapError()">
+    </script>
 
-<!-- Google Maps API -->
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBeuZoLXSQA42geWr_OQJ1nwGUs886BXI&callback=initMap&libraries=places">
-</script>
-
+    <!-- Fallback timeout -->
+    <script>
+        setTimeout(() => {
+            if (typeof google === 'undefined') {
+                handleMapError();
+            }
+        }, 10000);
+    </script>
 </body>
 </html>
