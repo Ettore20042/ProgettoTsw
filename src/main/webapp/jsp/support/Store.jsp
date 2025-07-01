@@ -113,6 +113,13 @@
                     throw new Error("Google Maps non caricato");
                 }
 
+                // TEST: Verifica i dati degli store subito
+                console.log("TEST: Verifico dati stores all'avvio");
+                console.log("stores.length:", stores.length);
+                console.log("Primo store:", stores[0]);
+                console.log("Secondo store:", stores[1]);
+                console.log("Terzo store:", stores[2]);
+
                 // Crea la mappa centrata sull'Italia
                 map = new google.maps.Map(document.getElementById("map"), {
                     center: { lat: 41.8719, lng: 12.5674 }, // Centro Italia
@@ -164,32 +171,74 @@
 
         // Mostra marker degli store
         function showStoreMarkers() {
+            console.log('Creazione marker per', stores.length, 'store');
+            console.log('Array stores completo:', stores);
+
             stores.forEach((store, index) => {
+                console.log(`Creando marker ${index + 1} per:`, store.name);
+                console.log('Dati store completi:', store);
+
+                // Verifica che i dati dello store siano presenti
+                if (!store || !store.name || !store.address) {
+                    console.error(`Store ${index} ha dati mancanti:`, store);
+                    return;
+                }
+
                 const marker = new google.maps.Marker({
                     position: { lat: store.lat, lng: store.lng },
                     map: map,
                     title: store.name,
+                    label: {
+                        text: (index + 1).toString(),
+                        color: 'white',
+                        fontSize: '14px',
+                        fontWeight: 'bold'
+                    },
                     icon: {
-                        url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
-                            <svg width="30" height="40" viewBox="0 0 30 40" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M15 0C6.7 0 0 6.7 0 15c0 8.3 15 25 15 25s15-16.7 15-25C30 6.7 23.3 0 15 0z" fill="#e74c3c"/>
-                                <circle cx="15" cy="15" r="8" fill="white"/>
-                                <text x="15" y="20" text-anchor="middle" font-family="Arial" font-size="10" fill="#e74c3c" font-weight="bold">${index + 1}</text>
-                            </svg>
-                        `),
-                        scaledSize: new google.maps.Size(30, 40),
-                        anchor: new google.maps.Point(15, 40)
+                        path: google.maps.SymbolPath.CIRCLE,
+                        scale: 20,
+                        fillColor: '#e74c3c',
+                        fillOpacity: 1,
+                        strokeColor: '#c0392b',
+                        strokeWeight: 2
                     }
                 });
 
+                // Crea il contenuto dell'info window usando concatenazione di stringhe
+                const infoContent =
+                    '<div style="padding: 10px; max-width: 250px;">' +
+                        '<h3 style="margin: 0 0 10px 0; color: #333;">' + store.name + '</h3>' +
+                        '<p style="margin: 5px 0;"><strong>Indirizzo:</strong><br>' + store.address + '</p>' +
+                        '<p style="margin: 5px 0;"><strong>Telefono:</strong> ' + store.phone + '</p>' +
+                        '<p style="margin: 5px 0;"><strong>Email:</strong> ' + store.email + '</p>' +
+                        '<div style="margin-top: 10px;">' +
+                            '<strong>Orari:</strong><br>' +
+                            'Lun-Ven: ' + store.hours.weekdays + '<br>' +
+                            'Sabato: ' + store.hours.saturday + '<br>' +
+                            'Domenica: ' + store.hours.sunday +
+                        '</div>' +
+                    '</div>';
+
+                console.log('TEST - Contenuto con concatenazione per ' + store.name + ':', infoContent);
+
                 // Info window
                 const infoWindow = new google.maps.InfoWindow({
-                    content: createInfoWindowContent(store)
+                    content: infoContent
                 });
 
                 marker.addListener('click', () => {
+                    console.log('Marker clicked:', store.name);
+                    console.log('Store data on click:', store);
+                    console.log('Aprendo info window per:', store.name);
+
                     // Chiudi tutte le altre info window
-                    markers.forEach(m => m.infoWindow && m.infoWindow.close());
+                    markers.forEach(m => {
+                        if (m.infoWindow) {
+                            m.infoWindow.close();
+                        }
+                    });
+
+                    // Apri questa info window
                     infoWindow.open(map, marker);
 
                     // Centra la mappa sul marker
@@ -200,26 +249,7 @@
                 marker.infoWindow = infoWindow;
                 markers.push(marker);
             });
-        }
-
-        // Crea contenuto info window
-        function createInfoWindowContent(store) {
-            return `
-                <div class="info-window">
-                    <h3>${store.name}</h3>
-                    <p><strong>📍 Indirizzo:</strong><br>${store.address}</p>
-                    <p><strong>📞 Telefono:</strong> <a href="tel:${store.phone}">${store.phone}</a></p>
-                    <p><strong>✉️ Email:</strong> <a href="mailto:${store.email}">${store.email}</a></p>
-                    <div class="hours">
-                        <strong>🕒 Orari:</strong>
-                        <ul>
-                            <li>Lun-Ven: ${store.hours.weekdays}</li>
-                            <li>Sabato: ${store.hours.saturday}</li>
-                            <li>Domenica: ${store.hours.sunday}</li>
-                        </ul>
-                    </div>
-                </div>
-            `;
+            console.log('Creati', markers.length, 'marker totali');
         }
 
         // Inizializza autocomplete
@@ -304,32 +334,30 @@
 
             let html = '';
             stores.forEach((store, index) => {
-                html += `
-                    <div class="store-card" data-index="${index}">
-                        <div class="store-header">
-                            <h3>${store.name}</h3>
-                            <span class="store-number">${index + 1}</span>
-                        </div>
-                        <div class="store-info">
-                            <p class="address">📍 ${store.address}</p>
-                            <p class="phone">📞 <a href="tel:${store.phone}">${store.phone}</a></p>
-                            <p class="email">✉️ <a href="mailto:${store.email}">${store.email}</a></p>
-                        </div>
-                        <div class="store-hours">
-                            <h4>🕒 Orari di apertura:</h4>
-                            <ul>
-                                <li>Lun-Ven: ${store.hours.weekdays}</li>
-                                <li>Sabato: ${store.hours.saturday}</li>
-                                <li>Domenica: ${store.hours.sunday}</li>
-                            </ul>
-                        </div>
-                        <div class="store-actions">
-                            <button class="locate-btn" onclick="locateStore(${index})">
-                                📍 Mostra sulla Mappa
-                            </button>
-                        </div>
-                    </div>
-                `;
+                html += '<div class="store-card" data-index="' + index + '">' +
+                    '<div class="store-header">' +
+                        '<h3>' + store.name + '</h3>' +
+                        '<span class="store-number">' + (index + 1) + '</span>' +
+                    '</div>' +
+                    '<div class="store-info">' +
+                        '<p class="address">📍 ' + store.address + '</p>' +
+                        '<p class="phone">📞 <a href="tel:' + store.phone + '">' + store.phone + '</a></p>' +
+                        '<p class="email">✉️ <a href="mailto:' + store.email + '">' + store.email + '</a></p>' +
+                    '</div>' +
+                    '<div class="store-hours">' +
+                        '<h4>🕒 Orari di apertura:</h4>' +
+                        '<ul>' +
+                            '<li>Lun-Ven: ' + store.hours.weekdays + '</li>' +
+                            '<li>Sabato: ' + store.hours.saturday + '</li>' +
+                            '<li>Domenica: ' + store.hours.sunday + '</li>' +
+                        '</ul>' +
+                    '</div>' +
+                    '<div class="store-actions">' +
+                        '<button class="locate-btn" onclick="locateStore(' + index + ')">' +
+                            '📍 Mostra sulla Mappa' +
+                        '</button>' +
+                    '</div>' +
+                '</div>';
             });
 
             container.innerHTML = html;
