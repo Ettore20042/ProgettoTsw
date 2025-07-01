@@ -53,7 +53,6 @@ public class OrderDAO {
                 o.setStatus(resultSet.getString("Status"));
                 o.setOrderDate(resultSet.getDate("OrderDate").toLocalDate());
                 o.setOrderTime(resultSet.getTime("OrderTime").toLocalTime());
-                System.out.println("pppppppppppppppp");
                 o.setBillingAddressId(resultSet.getInt("BillingAddressID"));
                 o.setShippingAddressId(resultSet.getInt("ShippingAddressID"));
                 o.setTotalAmount(resultSet.getFloat("TotalAmount"));

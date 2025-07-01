@@ -23,7 +23,6 @@ public class OrderServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String userId = request.getParameter("userId");
-        System.out.println(userId);
 
         OrderDAO orderDAO = new OrderDAO();
         OrderItemDAO orderItemDAO = new OrderItemDAO();
@@ -48,6 +47,33 @@ public class OrderServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/profile/User.jsp");
         dispatcher.forward(request, response);
+    }
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+        String userId = request.getParameter("userId");
+
+        OrderDAO orderDAO = new OrderDAO();
+        OrderItemDAO orderItemDAO = new OrderItemDAO();
+
+        try {
+            List<Order> orderList = orderDAO.doRetrieveByUserId(Integer.parseInt(userId));
+
+            for(Order order : orderList){
+                List<OrderItem> items = orderItemDAO.doRetrieveByOrderID(order.getOrderId());
+                order.setOrderItems(items);
+            }
+
+
+            request.setAttribute("orderList", orderList);
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/profile/Order.jsp");
+            dispatcher.forward(request, response);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
     }
 
 }

@@ -37,43 +37,44 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Remove Item ---
     //  For AJAX removal (if you want to prevent page reload)
-    document.querySelectorAll('.remove-button').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault(); // Prevent form submission
-            const form = this.closest('form');
-            const productId = form.querySelector('input[name="productId"]').value;
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+        /*(async response => { // Verifica il tipo di contenuto dalla risposta per assicurarsi che sia JSON const contentType = response.headers.get("content-type");
+         // Legge il corpo della risposta come testo per debug e parsing const text = await response.text();
+          console.log("Raw response:", text);*/
+        .then(async response => {
+            const contentType = response.headers.get("content-type");
+            const text = await response.text();
+            console.log("Raw response:", text);
 
-            const formData = new URLSearchParams();
-            formData.append('productId', productId);
-            formData.append('action', 'remove');
-
-            fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Content-Type': 'application/x-www-form-urlencoded'
+            if (contentType && contentType.includes("application/json")) {
+                return JSON.parse(text);
+            } else {
+                throw new Error("Response is not JSON:\n" + text);
+            }
+        })
+        .then(data => {
+            if (data.success) {
+                const cartRow = this.closest('.cart-row');
+                if (cartRow) {
+                    cartRow.remove();
+                    updateCartTotal();
                 }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Remove the item from the UI without page reload
-                        const cartRow = this.closest('.cart-row');
-                        if (cartRow) {
-                            cartRow.remove();
-                            updateCartTotal();
-                        }
-                    } else {
-                        console.error('Error removing item:', data.error);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error removing item:', error);
-                });
+            } else {
+                console.error('Error removing item:', data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error removing item:', error);
         });
-    });
-    
+
+
 
     function updateRowTotal(inputElement, quantity, price) {
         const row = inputElement.closest('.cart-row');

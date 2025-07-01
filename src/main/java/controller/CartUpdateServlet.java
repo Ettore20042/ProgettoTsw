@@ -14,10 +14,11 @@ public class CartUpdateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
+        System.out.println("CartUpdateServlet: Processing request to update or remove cart item");
         String productIdParam = request.getParameter("productId");
         String action = request.getParameter("action");
         String quantityParam = request.getParameter("quantity");
+        System.out.println("Received parameters: productId=" + productIdParam + ", action=" + action + ", quantity=" + quantityParam);
 
         if (productIdParam == null) {
             sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Missing product ID");

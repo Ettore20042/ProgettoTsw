@@ -19,24 +19,35 @@
 }
 
 .admin-button-toggle{
-    display: none;
+    display: flex;
     padding: 0.8rem 1rem;
-    background-color: #4CAF50;
+    background-color: #8B5E3C; /* Marrone caldo */
     color: white;
     text-align: center;
     text-decoration: none;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius:  5px;
     transition: background-color 0.3s;
+    margin-bottom: 1rem;
+    border:2px solid black;
+
 
 }
 
 .admin-button-toggle.active{
     display: block;
+    background-color: #f3eed8;
+    text-align: center;
+    color: #392E23; /* Colore del testo quando attivo */
+
 }
 
 .admin-button-toggle:hover{
-    background-color: #45a049;
+    background-color: #734A2E;
+}
+.admin-button-toggle.active:hover{
+    background-color: #ede1b0; /* Mantiene il colore chiaro quando attivo */
+    color: #392E23; /* Colore del testo quando attivo */
 }
 
 
@@ -117,7 +128,8 @@
 }
 
 #suggestions-for-table.active {
-    display: block; /* Mostra i suggerimenti quando la classe .active è presente */
+    display: block; /* Mostra i suggerimenti quando attivo */
+
 }
 
 

@@ -28,10 +28,10 @@
     <div class="manage-components-container-filter">
         <%-- Qui andrà la componente dei filtri riutilizzabile --%>
         <nav class="admin-nav">
-            <a href="${pageContext.request.contextPath}/ManageServlet?entity=products" class="admin-button-toggle ${entity == 'products' ? '' : 'active'}">Gestione Prodotti</a>
-            <a href="${pageContext.request.contextPath}/ManageServlet?entity=users" class="admin-button-toggle ${entity == 'users' ? '' : 'active'}">Gestione Utenti</a> <%-- Esempio per il futuro --%>
-            <a href="${pageContext.request.contextPath}/ManageServlet?entity=brands" class="admin-button-toggle ${entity == 'brands' ? '' : 'active'}">Gestione Brands</a>
-            <a href="${pageContext.request.contextPath}/ManageServlet?entity=categories" class="admin-button-toggle ${entity == 'categories' ? '' : 'active'}">Gestione Categorie</a>
+            <a href="${pageContext.request.contextPath}/ManageServlet?entity=products" class="admin-button-toggle ${entity == 'products' ? 'active' : ''}">Gestione Prodotti</a>
+            <a href="${pageContext.request.contextPath}/ManageServlet?entity=users" class="admin-button-toggle ${entity == 'users' ? 'active' : ''}">Gestione Utenti</a> <%-- Esempio per il futuro --%>
+            <a href="${pageContext.request.contextPath}/ManageServlet?entity=brands" class="admin-button-toggle ${entity == 'brands' ? 'active' : ''}">Gestione Brands</a>
+            <a href="${pageContext.request.contextPath}/ManageServlet?entity=categories" class="admin-button-toggle ${entity == 'categories' ? 'active' : ''}">Gestione Categorie</a>
 
         </nav>
 
