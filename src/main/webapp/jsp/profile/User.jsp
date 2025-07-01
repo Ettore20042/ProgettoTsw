@@ -38,9 +38,9 @@
                     <p><%= user.getEmail()%></p>
                 <% } %>
             </div>
-
+        
                 <div class="overview-user-orders">
-                    <a href="${pageContext.request.contextPath}/OrderServlet?userId=${user.userId}" method="post">
+                    <a href="${pageContext.request.contextPath}/OrderServlet?userId=${user.userId}" method="post" id="user-orders-link">
                         <h2>I tuoi ordini</h2>
                     </a>
 
@@ -70,8 +70,8 @@
 
                     <% if (request.getSession().getAttribute("user") != null) {
                         User user = (User) session.getAttribute("user");%>
-                    <form action="${pageContext.request.contextPath}/OrderServlet?userId=<%= user.getUserId()%>" method="post">
-                        <button type="submit" class="overview-user-orders-buttons">Vedi tutti</button>
+                    <form action="${pageContext.request.contextPath}/OrderServlet?userId=<%= user.getUserId()%>" method="post" id="view-all-orders-form">
+                        <button type="submit" class="overview-user-orders-buttons" >Vedi tutti</button>
                     </form>
                     <% } %>
                 </div>

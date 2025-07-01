@@ -156,10 +156,16 @@ body > h1 {
     padding-top: 20px;
     display: flex;
     justify-content: flex-end;
+
+}
+#view-all-orders-form {
+    margin-top: auto;
+    align-self: flex-end;
 }
 
 /* Bottone "Vedi tutti" */
 .overview-user-orders-buttons {
+
     padding: 12px 24px;
     font-size: 1rem;
     font-weight: 600;
@@ -171,6 +177,7 @@ body > h1 {
     cursor: pointer;
     transition: all 0.3s ease;
     outline: none;
+
 }
 
 .overview-user-orders-buttons:hover {
