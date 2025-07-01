@@ -224,6 +224,7 @@ class ProductManager extends BaseManager {
             const data = await response.json();
 
             if (data.success && data.product) {
+
                 this.populateFormForEdit(data);
                 this.openModal();
             } else {

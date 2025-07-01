@@ -30,22 +30,21 @@
                 <img src="${pageContext.request.contextPath}/img/header/icona_profilo.svg" alt="Icona profilo" id="profileIcon" tabindex="0"/>
             </button>
             <div class="user-role_container">
-                <%if (request.getSession().getAttribute("user") != null) {
-                    User user = (User) session.getAttribute("user");
-                    if (user.isAdmin()) { %>
-                <a href="${pageContext.request.contextPath}/ManageServlet?entity=products" class="user-role-button">Admin</a>
-
-                <% } } %>
+                <c:if test="${sessionScope.user != null && sessionScope.user.admin}">
+                    <a href="${pageContext.request.contextPath}/ManageServlet?entity=products" class="user-role-button">Admin</a>
+                </c:if>
             </div>
             <div class="user-actions_dropdown" id="userActionsDropdown">
-                <% if (request.getSession().getAttribute("user") != null) {
-                    User user = (User) session.getAttribute("user");%>
-                <a href="${pageContext.request.contextPath}/OrderServlet?userId=<%= user.getUserId()%>" class="user-actions_dropdown--first-link">Account</a>
-                <a href="${pageContext.request.contextPath}/LogoutServlet">Logout</a>
-                <% } else { %>
-                <a href="${pageContext.request.contextPath}/jsp/auth/Login.jsp" class="user-actions_dropdown--first-link">Accedi</a>
-                <a href="${pageContext.request.contextPath}/jsp/auth/Registration.jsp">Registrati</a>
-                <% } %>
+                <c:choose>
+                    <c:when test="${sessionScope.user != null}">
+                        <a href="${pageContext.request.contextPath}/OrderServlet?userId=${sessionScope.user.userId}" class="user-actions_dropdown--first-link">Account</a>
+                        <a href="${pageContext.request.contextPath}/LogoutServlet">Logout</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${pageContext.request.contextPath}/jsp/auth/Login.jsp" class="user-actions_dropdown--first-link">Accedi</a>
+                        <a href="${pageContext.request.contextPath}/jsp/auth/Registration.jsp">Registrati</a>
+                    </c:otherwise>
+                </c:choose>
             </div>
 
             <a href="${pageContext.request.contextPath}/jsp/profile/Cart.jsp" class="user-actions_button user-actions_button--cart">

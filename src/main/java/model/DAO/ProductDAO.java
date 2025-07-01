@@ -122,10 +122,8 @@ public class ProductDAO {
     public List<Product> doRetrieveBySalePrice() {
         try (Connection connection = ConnPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "SELECT * " +
-                            "FROM product " +
-                            "WHERE SalePrice > 0"
-            );
+                    "SELECT * FROM product WHERE SalePrice > 0");
+
             ResultSet resultSet = preparedStatement.executeQuery();
             List<Product> products = new ArrayList<>();
             while (resultSet.next()) {
@@ -216,28 +214,35 @@ public class ProductDAO {
         }
     }
 
-    public List<Product> doRetrieveByFilter(String category, String brand, String color, String material, Float minPrice, Float maxPrice) {
+    public List<Product> getFilteredProducts(Integer category, String[] brands, String[] colors, String[] materials, Float minPrice, Float maxPrice) {
         List<Product> products = new ArrayList<>();
         StringBuilder query = new StringBuilder("SELECT * FROM product WHERE 1=1");
 
         List<Object> parameters = new ArrayList<>();
 
-        if (category != null && !category.isEmpty()) {
-            query.append(" CategoryID = ? OR CategoryID IN (SELECT CategoryID FROM category WHERE ParentCategory = ?)");
+        // Filtro per categoria (corretto con AND)
+        if (category != null) {
+            query.append(" AND (CategoryID = ? OR CategoryID IN (SELECT CategoryID FROM category WHERE ParentCategory = ?))");
             parameters.add(category);
             parameters.add(category);
         }
-        if (brand != null && !brand.isEmpty()) {
-            query.append(" AND BrandID = ?");
-            parameters.add(brand);
+
+        // Filtro per brand (usando IN per array)
+        if (brands != null && brands.length > 0) {
+            query.append(" AND BrandID IN (");
+            addQueryParamFromList(brands, query, parameters);
         }
-        if (color != null && !color.isEmpty()) {
-            query.append(" AND Color = ?");
-            parameters.add(color);
+
+        // Filtro per colore (usando IN per array)
+        if (colors != null && colors.length > 0) {
+            query.append(" AND Color IN (");
+            addQueryParamFromList(colors, query, parameters);
         }
-        if (material != null && !material.isEmpty()) {
-            query.append(" AND Material = ?");
-            parameters.add(material);
+
+        // Filtro per materiale (usando IN per array)
+        if (materials != null && materials.length > 0) {
+            query.append(" AND Material IN (");
+            addQueryParamFromList(materials, query, parameters);
         }
         if (minPrice != null) {
             query.append(" AND Price >= ?");
@@ -278,6 +283,18 @@ public class ProductDAO {
         }
         return products;
     }
+
+    private void addQueryParamFromList(String[] items, StringBuilder query, List<Object> parameters) {
+        for (int i = 0; i < items.length; i++) {
+            query.append("?");
+            if (i < items.length - 1) {
+                query.append(",");
+            }
+            parameters.add(items[i]);
+        }
+        query.append(")");
+    }
+
     public int addProduct(Product product) {
         try (Connection connection = ConnPool.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO product (ProductName, Price, SalePrice, Description, CategoryID, Quantity, BrandID, Color) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
@@ -333,5 +350,80 @@ public class ProductDAO {
             throw new RuntimeException(e);
 
         }
+    }
+
+    /**
+     * Recupera la lista di tutti i colori disponibili
+     * @return Lista di colori unici
+     */
+    public List<String> getAllColors() {
+        List<String> colors = new ArrayList<>();
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                "SELECT DISTINCT Color FROM product WHERE Color IS NOT NULL AND Color != '' ORDER BY Color"
+            );
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                colors.add(resultSet.getString("Color"));
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        return colors;
+    }
+
+    /**
+     * Recupera la lista di tutti i materiali disponibili
+     * @return Lista di materiali unici
+     */
+    public List<String> getAllMaterials() {
+        List<String> materials = new ArrayList<>();
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                "SELECT DISTINCT Material FROM product WHERE Material IS NOT NULL AND Material != '' ORDER BY Material"
+            );
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                materials.add(resultSet.getString("Material"));
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        return materials;
+    }
+
+    /**
+     * Recupera il prezzo massimo di tutti i prodotti
+     * @return Prezzo massimo
+     */
+    public Float getMaxPrice() {
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                "SELECT MAX(Price) as maxPrice FROM product"
+            );
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getFloat("maxPrice");
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        return 0.0f;
+    }
+
+    public Float getMaxPrice(int categoryId) {
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT MAX(Price) as maxPrice FROM product WHERE CategoryID = ?"
+            );
+            preparedStatement.setInt(1, categoryId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getFloat("maxPrice");
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        return 0.0f;
     }
 }

@@ -38,27 +38,28 @@
             </div>
             <c:if test="${product.getQuantity() > 0}">
                 <p class="product-card_stock-status--available">Disponibilità immediata</p>
+
+                <form action="${pageContext.request.contextPath}/CartServlet" class="add-to-cart-form" data-product-id="${product.productId}" method="post" style="display: contents;">
+                    <input type="hidden" name="productId" value="${product.productId}" />
+                    <input type="hidden" name="quantity" value="1" />
+                    <button type="submit" class="product-card_button product-card_button--add-to-cart-icon">
+                        <span class="material-symbols-rounded">shopping_cart</span>
+                    </button>
+                </form>
+                <% if (request.getSession().getAttribute("user") == null) { %>
+                <a href="${pageContext.request.contextPath}/jsp/auth/Login.jsp?redirectAfterLogin=CheckoutServlet"
+                   class="product-card_button product-card_button--buy-now">
+                    Acquista Ora</a>
+                <% } else { %>
+                <form action="${pageContext.request.contextPath}/CheckoutServlet" method="post">
+                    <button type="submit" class="product-card_button product-card_button--buy-now">Acquista Ora</button>
+                </form>
+                <% } %>
+
             </c:if>
             <c:if test="${product.getQuantity() == 0}">
                 <p class="product-card_stock-status--not-available">Non disponibile momentaneamente</p>
             </c:if>
-            <form action="${pageContext.request.contextPath}/CartServlet" class="add-to-cart-form" data-product-id="${product.productId}" method="post" style="display: contents;">
-                <input type="hidden" name="productId" value="${product.productId}" />
-                <input type="hidden" name="quantity" value="1" />
-                <button type="submit" class="product-card_button product-card_button--add-to-cart-icon">
-                    <span class="material-symbols-rounded">shopping_cart</span>
-                </button>
-            </form>
-            <% if (request.getSession().getAttribute("user") == null) { %>
-            <a href="${pageContext.request.contextPath}/jsp/auth/Login.jsp?redirectAfterLogin=CheckoutServlet"
-               class="product-card_button product-card_button--buy-now">
-                Acquista Ora</a>
-            <% } else { %>
-            <form action="${pageContext.request.contextPath}/CheckoutServlet" method="post">
-                <button type="submit" class="product-card_button product-card_button--buy-now">Acquista Ora</button>
-            </form>
-            <% } %>
-
         </div>
     </section>
 </c:forEach>

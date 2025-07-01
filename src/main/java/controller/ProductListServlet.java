@@ -5,8 +5,10 @@ import com.google.gson.Gson;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import model.Bean.Brand;
 import model.Bean.Category;
 import model.Bean.Product;
+import service.BrandService;
 import service.CategoryService;
 import service.ProductService;
 
@@ -20,6 +22,7 @@ public class ProductListServlet extends HttpServlet {
 
     private ProductService productService;
     private CategoryService categoryService;
+    private BrandService brandService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -27,6 +30,7 @@ public class ProductListServlet extends HttpServlet {
         ServletContext context = config.getServletContext();
         this.productService = new ProductService(context);
         this.categoryService = new CategoryService(context);
+        this.brandService = new BrandService(context);
     }
 
     @Override

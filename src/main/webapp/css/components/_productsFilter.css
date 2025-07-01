@@ -1,0 +1,221 @@
+body.no-scroll {
+    overflow: hidden;
+}
+.product-filter{
+    display: flex;
+    flex-direction: column;
+}
+
+.product-filter_open-btn{
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: #83c600;
+    background-color: white;
+    border: 1px solid #83c600;
+    border-radius: 0.4rem;
+    padding: 0.5rem 1rem;
+}
+
+.product-filter_mobile-wrapper{
+    width: 0;
+    height: 100%;
+    background-color: rgba(66, 66, 66, 0.75);
+    top: 0;
+    right: 0;
+    position: fixed;
+    z-index: 1000;
+}
+.product-filter_wrapper{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: calc(100% - 5rem);
+    height: 100%;
+    margin-left: auto;
+    overflow-y: auto;
+    padding-bottom: 90px;
+}
+
+.product-filter_heading{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem 1.25rem;
+    background-color: rgb(239 174 0 / 9%);
+}
+.product-filter_heading .material-symbols-rounded{
+    font-family: 'Material Symbols Rounded';
+    font-size: 2rem;
+    color: #656565;
+    cursor: pointer;
+    align-self: flex-end;
+    transform: translateY(1rem);
+}
+.product-filter_title{
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    color: #392E23;
+    text-align: center;
+}
+
+.product-filter_details-box{
+    border-bottom: 1px solid #ccc;
+}
+
+.product-filter_details-summary{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+}
+
+.product-filter_details-summary::marker{
+    display: none;
+    content: '';
+}
+
+.product-filter_details-summary::after{
+    content: '\e315';
+    font-family: 'Material Symbols Rounded';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    transition: all 0.3s ease;
+}
+.product-filter_details-box[open] .product-filter_details-summary::after{
+    transform: rotate(90deg);
+}
+
+.product-filter_details-content{
+    display: flex;
+    flex-direction: column;
+}
+
+.product-filter_details-reset{
+    align-self: flex-end;
+    padding: 0.3rem 1rem 0;
+    background: none;
+    border: none;
+    color: #606060;
+    text-decoration: underline;
+}
+.product-filter_details-reset:hover{
+    color: #9DD141;
+}
+
+.product-filter_price-box{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.65rem;
+}
+
+.product-filter_price-range-value{
+    display: inline-block;
+    font-size: 0.9rem;
+    width: 100%;
+    flex-grow: 1;
+    text-align: center;
+    margin: 0 1rem 0.5rem 0;
+}
+.product-filter_price-min,
+.product-filter_price-max{
+    width: 4.5rem;
+    padding: 0.25rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.product-filter_price-box .material-symbols-rounded{
+    font-family: 'Material Symbols Rounded';
+    font-size: 25px;
+    vertical-align: middle;
+    color: #b7b7b7;
+}
+
+.product-filter_list{
+    list-style: none;
+    padding: 0 0 0.65rem;
+}
+.product-filter_list-item{
+    padding: 0 0 0 1rem;
+    cursor: pointer;
+}
+.product-filter_list-item:hover{
+    background-color: #f0f0f0;
+}
+.product-filter_label{
+    cursor: pointer;
+    display: inline-block;
+    width: 87%;
+    padding: 0.25rem 0;
+}
+
+.product-filter_buttons-event-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem 0.75rem;
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    z-index: 2000;
+    width: calc(100% - 5rem);
+}
+
+.product-filter_buttons-event{
+    margin: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 12rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.product-filter_reset-all{
+    padding: 0.75rem;
+    background: none;
+    border: none;
+    color: #9DD141;
+}
+
+.product-filter_apply{
+    padding: 0.75rem 1rem;
+    background-color: #9DD141;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+@media (min-width: 992px) {
+    .product-list{
+        grid-template-areas: "title title"
+                            "filter products";
+    }
+    .product-filter_open-btn{
+        display: none;
+    }
+    .product-filter_mobile-wrapper{
+        width: 100%;
+        position: relative;
+        background: none;
+    }
+}

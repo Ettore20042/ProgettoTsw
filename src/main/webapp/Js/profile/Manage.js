@@ -832,7 +832,3 @@ window.BaseManager = BaseManager;
 window.openModal = () => ManageSystem.getInstance().openModal();
 window.closeModal = () => ManageSystem.getInstance().closeModal();
 window.getCurrentManager = () => ManageSystem.getInstance().getCurrentManager();
-if(window.ProductManager) {
-   console.log('🚀 ProductManager è già caricato e disponibile globalmente');
-}
-
