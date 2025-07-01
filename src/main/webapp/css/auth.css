@@ -23,7 +23,8 @@ body {
 .auth-form-container__title {
     font-size: 2.2rem;
     /*color: #f3eed8;*/
-    color:rgb(57 46 35 / 49%);
+    /*color:rgb(57 46 35 / 49%);*/
+    color: #392e23;
     margin-bottom: 8%;
     margin-top: 4%;
     text-align: center;
@@ -45,13 +46,13 @@ body {
 }
 
 .auth-form-container__input:focus {
-    outline: 2px solid #7fa836;
+    outline: 2px solid #28a745;
     outline-offset: 2px;
 }
 
 .auth-form-container__button {
     width: 70%;
-    background-color: #7fa836;
+    background-color: #28a745;
     color: #f3eed8;
     padding: 0.5rem 1rem;
     border: 1px solid #f3eed8;
@@ -65,7 +66,7 @@ body {
 }
 
 .auth-form-container__button:hover {
-    background-color: #709537;
+    background-color: #2E7D32;
     color: #f3eed8;
 }
 
@@ -83,7 +84,9 @@ body {
 
 .auth-form-container__link:hover,
 .auth-form-container__link:focus {
-    color: #f3eed8;
+   /* color: #f3eed8;*/
+    color: #7fa836;
+
 }
 
 .auth-form-container__title--registration {
