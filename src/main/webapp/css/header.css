@@ -271,19 +271,21 @@ header.main-header{
 }
 .user-role-button{
     font-size:1rem;
-    color: #392E23;
+    color: black;
     font-weight: 500;
     margin-left: 0.5rem;
-    background: rgb(255, 188, 0);
+    background: #ffc400;
     border:1px solid #392E23;
     border-radius: 0.5rem;
     padding: 0.2rem 0.5rem;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease;
 
 }
 .user-role-button:hover{
-    background: rgba(19, 175, 19, 0.62);
-    color: #F3EED8;
+    background: #F3EED8;
     cursor: pointer;
+
 }
 
 
