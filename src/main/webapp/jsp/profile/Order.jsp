@@ -9,7 +9,7 @@
 <head>
     <title>Orders</title>
     <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/order.css">
 </head>
 
 <body>
@@ -19,16 +19,31 @@
         <div class="listorders-user-list">
             <h1>I tuoi ordini</h1>
 
-            <c:forEach var="order" items="${orderList}">
-                <div class="listorders-user-order-card">
-                    <p>Stato: ${order.status}</p>
-                    <p>Data: ${order.orderDate}</p>
-                    <p>Prodotti:</p>
-                    <div class="listorders-user-order-card-products">
+            <c:choose>
+                <c:when test="${not empty orderList}">
+                    <c:forEach var="order" items="${orderList}">
+                        <div class="listorders-user-order-card">
+                            <div class="order-card-details">
+                                <p>Stato: ${order.status}</p>
+                                <p>Data: ${order.orderDate}</p>
+                            </div>
 
-                    </div>
-                </div>
-            </c:forEach>
+                            <div class="order-card-products-section">
+                                <p>Prodotti:</p>
+
+                                <div class="listorders-user-order-card-products">
+                                    <c:forEach var="item" items="${order.orderItems}">
+                                        <img src="${pageContext.request.contextPath}/ImageServlet?productId=${item.productId}" alt="Immagine prodotto">
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <p class="no-orders-message">Non hai ancora effettuato nessun ordine</p>
+                </c:otherwise>
+            </c:choose>
         </div>
     </main>
 

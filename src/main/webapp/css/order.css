@@ -1,0 +1,155 @@
+/* stili globali */
+body {
+    background-color: #f4f7f9;
+    color: #333333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+}
+
+/*versione mobile*/
+.listorders-user-container{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 160px); /* altezza viewport meno header/footer*/
+}
+
+.listorders-user-container h1 {
+    font-size: 2.2rem;
+    color: #0056b3;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* contenitore con scroll verticale*/
+.listorders-user-list{
+    flex-grow: 1; /* facciamo in modo che il contenitore occupi lo spazio rimanente*/
+    overflow-y: auto; /* attiva la scrollbar verticale solo se necessario*/
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* card del singolo ordine*/
+.listorders-user-order-card{
+    background-color: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.listorders-user-order-card:last-child{
+    margin-bottom: 0;
+}
+
+.order-card-details p{
+    margin: 5px 0;
+    font-size: 0.95rem;
+}
+
+.order-card-products-section p{
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333333;
+}
+
+/*contenitore con scroll orizzontale per le immagini dei prodotti*/
+.listorders-user-order-card-products{
+    display: flex; /*allinea le immagini in orizzontale*/
+    overflow-x: auto; /*attiva la scrollbar orizzontale solo se necessario*/
+    gap: 10px; /*spazio fra le immagini*/
+    padding: 10px 0; /*spazio sopra e sotto le immagini*/
+    scrollbar-width: thin; /* scrollbar più sottile*/
+    scrollbar-color: #0056b3 #e0e0e0;
+}
+
+/* per migliorare l'aspetto della scrollbar e non avere l'aspetto default*/
+.listorders-user-order-card-products::-webkit-scrollbar{
+    height: 8px; /*imposta l'altezza della scrollbar*/
+}
+
+/* parte della scrollbar che l'utente clicca e trascina*/
+.listorders-user-order-card-products::-webkit-scrollbar-thumb{
+    background-color: #0056b3;
+    border-radius: 10px;
+}
+
+/*sfondo fisso della scrollbar*/
+.listorders-user-order-card-products::-webkit-scrollbar-track{
+    background-color: #f1f1f1;
+}
+
+
+/* stile delle singole immagini prodotto*/
+.listorders-user-order-card-products img{
+    height: 80px;
+    width: 80px;
+    object-fit: cover; /*evita che l'immagine si deformi*/
+    border-radius: 8px;
+    flex-shrink: 0; /*impedisce alle immagini di restringersi*/
+    border: 1px solid #e0e0e0;
+}
+
+.no-orders-message{
+    text-align: center;
+    padding: 40px;
+    font-size: 1.1rem;
+    color: #0056b3;
+}
+
+/* versione tablet*/
+@media (min-width: 768px) {
+    .listorders-user-container h1{
+        font-size: 2.8rem;
+    }
+
+    .listorders-user-order-card{
+        padding: 20px;
+    }
+
+    /* su tablet mostriamo i dettagli su una sola riga*/
+    .order-card-details{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .order-card-details p{
+        margin: 0;
+    }
+
+    .listorders-user-order-card-products img{
+        height: 100px;
+        width: 100px;
+    }
+}
+
+/* versione desktop*/
+@media (min-width: 992px) {
+    .listorders-user-container h1{
+        font-size: 3rem;
+        text-align: left; /* su schermi grandi allineiamo il titolo a sinistra*/
+    }
+
+    .listorders-user-list{
+        padding: 20px;
+    }
+
+    .listorders-user-order-card-products img{
+        height: 120px;
+        width: 120px;
+        transition: transform 0.2s ease-in-out; /* l'animazione parte lentamente, poi accelera gradualmente e verso la fine decelera prima di fermarsi*/
+    }
+
+    .listorders-user-order-card-products img:hover{
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+}

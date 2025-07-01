@@ -54,9 +54,17 @@ public class OrderServlet extends HttpServlet {
         String userId = request.getParameter("userId");
 
         OrderDAO orderDAO = new OrderDAO();
+        OrderItemDAO orderItemDAO = new OrderItemDAO();
 
         try {
             List<Order> orderList = orderDAO.doRetrieveByUserId(Integer.parseInt(userId));
+
+            for(Order order : orderList){
+                List<OrderItem> items = orderItemDAO.doRetrieveByOrderID(order.getOrderId());
+                order.setOrderItems(items);
+            }
+
+
             request.setAttribute("orderList", orderList);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/profile/Order.jsp");
