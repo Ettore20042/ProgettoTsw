@@ -98,7 +98,7 @@
 
             <div class="cart-actions">
                 <a href="${pageContext.request.contextPath}/CategoryServlet" class="continue-shopping">Continua lo shopping</a>
-                <form action="${pageContext.request.contextPath}/CheckoutServlet" method="post" class=" checkout-btn"> <button>Procedi al checkout</button>
+                <form action="${pageContext.request.contextPath}/CheckoutServlet" method="post" class=" checkout-btn"> <button>Procedi al checkout</button></form>
             </div>
             <%
                 }

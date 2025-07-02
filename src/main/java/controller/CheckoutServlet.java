@@ -81,9 +81,8 @@ public class CheckoutServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No addresses found for user");
             return;
         }
-        for(Address address : addresses) {
-            System.out.println("Address: " + address.getStreet() + ", " + address.getCity() + ", " + address.getProvince() + ", " + address.getCountry());
-        }
+
+
         request.setAttribute("addresses", addresses);
         request.setAttribute("cart", cart);
         request.setAttribute("total", total);

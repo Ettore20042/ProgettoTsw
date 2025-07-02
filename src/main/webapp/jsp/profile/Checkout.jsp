@@ -31,10 +31,10 @@
         <div class="checkout-address">
             <h3>Indirizzo di spedizione</h3>
             <p>
-                <c:if test="${not empty address.street}">${address.street}</c:if>
-                <c:if test="${not empty address.city}">, ${address.city}</c:if>
-                <c:if test="${not empty address.state}">, ${address.state}</c:if>
-                <c:if test="${not empty address.zipCode}">, ${address.zipCode}</c:if>
+                <c:if test="${not empty address.getStreet()}">${address.getStreet()}</c:if>
+                <c:if test="${not empty address.getCity()}">, ${address.getCity()}</c:if>
+                <c:if test="${not empty address.getZipCode()}">, ${address.getZipCode()}</c:if>
+                <c:if test="${not empty address.getProvince()}">, ${address.getProvince()}</c:if>
             </p>
             <c:if test="${not empty address.country}">
                 <p>${address.country}</p>

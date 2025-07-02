@@ -28,9 +28,7 @@ public class LoginServlet extends HttpServlet {
         String redirectAfterLogin = request.getParameter("redirectAfterLogin");
         String productId = request.getParameter("productId");
         String quantitySelected = request.getParameter("quantitySelected");
-        System.out.println("Product ID: " + productId);
-        System.out.println("Quantity: " + quantitySelected);
-        System.out.println("Redirect: " + redirectAfterLogin);
+
         UserDAO userDAO = new UserDAO();
         User user = userDAO.doLogin(email, password);
 
