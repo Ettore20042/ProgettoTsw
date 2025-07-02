@@ -9,8 +9,14 @@
 <html>
 <head>
     <title>Checkout</title>
+    <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp"/>
 </head>
 <body>
+<jsp:include page="/WEB-INF/jsp/components/common/header.jsp"/>
 
+<h1>Checkout ${total},${quantity},${productId}</h1>
+
+
+<jsp:include page="/WEB-INF/jsp/components/common/footer.jsp"/>
 </body>
 </html>

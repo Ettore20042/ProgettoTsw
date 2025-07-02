@@ -8,6 +8,7 @@ import model.DAO.UserDAO;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -15,7 +16,6 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Mostra la pagina di login
         request.getRequestDispatcher("/jsp/auth/Login.jsp").forward(request, response);
     }
 
@@ -26,7 +26,11 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String redirectAfterLogin = request.getParameter("redirectAfterLogin");
-
+        String productId = request.getParameter("productId");
+        String quantitySelected = request.getParameter("quantitySelected");
+        System.out.println("Product ID: " + productId);
+        System.out.println("Quantity: " + quantitySelected);
+        System.out.println("Redirect: " + redirectAfterLogin);
         UserDAO userDAO = new UserDAO();
         User user = userDAO.doLogin(email, password);
 
@@ -41,8 +45,16 @@ public class LoginServlet extends HttpServlet {
                 redirectAfterLogin = "jsp/HomePage.jsp";
             }
 
-            // Effettuo sempre un redirect per evitare problemi di refresh dopo POST
-            response.sendRedirect(request.getContextPath() + "/" + redirectAfterLogin);
+            // Costruisco l'URL di redirect in modo sicuro
+            String redirectURL = request.getContextPath() + "/" + redirectAfterLogin;
+
+            // Aggiungo i parametri solo se esistono
+            if (productId != null && quantitySelected != null) {
+                redirectURL += "?productId=" + URLEncoder.encode(productId, "UTF-8") +
+                              "&quantitySelected=" + URLEncoder.encode(quantitySelected, "UTF-8");
+            }
+
+            response.sendRedirect(redirectURL);
 
         } else {
             // Login fallito

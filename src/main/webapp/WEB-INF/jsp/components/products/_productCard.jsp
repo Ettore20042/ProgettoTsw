@@ -61,9 +61,10 @@
         <c:if test="${product.getQuantity() > 0}">
             <div class="product-card_quantity">
                 <label class="product-card_quantity-label">Quantità: </label>
-                <select name="quantity" id="quantity" class="product-card_quantity-select">
+                <select name="quantity" id="quantity" class="product-card_quantity-select" onchange="copyQuantity()">
                     <c:forEach begin="1" end="${product.getQuantity()}" var="i">
                         <option value="${i}">${i}</option>
+
                     </c:forEach>
                 </select>
             </div>
@@ -80,16 +81,23 @@
                 <span class="material-symbols-rounded">shopping_cart</span>
             </button>
         </form>
+
         <% if (request.getSession().getAttribute("user") == null) { %>
-        <a href="${pageContext.request.contextPath}/jsp/auth/Login.jsp?redirectAfterLogin=CheckoutServlet"
+        <form action="${pageContext.request.contextPath}/LoginServlet?redirectAfterLogin=CheckoutServlet" method="post">
+            <input type="hidden" name="redirectAfterLogin" value="CheckoutServlet" />
+            <input type="hidden" name="productId" value="${product.productId}" />
+            <input type="hidden" name="quantitySelected" id="quantitySelected" value="1" />
+            <button type="submit" class="product-card_button product-card_button--buy-now">Acquista Ora</button>
+       <%-- <a href="${pageContext.request.contextPath}/jsp/auth/Login.jsp?redirectAfterLogin=CheckoutServlet&productId=${product.productId}&quantitySelected=1"
            class="product-card_button product-card_button--buy-now">
-            Acquista Ora</a>
+            Acquista Ora</a>--%>
         <% } else { %>
-        <form action="${pageContext.request.contextPath}/CheckoutServlet" method="post">
+        <form action="${pageContext.request.contextPath}/CheckoutServlet" method="get">
+            <input type="hidden" name="productId" value="${product.productId}" />
+            <input type="hidden" name="quantitySelected" id="quantitySelected" value="1"  />
             <button type="submit" class="product-card_button product-card_button--buy-now">Acquista Ora</button>
         </form>
         <% } %>
-
     </div>
 
 

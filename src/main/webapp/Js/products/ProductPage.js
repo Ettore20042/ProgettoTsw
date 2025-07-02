@@ -151,3 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- INIZIALIZZAZIONE ---
     updateNav(); // Imposta lo stato iniziale corretto per frecce e pallini
 });
+
+function copyQuantity() {
+    const selected = document.getElementById("quantity").value;
+    document.getElementById("quantitySelected").value = selected;
+}
