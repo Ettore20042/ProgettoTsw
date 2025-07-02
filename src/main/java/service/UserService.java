@@ -1,7 +1,9 @@
 package service;
 
 import jakarta.servlet.ServletContext;
+import model.Bean.Address;
 import model.Bean.User;
+import model.DAO.AddressDAO;
 import model.DAO.UserDAO;
 
 import java.util.ArrayList;
@@ -50,6 +52,15 @@ public class UserService {
        }
        return false;
    }
-
+    public List<Address> getUserAddresses(int userid){
+        AddressDAO addressDAO = new AddressDAO();
+        try {
+            return addressDAO.doRetrieveByUserId(userid);
+        } catch (Exception e) {
+            System.err.println("Errore recupero indirizzi utente: " + e.getMessage());
+            e.printStackTrace(); // Stampa lo stack trace completo
+            return new ArrayList<>(); // Ritorna una lista vuota in caso di errore
+        }
+    }
 }
 

@@ -75,7 +75,7 @@
         </c:if>
         <form action="${pageContext.request.contextPath}/CartServlet" class="add-to-cart-form" data-product-id="${product.productId}" method="post" style="display: contents;">
             <input type="hidden" name="productId" value="${product.productId}" />
-            <input type="hidden" name="quantity" value="1" />
+            <input type="hidden" name="quantity" id="cartQuantity" value="1" />
             <button class="product-card_button product-card_button--add-to-cart">Aggiungi al carrello</button>
             <button type="submit" class="product-card_button product-card_button--add-to-cart-icon">
                 <span class="material-symbols-rounded">shopping_cart</span>
@@ -83,18 +83,16 @@
         </form>
 
         <% if (request.getSession().getAttribute("user") == null) { %>
-        <form action="${pageContext.request.contextPath}/LoginServlet?redirectAfterLogin=CheckoutServlet" method="post">
+        <form action="${pageContext.request.contextPath}/LoginServlet" method="post">
             <input type="hidden" name="redirectAfterLogin" value="CheckoutServlet" />
             <input type="hidden" name="productId" value="${product.productId}" />
-            <input type="hidden" name="quantitySelected" id="quantitySelected" value="1" />
+            <input type="hidden" name="quantitySelected" id="buyNowQuantityGuest" value="1" />
             <button type="submit" class="product-card_button product-card_button--buy-now">Acquista Ora</button>
-       <%-- <a href="${pageContext.request.contextPath}/jsp/auth/Login.jsp?redirectAfterLogin=CheckoutServlet&productId=${product.productId}&quantitySelected=1"
-           class="product-card_button product-card_button--buy-now">
-            Acquista Ora</a>--%>
+        </form>
         <% } else { %>
         <form action="${pageContext.request.contextPath}/CheckoutServlet" method="get">
             <input type="hidden" name="productId" value="${product.productId}" />
-            <input type="hidden" name="quantitySelected" id="quantitySelected" value="1"  />
+            <input type="hidden" name="quantitySelected" id="buyNowQuantityUser" value="1" />
             <button type="submit" class="product-card_button product-card_button--buy-now">Acquista Ora</button>
         </form>
         <% } %>

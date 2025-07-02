@@ -54,6 +54,10 @@ public class LoginServlet extends HttpServlet {
                               "&quantitySelected=" + URLEncoder.encode(quantitySelected, "UTF-8");
             }
 
+            System.out.println("Redirect URL: " + redirectURL);
+
+
+
             response.sendRedirect(redirectURL);
 
         } else {

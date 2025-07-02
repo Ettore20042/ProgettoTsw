@@ -39,6 +39,12 @@
             <input type="hidden" name="redirectAfterLogin"
             value="<%= request.getParameter("redirectAfterLogin") != null ? request.getParameter("redirectAfterLogin") : "jsp/HomePage.jsp" %>" />
 
+            <input type="hidden" name="productId"
+            value="<%= request.getParameter("productId") != null ? request.getParameter("productId") : "" %>" />
+
+            <input type="hidden" name="quantitySelected"
+            value="<%= request.getParameter("quantitySelected") != null ? request.getParameter("quantitySelected") : "" %>" />
+
             <button type="submit" class="auth-form-container__button">Accedi</button><br>
             <div class="auth-form-container__prompt">
                 <span>Non hai un account?</span>
@@ -50,5 +56,3 @@
 <jsp:include page="/WEB-INF/jsp/components/common/footer.jsp" />
 </body>
 </html>
-
-

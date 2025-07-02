@@ -4,21 +4,23 @@ package controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import model.Bean.Address;
 import model.Bean.CartItem;
 import model.Bean.Product;
+import model.Bean.User;
 import service.ProductService;
+import service.UserService;
 
 import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "CheckoutServlet", value = "/CheckoutServlet")
 public class CheckoutServlet extends HttpServlet {
-    @Override
+    @Override/* Si occupa dell'acquista ora*/
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String productId = request.getParameter("productId");
-        System.out.println("Product ID: " + productId);
         String quantity = request.getParameter("quantitySelected");
-        System.out.println("Quantity: " + quantity);
+
 
         // Validate parameters
         if (productId == null || quantity == null) {
@@ -42,9 +44,7 @@ public class CheckoutServlet extends HttpServlet {
             }
 
             double total = product.getPrice() * qty;
-            System.out.println("Product ID: " + productId);
-            System.out.println("Quantity: " + quantity);
-            System.out.println("Total: " + total);
+
 
             request.setAttribute("productId", productId);
             request.setAttribute("quantity", quantity);
@@ -56,19 +56,39 @@ public class CheckoutServlet extends HttpServlet {
         }
     }
 
-    @Override
+    @Override /*Acquista tramite il carrello */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       response.sendRedirect(request.getContextPath() + "/jsp/profile/Checkout.jsp");
-       HttpSession session = request.getSession();
-       List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
-       double total = 0.0;
-       request.setAttribute("cart", cart);
-       for(CartItem item : cart) {
-              total += item.getPrice() * item.getQuantity();
-       }
-       request.setAttribute("total", total);
-       RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/profile/Checkout.jsp");
-       dispatcher.forward(request, response);
+        // Gestisci il checkout dal carrello
+        HttpSession session = request.getSession();
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
 
+        User user = (User) session.getAttribute("user");
+        int userid = user.getUserId();
+        System.out.println("User ID: " + userid);
+
+        if (cart == null || cart.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Cart is empty");
+            return;
+        }
+
+        double total = 0.0;
+        for(CartItem item : cart) {
+            total += item.getPrice() * item.getQuantity();
+        }
+        UserService userService = new UserService(getServletContext());
+        List<Address> addresses=userService.getUserAddresses(userid);
+        if (addresses == null || addresses.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No addresses found for user");
+            return;
+        }
+        for(Address address : addresses) {
+            System.out.println("Address: " + address.getStreet() + ", " + address.getCity() + ", " + address.getProvince() + ", " + address.getCountry());
+        }
+        request.setAttribute("addresses", addresses);
+        request.setAttribute("cart", cart);
+        request.setAttribute("total", total);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/profile/Checkout.jsp");
+        dispatcher.forward(request, response);
     }
-} 
+}
+
