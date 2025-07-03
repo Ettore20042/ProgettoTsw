@@ -5,7 +5,7 @@
  * @param {Array} products - Array di prodotti da mostrare
  */
 function updateProductList(products) {
-    const productListContainer = document.querySelector('.product-list_grid');
+    const productListContainer = document.querySelector('.product-list_cards');
     productListContainer.innerHTML = '';
 
     if (!productListContainer) {

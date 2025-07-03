@@ -14,12 +14,17 @@
 
 }
 
-.manage-components-container-filter{
+/*.manage-components-container-filter{
     width: 30%;
+}*/
+
+.admin-nav{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
 }
 
 .admin-button-toggle{
-    display: flex;
     padding: 0.8rem 1rem;
     background-color: #8B5E3C; /* Marrone caldo */
     color: white;
@@ -28,10 +33,7 @@
     font-weight: bold;
     border-radius:  5px;
     transition: background-color 0.3s;
-    margin-bottom: 1rem;
-    border:2px solid black;
-
-
+    border: 1px solid black;
 }
 
 .admin-button-toggle.active{
@@ -56,6 +58,10 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+}
+
+.manage-components-container-filter .product-filter_open-btn{
+    display: none;
 }
 
 
@@ -151,7 +157,10 @@
 }
 
 .manage-components-container-right--add-button{
-    align-self: flex-end;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
 }
 .add-component-button-toggle{
     display: inline-block;
@@ -360,7 +369,7 @@ img.icon-wrench{
 
 
 /* Media Query (rimangono invariate) */
-@media (min-width: 768px) {
+/*@media (min-width: 768px) {
     .manage-components-container{
         flex-direction: row;
         align-items: flex-start;
@@ -383,18 +392,24 @@ img.icon-wrench{
     .search-components-on-table--table{
         min-width: 100%;
     }
-}
+}*/
 
 @media (min-width: 992px) {
     .manage-components-container{
-        max-width: 1200px;
+        flex-direction: row;
+        align-items: flex-start;
+        max-width: 1440px;
         margin-left: auto;
         margin-right: auto;
-        padding: 2rem;
     }
 
     .manage-components-container-filter{
-        flex-basis: 220px;
+        margin-top: 1.5rem;
+    }
+
+    .manage-components-container-right--add-button{
+        display: block;
+        align-self: flex-end;
     }
 
 

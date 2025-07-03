@@ -3,8 +3,15 @@
     margin-bottom: 3rem;
 }
 
+.main-support_header{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
 h2.main-support_title {
-    margin-bottom: revert;
     border-collapse: unset;
     display: inline-block;
     margin-left: 0.5rem;

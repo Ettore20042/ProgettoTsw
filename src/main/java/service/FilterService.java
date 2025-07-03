@@ -52,10 +52,10 @@ public class FilterService {
 		return filterData;
 	}
 
-	public List<Product> getFilteredProducts(Integer categoryIdParam, String[] brandIdParams,
+	public List<Product> getFilteredProducts(Integer categoryIdParam, Boolean isOffersPage, String[] brandIdParams,
 	                                 String[] colorParams, String[] materialParams, Float minPrice, Float maxPrice) {
 		return productService.getFilteredProducts(
-				categoryIdParam, brandIdParams, colorParams, materialParams, minPrice, maxPrice);
+				categoryIdParam, isOffersPage, brandIdParams, colorParams, materialParams, minPrice, maxPrice);
 
 	}
 

@@ -5,7 +5,8 @@
  * @param {Array} products - Array di prodotti da mostrare
  */
 function updateProductTable(products) {
-    const tableBody = document.querySelector('.admin-products-table tbody, #products-table-body');
+    const tableBody = document.querySelector('.componentTableBody');
+    tableBody.innerHTML = '';
 
     if (!tableBody) {
         console.error('Tabella prodotti admin non trovata');
@@ -18,11 +19,17 @@ function updateProductTable(products) {
     }
 
     // Genera righe della tabella per ogni prodotto
-    const rowsHTML = products.map(product => createProductRowHTML(product)).join('');
-    tableBody.innerHTML = rowsHTML;
+    tableBody.innerHTML = products.map(product => createProductRowHTML(product)).join('');
 
+    const manager = window.getCurrentManager();
+    if (manager && typeof manager.initializeEditLinks === 'function' && typeof manager.initializeRemoveButtons === 'function') {
+        manager.initializeEditLinks();
+        manager.initializeRemoveButtons();
+    } else {
+        console.error('Manager non trovato o non dispone dei metodi necessari per reinizializzare gli eventi.');
+    }
     // Reinizializza eventi per i pulsanti di azione
-    initAdminTableEvents();
+    // initAdminTableEvents();
 }
 
 /**
@@ -31,31 +38,20 @@ function updateProductTable(products) {
  * @returns {string} HTML della riga della tabella
  */
 function createProductRowHTML(product) {
+    const contextPath = document.body.dataset.contextPath;
     const salePrice = product.salePrice > 0 ? product.salePrice : '-';
-    const stockStatus = product.quantity > 0 ? 'Disponibile' : 'Esaurito';
-    const stockClass = product.quantity > 0 ? 'stock-available' : 'stock-out';
 
     return `
-        <tr data-product-id="${product.productId}">
+        <tr>
             <td>${product.productId}</td>
-            <td class="product-name">${product.productName}</td>
-            <td>${product.brand ? product.brand.brandName : '-'}</td>
-            <td>€${product.price.toFixed(2)}</td>
-            <td>${salePrice !== '-' ? '€' + salePrice.toFixed(2) : salePrice}</td>
-            <td class="${stockClass}">${stockStatus} (${product.quantity})</td>
+            <td>${product.productName}</td>
+            <td>${product.price}</td>
             <td>${product.color}</td>
-            <td>${product.material}</td>
-            <td class="actions-cell">
-                <button class="btn btn-edit" onclick="editProduct(${product.productId})">
-                    <i class="icon-edit"></i> Modifica
-                </button>
-                <button class="btn btn-delete" onclick="deleteProduct(${product.productId})">
-                    <i class="icon-delete"></i> Elimina
-                </button>
-                <button class="btn btn-view" onclick="viewProductDetails(${product.productId})">
-                    <i class="icon-view"></i> Dettagli
-                </button>
-            </td>
+            <td>${product.quantity}</td>
+            <td><a href="#" class="edit-link" data-product-id="${product.productId}">Modifica</a></td>
+            <td><button type="submit" class="remove-button-product remove-item-btn" data-id="${product.productId}" >
+                <img src="${contextPath}/img/icon/delete.png" class="remove-icon">
+            </button></td>
         </tr>
     `;
 }
@@ -81,7 +77,7 @@ function showNoProductsRow(tableBody) {
 /**
  * Reinizializza gli eventi per i pulsanti della tabella admin
  */
-function initAdminTableEvents() {
+/*function initAdminTableEvents() {
     // Conferma eliminazione prodotti
     document.querySelectorAll('.btn-delete').forEach(button => {
         button.addEventListener('click', function(e) {
@@ -90,7 +86,7 @@ function initAdminTableEvents() {
             confirmDeleteProduct(productId);
         });
     });
-}
+}*/
 
 /**
  * Modifica prodotto
@@ -104,17 +100,19 @@ function editProduct(productId) {
  * Conferma ed elimina prodotto
  * @param {number} productId - ID del prodotto da eliminare
  */
+/*
 function confirmDeleteProduct(productId) {
     if (confirm('Sei sicuro di voler eliminare questo prodotto?')) {
         deleteProduct(productId);
     }
 }
+*/
 
 /**
  * Elimina prodotto via AJAX
  * @param {number} productId - ID del prodotto da eliminare
  */
-async function deleteProduct(productId) {
+/*async function deleteProduct(productId) {
     try {
         const response = await fetch('/RemoveProductServlet', {
             method: 'POST',
@@ -138,7 +136,7 @@ async function deleteProduct(productId) {
         console.error('Errore:', error);
         showErrorMessage('Errore nell\'eliminazione del prodotto');
     }
-}
+}*/
 
 /**
  * Visualizza dettagli prodotto
@@ -168,7 +166,10 @@ function showErrorMessage(message) {
 
 // Inizializzazione per la pagina di gestione admin
 document.addEventListener('DOMContentLoaded', function() {
-    if (typeof initFilterEvents === 'function') {
-        initFilterEvents(updateProductTable);
+    if (window.ProductFilter && window.ProductFilter.initFilterEvents) {
+        console.log('🔗 Collegamento filtri con aggiornatore lista prodotti...');
+        window.ProductFilter.initFilterEvents(updateProductTable);
+    } else {
+        console.error('❌ ProductFilter non disponibile - assicurati che productFilter.js sia caricato prima');
     }
 });

@@ -214,7 +214,7 @@ public class ProductDAO {
         }
     }
 
-    public List<Product> getFilteredProducts(Integer category, String[] brands, String[] colors, String[] materials, Float minPrice, Float maxPrice) {
+    public List<Product> getFilteredProducts(Integer category, Boolean isOffersPage, String[] brands, String[] colors, String[] materials, Float minPrice, Float maxPrice) {
         List<Product> products = new ArrayList<>();
         StringBuilder query = new StringBuilder("SELECT * FROM product WHERE 1=1");
 
@@ -225,6 +225,9 @@ public class ProductDAO {
             query.append(" AND (CategoryID = ? OR CategoryID IN (SELECT CategoryID FROM category WHERE ParentCategory = ?))");
             parameters.add(category);
             parameters.add(category);
+        }
+        if (isOffersPage != null && isOffersPage) {
+            query.append(" AND SalePrice > 0");
         }
 
         // Filtro per brand (usando IN per array)

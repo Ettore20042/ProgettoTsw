@@ -38,6 +38,7 @@ public class FilterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+        String offersParam = request.getParameter("offers");
         String categoryIdStr = request.getParameter("categoryId");
         String[] brandIdParams = request.getParameterValues("brandId");
         String[] colorParams = request.getParameterValues("color");
@@ -62,12 +63,20 @@ public class FilterServlet extends HttpServlet {
             }
 
             if ("loadData".equals(action)) {
-
                 // Carica i dati iniziali per i filtri
                 filterData = filterService.loadFilterData(categoryId);
                 json = gson.toJson(filterData);
             } else {
 
+                Boolean isOffersPage = false;
+                if (offersParam != null && !offersParam.trim().isEmpty()) {
+                    try {
+                        isOffersPage = Boolean.parseBoolean(offersParam);
+                    } catch (Exception e) {
+                        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid offers parameter");
+                        return;
+                    }
+                }
                 Float minPrice = null;
                 Float maxPrice = null;
                 try {
@@ -82,7 +91,7 @@ public class FilterServlet extends HttpServlet {
                 }
 
                 // Filtra i prodotti (comportamento originale)
-                productFilteredList = filterService.getFilteredProducts(categoryId, brandIdParams, colorParams, materialParams, minPrice, maxPrice);
+                productFilteredList = filterService.getFilteredProducts(categoryId, isOffersPage, brandIdParams, colorParams, materialParams, minPrice, maxPrice);
                 json = gson.toJson(productFilteredList);
             }
         } catch (Exception e) {

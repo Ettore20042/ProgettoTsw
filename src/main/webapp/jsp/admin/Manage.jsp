@@ -6,7 +6,7 @@
 <head>
     <title>Pannello di Gestione - ${entity}</title>
     <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/manageproducts.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/manage.css">
 
     <!-- Prima carichiamo BaseManager, poi Manage.js, infine i manager specifici -->
     <script src="${pageContext.request.contextPath}/Js/profile/managers/BaseManager.js" defer></script>
@@ -16,34 +16,33 @@
     <script src="${pageContext.request.contextPath}/Js/profile/managers/CategoryManager.js" defer></script>
     <script src="${pageContext.request.contextPath}/Js/profile/managers/BrandManager.js" defer></script>
 
-
-
-
+    <c:if test="${entity == 'products'}">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/_productsFilter.css">
+        <script src="${pageContext.request.contextPath}/Js/products/productFilter.js" defer></script>
+        <script src="${pageContext.request.contextPath}/Js/products/adminProductUpdater.js" defer></script>
+    </c:if>
 </head>
 
 <body data-context-path="${pageContext.request.contextPath}" data-entity = "${entity}">
 <jsp:include page="/WEB-INF/jsp/components/common/header.jsp"/>
 
 <main class="manage-components-container">
-    <div class="manage-components-container-filter">
-        <%-- Qui andrà la componente dei filtri riutilizzabile --%>
+    <div class="manage-components-container-left">
         <nav class="admin-nav">
             <a href="${pageContext.request.contextPath}/ManageServlet?entity=products" class="admin-button-toggle ${entity == 'products' ? 'active' : ''}">Gestione Prodotti</a>
             <a href="${pageContext.request.contextPath}/ManageServlet?entity=users" class="admin-button-toggle ${entity == 'users' ? 'active' : ''}">Gestione Utenti</a> <%-- Esempio per il futuro --%>
             <a href="${pageContext.request.contextPath}/ManageServlet?entity=brands" class="admin-button-toggle ${entity == 'brands' ? 'active' : ''}">Gestione Brands</a>
             <a href="${pageContext.request.contextPath}/ManageServlet?entity=categories" class="admin-button-toggle ${entity == 'categories' ? 'active' : ''}">Gestione Categorie</a>
-
         </nav>
-
-        <%--<jsp:include page="/WEB-INF/jsp/components/products/_productsFilter.jsp">
-            <jsp:param name="entity" value="${entity}"/>
-            <jsp:param name="priceMax" value="${priceMax}"/>
-            <jsp:param name="brandChaceMap" value="${brandChaceMap}"/>
-            <jsp:param name="categoryChaceMap" value="${categoryChaceMap}"/>
-            <jsp:param name="colorsList" value="${colorsList}"/>
-        </jsp:include>--%>
-
+        <c:if test="${entity == 'products'}">
+            <div class="manage-components-container-filter">
+                <jsp:include page="../../WEB-INF/jsp/components/products/_productsFilter.jsp"/>
+            </div>
+        </c:if>
     </div>
+
+
+
 
     <div class="manage-components-container-right">
         <div class="search-bar-tab manage-components-container-right_search-bar">
@@ -58,27 +57,23 @@
         </div>
 
 
-
+        <div class="manage-components-container-right--add-button">
         <c:choose>
             <c:when test="${entity == 'products'}">
-                <div class="manage-components-container-right--add-button">
-                    <button  class="add-component-button-toggle" id="add-btn">Aggiungi un prodotto</button>
-                </div>
+                <button class="product-filter_open-btn">Filtra e ordina</button>
+                <button  class="add-component-button-toggle" id="add-btn">Aggiungi un prodotto</button>
                 <jsp:include page="/WEB-INF/jsp/components/admin/_addProductForm.jsp"/>
             </c:when>
             <c:when test="${entity == 'brands'}">
-                <div class="manage-components-container-right--add-button">
-                    <button  class="add-component-button-toggle" id="add-btn">Aggiungi un brand</button>
-                </div>
+                <button  class="add-component-button-toggle" id="add-btn">Aggiungi un brand</button>
                 <jsp:include page="/WEB-INF/jsp/components/admin/_addBrandForm.jsp"/>
             </c:when>
             <c:when test="${entity == 'categories'}">
-                <div class="manage-components-container-right--add-button">
-                    <button  class="add-component-button-toggle" id="add-btn">Aggiungi una categoria</button>
-                </div>
+                <button  class="add-component-button-toggle" id="add-btn">Aggiungi una categoria</button>
                 <jsp:include page="/WEB-INF/jsp/components/admin/_addCategoryForm.jsp"/>
             </c:when>
         </c:choose>
+        </div>
 
         <div id="message" style="display: none"></div>
         <div class="manage-components-container-right--search-table">
@@ -212,5 +207,4 @@
 
 <jsp:include page="/WEB-INF/jsp/components/common/footer.jsp"/>
 </body>
-<jsp:include page="/WEB-INF/jsp/components/common/footer.jsp"/>
 </html>

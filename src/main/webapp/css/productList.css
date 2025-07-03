@@ -6,14 +6,18 @@
  */
 
 /* --- Stili Generali della Pagina Lista --- */
-.product-list-page {
-    max-width: 1440px; /* Limita la larghezza massima della pagina */
+.product-list-page, .offers-container {
+     /* Limita la larghezza massima della pagina */
     padding: 0 0.5rem;
 }
 .product-list{
     display: grid;
     grid-template-areas: "title filter"
                         "products products";
+}
+
+.offers-container .product-list{
+    margin: 1.5rem 0.2rem 0 0;
 }
 
 .product-list_heading {
@@ -25,6 +29,8 @@
     align-self: center;
     justify-self: flex-start;
 }
+
+
 .product-list .product-filter {
     grid-area: filter;
 }
@@ -32,6 +38,7 @@
     margin: 0 0.3rem 1rem 0;
     align-self: flex-end;
 }
+
 .product-list_grid{
     grid-area: products;
 }
@@ -156,11 +163,28 @@
 
 @media (min-width: 768px) {
     .product-list_cards{
-        grid-template-columns: repeat(auto-fit, minmax(175px, 215px));
+        grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
         justify-content: center;
     }
     .product-card_stock-status--not-available {
         margin: 2px 0 0 0;
+    }
+}
+@media (min-width: 992px) {
+    .product-list-page{
+        padding: 0 1.5%;
+    }
+    .product-list{
+        grid-template-columns: minmax(175px, 245px) 1fr;
+        grid-template-areas: "title title"
+                            "filter products";
+        column-gap: 1rem;
+    }
+    .offers-list_heading{
+        margin: 2rem 0 1rem;
+    }
+    .product-filter_details-box{
+        border-bottom: 1px solid #F3EED8;
     }
 }
 @media (min-width: 1220px) {

@@ -50,8 +50,8 @@ public class ProductService {
      * @param maxPrice Il prezzo massimo.
      * @return Una lista di prodotti che soddisfano i criteri di filtro.
      */
-    public List<Product> getFilteredProducts(Integer categoryId, String[] brandsId, String[] colors, String[] materials, Float minPrice, Float maxPrice) {
-        List<Product> productList = productDAO.getFilteredProducts(categoryId, brandsId, colors, materials, minPrice, maxPrice);
+    public List<Product> getFilteredProducts(Integer categoryId, Boolean isOffersPage, String[] brandsId, String[] colors, String[] materials, Float minPrice, Float maxPrice) {
+        List<Product> productList = productDAO.getFilteredProducts(categoryId, isOffersPage, brandsId, colors, materials, minPrice, maxPrice);
         brandService.addBrandToProductBean(productList);
         return productList;
     }

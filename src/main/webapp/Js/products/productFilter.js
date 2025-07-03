@@ -161,17 +161,20 @@
     }
 
     function setupToggleFilterSideView() {
-        const openButton = document.querySelector('.product-filter_open-btn');
+        const openButtons = document.querySelectorAll('.product-filter_open-btn');
         const closeButton = document.getElementById("close-filter-btn");
+        const mediaQueryDesktop = window.matchMedia('(min-width: 992px)');
         const applyButton = document.querySelector('.product-filter_apply');
         const filterMobileWrapper = document.querySelector('.product-filter_mobile-wrapper');
 
-        openButton.addEventListener('click', (e) => {
-            e.stopPropagation();
-            filterMobileWrapper.style.width = '100%';
-            filterMobileWrapper.style.transition = '0.3s';
-            document.body.classList.add('no-scroll'); // Aggiungi classe per disabilitare lo scroll del body
-        });
+        openButtons.forEach( button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                filterMobileWrapper.style.width = '100%';
+                filterMobileWrapper.style.transition = '0.3s';
+                document.body.classList.add('no-scroll'); // Aggiungi classe per disabilitare lo scroll del body
+            });
+        })
 
         closeButton.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -181,10 +184,23 @@
         });
 
         applyButton.addEventListener('click', (e) => {
-            e.stopPropagation();
-            filterMobileWrapper.style.width = '0';
-            filterMobileWrapper.style.transition = '0.3s';
-            document.body.classList.remove('no-scroll'); // Rimuovi classe per abilitare lo scroll del body
+            if (!mediaQueryDesktop.matches){
+                e.stopPropagation();
+                filterMobileWrapper.style.width = '0';
+                filterMobileWrapper.style.transition = '0.3s';
+                document.body.classList.remove('no-scroll'); // Rimuovi classe per abilitare lo scroll del body
+            }
+        })
+
+        mediaQueryDesktop.addEventListener('change', (e) => {
+            if (mediaQueryDesktop.matches){
+                e.stopPropagation();
+                filterMobileWrapper.style.width = '100%';
+            } else {
+                e.stopPropagation();
+                filterMobileWrapper.style.width = '0';
+                document.body.classList.remove('no-scroll'); // Rimuovi classe per abilitare lo scroll del body
+            }
         })
     }
 
@@ -232,6 +248,7 @@
 
         // const categoryId = document.querySelector('input[name="categoryId"]')?.value;
         const categoryId = document.body.dataset.categoryId;
+        const offersParam = document.body.dataset.offersPage;
         const minPrice = document.querySelector('.product-filter_price-min')?.value;
         const maxPrice = document.querySelector('.product-filter_price-max')?.value;
 
@@ -240,6 +257,7 @@
             colors,
             materials,
             categoryId,
+            offersParam,
             minPrice,
             maxPrice
         };
@@ -263,6 +281,7 @@
 
         // Aggiungi parametri singoli se presenti
         if (filterData.categoryId) params.append('categoryId', filterData.categoryId);
+        if (filterData.offersParam) params.append('offers', filterData.offersParam);
         if (filterData.minPrice && filterData.minPrice.trim()) params.append('minPrice', filterData.minPrice);
         if (filterData.maxPrice && filterData.maxPrice.trim()) params.append('maxPrice', filterData.maxPrice);
 
@@ -345,31 +364,52 @@
         }
 
         // Event listener per i pulsanti "Ripristina"
-        document.querySelectorAll('.product-filter_details-reset').forEach(button => {
+        document.querySelectorAll('.product-filter_details-reset, .product-filter_reset-all').forEach(button => {
             button.addEventListener('click', (e) => {
                 console.log('🔄 Reset sezione filtro');
-                const detailsBox = e.target.closest('.product-filter_details-box');
+                if (button.classList.contains('product-filter_reset-all')) {
+                    // --- LOGICA PER CANCELLARE TUTTI I FILTRI ---
+                    console.log('🔄 Reset di tutti i filtri');
+                    const filterContainer = button.closest('.product-filter_wrapper') || document;
 
-                if (!detailsBox) return;
+                    // Deseleziona tutte le checkbox
+                    const allCheckboxes = filterContainer.querySelectorAll('input[type="checkbox"]');
+                    allCheckboxes.forEach(cb => cb.checked = false);
 
-                // Deseleziona tutte le checkbox nella sezione
-                const checkboxes = detailsBox.querySelectorAll('input[type="checkbox"]');
-                checkboxes.forEach(cb => cb.checked = false);
+                    // Resetta i campi prezzo
+                    const priceMin = filterContainer.querySelector('.product-filter_price-min');
+                    const priceMax = filterContainer.querySelector('.product-filter_price-max');
+                    if (priceMin) priceMin.value = '';
+                    if (priceMax) priceMax.value = '';
 
-                // Resetta tutti gli input numerici e range nella sezione
-                const inputs = detailsBox.querySelectorAll('input[type="number"], input[type="range"]');
-                inputs.forEach(input => input.value = '');
+                    // Aggiorna il display del range prezzo
+                    const priceRangeValue = filterContainer.querySelector('.product-filter_price-range-value');
+                    if (priceRangeValue && priceMax) {
+                        priceRangeValue.textContent = `Prezzo: 0 - ${priceMax.placeholder || 0}`;
+                    }
 
-                // Se c'è un range slider del prezzo, aggiorna anche il display
-                const priceMax = detailsBox.querySelector('.product-filter_price-max');
-                const priceRangeValue = detailsBox.querySelector('.product-filter_price-range-value');
-                if (priceRangeValue) {
-                    priceRangeValue.textContent = `Prezzo: 0 - ${priceMax.placeholder || 0}`;
+                } else {
+                    // --- LOGICA ESISTENTE PER RIPRISTINARE UNA SEZIONE ---
+                    console.log('🔄 Reset sezione filtro');
+                    const detailsBox = e.target.closest('.product-filter_details-box');
+                    if (!detailsBox) return;
+
+                    // Deseleziona tutte le checkbox nella sezione
+                    const checkboxes = detailsBox.querySelectorAll('input[type="checkbox"]');
+                    checkboxes.forEach(cb => cb.checked = false);
+
+                    // Resetta tutti gli input numerici e range nella sezione
+                    const inputs = detailsBox.querySelectorAll('input[type="number"], input[type="range"]');
+                    inputs.forEach(input => input.value = '');
+
+                    // Se c'è un range slider del prezzo, aggiorna anche il display
+                    const priceMax = detailsBox.querySelector('.product-filter_price-max');
+                    const priceRangeValue = detailsBox.querySelector('.product-filter_price-range-value');
+                    if (priceRangeValue) {
+                        priceRangeValue.textContent = `Prezzo: 0 - ${priceMax.placeholder || 0}`;
+                    }
                 }
-                applyFilters(updateCallback); // Riappllica i filtri dopo il reset
-
-                console.log('🧹 Sezione filtro resettata');
-
+                applyFilters(updateCallback);
             });
         });
 
