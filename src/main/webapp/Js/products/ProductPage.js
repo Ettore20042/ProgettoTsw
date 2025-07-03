@@ -151,3 +151,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- INIZIALIZZAZIONE ---
     updateNav(); // Imposta lo stato iniziale corretto per frecce e pallini
 });
+
+// Funzione per sincronizzare la quantità selezionata con tutti i form
+function copyQuantity() {
+    const selectedQuantity = document.getElementById('quantity').value;
+
+    // Aggiorna il campo per il carrello
+    const cartQuantity = document.getElementById('cartQuantity');
+    if (cartQuantity) {
+        cartQuantity.value = selectedQuantity;
+    }
+
+    // Aggiorna il campo per "Acquista Ora" (utenti non loggati)
+    const buyNowQuantityGuest = document.getElementById('buyNowQuantityGuest');
+    if (buyNowQuantityGuest) {
+        buyNowQuantityGuest.value = selectedQuantity;
+    }
+
+    // Aggiorna il campo per "Acquista Ora" (utenti loggati)
+    const buyNowQuantityUser = document.getElementById('buyNowQuantityUser');
+    if (buyNowQuantityUser) {
+        buyNowQuantityUser.value = selectedQuantity;
+    }
+}

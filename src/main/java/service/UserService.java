@@ -1,7 +1,11 @@
 package service;
 
 import jakarta.servlet.ServletContext;
+import model.Bean.Address;
 import model.Bean.User;
+import model.Bean.UserAddress;
+import model.DAO.AddressDAO;
+import model.DAO.UserAddressDAO;
 import model.DAO.UserDAO;
 
 import java.util.ArrayList;
@@ -50,6 +54,36 @@ public class UserService {
        }
        return false;
    }
+    public List<UserAddress> getUserAddresses(int userid){
+        UserAddressDAO userAddressDAO = new UserAddressDAO();
+        try {
+            return userAddressDAO.findByUserId(userid);
+        } catch (Exception e) {
+            System.err.println("Errore recupero indirizzi utente: " + e.getMessage());
+            e.printStackTrace(); // Stampa lo stack trace completo
+            return new ArrayList<>(); // Ritorna una lista vuota in caso di errore
+        }
+    }
 
+    public UserAddress addUserAddress(UserAddress userAddress) {
+        UserAddressDAO userAddressDAO = new UserAddressDAO();
+        AddressDAO addressDAO = new AddressDAO();
+
+        try {
+            // Salva l'indirizzo
+            Address address = userAddress.getAddress();
+            addressDAO.doSave(address);
+
+
+            // Salva la relazione tra utente e indirizzo
+            userAddressDAO.doSave(userAddress);
+            return userAddress;
+        } catch (Exception e) {
+            System.err.println("Errore durante il salvataggio dell'indirizzo: " + e.getMessage());
+            e.printStackTrace(); // Stampa lo stack trace completo
+            return null; // Ritorna null in caso di errore
+        }
+
+    }
 }
 

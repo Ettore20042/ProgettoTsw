@@ -1,0 +1,666 @@
+/* ========================================
+   MOBILE FIRST APPROACH - Base Styles
+   ======================================== */
+
+/* Reset e stili base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Stili per i messaggi di feedback */
+.alert {
+    padding: 12px;
+    margin: 15px 0;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    display: none;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+#message {
+    max-width: 100%;
+    margin: 0 0 15px 0;
+    z-index: 1000;
+}
+
+.alert.show {
+    display: block;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Container principale - Mobile First */
+.checkout-container {
+    width: 100%;
+    padding: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.checkout-title {
+    text-align: center;
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #735e4d;
+}
+
+/* Layout mobile - stack verticale */
+.checkout-main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Sezioni del checkout - Mobile */
+.checkout-section {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 1px solid #e9ecef;
+}
+
+.section-title {
+    color: #333;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+    font-weight: 600;
+}
+
+.subsection-title {
+    color: #555;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+/* ========================================
+   RIEPILOGO ORDINE - Mobile
+   ======================================== */
+.order-summary {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.checkout-item {
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.item-name {
+    color: #333;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.item-price, .item-quantity {
+    font-weight: 500;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.order-total {
+    color: black;
+    padding: 12px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-top: 15px
+}
+
+/* ========================================
+   INDIRIZZI - Mobile
+   ======================================== */
+.address-section {
+    margin-bottom: 20px;
+}
+
+.shipping-addresses, .billing-addresses {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.checkout-address {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.checkout-address:hover {
+    border-color: #977326;
+    background: #e3f2fd;
+}
+
+.checkout-address:has(input:checked) {
+    border-color: #977326;
+    box-shadow: 0 0 0 2px white;
+}
+
+.address-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.address-label input[type="radio"] {
+    margin-top: 2px;
+    transform: scale(1.1);
+}
+
+.address-text {
+    flex: 1;
+    font-weight: 500;
+    color: #333;
+    line-height: 1.4;
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   PAGAMENTI - Mobile
+   ======================================== */
+.payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.payment-option {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.payment-option:hover {
+    border-color: #28a745;
+    background: #f1f8e9;
+}
+
+.payment-option:has(input:checked) {
+    border-color: #28a745;
+    background: #f1f8e9;
+    box-shadow: 0 0 0 2px rgba(40,167,69,0.25);
+}
+
+.payment-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.payment-label input[type="radio"] {
+    transform: scale(1.2);
+}
+
+.payment-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: #333;
+    font-size: 1rem;
+}
+
+.payment-text .material-symbols-rounded {
+    font-size: 20px;
+    color: #28a745;
+}
+
+/* Form carta di credito - Mobile */
+.payment-details {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.card-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+/* Pulsanti - Mobile */
+.add-address-section {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.btn-add-address {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-add-address:hover {
+    background-color: green;
+    transform: translateY(-1px);
+}
+
+.btn-add-address .material-symbols-rounded {
+    font-size: 18px;
+}
+
+.order-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.btn-back, .btn-confirm-order {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-back {
+    background: #735e4d;
+    color: white;
+}
+
+.btn-back:hover {
+    background: #674f3a;
+}
+
+.btn-confirm-order {
+    background: #28a745;
+    color: white;
+    box-shadow: 0 4px 8px rgba(40,167,69,0.3);
+    font-size: 1.1rem;
+}
+
+.btn-confirm-order:hover {
+    background: #218838;
+    transform: translateY(-1px);
+}
+
+/* ========================================
+   MODAL - Mobile First
+   ======================================== */
+.manage-components-container-right--modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow-y: auto;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 95%;
+    max-width: 400px;
+    max-height: 90vh;
+    position: relative;
+    overflow-y: auto;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+}
+
+.close:hover {
+    color: #000;
+}
+
+#addAddressForm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#addAddressForm label {
+    font-weight: 500;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+    margin-right: 10px;
+}
+
+#addAddressForm input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.address-type-container {
+    display: flex;
+    margin: 8px 0;
+    flex-wrap: wrap;
+    align-items: self-start;
+}
+
+.address-type-container input[type="radio"] {
+    margin-right: 6px;
+}
+
+#submitAddressBtn {
+    background-color:#28a745;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#submitAddressBtn:hover {
+    background-color: #0f5c23;
+}
+#addressModalTitle{
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.5rem;
+}
+.delete-icon{
+    display: inline-block;
+    width: 24px;
+    color: #dc3545;
+    cursor: pointer;
+    font-size: 20px;
+    margin-left: 10px;
+}
+/* Altezza fissa per sezioni indirizzi su desktop */
+.shipping-addresses, .billing-addresses {
+    height: 12rem;
+    overflow-y: auto;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 12px;
+    background: #fafafa;
+}
+/* ========================================
+   TABLET - min-width: 768px
+   ======================================== */
+@media (min-width: 768px) {
+    .checkout-container {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .checkout-title {
+        font-size: 2rem;
+        margin-bottom: 25px;
+    }
+
+    .checkout-main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        grid-template-areas:
+            "order addresses"
+            "payment payment";
+    }
+
+    .order-section {
+        grid-area: order;
+    }
+
+    .addresses-section {
+        grid-area: addresses;
+    }
+
+    .payment-section {
+        grid-area: payment;
+    }
+
+    .checkout-section {
+        padding: 25px;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+    }
+
+    .item-details {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .form-row {
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .form-group.half-width {
+        flex: 0 0 calc(50% - 10px);
+    }
+
+    .order-actions {
+        flex-direction: column-reverse;
+        justify-content: space-between;
+    }
+
+    .btn-back, .btn-confirm-order {
+        width: auto;
+        min-width: 150px;
+    }
+
+    .modal-content {
+        width: 90%;
+        max-width: 500px;
+        margin: 3% auto;
+    }
+}
+
+/* ========================================
+   DESKTOP - min-width: 1024px
+   ======================================== */
+@media (min-width: 1024px) {
+    .checkout-container {
+        padding: 30px;
+    }
+
+    .checkout-title {
+        font-size: 2.2rem;
+        margin-bottom: 30px;
+    }
+
+    .checkout-main {
+        gap: 30px;
+    }
+
+    .checkout-section {
+        padding: 30px;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .order-summary {
+        padding: 20px;
+    }
+
+    .checkout-item {
+        padding: 15px;
+    }
+
+    .payment-option {
+        padding: 20px;
+    }
+
+    .checkout-address {
+        padding: 15px;
+    }
+
+    .btn-confirm-order {
+        font-size: 1.1rem;
+        padding: 15px 40px;
+    }
+
+
+/*
+Track: La guida/binario di sfondo (quello che stai stilizzando)
+Thumb: La parte trascinabile che indica la posizione
+Button: Le frecce alle estremità (se presenti)
+*/
+    .shipping-addresses::-webkit-scrollbar, /* Scrollbar per indirizzi di spedizione */
+    .billing-addresses::-webkit-scrollbar { /* Scrollbar per indirizzi di fatturazione */
+        width: 6px;
+    }
+
+    .shipping-addresses::-webkit-scrollbar-track,/* Track della scrollbar per indirizzi di spedizione */
+    .billing-addresses::-webkit-scrollbar-track { /* Track della scrollbar per indirizzi di fatturazione */
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+
+    .shipping-addresses::-webkit-scrollbar-thumb, /* Thumb della scrollbar per indirizzi di spedizione */
+    .billing-addresses::-webkit-scrollbar-thumb { /* Thumb della scrollbar per indirizzi di fatturazione */
+        background: #c1c1c1;
+        border-radius: 3px;
+    }
+
+    .shipping-addresses::-webkit-scrollbar-thumb:hover,
+    .billing-addresses::-webkit-scrollbar-thumb:hover {
+        background: #a1a1a1;
+    }
+}
+
+/* ========================================
+   LARGE DESKTOP - min-width: 1200px
+   ======================================== */
+@media (min-width: 1200px) {
+    .checkout-container {
+        max-width: 1400px;
+    }
+
+    .checkout-main {
+        grid-template-columns: 400px 1fr;
+        grid-template-areas:
+            "order addresses"
+            "order payment";
+    }
+
+    .order-section {
+        position: sticky;
+        top: 20px;
+        height: fit-content;
+    }
+}
