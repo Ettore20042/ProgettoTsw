@@ -54,6 +54,27 @@ public class UserAddressDAO {
         return userAddresses;
     }
 
-    // Altri metodi come add, update, delete verranno aggiunti qui
+
+    public UserAddress doSave(UserAddress userAddress) {
+        String sql = "INSERT INTO user_address (UserID, AddressID, address_type, is_primary, address_nickname) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = ConnPool.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userAddress.getUserId());
+            ps.setInt(2, userAddress.getAddress().getAddressId());
+            ps.setString(3, userAddress.getAddressType());
+            ps.setBoolean(4, userAddress.isPrimary());
+            ps.setString(5, userAddress.getAddressNickname());
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                return userAddress; // Ritorna l'oggetto salvato
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null; // Se non è stato salvato nulla
+
+    }
 }
 

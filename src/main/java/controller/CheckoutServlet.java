@@ -4,10 +4,8 @@ package controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import model.Bean.Address;
-import model.Bean.CartItem;
-import model.Bean.Product;
-import model.Bean.User;
+import model.Bean.*;
+import model.DAO.UserAddressDAO;
 import service.ProductService;
 import service.UserService;
 
@@ -76,7 +74,9 @@ public class CheckoutServlet extends HttpServlet {
             total += item.getPrice() * item.getQuantity();
         }
         UserService userService = new UserService(getServletContext());
-        List<Address> addresses=userService.getUserAddresses(userid);
+        List<UserAddress> addresses=userService.getUserAddresses(userid);
+
+
         if (addresses == null || addresses.isEmpty()) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No addresses found for user");
             return;
