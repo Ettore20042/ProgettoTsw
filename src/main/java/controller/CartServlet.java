@@ -77,8 +77,13 @@ public class CartServlet extends HttpServlet {
             session.setAttribute("cart", cart);
 
             // Check if it's an AJAX request
-            String xRequestedWith = request.getHeader("X-Requested-With");
-            boolean isAjaxRequest = "XMLHttpRequest".equals(xRequestedWith);
+            String xRequestedWith = request.getHeader("X-Requested-With");    /*Queste linee servono per **rilevare se la richiesta è stata fatta tramite AJAX** (chiamata asincrona JavaScript) o tramite un normale submit di form.*/
+             boolean isAjaxRequest = "XMLHttpRequest".equals(xRequestedWith);  /*- `X-Requested-With: XMLHttpRequest` è un header standard che i framework JavaScript  aggiungono automaticamente alle richieste AJAX
+                                                                                   - Il codice controlla questo header per distinguere tra:
+                                                                                   - **AJAX**: risponde con un semplice "ok" (riga 86)
+                                                                                   - **Form normale**: fa un redirect alla pagina del carrello (riga 89)
+                                                                                      Questo permette di gestire entrambi i tipi di richiesta con lo stesso servlet, fornendo risposte appropriate per ciascun caso d'uso.*/
+
 
             if (isAjaxRequest) {
                 // For AJAX requests, send simple response

@@ -75,10 +75,10 @@
         <form action="${pageContext.request.contextPath}/CartServlet" class="add-to-cart-form" data-product-id="${product.productId}" method="post" style="display: contents;">
             <input type="hidden" name="productId" value="${product.productId}" />
             <input type="hidden" name="quantity" id="cartQuantity" value="1" />
-            <button class="product-card_button product-card_button--add-to-cart">Aggiungi al carrello</button>
-            <button type="submit" class="product-card_button product-card_button--add-to-cart-icon">
+            <button type="submit" class="product-card_button product-card_button--add-to-cart">Aggiungi al carrello</button>
+          <%--  <button type="submit" class="product-card_button product-card_button--add-to-cart-icon">
                 <span class="material-symbols-rounded">shopping_cart</span>
-            </button>
+            </button>--%>
         </form>
 
         <c:choose>
