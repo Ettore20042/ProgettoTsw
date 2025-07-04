@@ -207,7 +207,7 @@ class ProductManager extends BaseManager {
      */
     async loadProductForEdit(productId) {
         try {
-            const url = `${this.contextPath}/AddProductServlet?azione=modifica&productId=${productId}`;
+            const url = `${this.contextPath}/AddProductServlet?productId=${productId}`;
 
             const response = await fetch(url, {
                 method: 'GET',

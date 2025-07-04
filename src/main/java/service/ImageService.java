@@ -35,6 +35,11 @@ public class ImageService {
 		return imageDAO.doRetrieveAllByProduct(productId);
     }
 
+    public List<Image> getOtherImagesByProductId(int productId) {
+        return imageDAO.getOtherImagesByProduct(productId);
+    }
+
+
     /**
      * Recupera la prima immagine associata a un prodotto.
      * @param productId l'ID del prodotto.
