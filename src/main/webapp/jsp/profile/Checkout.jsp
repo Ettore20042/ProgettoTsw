@@ -69,12 +69,12 @@
                                             ${shippingCount == 0 ? 'checked' : ''} />
 
                                         <span class="address-text">
-                            <c:if test="${not empty addr.street}">${addr.street}</c:if>
-                            <c:if test="${not empty addr.streetNumber}"> ${addr.streetNumber}</c:if>
-                            <c:if test="${not empty addr.city}">, ${addr.city}</c:if>
-                            <c:if test="${not empty addr.zipCode}"> ${addr.zipCode}</c:if>
-                            <c:if test="${not empty addr.province}">, ${addr.province}</c:if>
-                        </span>
+                                            <c:if test="${not empty addr.street}">${addr.street}</c:if>
+                                            <c:if test="${not empty addr.streetNumber}"> ${addr.streetNumber}</c:if>
+                                            <c:if test="${not empty addr.city}">, ${addr.city}</c:if>
+                                            <c:if test="${not empty addr.zipCode}"> ${addr.zipCode}</c:if>
+                                            <c:if test="${not empty addr.province}">, ${addr.province}</c:if>
+                                        </span>
                                         <img src="${pageContext.request.contextPath}/img/icon/delete.png" class="delete-icon" alt="delete Address">
                                     </label>
                                 </div>
@@ -98,12 +98,12 @@
                                                id="billing_${addr.addressId}"
                                             ${billingCount == 0 ? 'checked' : ''} />
                                         <span class="address-text">
-                            <c:if test="${not empty addr.street}">${addr.street}</c:if>
-                            <c:if test="${not empty addr.streetNumber}"> ${addr.streetNumber}</c:if>
-                            <c:if test="${not empty addr.city}">, ${addr.city}</c:if>
-                            <c:if test="${not empty addr.zipCode}"> ${addr.zipCode}</c:if>
-                            <c:if test="${not empty addr.province}">, ${addr.province}</c:if>
-                        </span>
+                                            <c:if test="${not empty addr.street}">${addr.street}</c:if>
+                                            <c:if test="${not empty addr.streetNumber}"> ${addr.streetNumber}</c:if>
+                                            <c:if test="${not empty addr.city}">, ${addr.city}</c:if>
+                                            <c:if test="${not empty addr.zipCode}"> ${addr.zipCode}</c:if>
+                                            <c:if test="${not empty addr.province}">, ${addr.province}</c:if>
+                                        </span>
                                         <img src="${pageContext.request.contextPath}/img/icon/delete.png" class="delete-icon" alt="delete Address">
                                     </label>
                                 </div>

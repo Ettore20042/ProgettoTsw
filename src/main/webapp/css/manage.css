@@ -14,10 +14,6 @@
 
 }
 
-/*.manage-components-container-filter{
-    width: 30%;
-}*/
-
 .admin-nav{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -349,7 +345,6 @@
 }
 
 
-
 /* Oppure con classi specifiche */
 .admin-icon.check {
     tint-color: green;
@@ -411,6 +406,4 @@ img.icon-wrench{
         display: block;
         align-self: flex-end;
     }
-
-
 }

@@ -19,15 +19,22 @@
 .offers-container .product-list{
     margin: 1.5rem 0.2rem 0 0;
 }
+.product-list_title{
+    color: #c7a25f;
+}
 
 .product-list_heading {
     font-family: 'Poppins', sans-serif;
-    font-size: clamp(1.25rem, 1rem + 1.35vw, 2.3rem);
+    font-size: clamp(1.15rem, 1rem + 1.35vw, 1.25rem);
+    font-weight: 600;
     margin: 0 0 1rem 0.5rem;
+    color: #392E23;
     grid-area: title;
-    /*place-self: center;*/
     align-self: center;
     justify-self: flex-start;
+}
+.offers-list_heading{
+    color: #c7a25f;
 }
 
 
@@ -171,29 +178,34 @@
     }
 }
 @media (min-width: 992px) {
-    .product-list-page{
+    .product-list-page, offers-container {
         padding: 0 1.5%;
     }
     .product-list{
         grid-template-columns: minmax(175px, 245px) 1fr;
         grid-template-areas: "title title"
                             "filter products";
-        column-gap: 1rem;
+        column-gap: 2rem;
+    }
+    .product-list_cards{
+        grid-template-columns: repeat(auto-fit, minmax(175px, 200px));
+        justify-content: flex-start;
     }
     .offers-list_heading{
         margin: 2rem 0 1rem;
+        font-size: 2.5rem;
     }
     .product-filter_details-box{
         border-bottom: 1px solid #F3EED8;
     }
 }
 @media (min-width: 1220px) {
-    .product-list-page{
+    .product-list-page, .offers-container {
         padding: 0 3%;
     }
 }
 @media (min-width: 1440px) {
-    .product-list-page{
+    .product-list-page, .offers-container{
         padding: 0 7.5%;
     }
 }

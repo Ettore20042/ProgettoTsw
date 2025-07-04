@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Bean.Brand;
 import model.Bean.Category;
 import model.Bean.Product;
@@ -42,6 +43,14 @@ public class ManageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user == null || !user.isAdmin()) {
+            response.sendRedirect(request.getContextPath() + "/jsp/auth/Login.jsp");
+            return;
+        }
+
+
         String entity = request.getParameter("entity");
         String searchQuery = request.getParameter("searchQuery");
         String forwardPage = "/jsp/admin/Manage.jsp"; // Per ora punta alla vecchia JSP

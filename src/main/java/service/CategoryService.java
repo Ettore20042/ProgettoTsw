@@ -69,6 +69,30 @@ public class CategoryService {
 		return breadcrumb;
 	}
 
+	// In CategoryService.java
+
+	public List<Category> getSubCategories(int rootCategoryId) {
+		// 1. Assicurati che la cache sia aggiornata
+		checkCategoryCache();
+
+		// 2. Ottieni la mappa corrente dal contesto
+		Map<Integer, Category> categoryMap = (Map<Integer, Category>) this.context.getAttribute("categoryCacheMap");
+
+		if (categoryMap != null) {
+			// 3. Usa il filtro corretto con .equals()
+			return categoryMap.values().stream()
+					.filter(cat -> {
+						Integer parentId = cat.getParentCategory();
+						// Il confronto corretto e sicuro!
+						return parentId != null && parentId.equals(rootCategoryId);
+					})
+					.collect(Collectors.toList());
+		}
+
+		// 4. Restituisci una lista vuota se la mappa non esiste
+		return Collections.emptyList();
+	}
+
 	public List<Category> getAllCategories() {
 		return CategoryDAO.doRetrieveAll();
 	}

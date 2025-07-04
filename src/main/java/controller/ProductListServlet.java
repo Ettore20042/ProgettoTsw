@@ -54,14 +54,17 @@ public class ProductListServlet extends HttpServlet {
 
             if(brandIdParam != null){
                 List<Product> productList = productService.getProductsByBrand(Integer.parseInt(brandIdParam));
+
                 request.setAttribute("productList", productList);
                 dispatcher = request.getRequestDispatcher("/jsp/products/ProductsList.jsp");
                 dispatcher.forward(request, response);
             } else if(categoryIdParam != null){
                 List<Product> productList = productService.getProductsByCategory(Integer.parseInt(categoryIdParam));
                 List<Category> breadcrumbCategories = categoryService.buildBreadcrumbFromMap(categoryCacheMap, Integer.parseInt(categoryIdParam));
+                List<Category> subCategories = categoryService.getSubCategories(Integer.parseInt(categoryIdParam));
                 request.setAttribute("productList", productList);
                 request.setAttribute("breadcrumbCategories", breadcrumbCategories);
+                request.setAttribute("subCategories", subCategories);
                 dispatcher = request.getRequestDispatcher("/jsp/products/ProductsList.jsp");
                 dispatcher.forward(request, response);
             } else if(offersParam != null && offersParam.equals("true")){

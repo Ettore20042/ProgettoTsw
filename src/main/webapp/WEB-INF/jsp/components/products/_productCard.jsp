@@ -81,27 +81,23 @@
             </button>
         </form>
 
-        <% if (request.getSession().getAttribute("user") == null) { %>
-        <form action="${pageContext.request.contextPath}/LoginServlet" method="post">
-            <input type="hidden" name="redirectAfterLogin" value="CheckoutServlet" />
-            <input type="hidden" name="productId" value="${product.productId}" />
-            <input type="hidden" name="quantitySelected" id="buyNowQuantityGuest" value="1" />
-            <button type="submit" class="product-card_button product-card_button--buy-now">Acquista Ora</button>
-        </form>
-        <% } else { %>
-        <form action="${pageContext.request.contextPath}/CheckoutServlet" method="get">
-            <input type="hidden" name="productId" value="${product.productId}" />
-            <input type="hidden" name="quantitySelected" id="buyNowQuantityUser" value="1" />
-            <button type="submit" class="product-card_button product-card_button--buy-now">Acquista Ora</button>
-        </form>
-        <% } %>
-
-        </c:if>
-        <c:if test="${product.getQuantity() == 0}">
-            <p class="product-card_stock-status--not-available">Non disponibile momentaneamente</p>
-        </c:if>
-
-
+        <c:choose>
+            <c:when test="${empty sessionScope.user}">
+                <form action="${pageContext.request.contextPath}/LoginServlet" method="post">
+                    <input type="hidden" name="redirectAfterLogin" value="CheckoutServlet" />
+                    <input type="hidden" name="productId" value="${product.productId}" />
+                    <input type="hidden" name="quantitySelected" id="buyNowQuantityGuest" value="1" />
+                    <button type="submit" class="product-card_button product-card_button--buy-now">Acquista Ora</button>
+                </form>
+            </c:when>
+            <c:otherwise>
+                <form action="${pageContext.request.contextPath}/CheckoutServlet" method="get">
+                    <input type="hidden" name="productId" value="${product.productId}" />
+                    <input type="hidden" name="quantitySelected" id="buyNowQuantityUser" value="1" />
+                    <button type="submit" class="product-card_button product-card_button--buy-now">Acquista Ora</button>
+                </form>
+            </c:otherwise>
+        </c:choose>
     </div>
 
 

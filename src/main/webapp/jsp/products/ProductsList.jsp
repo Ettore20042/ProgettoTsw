@@ -11,6 +11,7 @@
         <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/productList.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/_productsFilter.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/_subCategories.css">
         <script src="${pageContext.request.contextPath}/Js/products/productFilter.js" defer></script>
         <script src="${pageContext.request.contextPath}/Js/products/productListUpdater.js" defer></script>
     </head>
@@ -27,14 +28,23 @@
                         <c:if test="${not status.last}">
                             <span class="material-symbols-rounded">keyboard_arrow_right</span>
                         </c:if>
+                        <c:if test="${status.last}">
+                            <c:set var="currentCategory" value="${category.categoryName}"/>
+                        </c:if>
                     </c:forEach>
                 </div>
+            </div>
+
+            <h1 class="product-list_title"><c:out value="${currentCategory}"/></h1>
+
+            <div class="product_list_subcategories">
+                <jsp:include page="../../WEB-INF/jsp/components/products/_subCategoriesList.jsp"/>
             </div>
 
 
 
             <section class="product-list">
-                <h2 class="product-list_heading">Sfoglia i prodotti</h2>
+                <h3 class="product-list_heading">Sfoglia i prodotti</h3>
 
                 <div class="product-list_filter-box">
                     <jsp:include page="../../WEB-INF/jsp/components/products/_productsFilter.jsp"/>
