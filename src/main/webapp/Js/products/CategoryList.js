@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 body: new URLSearchParams(formData),
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-
+                    'X-Requested-With': 'XMLHttpRequest'
                 }
             })
                 .then(res => {
