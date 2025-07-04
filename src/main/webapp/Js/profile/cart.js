@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     // --- Quantity Update ---
     document.querySelectorAll('.quantity-input').forEach(input => {
-        input.addEventListener('change', function() { //a ciascun campo di input viene associato questo ascoltatore che eseguirà la funzione ogni volta che il valore del campo cambia
+        input.addEventListener('change', function(event) {
+            event.preventDefault();
+            //a ciascun campo di input viene associato questo ascoltatore che eseguirà la funzione ogni volta che il valore del campo cambia
             //this si riferisce all'elemento di input che l'utente ha modificato
             const productId = this.dataset.productId;
             const quantity = parseInt(this.value);
@@ -22,6 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 formData.append('action', 'update');
                 formData.append('quantity', this.value);
 
+                console.log(formData);
+                console.log(form.action);
                 //eseguiamo la richiesta
                 fetch(form.action, { //URL della servlet che gestirà la richiesta
                     method: 'POST',
@@ -31,6 +35,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         'Content-Type': 'application/x-www-form-urlencoded' //dice come interpretare i dati nel body
                     }
                 })
+                    .then(response => {
+                        if (!response.ok) {
+                            return; //se la risposta è ok, la convertiamo in JSON
+                        }
+                        const cartcount = document.querySelector('.cart-count');
+                        if (cartcount) {
+                            cartcount.textContent = parseInt(cartcount.textContent, 10) + 1; //decrementa il contatore del carrello
+                        }
+                    })
                     .catch(error => {
                         console.error('Error updating quantity:', error);
                     });

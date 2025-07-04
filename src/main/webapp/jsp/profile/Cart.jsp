@@ -41,7 +41,7 @@
                         <th>Prodotto</th>
                         <th>Quantità</th>
                         <th>Prezzo</th>
-                        <th>Totale</th>
+<%--                        <th>Totale</th>--%>
                     </tr>
                     </thead>
                     <tbody>
@@ -64,7 +64,7 @@
                             <%= item.getProductName() != null ? item.getProductName().replaceAll("<", "&lt;").replaceAll(">", "&gt;") : "" %>
                         </td>
                         <td class="product-quantity">
-                            <form class="quantity-form" action="${pageContext.request.contextPath}/cart-update" method="post">
+                            <form class="quantity-form" action="${pageContext.request.contextPath}/CartServlet" method="post">
                                 <input type="hidden" name="productId" value="<%= item.getProductId() %>">
                                 <input type="hidden" name="action" value="update">
                                 <input type="number"
@@ -77,7 +77,7 @@
                                        max="999">
                             </form>
                         </td>
-                        <td class="product-price">&euro; <%= String.format("%.2f", item.getPrice()) %></td>
+<%--                        <td class="product-price">&euro; <%= String.format("%.2f", item.getPrice()) %></td>--%>
                         <td class="total-value">&euro; <%= String.format("%.2f", itemTotal) %></td>
                     </tr>
                     <%
