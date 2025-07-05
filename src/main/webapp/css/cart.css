@@ -154,7 +154,7 @@
 .continue-shopping {
     background-color: #f0f0f0;
     color: #333;
-    order: 2;
+    order: 1;
 }
 
 .continue-shopping:hover {
@@ -162,11 +162,13 @@
 }
 
 .checkout-btn {
-    background-color: #4CAF50;
-    color: white;
+    background: green;
     border: none;
-    font-weight: 500;
-    order: 1;
+     font-weight: 200;
+    font-size: 1.2rem;
+    color: white;
+    order: 2;
+    width: 100%;
 }
 
 .checkout-btn:hover {
@@ -216,7 +218,7 @@
     }
 
     .cart-actions {
-        flex-direction: row;
+        flex-direction: row-reverse;
         justify-content: space-between;
     }
 
