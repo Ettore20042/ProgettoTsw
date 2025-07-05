@@ -71,9 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (btnConfirmOrder) {
         btnConfirmOrder.addEventListener('click', function() {
+            processOrder();
+            console.log('Conferma ordine cliccato');
             // Qui andrà la logica per confermare l'ordine
             if (validateCheckoutForm()) {
-                processOrder();
+
             }
         });
     }
@@ -217,61 +219,93 @@ function validateCheckoutForm() {
     return true;
 }
 function processOrder() {
+    // Prima valida il form
+    if (!validateCheckoutForm()) {
+        return;
+    }
+
     const confirmBtn = document.querySelector('.btn-confirm-order');
+    console.log('Processando ordine...');
+
     if (confirmBtn) {
         confirmBtn.disabled = true;
         confirmBtn.textContent = 'Elaborazione in corso...';
     }
 
     // Raccolta dati dell'ordine
-    const orderData = {
-        shippingAddressId: document.querySelector('input[name="shippingAddressId"]:checked').value,
-        billingAddressId: document.querySelector('input[name="billingAddressId"]:checked').value,
-        totalAmount: document.getElementById('total').value,
+    const shippingAddressId = document.querySelector('input[name="shippingAddressId"]:checked').value;
+    const billingAddressId = document.querySelector('input[name="billingAddressId"]:checked').value;
 
+    // Usa il campo nascosto per il totale invece di parsare il testo
+    const totalElement = document.getElementById('totalValue');
+    const totalAmount = totalElement ? totalElement.value : '0';
 
-    };
+    console.log('Parametri da inviare:');
+    console.log('shippingAddressId:', shippingAddressId);
+    console.log('billingAddressId:', billingAddressId);
+    console.log('total:', totalAmount);
 
+    // Crea FormData per compatibilità con la servlet
+    const formData = new FormData();
+    formData.append('shippingAddressId', shippingAddressId);
+    formData.append('billingAddressId', billingAddressId);
+    formData.append('total', totalAmount);
 
+    // Debug: stampa tutti i parametri di FormData
+    console.log('FormData contenuto:');
+    for (let [key, value] of formData.entries()) {
+        console.log(key + ': ' + value);
+    }
+
+    // Definisci contextPath in modo più robusto
+    const contextPath = document.body.getAttribute('data-context-path') ||
+                       '/' + window.location.pathname.split('/')[1];
+
+    console.log('Context path:', contextPath);
+    console.log('URL finale:', `${contextPath}/ProcessOrderServlet`);
 
     // Chiamata AJAX per processare l'ordine
     fetch(`${contextPath}/ProcessOrderServlet`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: orderData
+        body: formData
     })
         .then(response => {
+            console.log('Response status:', response.status);
+            console.log('Response headers:', response.headers);
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             return response.json();
         })
         .then(data => {
+            console.log('Response data:', data);
             if (data.success) {
                 showMessage('Ordine confermato con successo!', 'success');
-
-                // Redirect alla pagina di conferma ordine
+                // Reindirizza alla pagina di conferma dopo 2 secondi
                 setTimeout(() => {
-                    window.location.href = `${contextPath}/orderConfirmation.jsp?orderId=${data.orderId}`;
+                    window.location.href = `${contextPath}/jsp/profile/orderConfirmation.jsp?orderId=${data.orderId}`;
                 }, 2000);
             } else {
                 showMessage(data.message || 'Errore durante l\'elaborazione dell\'ordine', 'error');
-                // Riabilita il pulsante in caso di errore
-                confirmBtn.disabled = false;
-                confirmBtn.textContent = 'Conferma Ordine';
+                resetConfirmButton(confirmBtn);
             }
         })
         .catch(error => {
-            console.error('Error:', error);
+            console.error('Fetch error:', error);
             showMessage('Si è verificato un errore durante l\'elaborazione dell\'ordine', 'error');
-
-            // Riabilita il pulsante in caso di errore
-            confirmBtn.disabled = false;
-            confirmBtn.textContent = 'Conferma Ordine';
+            resetConfirmButton(confirmBtn);
         });
 }
+
+// Funzione helper per resettare il bottone
+function resetConfirmButton(confirmBtn) {
+    if (confirmBtn) {
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = 'Conferma Ordine';
+    }
+}
+
 // Mostra un messaggio di successo o errore
 function showMessage(message, type) {
     const messageBox = document.getElementById('message');
@@ -358,4 +392,3 @@ function checkAndSelectFirstAddress(addressType) {
         firstRadio.checked = true;
     }
 }
-

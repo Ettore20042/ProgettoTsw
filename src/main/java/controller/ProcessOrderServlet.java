@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+@MultipartConfig
 @WebServlet(name = "ProcessOrderServlet", value = "/ProcessOrderServlet")
 public class ProcessOrderServlet extends HttpServlet {
     @Override
@@ -27,38 +28,59 @@ public class ProcessOrderServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         Map<String, Object> jsonResponse = new HashMap<>();
 
-        try{
+        try {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("user");
-            int userId=user.getUserId();
+
+            if (user == null) {
+                jsonResponse.put("success", false);
+                jsonResponse.put("message", "Utente non autenticato");
+                response.getWriter().write(new Gson().toJson(jsonResponse));
+                return;
+            }
+
             String shippingAddress = request.getParameter("shippingAddressId");
             String billingAddress = request.getParameter("billingAddressId");
-            float totalPrice = Float.parseFloat(request.getParameter("total"));
+            String totalParam = request.getParameter("total");
 
-            String status ="In elaborazione";
-            LocalDate orderDate = LocalDate.now();        // Solo la data (yyyy-MM-dd)
-            LocalDateTime orderDateTime = LocalDateTime.now(); // Data e orario completo
-            int orderId = (int) (Math.random() * 1000000); // Generazione ID ordine casuale
-            // Creazione dell'oggetto Order
-            Order order = new Order(orderId, userId, Integer.parseInt(billingAddress), Integer.parseInt(shippingAddress),  totalPrice, orderDateTime.toLocalTime(), orderDate, status);
+            if (shippingAddress == null || shippingAddress.isEmpty() ||
+                billingAddress == null || billingAddress.isEmpty() ||
+                totalParam == null || totalParam.isEmpty()) {
+                jsonResponse.put("success", false);
+                jsonResponse.put("message", "Parametri mancanti");
+                response.getWriter().write(new Gson().toJson(jsonResponse));
+                return;
+            }
 
-            // Logica per elaborare l'ordine (ad esempio, salvataggio nel database)
-            // Qui dovresti chiamare un metodo del servizio per salvare l'ordine nel database
+            float totalPrice = Float.parseFloat(totalParam);
+            int shippingAddressId = Integer.parseInt(shippingAddress);
+            int billingAddressId = Integer.parseInt(billingAddress);
+
+            String status = "In elaborazione";
+            LocalDate orderDate = LocalDate.now();
+            LocalDateTime orderDateTime = LocalDateTime.now();
+            int orderId = (int) (Math.random() * 1000000);
+
+            Order order = new Order(orderId, user.getUserId(), billingAddressId, shippingAddressId,
+                                  totalPrice, orderDateTime.toLocalTime(), orderDate, status);
+
             OrderService orderService = new OrderService(getServletContext());
-            orderService.processOrder(order);
-            // Simulazione di elaborazione dell'ordine
+            orderService.processOrder(order, session);
+
             jsonResponse.put("success", true);
             jsonResponse.put("message", "Ordine elaborato con successo");
             jsonResponse.put("orderId", order.getOrderId());
+
             response.getWriter().write(new Gson().toJson(jsonResponse));
 
-
-
-        }catch (Exception e) {
+        } catch (NumberFormatException e) {
             jsonResponse.put("success", false);
-            jsonResponse.put("message", "Errore durante l'elaborazione dell'ordine: " + e.getMessage());
+            jsonResponse.put("message", "Formato parametri non valido");
             response.getWriter().write(new Gson().toJson(jsonResponse));
-            return;
+        } catch (Exception e) {
+            jsonResponse.put("success", false);
+            jsonResponse.put("message", "Errore del server: " + e.getMessage());
+            response.getWriter().write(new Gson().toJson(jsonResponse));
         }
     }
-} 
+}

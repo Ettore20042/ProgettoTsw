@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/checkout.css" type="text/css">
     <script src="${pageContext.request.contextPath}/Js/profile/checkout.js" defer></script>
 </head>
-<body>
+<body data-context-path="${pageContext.request.contextPath}">
 <jsp:include page="/WEB-INF/jsp/components/common/header.jsp"/>
 
 <div class="checkout-container">
@@ -39,6 +39,8 @@
                 </c:forEach>
                 <div class="order-total">
                     <strong id="total">Totale: <fmt:formatNumber value="${total}" pattern="€#,##0.00"/></strong>
+                    <!-- Campo nascosto per facilitare il recupero del valore numerico -->
+                    <input type="hidden" id="totalValue" value="${total}">
                 </div>
                <!-- Conferma Ordine -->
                 <div class="order-actions">
