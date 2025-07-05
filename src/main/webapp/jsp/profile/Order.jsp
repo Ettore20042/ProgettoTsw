@@ -34,6 +34,7 @@
                                 <div class="listorders-user-order-card-products">
                                     <c:forEach var="item" items="${order.orderItems}">
                                         <img src="${pageContext.request.contextPath}/ImageServlet?productId=${item.productId}" alt="Immagine prodotto">
+                                        
                                     </c:forEach>
                                 </div>
                             </div>

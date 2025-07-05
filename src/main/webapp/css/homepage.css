@@ -650,7 +650,12 @@ body main .idea-card .button:hover {
     box-shadow: 0 4px 12px rgba(157, 209, 65, 0.3);
     border-color: var(--primary-color);
 }
+body main .featured .product-card_price--original{
+    font-size: 1.2rem; /* Dimensione del prezzo originale */
+    color: black;
+    text-align: center;
 
+}
 /* ===== RESPONSIVE - TABLET ===== */
 @media (min-width: 768px) {
     body main {
