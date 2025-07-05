@@ -164,13 +164,13 @@ body main #idevidenza {
     position: relative;
     letter-spacing: -0.02em;
 }
-
+/* Icona prima del titolo */
 body main #idevidenza::before {
     content: '⭐';
     margin-right: 0.5rem;
     font-size: 1.5rem;
 }
-
+/* Linea decorativa sotto il titolo */
 body main #idevidenza::after {
     content: '';
     display: block;
@@ -180,7 +180,7 @@ body main #idevidenza::after {
     margin: 0.75rem auto 0;
     border-radius: 2px;
 }
-
+/* ===== SCROLL CONTAINER ===== */
 body main .scroll-container {
     position: relative;
     margin-bottom: 3rem;
@@ -205,13 +205,11 @@ body main .featured {
     -webkit-overflow-scrolling: touch;
     /* Nuove proprietà per migliorare il drag/swipe scrolling */
     scroll-snap-type: x mandatory;
-    cursor: grab;
+    cursor: pointer;
     border-radius: 12px;
 }
 
-body main .featured:active {
-    cursor: grabbing;
-}
+
 
 body main .featured::-webkit-scrollbar {
     display: none; /* Chrome/Safari */
