@@ -77,13 +77,13 @@
                         <img src="${pageContext.request.contextPath}/img/homepage/idee-mensola.jpg" alt="Mensola Fai da Te">
                         <h3>Come montare una mensola</h3>
                         <p>Tutorial passo-passo con materiali consigliati e attrezzi essenziali.</p>
-                        <a href="${pageContext.request.contextPath}/jsp/support/TutorialMensola.jsp" class="button">Guarda la guida</a>
+                        <a href="https://www.youtube.com/shorts/OF4UPwOpfSU?feature=share" class="button">Guarda la guida</a>
                     </div>
                     <div class="idea-card">
                         <img src="${pageContext.request.contextPath}/img/homepage/idee-giardino.jpg" alt="Giardino">
                         <h3>Allestisci il tuo giardino</h3>
                         <p>Soluzioni per esterni con mobili, casette e illuminazione sostenibile.</p>
-                        <a href="${pageContext.request.contextPath}/jsp/support/TutorialGiardino.jsp" class="button">Scopri di più</a>
+                        <a href="https://www.youtube.com/shorts/7OPZINPil4Q?feature=share" class="button">Scopri di più</a>
                     </div>
                 </div>
             </section>

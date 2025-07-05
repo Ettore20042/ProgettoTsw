@@ -9,7 +9,7 @@ body main * {
     --primary-color: #2c3e50;
     --secondary-color: #34495e;
     --accent-color: #2c3e50;
-    --success-color: #f4980f;
+    --success-color: rgba(149, 124, 55, 0.81);
     --background-light: #f8f9fa;
     --background-white: #ffffff;
     --background-header:#F3EED8;
@@ -26,7 +26,7 @@ body main * {
 /* ===== LAYOUT PRINCIPALE - SOLO HOMEPAGE ===== */
 body main {
     padding: 1rem;
-    max-width: 1200px;
+    max-width: 100vw;
     margin: 0 auto;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
@@ -151,7 +151,7 @@ body main .offers-section .button {
 
 body main .offers-section .button:hover {
     background: var(--success-color);
-    border: 2px solid orangered;
+
 }
 
 /* ===== SEZIONE PRODOTTI IN EVIDENZA ===== */
@@ -159,13 +159,36 @@ body main #idevidenza {
     font-size: 1.8rem;
     color: var(--primary-color);
     text-align: center;
-    margin: 2rem 0 1rem;
-    font-weight: 600;
+    margin: 3rem 0 1.5rem;
+    font-weight: 700;
+    position: relative;
+    letter-spacing: -0.02em;
+}
+
+body main #idevidenza::before {
+    content: '⭐';
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
+}
+
+body main #idevidenza::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--success-color), var(--primary-color));
+    margin: 0.75rem auto 0;
+    border-radius: 2px;
 }
 
 body main .scroll-container {
     position: relative;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
+    padding: 1rem 0;
+ /*  !* background: linear-gradient(135deg, rgba(243, 238, 216, 0.3) 0%, rgba(255, 255, 255, 0.8) 100%);*!
+    border-radius: 16px;
+    border: 1px solid rgba(157, 209, 65, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);*/
 }
 
 /* ===== SEZIONE PRODOTTI FEATURED ===== */
@@ -173,13 +196,21 @@ body main .featured {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-    gap: 15px;
-    padding: 15px 5px;
+    gap: 20px;
+    padding: 20px;
     scroll-behavior: smooth;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */
     margin-bottom: 2rem;
     -webkit-overflow-scrolling: touch;
+    /* Nuove proprietà per migliorare il drag/swipe scrolling */
+    scroll-snap-type: x mandatory;
+    cursor: grab;
+    border-radius: 12px;
+}
+
+body main .featured:active {
+    cursor: grabbing;
 }
 
 body main .featured::-webkit-scrollbar {
@@ -190,19 +221,131 @@ body main .featured::-webkit-scrollbar {
 body main .featured .product-list_cards {
     display: flex;
     flex-wrap: nowrap;
-    gap: 15px;
+    gap: 20px;
     margin-bottom: 0;
+    padding: 0 10px;
     /* Rimuoviamo il grid per permettere lo scrolling orizzontale */
     grid-template-columns: none;
 }
 
-/* Le product-card nella featured section mantengono gli stili del productList.css */
-/* ma con dimensioni fisse per lo scrolling orizzontale */
+/* Le product-card nella featured section con stili migliorati */
 body main .featured .product-card {
-    flex: 0 0 180px; /* Larghezza fissa per homepage */
-    min-width: 180px;
-    max-width: 180px;
-    /* Gli altri stili vengono ereditati da productList.css */
+    flex: 0 0 200px; /* Larghezza leggermente aumentata */
+    min-width: 200px;
+    max-width: 200px;
+    background: var(--background-white);
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(157, 209, 65, 0.15);
+    overflow: hidden;
+    position: relative;
+    scroll-snap-align: start;
+}
+
+/* Effetto gradiente superiore per le card */
+body main .featured .product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--success-color), #32CD32);
+    transform: translateX(-100%);
+    transition: transform 0.7s ease;
+    z-index: 1;
+}
+
+body main .featured .product-card:hover::before {
+    transform: translateX(0);
+}
+
+body main .featured .product-card:hover {
+    box-shadow: 0 15px 40px rgba(246, 235, 235, 0.15);
+    border-color: var(--success-color);
+}
+
+/* Miglioramenti per le immagini */
+body main .featured .product-card_image {
+    border-radius: 12px 12px 0 0;
+    transition: transform 0.4s ease;
+    background: linear-gradient(45deg, #f8f9fa, #ffffff);
+}
+
+body main .featured .product-card:hover .product-card_image {
+    transform: scale(1.05);
+}
+
+/* Stili migliorati per i dettagli del prodotto */
+body main .featured .product-card_brand {
+    font-size: 0.9rem;
+    color: var(--success-color);
+    font-weight: 700;
+    text-transform: uppercase;
+
+
+}
+
+body main .featured .product-card_name {
+    color: var(--primary-color);
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+/* Badge per disponibilità */
+body main .featured .product-card_stock-status--available {
+    align-self: flex-start;
+
+    padding: 0.25rem 1rem;
+    border-radius: 12px;
+    font-weight: 1000;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-top: 0.5rem;
+
+
+}
+
+/* Bottone carrello più moderno */
+body main .featured .product-card_button--add-to-cart-icon {
+    background: linear-gradient(135deg, var(--success-color), #FFB84D);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    box-shadow: 0 4px 15px rgba(244, 152, 15, 0.4);
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+}
+
+body main .featured .product-card_button--add-to-cart-icon:hover {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 6px 20px rgba(244, 243, 242, 0.6);
+}
+
+/* Badge prezzo migliorato */
+body main .featured .product-card_price {
+    background: linear-gradient(135deg, rgba(44, 62, 80, 0.05), rgba(244, 152, 15, 0.1));
+    padding: 0.75rem;
+    border-radius: 12px;
+
+}
+
+body main .featured .product-card_price--sale {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--success-color);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 body main .featured .product-card_price--original-in-sale{
     font-size: 0.9rem; /* Dimensione del prezzo originale */
@@ -210,7 +353,7 @@ body main .featured .product-card_price--original-in-sale{
     text-decoration: line-through;
 }
 body main .featured .product-card_stock-status--available {
-    font-size: 1.1rem; /* Dimensione del prezzo scontato */
+    font-size: 0.9rem;
     color: var(--primary-color);
     font-weight: bold;
     padding:0;
@@ -219,12 +362,11 @@ body main .featured .product-card_stock-status--available {
 
 body main .featured p {
     width: 100%;
-    text-align: center;
+    text-align: start;
     color: var(--text-light);
-    font-size: 1rem;
+    font-size: 0.7rem;
     padding: 1rem 0.5rem;
     margin: 0;
-    background: var(--background-white);
     border-radius: 8px;
 
 }
@@ -395,6 +537,122 @@ body main .about-us p strong {
     font-weight: 600;
 }
 
+/* ===== SEZIONE PROJECT IDEAS ===== */
+body main .project-ideas {
+    background: linear-gradient(135deg, var(--background-white) 0%, #f9fafb 100%);
+    padding: 3rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+    margin: 3rem 0;
+    border-left: 4px solid var(--success-color);
+}
+
+body main .project-ideas h2 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    position: relative;
+}
+
+body main .project-ideas h2::after { /* Linea decorativa sotto il titolo */
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--success-color), var(--primary-color));
+    margin: 0.75rem auto 0;
+    border-radius: 2px;
+}
+
+body main .idea-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 2.5rem;
+}
+
+body main .idea-card {
+    background: var(--background-white);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+body main .idea-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--success-color), #FFA20D); /* Gradiente per l'effetto hover */
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+}
+
+body main .idea-card:hover::before {
+    transform: translateX(0);
+}
+
+body main .idea-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+body main .idea-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+body main .idea-card:hover img {
+    transform: scale(1.05);
+}
+
+body main .idea-card h3 {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+body main .idea-card p {
+    color: var(--text-medium);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+body main .idea-card .button {
+    background: var(--success-color);
+    color: #392E23;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+body main .idea-card .button:hover {
+    background: rgba(149, 124, 55, 0.49);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(157, 209, 65, 0.3);
+    border-color: var(--primary-color);
+}
+
 /* ===== RESPONSIVE - TABLET ===== */
 @media (min-width: 768px) {
     body main {
@@ -463,6 +721,35 @@ body main .about-us p strong {
     body main .about-us p:last-of-type {
         columns: 1;
         margin-top: 1rem;
+    }
+
+    body main .project-ideas {
+        padding: 3.5rem 2rem;
+    }
+
+    body main .project-ideas h2 {
+        font-size: 2.2rem;
+    }
+
+    body main .idea-cards {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+    }
+
+    body main .idea-card {
+        padding: 2rem;
+    }
+
+    body main .idea-card img {
+        height: 220px;
+    }
+
+    body main .idea-card h3 {
+        font-size: 1.4rem;
+    }
+
+    body main .idea-card p {
+        font-size: 1.05rem;
     }
 }
 
@@ -533,6 +820,41 @@ body main .about-us p strong {
         line-height: 1.9;/* Aumenta la leggibilità */
     }
 
+    body main .project-ideas {
+        padding: 4rem 3rem;
+        max-width: 1000px;
+        margin: 4rem auto;
+    }
+
+    body main .project-ideas h2 {
+        font-size: 2.5rem;
+    }
+
+    body main .idea-cards {
+        gap: 3rem;
+    }
+
+    body main .idea-card {
+        padding: 2.5rem;
+    }
+
+    body main .idea-card img {
+        height: 250px;
+    }
+
+    body main .idea-card h3 {
+        font-size: 1.5rem;
+    }
+
+    body main .idea-card p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+    }
+
+    body main .idea-card .button {
+        font-size: 1.05rem;
+        padding: 1rem 2rem;
+    }
 }
 
 /* ===== UTILITÀ ===== */ /* Si potrebbe anche toglere secondo me*/
