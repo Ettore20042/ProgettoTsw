@@ -91,16 +91,20 @@ body {
 .listorders-user-order-card-products img{
     height: 80px;
     width: 80px;
-    object-fit: cover; /*evita che l'immagine si deformi*/
+    object-fit: scale-down; /* mantiene le proporzioni dell'immagine senza distorcerla*/
     border-radius: 8px;
     flex-shrink: 0; /*impedisce alle immagini di restringersi*/
-    border: 1px solid #e0e0e0;
+
 }
 
 .no-orders-message{
     text-align: center;
     padding: 40px;
     font-size: 1.1rem;
+    color: #0056b3;
+}
+.product-info .product-name {
+    font-weight: bold;
     color: #0056b3;
 }
 

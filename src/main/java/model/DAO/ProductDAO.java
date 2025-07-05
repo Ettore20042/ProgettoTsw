@@ -431,6 +431,47 @@ public class ProductDAO {
     }
 
 
+    public List<Product> doRetrieveByProductIds(ArrayList<Integer> integers) {
+        List<Product> products = new ArrayList<>();
+        if (integers == null || integers.isEmpty()) {
+            return products; // Restituisce una lista vuota se l'input è nullo o vuoto
+        }
 
+        StringBuilder query = new StringBuilder("SELECT * FROM product WHERE ProductID IN (");
+        for (int i = 0; i < integers.size(); i++) {
+            query.append("?");
+            if (i < integers.size() - 1) {
+                query.append(",");
+            }
+        }
+        query.append(")");
 
+        try (Connection connection = ConnPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query.toString())) {
+
+            for (int i = 0; i < integers.size(); i++) {
+                preparedStatement.setInt(i + 1, integers.get(i));
+            }
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setProductId(resultSet.getInt("ProductID"));
+                product.setProductName(resultSet.getString("ProductName"));
+                product.setDescription(resultSet.getString("Description"));
+                product.setPrice(resultSet.getFloat("Price"));
+                product.setColor(resultSet.getString("Color"));
+                product.setMaterial(resultSet.getString("Material"));
+                product.setQuantity(resultSet.getInt("Quantity"));
+                product.setSalePrice(resultSet.getFloat("SalePrice"));
+                product.setBrandId(resultSet.getInt("BrandID"));
+                product.setCategoryId(resultSet.getInt("CategoryID"));
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return products;
+
+    }
 }

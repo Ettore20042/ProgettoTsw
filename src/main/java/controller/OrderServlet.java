@@ -9,12 +9,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Bean.Order;
 import model.Bean.OrderItem;
+import model.Bean.Product;
 import model.DAO.OrderDAO;
 import model.DAO.OrderItemDAO;
+import model.DAO.ProductDAO;
 import model.DAO.UserDAO;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @WebServlet(name = "OrderServlet", value = "/OrderServlet")
 public class OrderServlet extends HttpServlet {
@@ -63,9 +69,15 @@ public class OrderServlet extends HttpServlet {
                 List<OrderItem> items = orderItemDAO.doRetrieveByOrderID(order.getOrderId());
                 order.setOrderItems(items);
             }
-
+            // Usa il nuovo metodo
+            List<Product> productList = getProductsFromOrderList(orderList);
+            for(Product product : productList){
+                System.out.println("Product: " + product.getProductName() + ", Price: " + product.getPrice());
+            }
 
             request.setAttribute("orderList", orderList);
+            request.setAttribute("productList", productList);
+
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/profile/Order.jsp");
             dispatcher.forward(request, response);
@@ -74,6 +86,22 @@ public class OrderServlet extends HttpServlet {
         }
 
 
+    }
+    public static List<Product> getProductsFromOrderList(List<Order> orderList) throws SQLException {
+        Set<Integer> productIds = new HashSet<>();
+
+        // Estrai tutti i productId unici dagli OrderItem
+        for (Order order : orderList) {
+            if (order.getOrderItems() != null) {
+                for (OrderItem item : order.getOrderItems()) {
+                    productIds.add(item.getProductId());
+                }
+            }
+        }
+
+        // Recupera i prodotti usando il ProductDAO
+        ProductDAO productDAO = new ProductDAO();
+        return productDAO.doRetrieveByProductIds(new ArrayList<>(productIds));
     }
 
 }
