@@ -38,6 +38,8 @@ public class ProductListServlet extends HttpServlet {
         String brandIdParam = request.getParameter("brandId");
         String categoryIdParam = request.getParameter("categoryId");
         String offersParam = request.getParameter("offers");
+        String homePage = request.getParameter("homePage");
+        String limitParam = request.getParameter("limit");
 
         ServletContext context = getServletContext();
         RequestDispatcher dispatcher;
@@ -47,18 +49,19 @@ public class ProductListServlet extends HttpServlet {
             Map<Integer, Category> categoryCacheMap = (Map<Integer, Category>) getServletContext().getAttribute("categoryCacheMap");
             request.setAttribute("categoryCacheMap", categoryCacheMap);
 
-            if(brandIdParam == null && categoryIdParam == null && offersParam == null){
+            // Correggi la validazione: almeno uno dei parametri deve essere presente
+            if(brandIdParam == null && categoryIdParam == null && offersParam == null && homePage == null){
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameters");
                 return;
             }
 
             if(brandIdParam != null){
                 List<Product> productList = productService.getProductsByBrand(Integer.parseInt(brandIdParam));
-
                 request.setAttribute("productList", productList);
                 dispatcher = request.getRequestDispatcher("/jsp/products/ProductsList.jsp");
                 dispatcher.forward(request, response);
-            } else if(categoryIdParam != null){
+            }
+            else if(categoryIdParam != null){
                 List<Product> productList = productService.getProductsByCategory(Integer.parseInt(categoryIdParam));
                 List<Category> breadcrumbCategories = categoryService.buildBreadcrumbFromMap(categoryCacheMap, Integer.parseInt(categoryIdParam));
                 List<Category> subCategories = categoryService.getSubCategories(Integer.parseInt(categoryIdParam));
@@ -67,13 +70,25 @@ public class ProductListServlet extends HttpServlet {
                 request.setAttribute("subCategories", subCategories);
                 dispatcher = request.getRequestDispatcher("/jsp/products/ProductsList.jsp");
                 dispatcher.forward(request, response);
-            } else if(offersParam != null && offersParam.equals("true")){
+            }
+            else if(offersParam != null && offersParam.equals("true")){
                 List<Product> productList = productService.getProductsOnSale();
                 request.setAttribute("productList", productList);
                 dispatcher = request.getRequestDispatcher("/jsp/products/Offers.jsp");
                 dispatcher.forward(request, response);
-            } else {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameters");
+            }
+            else if(homePage != null && homePage.equals("true")){
+
+                List<Product> productList = productService.getHomePageProducts(Integer.parseInt(limitParam));
+                request.setAttribute("productList", productList);
+                for (Product product : productList) {
+                    System.out.println("Product ID: " + product.getProductId() + ", Name: " + product.getProductName());
+                }
+                dispatcher = request.getRequestDispatcher("/jsp/HomePage.jsp");
+                dispatcher.forward(request, response);
+            }
+            else {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid parameters");
             }
         }catch (Exception e){
             e.printStackTrace();

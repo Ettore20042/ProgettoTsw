@@ -149,4 +149,10 @@ public class ProductService {
     public Float getMaxPrice(int categoryId) {
         return productDAO.getMaxPrice(categoryId);
     }
+
+    public List<Product> getHomePageProducts(int limit) {
+        List<Product> productList = productDAO.doRetrieveFirstNProducts(limit);
+        brandService.addBrandToProductBean(productList);
+        return productList;
+    }
 }

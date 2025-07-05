@@ -11,6 +11,9 @@
         <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/homepage.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
         <script src="${pageContext.request.contextPath}/Js/Homepage.js" defer></script>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/productList.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/_productCard.css">
+
     </head>
     <body>
         <jsp:include page="../WEB-INF/jsp/components/common/header.jsp"/>
@@ -51,21 +54,40 @@
                 <button class="scroll-button left" onclick="scrollToLeft()">❮</button>
 
                 <div class="featured" id="featured">
-                    <c:forEach var="product"  items="${products}">
-                        <div class="product">
-                            <a href="${pageContext.request.contextPath}/ProductServlet?productId=${product.productId}" class="a-class">
-                                <img src="${pageContext.request.contextPath}/ImageServlet?productId=${product.productId}"
-                                                       alt="${product.productName}"
-                                                       class="product-image" />
-                            <h2>${product.productName}</h2></a>
-                            <p>Prezzo: €${product.price}</p>
-                        </div>
-                    </c:forEach>
-                </div>
+                    <!-- I prodotti arriveranno già dalla servlet -->
+                    <c:choose>
+                        <c:when test="${empty productList}">
+                            <p>Nessun prodotto trovato.</p>
+                        </c:when>
+                        <c:otherwise>
+                    <div class="product-list_cards">
 
+                               <jsp:include page="../WEB-INF/jsp/components/products/_productListCard.jsp"/>
+                     </div>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
                 <button class="scroll-button right" onclick="scrollToRight()">❯</button>
 
             </div>
+            <section class="project-ideas">
+                <h2>Ispirazioni per i tuoi progetti</h2>
+                <div class="idea-cards">
+                    <div class="idea-card">
+                        <img src="${pageContext.request.contextPath}/img/homepage/idee-mensola.jpg" alt="Mensola Fai da Te">
+                        <h3>Come montare una mensola</h3>
+                        <p>Tutorial passo-passo con materiali consigliati e attrezzi essenziali.</p>
+                        <a href="${pageContext.request.contextPath}/jsp/support/TutorialMensola.jsp" class="button">Guarda la guida</a>
+                    </div>
+                    <div class="idea-card">
+                        <img src="${pageContext.request.contextPath}/img/homepage/idee-giardino.jpg" alt="Giardino">
+                        <h3>Allestisci il tuo giardino</h3>
+                        <p>Soluzioni per esterni con mobili, casette e illuminazione sostenibile.</p>
+                        <a href="${pageContext.request.contextPath}/jsp/support/TutorialGiardino.jsp" class="button">Scopri di più</a>
+                    </div>
+                </div>
+            </section>
+
             <section class="about-us">
                 <h2>Il più importante Marketplace Italiano del settore Home & Garden</h2>
                 <p>Nel 1959 eravamo un negozio di ferramenta a conduzione familiare. Oggi BricoShop è un punto di riferimento nel settore del bricolage e del fai da te oltre ad essere anche un ecommerce online dove dare sfogo alla tua passione per la casa, la decorazione e il giardinaggio.</p>

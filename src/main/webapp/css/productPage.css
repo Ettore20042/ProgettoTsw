@@ -77,25 +77,8 @@ main{
     font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem);
     margin-bottom: 3px;
 }
-.cart-notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: all 0.3s ease;
-    z-index: 1000;
-}
 
-.cart-notification.show {
-    opacity: 1;
-    transform: translateY(0);
-}
+
 
 @media (min-width: 768px){
     .product-page{

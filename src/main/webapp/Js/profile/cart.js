@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // --- Quantity Update ---
+ /*   // --- Quantity Update ---
     document.querySelectorAll('.quantity-input').forEach(input => {
         input.addEventListener('change', function(event) {
             event.preventDefault();
@@ -61,9 +61,9 @@ document.addEventListener('DOMContentLoaded', function() {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     })
-        /*(async response => { // Verifica il tipo di contenuto dalla risposta per assicurarsi che sia JSON const contentType = response.headers.get("content-type");
+        /!*(async response => { // Verifica il tipo di contenuto dalla risposta per assicurarsi che sia JSON const contentType = response.headers.get("content-type");
          // Legge il corpo della risposta come testo per debug e parsing const text = await response.text();
-          console.log("Raw response:", text);*/
+          console.log("Raw response:", text);*!/
         .then(async response => {
             const contentType = response.headers.get("content-type");
             const text = await response.text();
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error removing item:', error);
         });
 
-
+*/
 
     //aggiorna il subtotale di una singola riga
     function updateRowTotal(inputElement, quantity, price) {
