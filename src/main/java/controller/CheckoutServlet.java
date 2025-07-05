@@ -20,6 +20,7 @@ public class CheckoutServlet extends HttpServlet {
         String quantity = request.getParameter("quantitySelected");
 
 
+
         // Validate parameters
         if (productId == null || quantity == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameters");
@@ -61,6 +62,10 @@ public class CheckoutServlet extends HttpServlet {
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
 
         User user = (User) session.getAttribute("user");
+        if (user == null) {
+            response.sendRedirect(getServletContext().getContextPath() + "/LoginServlet");
+            return;
+        }
         int userid = user.getUserId();
         System.out.println("User ID: " + userid);
 

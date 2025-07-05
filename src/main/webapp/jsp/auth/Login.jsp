@@ -37,7 +37,7 @@
 
 
             <input type="hidden" name="redirectAfterLogin"
-            value="<%= request.getParameter("redirectAfterLogin") != null ? request.getParameter("redirectAfterLogin") : "jsp/HomePage.jsp" %>" />
+            value="<%= request.getParameter("redirectAfterLogin") != null ? request.getParameter("redirectAfterLogin") : "/" %>" />
 
             <input type="hidden" name="productId"
             value="<%= request.getParameter("productId") != null ? request.getParameter("productId") : "" %>" />

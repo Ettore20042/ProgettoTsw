@@ -19,8 +19,43 @@ import java.util.Map;
 public class AddAddressServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO: Elabora la richiesta
+        response.setContentType("application/json;charset=UTF-8");
+        Map<String, Object> jsonResponse = new HashMap<>();
+
+        try {
+            String addressId = request.getParameter("addressId");
+            String addressType = request.getParameter("addressType");
+
+            System.out.println("AddressId: " + addressId);
+            System.out.println("AddressType: " + addressType);
+
+            if (addressId == null || addressType == null) {
+                jsonResponse.put("success", false);
+                jsonResponse.put("message", "Parametri mancanti");
+                response.getWriter().write(new Gson().toJson(jsonResponse));
+                return;
+            }
+
+            AddressDAO addressDAO = new AddressDAO();
+            boolean success = addressDAO.deleteAddress(addressId, addressType);
+
+            if (success) {
+                jsonResponse.put("success", true);
+                jsonResponse.put("message", "Indirizzo eliminato con successo");
+            } else {
+                jsonResponse.put("success", false);
+                jsonResponse.put("message", "Errore durante l'eliminazione dell'indirizzo");
+            }
+
+        } catch (Exception e) {
+            jsonResponse.put("success", false);
+            jsonResponse.put("message", "Errore del server: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        response.getWriter().write(new Gson().toJson(jsonResponse));
     }
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -100,4 +135,9 @@ public class AddAddressServlet extends HttpServlet {
         out.print(new Gson().toJson(jsonResponse));
         out.flush();
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    }
+
 }

@@ -115,6 +115,7 @@ body > h1 {
     border: 1px solid #e9ecef;
     transition: all 0.3s ease; /* fa sì che ogni cambiamento di stile avvenga in modo fluido in 0.3 sec*/
     cursor: pointer;
+    max-height: fit-content; /* limita l'altezza della card per evitare che diventi troppo alta*/
 }
 
 .order-card:hover {

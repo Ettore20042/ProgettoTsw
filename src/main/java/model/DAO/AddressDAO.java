@@ -62,4 +62,29 @@ public class AddressDAO {
             throw new RuntimeException("Errore durante il recupero degli indirizzi: " + e.getMessage(), e);
         }
     }
+
+    public boolean deleteAddress(String addressId, String addressType) {
+        try (Connection connection = ConnPool.getConnection()) {
+            String sql = "DELETE FROM user_address WHERE AddressID = ? AND address_type = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, addressId);
+                preparedStatement.setString(2, addressType);
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    // Se l'indirizzo è stato rimosso da user_address, procediamo a rimuoverlo da address
+                    sql = "DELETE FROM address WHERE AddressID = ?";
+                    try (PreparedStatement deleteAddressStmt = connection.prepareStatement(sql)) {
+                        deleteAddressStmt.setString(1, addressId);
+                        deleteAddressStmt.executeUpdate();
+                    }
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Log dettagliato dell'errore
+            throw new RuntimeException("Errore durante l'eliminazione dell'indirizzo: " + e.getMessage(), e);
+        }
+        return false;
+
+    }
 }

@@ -317,17 +317,16 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function deleteAddress(addressId, addressType, addressElement) {
+     console.log(`Deleting address with ID: ${addressId}, Type: ${addressType}`);
 
     // Chiamata AJAX per eliminare l'indirizzo
-    fetch(`${contextPath}/AddAddressServlet`, {
-        method: 'DELETE',
+    fetch(`${contextPath}/AddAddressServlet?addressId=${addressId}&addressType=${addressType}`, {
+        method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            addressId: addressId,
-            addressType: addressType
-        })
+            'Content-Type': 'application/x-www-form-urlencoded',
+
+        }
+
     })
         .then(response => response.json())
         .then(data => {
@@ -359,3 +358,4 @@ function checkAndSelectFirstAddress(addressType) {
         firstRadio.checked = true;
     }
 }
+
