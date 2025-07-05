@@ -226,7 +226,7 @@ body main .featured .product-list_cards {
     grid-template-columns: none;
 }
 
-/* Le product-card nella featured section con stili migliorati */
+/* Le product-card nella featured section */
 body main .featured .product-card {
     flex: 0 0 200px; /* Larghezza leggermente aumentata */
     min-width: 200px;
@@ -234,11 +234,11 @@ body main .featured .product-card {
     background: var(--background-white);
     border-radius: 16px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(157, 209, 65, 0.15);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Transizione più fluida */
+    border: 1px solid rgba(157, 209, 65, 0.15); /* Bordo leggero per le card */
     overflow: hidden;
-    position: relative;
-    scroll-snap-align: start;
+    position: relative; /* Per l'effetto gradiente */
+    scroll-snap-align: start; /* Allinea le card all'inizio dello scroll */
 }
 
 /* Effetto gradiente superiore per le card */
@@ -280,7 +280,7 @@ body main .featured .product-card_brand {
     font-size: 0.9rem;
     color: var(--success-color);
     font-weight: 700;
-    text-transform: uppercase;
+
 
 
 }
@@ -307,7 +307,7 @@ body main .featured .product-card_stock-status--available {
 
 }
 
-/* Bottone carrello più moderno */
+/* Bottone carrello */
 body main .featured .product-card_button--add-to-cart-icon {
     background: linear-gradient(135deg, var(--success-color), #FFB84D);
     color: white;
@@ -327,7 +327,7 @@ body main .featured .product-card_button--add-to-cart-icon {
 }
 
 body main .featured .product-card_button--add-to-cart-icon:hover {
-    transform: scale(1.1) rotate(15deg);
+    transform: scale(1.1) rotate(-15deg);
     box-shadow: 0 6px 20px rgba(244, 243, 242, 0.6);
 }
 
@@ -582,7 +582,7 @@ body main .idea-card {
     position: relative;
     overflow: hidden;
 }
-
+/* Effetto gradiente superiore per le card */
 body main .idea-card::before {
     content: '';
     position: absolute;
