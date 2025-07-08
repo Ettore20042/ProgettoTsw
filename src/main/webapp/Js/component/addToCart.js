@@ -15,17 +15,13 @@ document.addEventListener('DOMContentLoaded', function() {
             fetch(this.action, {
                 method: this.method,
                 body: new URLSearchParams(formData),
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
             })
                 .then(res => {
                     if (!res.ok) throw new Error('Errore nella richiesta: ' + res.status);
-                    return res.text();
+                    return res.json();
                 })
-                .then(text => {
-                    if(text === 'ok') {
+                .then(data => {
+                    if(data.status === 'ok') {
                         // Show success icon
                         button.innerHTML = '<span class="material-symbols-rounded">check</span>';
                         button.style.backgroundColor = '#4CAF50'; // Green background

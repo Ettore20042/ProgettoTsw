@@ -40,6 +40,7 @@
                 <p class="product-card_stock-status--available">Disponibilità immediata</p>
 
                 <form action="${pageContext.request.contextPath}/CartServlet" class="add-to-cart-form" data-product-id="${product.productId}" method="post" style="display: contents;">
+
                     <input type="hidden" name="productId" value="${product.productId}" />
                     <input type="hidden" name="quantity" value="1" />
                     <button type="submit" class="product-card_button product-card_button--add-to-cart-icon">

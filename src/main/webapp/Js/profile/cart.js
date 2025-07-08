@@ -1,102 +1,52 @@
 document.addEventListener('DOMContentLoaded', function() {
- /*   // --- Quantity Update ---
-    document.querySelectorAll('.quantity-input').forEach(input => {
-        input.addEventListener('change', function(event) {
-            event.preventDefault();
-            //a ciascun campo di input viene associato questo ascoltatore che eseguirà la funzione ogni volta che il valore del campo cambia
-            //this si riferisce all'elemento di input che l'utente ha modificato
-            const productId = this.dataset.productId;
-            const quantity = parseInt(this.value);
-            const price = parseFloat(this.dataset.price);
-            const form = this.closest('.quantity-form'); //trova il form genitore più vicino all'input
 
-            if (quantity < 1) {
-                this.value = 1; // Ensure minimum quantity is 1
-            }
+    function updateQuantityInput() {
+        const quantityInput = document.querySelectorAll('.quantity-input');
 
-            updateRowTotal(this, quantity, price); //funzione per aggiornare il totale della specifica riga del carrello
-            updateCartTotal(); //funzione per calcolare e aggiornare il totale generale del carrello
+        quantityInput.forEach(input => {
+            input.addEventListener('change', (e) => {
+                const quantity = e.target.value;
+                const productId = e.target.closest('tr').dataset.productId;
+                const contextPath = document.body.dataset.contextPath;
+                const formData = new URLSearchParams();
 
-            if (form) {
-                const formData = new URLSearchParams(); //creiamo un oggetto per contenere i dati da inviare, nel formato chiave=valore&chiave2=valore2
-                //aggiungiamo i dati necessari
                 formData.append('productId', productId);
-                formData.append('action', 'update');
-                formData.append('quantity', this.value);
+                formData.append('quantity', quantity);
+                formData.append('update', 'true');
 
-                console.log(formData);
-                console.log(form.action);
-                //eseguiamo la richiesta
-                fetch(form.action, { //URL della servlet che gestirà la richiesta
+                fetch(`${contextPath}/CartServlet`, {
                     method: 'POST',
-                    body: formData, //dati da inviare
-                    headers: { //informazioni aggiuntive per il server
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Content-Type': 'application/x-www-form-urlencoded' //dice come interpretare i dati nel body
-                    }
+                    body: formData,
                 })
                     .then(response => {
                         if (!response.ok) {
-                            return; //se la risposta è ok, la convertiamo in JSON
+                            throw new Error('Network response was not ok');
                         }
-                        const cartcount = document.querySelector('.cart-count');
-                        if (cartcount) {
+
+                        return response.json();
+                    }).then( data => {
+                    const lastQuantity = parseInt(data.lastQuantity, 10);
+                    console.log(lastQuantity);
+                    const cartcount = document.querySelector('.cart-count');
+                    if (cartcount) {
+                        if (lastQuantity < quantity) {
                             cartcount.textContent = parseInt(cartcount.textContent, 10) + 1; //decrementa il contatore del carrello
+                        }else {
+                            cartcount.textContent = parseInt(cartcount.textContent, 10) - 1; //incrementa il contatore del carrello
                         }
-                    })
-                    .catch(error => {
-                        console.error('Error updating quantity:', error);
-                    });
-            }
+                    }
+                });
+                updateRowTotal(e.target.closest('tr'), quantity, parseFloat(e.target.dataset.price));
+                updateCartTotal();
+            })
         });
-    });
+    }
 
-    // --- Remove Item ---
-    //  For AJAX removal (if you want to prevent page reload)
-    fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    })
-        /!*(async response => { // Verifica il tipo di contenuto dalla risposta per assicurarsi che sia JSON const contentType = response.headers.get("content-type");
-         // Legge il corpo della risposta come testo per debug e parsing const text = await response.text();
-          console.log("Raw response:", text);*!/
-        .then(async response => {
-            const contentType = response.headers.get("content-type");
-            const text = await response.text();
-            console.log("Raw response:", text);
-
-            if (contentType && contentType.includes("application/json")) {
-                return JSON.parse(text);
-            } else {
-                throw new Error("Response is not JSON:\n" + text);
-            }
-        })
-        //se la risposta JSON è analizzata con successo
-        .then(data => {
-            if (data.success) {
-                //se la rimozione è avvenuta con successo, trova la riga (.cart-row) del prodotto e la elimina direttamente dalla pagina HTML
-                const cartRow = this.closest('.cart-row');
-                if (cartRow) {
-                    cartRow.remove();
-                    updateCartTotal();//ricalcola il totale del carrello dopo la rimozione dell'articolo
-                }
-            } else {
-                console.error('Error removing item:', data.error);
-            }
-        })
-        .catch(error => {
-            console.error('Error removing item:', error);
-        });
-
-*/
 
     //aggiorna il subtotale di una singola riga
-    function updateRowTotal(inputElement, quantity, price) {
-        const row = inputElement.closest('.cart-row');//trova la riga genitore dell'input
+    function updateRowTotal(row, quantity, price) {
+        // const row = inputElement.closest('.cart-row');//trova la riga genitore dell'input
+        quantity = parseInt(quantity, 10); //assicurati che la quantità sia un numero intero
         if (row) {
             //al suo interno cerca l'elemento che mostra il totale (.total-value)
             const totalElement = row.querySelector('.total-value');
@@ -105,6 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const total = quantity * price;
                 totalElement.textContent = '€ ' + total.toFixed(2);
             }
+        } else {
+            console.error('Riga non trovata per l\'aggiornamento del totale.');
         }
     }
 
@@ -140,4 +92,5 @@ document.addEventListener('DOMContentLoaded', function() {
    //la funzione viene chiamata alla fine dello script per assicurarsi che
     //al caricamento della pagina il totale del carrello sia calcolato e visualizzato correttamente
     updateCartTotal();
+    updateQuantityInput();
 });

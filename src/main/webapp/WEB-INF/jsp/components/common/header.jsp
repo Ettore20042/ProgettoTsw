@@ -52,7 +52,7 @@
                 <span class="cart-count">
                     <c:choose>
                         <c:when test="${sessionScope.cart != null}">
-                            <c:out value="${sessionScope.cart.size()}" />
+                            <c:out value="${sessionScope.totalItemsCart}" />
                         </c:when>
                         <c:otherwise>0</c:otherwise>
                     </c:choose>

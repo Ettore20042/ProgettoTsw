@@ -82,10 +82,6 @@ public class CheckoutServlet extends HttpServlet {
         List<UserAddress> addresses=userService.getUserAddresses(userid);
 
 
-        if (addresses == null || addresses.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No addresses found for user");
-            return;
-        }
 
 
         request.setAttribute("addresses", addresses);

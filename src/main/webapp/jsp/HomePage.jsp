@@ -19,7 +19,6 @@
         <jsp:include page="../WEB-INF/jsp/components/common/header.jsp"/>
         <main>
             <!-- Aggiungi all'inizio della pagina, dopo i tag iniziali -->
-
             <section class="welcome-section">
                 <div class="categoria-section">
                     <img src="${pageContext.request.contextPath}/img/homepage/materassoa.jpg" alt="Product" id="welcome-category-image">

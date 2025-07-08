@@ -26,6 +26,7 @@ public class CartServlet extends HttpServlet {
             String quantityParam = request.getParameter("quantity");
             String updateParam = request.getParameter("update");
             boolean isUpdate = updateParam != null && updateParam.equalsIgnoreCase("true");
+            int lastQuantity = 0;
 
             if (productIdParam == null || quantityParam == null) {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameters");
@@ -50,11 +51,13 @@ public class CartServlet extends HttpServlet {
             for (CartItem item : cart) {
                 if (item.getProductId() == productId) {
                     if (isUpdate) {
+                        lastQuantity = item.getQuantity(); // Salva la nuova quantità per l'eventuale risposta
                         item.setQuantity(quantity); // ✅ aggiornamento diretto
                     } else {
                         item.setQuantity(item.getQuantity() + quantity); // ➕ aggiunta
                     }
                     found = true;
+
                     break;
                 }
             }
@@ -73,26 +76,17 @@ public class CartServlet extends HttpServlet {
                     // Close DAO resources if needed
                 }
             }
-
+            int totalItems = cart.stream().mapToInt(CartItem::getQuantity).sum();
             session.setAttribute("cart", cart);
-
-            // Check if it's an AJAX request
-            String xRequestedWith = request.getHeader("X-Requested-With");    /*Queste linee servono per **rilevare se la richiesta è stata fatta tramite AJAX** (chiamata asincrona JavaScript) o tramite un normale submit di form.*/
-             boolean isAjaxRequest = "XMLHttpRequest".equals(xRequestedWith);  /*- `X-Requested-With: XMLHttpRequest` è un header standard che i framework JavaScript  aggiungono automaticamente alle richieste AJAX
-                                                                                   - Il codice controlla questo header per distinguere tra:
-                                                                                   - **AJAX**: risponde con un semplice "ok" (riga 86)
-                                                                                   - **Form normale**: fa un redirect alla pagina del carrello (riga 89)
-                                                                                      Questo permette di gestire entrambi i tipi di richiesta con lo stesso servlet, fornendo risposte appropriate per ciascun caso d'uso.*/
+            session.setAttribute("totalItemsCart", totalItems);
 
 
-            if (isAjaxRequest) {
-                // For AJAX requests, send simple response
-                response.setContentType("text/plain");
-                response.getWriter().write("ok");
-            } else {
-                // For regular form submissions, redirect
-                response.sendRedirect("jsp/profile/Cart.jsp");
-            }
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write("{" +
+                    "\"status\":\"ok\"," +
+                    "\"lastQuantity\":" + lastQuantity +
+                    "}");
+
 
         } catch (NumberFormatException e) {
             e.printStackTrace();

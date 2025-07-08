@@ -259,6 +259,7 @@
 .locate-btn {
     width: 100%;
     padding: 0.8rem 1.5rem;
+    text-decoration: none;
     background: rgba(255, 255, 255, 0.2);
     color: white;
     border: 2px solid rgba(255, 255, 255, 0.3);
