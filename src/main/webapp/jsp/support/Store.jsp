@@ -18,7 +18,7 @@
             </section>
 
             <!-- Sezione ricerca -->
-            <section class="search-section">
+            <%--<section class="search-section">
                 <div class="search-container">
                     <h2>Cerca una località</h2>
                     <div class="search-box">
@@ -26,14 +26,14 @@
                         <button id="search-btn">Cerca</button>
                     </div>
                 </div>
-            </section>
+            </section>--%>
 
             <!-- Container principale con mappa e lista -->
-            <section class="main-content">
+            <%--<section class="main-content">
                 <!-- Mappa -->
                 <div class="map-container">
                     <div id="map"></div>
-                </div>
+                </div>--%>
 
                 <!-- Lista store -->
                 <div class="stores-container">
@@ -104,7 +104,7 @@
         ];
 
         // Inizializzazione mappa
-        function initMap() {
+        /*function initMap() {
             try {
                 console.log("Inizializzazione mappa Google Maps...");
 
@@ -154,10 +154,10 @@
                 console.error("Errore inizializzazione mappa:", error);
                 handleMapError();
             }
-        }
+        }*/
 
         // Gestione errori mappa
-        function handleMapError() {
+        /*function handleMapError() {
             const mapContainer = document.getElementById("map");
             mapContainer.innerHTML = `
                 <div class="map-error">
@@ -167,10 +167,10 @@
             `;
             // Mostra comunque la lista degli store
             displayStoresList();
-        }
+        }*/
 
         // Mostra marker degli store
-        function showStoreMarkers() {
+        /*function showStoreMarkers() {
             console.log('Creazione marker per', stores.length, 'store');
             console.log('Array stores completo:', stores);
 
@@ -250,10 +250,10 @@
                 markers.push(marker);
             });
             console.log('Creati', markers.length, 'marker totali');
-        }
+        }*/
 
         // Inizializza autocomplete
-        function initAutocomplete() {
+        /*function initAutocomplete() {
             const input = document.getElementById('search-input');
             autocomplete = new google.maps.places.Autocomplete(input, {
                 types: ['geocode'],
@@ -268,10 +268,10 @@
                 }
                 showSearchLocation(place.geometry.location, place.formatted_address);
             });
-        }
+        }*/
 
         // Cerca località
-        function searchLocation() {
+        /*function searchLocation() {
             const query = document.getElementById('search-input').value.trim();
             if (!query) {
                 alert('Inserisci una località da cercare.');
@@ -288,10 +288,10 @@
                     alert('Località non trovata. Riprova con un\'altra ricerca.');
                 }
             });
-        }
+        }*/
 
         // Mostra località cercata
-        function showSearchLocation(location, address) {
+        /*function showSearchLocation(location, address) {
             // Rimuovi marker precedente
             if (searchMarker) {
                 searchMarker.setMap(null);
@@ -326,7 +326,7 @@
             // Centra mappa sulla località
             map.setCenter(location);
             map.setZoom(12);
-        }
+        }*/
 
         // Mostra lista store
         function displayStoresList() {
@@ -353,9 +353,9 @@
                         '</ul>' +
                     '</div>' +
                     '<div class="store-actions">' +
-                        '<button class="locate-btn" onclick="locateStore(' + index + ')">' +
+                        '<a href="https://www.google.com/maps/search/?api=1&query=' + store.lat + ',' + store.lng + '" class="locate-btn" target="_blank">' +
                             '📍 Mostra sulla Mappa' +
-                        '</button>' +
+                        '</a>' +
                     '</div>' +
                 '</div>';
             });
@@ -364,7 +364,7 @@
         }
 
         // Localizza store sulla mappa
-        function locateStore(index) {
+        /*function locateStore(index) {
             const store = stores[index];
             if (!map || !store) return;
 
@@ -384,7 +384,7 @@
             document.querySelector('.map-container').scrollIntoView({
                 behavior: 'smooth'
             });
-        }
+        }*/
 
         // Inizializzazione al caricamento della pagina
         document.addEventListener('DOMContentLoaded', function() {
@@ -394,14 +394,14 @@
         });
 
         // Gestione errori Google Maps
-        window.gm_authFailure = function() {
+        /*window.gm_authFailure = function() {
             console.error("Errore autenticazione Google Maps");
             handleMapError();
-        };
+        };*/
     </script>
 
     <!-- Google Maps API -->
-    <script async defer
+    <%--<script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBeuZoLXSQA42geWr_OQJ1nwGUs886BXI&callback=initMap&libraries=places"
             onerror="handleMapError()">
     </script>
@@ -413,6 +413,6 @@
                 handleMapError();
             }
         }, 10000);
-    </script>
+    </script>--%>
 </body>
 </html>
