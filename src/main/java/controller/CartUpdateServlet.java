@@ -63,6 +63,7 @@ public class CartUpdateServlet extends HttpServlet {
             } catch (NumberFormatException e) {
                 sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Invalid quantity");
             }
+
         } else if ("remove".equals(action)) {
             boolean removed = false;
             for (int i = 0; i < cart.size(); i++) {

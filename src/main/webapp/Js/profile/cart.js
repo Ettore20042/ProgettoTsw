@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     }
                 });
+
                 updateRowTotal(e.target.closest('tr'), quantity, parseFloat(e.target.dataset.price));
                 updateCartTotal();
             })

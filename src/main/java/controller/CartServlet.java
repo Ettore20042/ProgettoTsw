@@ -87,7 +87,6 @@ public class CartServlet extends HttpServlet {
                     "\"lastQuantity\":" + lastQuantity +
                     "}");
 
-
         } catch (NumberFormatException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid product ID or quantity");

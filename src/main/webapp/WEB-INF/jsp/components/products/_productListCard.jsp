@@ -56,7 +56,6 @@
                     <button type="submit" class="product-card_button product-card_button--buy-now">Acquista Ora</button>
                 </form>
                 <% } %>
-
             </c:if>
             <c:if test="${product.getQuantity() == 0}">
                 <p class="product-card_stock-status--not-available">Non disponibile momentaneamente</p>

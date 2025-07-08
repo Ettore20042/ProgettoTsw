@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
                 .then(res => {
                     if (!res.ok) throw new Error('Errore nella richiesta: ' + res.status);
+
                     return res.json();
                 })
                 .then(data => {
