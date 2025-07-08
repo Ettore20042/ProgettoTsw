@@ -117,4 +117,5 @@ input.addEventListener('input', function() {
                 searchBarWrapper.classList.remove('active');
             });
     }, 300);
+
 });

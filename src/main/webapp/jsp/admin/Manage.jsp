@@ -44,18 +44,18 @@
 
 
 
-    <div class="manage-components-container-right">
-        <div class="search-bar-tab manage-components-container-right_search-bar">
-            <form id="searchForm" action="${pageContext.request.contextPath}/ManageServlet" method="get" class="search-bar-form-tab" autocomplete="off">
-                <input type="hidden" name="entity" value="${entity}">
-                <input type="search" id="searchBarTable" name="searchQuery" placeholder="Cerca in ${entity}..." autocomplete="off" value="${param.searchQuery}">
-                <button type="submit" aria-label="Cerca">
-                    <img src="${pageContext.request.contextPath}/img/header/lente.svg" id="searchLensTable" alt="Cerca">
-                </button>
-            </form>
-            <div id="suggestions-for-table"></div>
-        </div>
-
+  <div class="manage-components-container-right">
+              <div class="search-bar-tab manage-components-container-right_search-bar">
+                  <form id="searchForm" action="${pageContext.request.contextPath}/ManageServlet" method="get" class="search-bar-form-tab" autocomplete="off" role="search">
+                      <input type="hidden" name="entity" id="entity" value="${entity}">
+                      <label for="searchBarTable" class="visually-hidden" >Cerca in ${entity}</label>
+                      <input type="search" id="searchBarTable" name="searchQuery" placeholder="Cerca in ${entity}..." autocomplete="off" value="${param.searchQuery}" role="combobox"  aria-label="Cerca in ${entity}" class="search-bar">
+                      <button type="submit" class="search-submit-btn" aria-label="Cerca">
+                          <img src="${pageContext.request.contextPath}/img/header/lente.svg" id="searchLensTable" alt="Cerca" aria-hidden="true">
+                      </button>
+                  </form>
+                  <div id="suggestions-for-table" role="listbox" aria-live="polite"></div>
+              </div>
 
         <div class="manage-components-container-right--add-button">
         <c:choose>
@@ -87,7 +87,7 @@
                             <th>Prezzo</th>
                             <th>Colore</th>
                             <th>Quantità</th>
-                            <th colspan="2"></th>
+                            <th colspan="2" aria-label="colonna-azioni"></th>
                         </tr>
                         </thead>
                         <tbody class="componentTableBody">
@@ -99,8 +99,8 @@
                                 <td>${item.color}</td>
                                 <td>${item.quantity}</td>
                                 <td><a href="#" class="edit-link" data-product-id="${item.productId}">Modifica</a></td>
-                                <td><button type="submit" class="remove-button-product remove-item-btn" data-id="${item.productId}" >
-                                    <img src="${pageContext.request.contextPath}/img/icon/delete.png" class="remove-icon">
+                                <td><button type="submit" class="remove-button-product remove-item-btn" data-id="${item.productId}" aria-label="Rimuovi prodotto">
+                                    <img src="${pageContext.request.contextPath}/img/icon/delete.png" class="remove-icon" alt="">
                                 </button></td>
                             </tr>
                         </c:forEach>
@@ -131,11 +131,29 @@
                                 <c:choose>
                                     <c:when test="${item.isAdmin() == true}">
                                         <td>SI</td>
-                                        <td><img src="${pageContext.request.contextPath}/img/icon/check.png" alt="yes" class="icon admin-icon" onclick="setAdmin(this,${item.userId})"></td>
+                                        <td>
+                                            <span role="button"
+                                                  tabindex="0"
+                                                  onclick="setAdmin(this, ${item.userId})"
+                                                  onkeydown="if(event.key === 'Enter' || event.key === ' ') setAdmin(this, ${item.userId})"
+                                                  aria-label="Aggiungi admin">
+                                                  <img src="${pageContext.request.contextPath}/img/icon/check.png"
+                                                   alt=""
+                                                   class="icon admin-icon"
+                                                   role="presentation">
+                                            </span>
                                     </c:when>
                                     <c:otherwise>
                                         <td>NO</td>
-                                        <td><img src="${pageContext.request.contextPath}/img/icon/remove.png" alt="no" class="icon admin-icon" onclick="setAdmin(this,${item.userId})"></td>
+                                        <td>
+                                                  <span role="button" tabindex="0"
+                                                        onclick="setAdmin(this, ${item.userId})"
+                                                        onkeydown="if(event.key === 'Enter' || event.key === ' ') setAdmin(this, ${item.userId})"
+                                                        aria-label="Rimuovi admin">
+                                                    <img src="${pageContext.request.contextPath}/img/icon/remove.png" alt="" class="icon admin-icon" role="presentation">
+                                                  </span>
+                                        </td>
+
                                     </c:otherwise>
                                 </c:choose>
                             </tr>
@@ -151,7 +169,7 @@
                         <th>Nome</th>
                         <th>Path</th>
                         <th><img src="${pageContext.request.contextPath}/img/icon/wrench.png" alt="wrench" class="icon-wrench"></th>
-                        <th></th>
+                        <th aria-label="colonna-azioni"></th>
                     </tr>
                     </thead>
                     <tbody class="componentTableBody">
@@ -161,8 +179,8 @@
                             <td>${item.categoryName}</td>
                             <td>${item.categoryPath}</td>
                             <td><a href="#" class="edit-link" data-category-id="${item.categoryId}">Modifica</a></td>
-                            <td><button type="button" class="remove-button-category remove-item-btn" data-id="${item.categoryId}" >
-                                <img src="${pageContext.request.contextPath}/img/icon/delete.png" class="remove-icon">
+                            <td><button type="button" class="remove-button-category remove-item-btn" data-id="${item.categoryId}" aria-label="Rimuovi categoria">
+                                <img src="${pageContext.request.contextPath}/img/icon/delete.png" class="remove-icon" alt="">
                             </button></td>
                         </tr>
                     </c:forEach>
@@ -178,7 +196,7 @@
                             <th>Path</th>
                             <th>Nome</th>
                             <th><img src="${pageContext.request.contextPath}/img/icon/wrench.png" alt="wrench" class="icon-wrench"></th>
-                            <th></th>
+                            <th aria-label="colonna-azioni"></th>
                         </tr>
                         </thead>
                         <tbody class="componentTableBody">
@@ -188,8 +206,8 @@
                                 <td>${item.logoPath}</td>
                                 <td>${item.brandName}</td>
                                 <td><a href="#" class="edit-link" data-brand-id="${item.brandId}">Modifica</a></td>
-                                <td><button type="button" class="remove-button-brand remove-item-btn" data-id="${item.brandId}" >
-                                    <img src="${pageContext.request.contextPath}/img/icon/delete.png" class="remove-icon">
+                                <td><button type="button" class="remove-button-brand remove-item-btn" data-id="${item.brandId}" aria-label="Rimuovi brand">
+                                    <img src="${pageContext.request.contextPath}/img/icon/delete.png" class="remove-icon" alt="">
                                 </button></td>
 
                             </tr>

@@ -1,7 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-    request.setAttribute("title", "Accedi");
-%>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -16,17 +14,27 @@
     <div class="auth-form-container">
         <h2 class="auth-form-container__title">Accedi</h2>
         <form id="loginForm" action="${pageContext.request.contextPath}/LoginServlet" method="post">
-        <div class="auth-form-container__input-wrapper">
-                <input type="text" id="email" name="email" placeholder="Email" required class="auth-form-container__input">
-                <img src="${pageContext.request.contextPath}/img/icon/email.png" class="auth-form-container__icon auth-form-container__icon-email"><br><br>
+            <div class="auth-form-container__input-wrapper">
+                <label for="email" class="visually-hidden">Inserisci la tua email</label>
+                <input type="text" id="email" name="email" placeholder="Email" required class="auth-form-container__input" aria-describedby="emailHelp">
+                <img src="${pageContext.request.contextPath}/img/icon/email.png" class="auth-form-container__icon auth-form-container__icon-email" alt="">
+
             </div>
+
             <span id="emailError" style="color: #E71D36; display: none;">Email non valida</span>
             <div class="auth-form-container__input-wrapper">
-                <input type="password" id="password" name="password" placeholder="Conferma Password" required class="auth-form-container__input">
+                <label for="password" class="visually-hidden"> Inserisci la password</label>
+               <input type="password" id="password" name="password" placeholder="Conferma Password" required class="auth-form-container__input" aria-describedby="passwordHelp">
                 <img src="${pageContext.request.contextPath}/img/icon/eye.png"
                      class="auth-form-container__icon auth-form-container__icon-password"
                      alt="Mostra password"
-                     onclick="togglePassword(this)">
+                     role="button"
+                     tabindex="0"
+                     aria-pressed="false"
+                     aria-label="Mostra password"
+                     onclick="togglePassword(this)"
+                     onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); togglePassword(this); }">
+
             </div>
             <span id="passwordError" style="color: #E71D36; display: none;">Password non valida</span>
             <c:if test="${not empty loginError}">

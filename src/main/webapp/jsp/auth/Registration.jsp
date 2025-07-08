@@ -29,22 +29,26 @@
         <h2 class="auth-form-container__title auth-form-container__title--registration">Registrati</h2>
         <form id="registerForm" action="${pageContext.request.contextPath}/RegistrationServlet" method="post" novalidate>
             <div class="auth-form-container__name-row">
+                <label for="name" class="visually-hidden">Inserisci il tuo nome</label>
                 <input type="text"
                        class="auth-form-container__input"
                        name="name"
                        placeholder="Nome*"
                        required
                        value="<%= request.getParameter("name") != null ? request.getParameter("name") : "" %>"
-                       autocomplete="given-name">
+                       autocomplete="given-name"
+                        id="name">
+                <label for="surname" class="visually-hidden">Inserisci il tuo cognome</label>
                 <input type="text"
                        class="auth-form-container__input"
                        name="surname"
                        placeholder="Cognome*"
                        required
                        value="<%= request.getParameter("surname") != null ? request.getParameter("surname") : "" %>"
-                       autocomplete="family-name">
+                       autocomplete="family-name"
+                        id="surname">
             </div>
-
+            <label for="tel" class="visually-hidden">Inserisci il numero di telefono</label>
             <input type="tel"
                    class="auth-form-container__input"
                    name="phone"
@@ -52,29 +56,45 @@
                    required
                    pattern="[0-9]{8,15}"
                    value="<%= request.getParameter("phone") != null ? request.getParameter("phone") : "" %>"
-                   autocomplete="tel">
-
+                   autocomplete="tel"
+                    id="tel">
+            <label for="email" class="visually-hidden">Inserisci la tua email</label>
             <input type="email"
                    class="auth-form-container__input"
                    name="email"
                    placeholder="Email*"
                    required
                    value="<%= request.getParameter("email") != null ? request.getParameter("email") : "" %>"
-                   autocomplete="email">
+                   autocomplete="email"
+                    id="email">
 
             <div class="auth-form-container__input-wrapper">
+                <label for="password" class="visually-hidden">Inserisci la password</label>
                 <input type="password" id="password" name="password" placeholder="Conferma Password" required class="auth-form-container__input">
                 <img src="${pageContext.request.contextPath}/img/icon/eye.png"
                      class="auth-form-container__icon auth-form-container__icon-password"
                      alt="Mostra password"
-                     onclick="togglePassword(this)">
+                     role="button"
+                     tabindex="0"
+                     aria-pressed="false"
+                     aria-label="Mostra password"
+                     onclick="togglePassword(this)"
+                     onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); togglePassword(this); }">
+
             </div>
             <div class="auth-form-container__input-wrapper">
-                <input type="password" id="password" name="password" placeholder="Conferma Password" required class="auth-form-container__input">
+                <label for="confirmPassword" class="visually-hidden">Conferma la password</label>
+                <input type="password" id="confirmPassword" name="password" placeholder="Conferma Password" required class="auth-form-container__input">
                 <img src="${pageContext.request.contextPath}/img/icon/eye.png"
                      class="auth-form-container__icon auth-form-container__icon-password"
                      alt="Mostra password"
-                     onclick="togglePassword(this)">
+                     role="button"
+                     tabindex="0"
+                     aria-pressed="false"
+                     aria-label="Mostra password"
+                     onclick="togglePassword(this)"
+                     onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); togglePassword(this); }">
+
             </div>
 
             <div class="password-requirements" style="font-size: 12px; color: #666; margin-bottom: 15px; line-height: 1.4;">
