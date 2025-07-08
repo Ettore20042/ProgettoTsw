@@ -5,7 +5,9 @@ import com.google.gson.Gson;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import model.Bean.CartItem;
 import model.Bean.Order;
+import model.Bean.OrderItem;
 import model.Bean.User;
 import service.OrderService;
 
@@ -13,6 +15,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @MultipartConfig
@@ -31,6 +34,7 @@ public class ProcessOrderServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("user");
+
 
             if (user == null) {
                 jsonResponse.put("success", false);
@@ -56,16 +60,22 @@ public class ProcessOrderServlet extends HttpServlet {
             int shippingAddressId = Integer.parseInt(shippingAddress);
             int billingAddressId = Integer.parseInt(billingAddress);
 
-            String status = "In elaborazione";
+
             LocalDate orderDate = LocalDate.now();
+            String status = calculateOrderStatus(orderDate);
             LocalDateTime orderDateTime = LocalDateTime.now();
             int orderId = (int) (Math.random() * 1000000);
 
-            Order order = new Order(orderId, user.getUserId(), billingAddressId, shippingAddressId,
+            Order
+
+            Order order = new Order( user.getUserId(), billingAddressId, shippingAddressId,
                                   totalPrice, orderDateTime.toLocalTime(), orderDate, status);
+
+
 
             OrderService orderService = new OrderService(getServletContext());
             orderService.processOrder(order, session);
+            orderService.saveItemsInOrder(orderId, session);
 
             jsonResponse.put("success", true);
             jsonResponse.put("message", "Ordine elaborato con successo");
@@ -83,4 +93,18 @@ public class ProcessOrderServlet extends HttpServlet {
             response.getWriter().write(new Gson().toJson(jsonResponse));
         }
     }
+    private String calculateOrderStatus(LocalDate orderDate) {
+        long daysSinceOrder = java.time.temporal.ChronoUnit.DAYS.between(orderDate, LocalDate.now());
+
+        if (daysSinceOrder < 3) {
+            return "In elaborazione";
+        } else if (daysSinceOrder < 6) {
+            return "Spedito";
+        } else if (daysSinceOrder < 9) {
+            return "In consegna";
+        } else {
+            return "Consegnato";
+        }
+    }
+
 }

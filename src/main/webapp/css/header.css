@@ -113,7 +113,7 @@ header.main-header{
     font-weight: 500;
     border: none;
     min-width: 0;
-    outline: none;
+    outline: none !important;
     padding-left: 5px;
     flex-grow: 1;
     margin-right: 7px;

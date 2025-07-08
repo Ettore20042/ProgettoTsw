@@ -67,30 +67,39 @@ public class OrderDAO {
 
     /**
      * Salva un nuovo ordine nel database
-     * @param order L'ordine da salvare
+     * @param Order L'ordine da salvare
      * @return true se il salvataggio ha successo, false altrimenti
      */
-    public boolean doSave(Order order) {
-        String insertOrderSQL = "INSERT INTO orders (OrderID, UserID, BillingAddressID, ShippingAddressID, TotalAmount, OrderTime, OrderDate, Status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    public Order doSave(String status,float totalAmount, int userId, int shippingAddressId, int billingAddressId) {
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO orders (UserID, ShippingAddressID, BillingAddressID, TotalAmount, OrderDate, OrderTime, Status) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, shippingAddressId);
+            preparedStatement.setInt(3, billingAddressId);
+            preparedStatement.setFloat(4, totalAmount);
+            preparedStatement.setDate(5, java.sql.Date.valueOf(LocalDate.now()));
+            preparedStatement.setTime(6, java.sql.Time.valueOf(LocalTime.now()));
+            preparedStatement.setString(7, status);
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                Order order = new Order();
+                order.setOrderId(preparedStatement.getGeneratedKeys().getInt(1));
+                order.setStatus(status);
+                order.setTotalAmount(totalAmount);
+                order.setUserId(userId);
+                order.setShippingAddressId(shippingAddressId);
+                order.setBillingAddressId(billingAddressId);
+                order.setOrderDate(LocalDate.now());
+                order.setOrderTime(LocalTime.now());
+                return order;
 
-        try (Connection connection = ConnPool.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(insertOrderSQL)) {
-
-            stmt.setInt(1, order.getOrderId());
-            stmt.setInt(2, order.getUserId());
-            stmt.setInt(3, order.getBillingAddressId());
-            stmt.setInt(4, order.getShippingAddressId());
-            stmt.setFloat(5, order.getTotalAmount());
-            stmt.setTime(6, java.sql.Time.valueOf(order.getOrderTime()));
-            stmt.setDate(7, java.sql.Date.valueOf(order.getOrderDate()));
-            stmt.setString(8, order.getStatus());
-
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            } else {
+                return null;
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
+
+
     }
 }

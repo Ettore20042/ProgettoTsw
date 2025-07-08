@@ -1,3 +1,4 @@
+<%@ page import="java.util.Map" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
@@ -34,6 +35,7 @@
                         <div class="item-details">
                             <span class="item-price">Prezzo: <fmt:formatNumber value="${item.price}" pattern="€#,##0.00"/></span>
                             <span class="item-quantity">Quantità: ${item.quantity}</span>
+
                         </div>
                     </div>
                 </c:forEach>
@@ -41,11 +43,11 @@
                     <strong id="total">Totale: <fmt:formatNumber value="${total}" pattern="€#,##0.00"/></strong>
                     <!-- Campo nascosto per facilitare il recupero del valore numerico -->
                     <input type="hidden" id="totalValue" value="${total}">
+
                 </div>
                <!-- Conferma Ordine -->
                 <div class="order-actions">
                     <button class="btn-back">Torna al carrello </button>
-
                     <button type="button" class="btn-confirm-order">Conferma Ordine</button>
                 </div>
             </div>

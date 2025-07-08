@@ -2,8 +2,13 @@ package service;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpSession;
+import model.Bean.CartItem;
 import model.Bean.Order;
+import model.Bean.OrderItem;
 import model.DAO.OrderDAO;
+import model.DAO.ProductDAO;
+
+import java.util.List;
 
 public class OrderService {
 
@@ -23,6 +28,15 @@ public class OrderService {
 
         // Salva l'ordine nel database
         OrderDAO orderDAO = new OrderDAO();
+        ProductDAO productDAO = new ProductDAO();
+
+            for (OrderItem item : order.getOrderItems()) {
+                if(productDAO.getProductStock(item.getProductId()) < item.getQuantity()) {
+                    throw new RuntimeException("Quantità richiesta per il prodotto " + item.getProductId() + " non disponibile in magazzino");
+                }
+                withdrawItemFromStock(item.getProductId(), item.getQuantity());
+            }
+
         boolean orderSaved = orderDAO.doSave(order);
 
         if (!orderSaved) {
@@ -30,10 +44,20 @@ public class OrderService {
         }
 
         // Pulisce il carrello
-        clearUserCart(order.getUserId(), session);
+        clearUserCart( session);
     }
 
-    private void clearUserCart(int userId, HttpSession session) {
+    private void withdrawItemFromStock(int productId, int quantity) {
+            System.out.println("Ritiro " + quantity + " unità del prodotto con ID: " + productId);
+
+
+            ProductDAO productDAO = new ProductDAO();
+            productDAO.withdrawFromStock(productId, quantity);
+
+
+    }
+
+    private void clearUserCart( HttpSession session) {
         session.removeAttribute("cart");
         // Logica aggiuntiva per rimuovere gli articoli dal carrello se necessario
     }
@@ -63,6 +87,11 @@ public class OrderService {
             throw new IllegalArgumentException("Status non può essere null o vuoto");
         }
     }
+    public List<OrderItem> saveItemsInOrder( int orderId,HttpSession session) {
 
+        CartItem cartItem = (CartItem) session.getAttribute("cart");
+        OrderDAO orderDAO = new OrderDAO();
+        return orderDAO.saveOrderItems(orderItems, orderId);
+    }
 
 }
