@@ -64,18 +64,18 @@ public class ProcessOrderServlet extends HttpServlet {
             LocalDate orderDate = LocalDate.now();
             String status = calculateOrderStatus(orderDate);
             LocalDateTime orderDateTime = LocalDateTime.now();
-            int orderId = (int) (Math.random() * 1000000);
 
-            Order
-
-            Order order = new Order( user.getUserId(), billingAddressId, shippingAddressId,
-                                  totalPrice, orderDateTime.toLocalTime(), orderDate, status);
-
-
+            Order order = new Order();
+            order.setUserId(user.getUserId());
+            order.setShippingAddressId(shippingAddressId);
+            order.setBillingAddressId(billingAddressId);
+            order.setTotalAmount(totalPrice);
+            order.setOrderDate(orderDate);
+            order.setOrderTime(orderDateTime.toLocalTime());
+            order.setStatus(status);
 
             OrderService orderService = new OrderService(getServletContext());
             orderService.processOrder(order, session);
-            orderService.saveItemsInOrder(orderId, session);
 
             jsonResponse.put("success", true);
             jsonResponse.put("message", "Ordine elaborato con successo");

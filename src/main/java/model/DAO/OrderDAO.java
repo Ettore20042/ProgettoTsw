@@ -1,14 +1,12 @@
 package model.DAO;
 
+import model.Bean.CartItem;
 import model.Bean.Order;
 import model.Bean.OrderItem;
 import model.Bean.Product;
 import model.ConnPool;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -67,39 +65,55 @@ public class OrderDAO {
 
     /**
      * Salva un nuovo ordine nel database
-     * @param Order L'ordine da salvare
+     * @param order L'ordine da salvare
      * @return true se il salvataggio ha successo, false altrimenti
      */
-    public Order doSave(String status,float totalAmount, int userId, int shippingAddressId, int billingAddressId) {
+    public int doSave(Order order) {
         try (Connection connection = ConnPool.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO orders (UserID, ShippingAddressID, BillingAddressID, TotalAmount, OrderDate, OrderTime, Status) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            preparedStatement.setInt(1, userId);
-            preparedStatement.setInt(2, shippingAddressId);
-            preparedStatement.setInt(3, billingAddressId);
-            preparedStatement.setFloat(4, totalAmount);
-            preparedStatement.setDate(5, java.sql.Date.valueOf(LocalDate.now()));
-            preparedStatement.setTime(6, java.sql.Time.valueOf(LocalTime.now()));
-            preparedStatement.setString(7, status);
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO orders (UserID, ShippingAddressID, BillingAddressID, TotalAmount, OrderDate, OrderTime, Status) VALUES (?, ?, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setInt(1, order.getUserId());
+            preparedStatement.setInt(2, order.getShippingAddressId());
+            preparedStatement.setInt(3, order.getBillingAddressId());
+            preparedStatement.setFloat(4, order.getTotalAmount());
+            preparedStatement.setDate(5, Date.valueOf(order.getOrderDate()));
+            preparedStatement.setTime(6, Time.valueOf(order.getOrderTime()));
+            preparedStatement.setString(7, order.getStatus());
             int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {
-                Order order = new Order();
-                order.setOrderId(preparedStatement.getGeneratedKeys().getInt(1));
-                order.setStatus(status);
-                order.setTotalAmount(totalAmount);
-                order.setUserId(userId);
-                order.setShippingAddressId(shippingAddressId);
-                order.setBillingAddressId(billingAddressId);
-                order.setOrderDate(LocalDate.now());
-                order.setOrderTime(LocalTime.now());
-                return order;
-
-            } else {
-                return null;
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                }
             }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
+        return -1; // Indica che il salvataggio non è riuscito
+    }
 
 
+    public List<OrderItem> saveOrderItems(List<CartItem> cartItem, int orderId){
+        List<OrderItem> orderItems = new ArrayList<>();
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO order_item (ProductID, OrderID, Quantity, UnitPrice) VALUES (?, ?, ?, ?)");
+            for (CartItem item : cartItem) {
+                OrderItem orderItem = new OrderItem();
+                orderItem.setOrderId(orderId);
+                orderItem.setProductId(item.getProductId());
+                orderItem.setQuantity(item.getQuantity());
+                orderItem.setUnitPrice(item.getPrice());
+
+                preparedStatement.setInt(1, item.getProductId());
+                preparedStatement.setInt(2, orderId);
+                preparedStatement.setInt(3, item.getQuantity());
+                preparedStatement.setFloat(4, item.getPrice());
+
+                preparedStatement.executeUpdate();
+                orderItems.add(orderItem);
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        return orderItems;
     }
 }

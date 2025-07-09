@@ -3,10 +3,10 @@ package model.Bean;
 public class CartItem {
     private int productId;
     private String productName;
-    private double price;
+    private float price;
     private int quantity;
 
-    public CartItem(int productId, String productName, double price, int quantity) {
+    public CartItem(int productId, String productName, float price, int quantity) {
         this.productId = productId;
         this.productName = productName;
         this.price = price;
@@ -29,11 +29,11 @@ public class CartItem {
         this.productName = productName;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

@@ -322,6 +322,9 @@ public class ProductDAO {
         }
         return 0;
     }
+
+
+
     public boolean deleteProduct(int productId) {
         try (Connection connection = ConnPool.getConnection()) {
             System.out.println("Attempting to delete product with ID: " + productId);
