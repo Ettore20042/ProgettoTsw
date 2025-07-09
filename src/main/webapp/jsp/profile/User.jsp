@@ -53,13 +53,15 @@
                         <c:when test="${not empty recentOrderList}">
                             <div class="order-grid">
                                 <c:forEach var="order" items="${recentOrderList}">
-                                    <div class="order-card">
+
                                         <c:if test="${not empty order.orderItems}">
+                                            <div class="order-card">
                                             <p>${order.status}</p>
                                             <p>${order.orderDate}</p>
                                             <img src="${pageContext.request.contextPath}/ImageServlet?productId=${order.orderItems[0].productId}" alt="Immagine prodotto">
-                                        </c:if>
-                                    </div>
+                                            </div>
+                                                </c:if>
+
                                 </c:forEach>
                             </div>
                         </c:when>
