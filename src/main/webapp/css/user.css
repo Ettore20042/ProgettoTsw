@@ -204,6 +204,9 @@ body > h1 {
     outline: 2px solid #3498db;
     outline-offset: 2px;
 }
+main.details-user-container{
+    width:-webkit-fill-available;
+}
 
 
 /* versione tablet */
