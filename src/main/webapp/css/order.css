@@ -9,6 +9,7 @@ body {
 /*versione mobile*/
 .listorders-user-container{
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 20px;
     display: flex;
@@ -18,7 +19,7 @@ body {
 
 .listorders-user-container h1 {
     font-size: 2.2rem;
-    color: #0056b3;
+    color: #735e4d;
     text-align: center;
     margin-bottom: 25px;
 }
@@ -65,9 +66,9 @@ body {
     display: flex; /*allinea le immagini in orizzontale*/
     overflow-x: auto; /*attiva la scrollbar orizzontale solo se necessario*/
     gap: 10px; /*spazio fra le immagini*/
-    padding: 10px 0; /*spazio sopra e sotto le immagini*/
+    padding: 10px 5px; /*spazio sopra e sotto le immagini*/
     scrollbar-width: thin; /* scrollbar più sottile*/
-    scrollbar-color: #0056b3 #e0e0e0;
+    scrollbar-color: #735e4d #e0e0e0;
 }
 
 /* per migliorare l'aspetto della scrollbar e non avere l'aspetto default*/
@@ -77,7 +78,7 @@ body {
 
 /* parte della scrollbar che l'utente clicca e trascina*/
 .listorders-user-order-card-products::-webkit-scrollbar-thumb{
-    background-color: #0056b3;
+    background-color:#735e4d;
     border-radius: 10px;
 }
 
@@ -89,11 +90,11 @@ body {
 
 /* stile delle singole immagini prodotto*/
 .listorders-user-order-card-products img{
-    height: 80px;
-    width: 80px;
-    object-fit: scale-down; /* mantiene le proporzioni dell'immagine senza distorcerla*/
-    border-radius: 8px;
-    flex-shrink: 0; /*impedisce alle immagini di restringersi*/
+    height: 80px; /* altezza fissa per le immagini dei prodotti*/
+    width: 80px; /* larghezza fissa per le immagini dei prodotti*/
+    object-fit: scale-down; /* mantiene le proporzioni dell'immagine senza distorsioni*/
+    border-radius: 4px; /* angoli arrotondati per le immagini*/
+    transition: transform 0.2s ease-in-out; /* l'animazione parte lentamente, poi accelera gradualmente e verso la fine decelera prima di fermarsi*/
 
 }
 
@@ -101,15 +102,25 @@ body {
     text-align: center;
     padding: 40px;
     font-size: 1.1rem;
-    color: #0056b3;
+    color: #735e4d;
 }
 .product-info .product-name {
     font-weight: bold;
-    color: #0056b3;
+    color:#735e4d;
+}
+  .order-product-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centra le immagini e il testo*/
+  /*  width: 20%; !* larghezza fissa per le immagini dei prodotti*!*/
+    min-width: 120px; /* larghezza minima per evitare che diventino troppo piccole*/
 }
 
 /* versione tablet*/
 @media (min-width: 768px) {
+    .listorders-user-container{
+       width:80%;
+    }
     .listorders-user-container h1{
         font-size: 2.8rem;
     }
@@ -133,6 +144,7 @@ body {
         height: 100px;
         width: 100px;
     }
+
 }
 
 /* versione desktop*/
