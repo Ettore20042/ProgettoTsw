@@ -1,14 +1,25 @@
-/* importiamo font esterni, scaricati dal browser per poter esere usati nel sito*/
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+
+}
+:focus {
+    outline: none !important; /* disabilita sempre il bordo */
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid #00c300 !important;
+    outline-offset: 2px;
 }
 
-/* forza il tema chiaro*/
 :root{
     color-scheme: only light !important;
 }
@@ -16,15 +27,11 @@ html{
     font-family: 'Inter', sans-serif;
     font-weight: 400;
 }
-
-/* dispone i figli diretti del body(header, main, footer) in una colonna verticale*/
 body{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
-
-/* il main "cresce" e occupa tutto lo spazio verticale disponibile tra header e il footer*/
 main{
     flex-grow: 1;
 }
@@ -33,7 +40,7 @@ main{
 
 header.main-header{
     display: flex;
-    position: sticky; /* fa "rimanere l'header in cima alla pagina" durante lo scorrimento */
+    position: sticky;
     flex-direction: column;
     background-color: #F3EED8;
     z-index: 1000;
@@ -86,10 +93,10 @@ header.main-header{
     background-color: white;
 }
 .main-header_search-bar{
-    order: 4; /* nel layout flex, sposta l'elemento alla quarta posizione*/
+    order: 4;
     border: 2px solid #7fa836 ;
     margin-top: 1vh;
-    position: relative; /*necessario per posizionare la lista dei suggerimenti in modo assoluto rispetto alla barra di ricerca*/
+    position: relative;
 }
 
 .search-bar form{
@@ -106,7 +113,7 @@ header.main-header{
     font-weight: 500;
     border: none;
     min-width: 0;
-    outline: none;
+    outline: none !important;
     padding-left: 5px;
     flex-grow: 1;
     margin-right: 7px;
@@ -120,15 +127,13 @@ header.main-header{
     width: 2em;
     margin-right: 11px;
 }
-
-/*contenitore per profilo, admin e carrello*/
 .main-header_user-actions{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
-    margin-left: auto;/* spinge il contenitore tutto a destra*/
-    position: relative;/* necessario per posizionare il menu dropdown del profilo*/
+    margin-left: auto;
+    position: relative;
     gap: 0.1vw;
 }
 .user-actions_button{
@@ -200,8 +205,6 @@ header.main-header{
 
 .mobile-nav{
     display: block;
-    /* lo posiziona rispetto alla finestra del browser */
-    /* e rimane fisso anche durante lo scorrimento*/
     position: fixed;
     width: 0;
     height: 100%;
@@ -325,13 +328,17 @@ header.main-header{
     opacity: 1;
     transform: translateY(0);
 }
-
-/* per gestire l'accessibilità da tastiera*/
-.suggestion-item.keyboard-active{
-    background-color: #e9e4d1;
-    color: #392e23;
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
 }
-
 
 /*CSS Desktop*/
 @media (min-width: 992px){
@@ -345,7 +352,7 @@ header.main-header{
         display: none;
     }
     .main-header_search-bar{
-        order: 0; /* riporta la barra di ricerca alla sua posizione naturale*/
+        order: 0;
         width: 60%;
     }
     .main-header_user-actions{
@@ -353,7 +360,7 @@ header.main-header{
         gap: 0.2vw;
     }
     .main-header_nav{
-        display: inline-block; /* la navigazione diventa visibile*/
+        display: inline-block;
         position: relative;
         width: 100%;
         height: auto;
@@ -361,7 +368,6 @@ header.main-header{
         overflow: visible;
     }
     .mobile-nav_list{
-        /* mostra i link di navigazione in orizzontale*/
         display: flex;
         flex-direction: row;
         padding: 0 2rem;

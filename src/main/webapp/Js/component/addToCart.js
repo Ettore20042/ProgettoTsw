@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+function addToCart() {
     document.querySelectorAll('.add-to-cart-form').forEach(form => {
         form.addEventListener('submit', function(event) {
             event.preventDefault();
@@ -68,4 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
         });
     });
-});
+}
+
+
+document.addEventListener('DOMContentLoaded', addToCart);
+window.addToCart = addToCart; // Expose function globally if needed

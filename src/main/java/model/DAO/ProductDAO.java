@@ -322,6 +322,9 @@ public class ProductDAO {
         }
         return 0;
     }
+
+
+
     public boolean deleteProduct(int productId) {
         try (Connection connection = ConnPool.getConnection()) {
             System.out.println("Attempting to delete product with ID: " + productId);
@@ -473,5 +476,33 @@ public class ProductDAO {
         }
         return products;
 
+    }
+
+    public void withdrawFromStock(int productId, int quantity) {
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE product SET Quantity = Quantity - ? WHERE ProductID = ?");
+            preparedStatement.setInt(1, quantity);
+            preparedStatement.setInt(2, productId);
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected == 0) {
+                throw new SQLException("Nessun prodotto trovato con ID: " + productId);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public int getProductStock(int productId) {
+        try (Connection connection = ConnPool.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT Quantity FROM product WHERE ProductID = ?");
+            preparedStatement.setInt(1, productId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("Quantity");
+            } else {
+                throw new SQLException("Nessun prodotto trovato con ID: " + productId);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

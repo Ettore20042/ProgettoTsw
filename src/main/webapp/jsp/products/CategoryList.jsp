@@ -22,9 +22,11 @@
                         <c:if test="${category.parentCategory == null || category.categoryPath == ''}">
                             <div class="category-card">
                                 <div class="category-card_maincategory">
-                                    <img src="${pageContext.request.contextPath}/${category.categoryPath}" alt="${category.categoryName}" />
-                                    <h3>${category.categoryName}</h3>
-                                    <a href="${pageContext.request.contextPath}/ProductListServlet?categoryId=${category.categoryId}" class="view-btn">Vedi prodotti</a>
+
+                                    <a href="${pageContext.request.contextPath}/ProductListServlet?categoryId=${category.categoryId}">
+                                        <img src="${pageContext.request.contextPath}/${category.categoryPath}" alt="${category.categoryName}" />
+                                        <h3>${category.categoryName}</h3>
+                                    </a>
                                     <button class="toggle-subcategories">▶</button>
                                 </div>
 

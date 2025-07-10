@@ -279,6 +279,8 @@ class ManageSystem {
             const div = document.createElement('div');
             div.textContent = item;
             div.classList.add('suggestion-for-table-item');
+            div.setAttribute('role', 'option'); // Aggiunge ruolo per accessibilità
+
 
             // Configura il click sul suggerimento
             div.addEventListener('click', () => {

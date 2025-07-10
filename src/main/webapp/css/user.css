@@ -178,6 +178,7 @@ body > h1 {
     cursor: pointer;
     transition: all 0.3s ease;
     outline: none;
+    margin-top: 1rem;
 
 }
 
@@ -204,7 +205,22 @@ body > h1 {
     outline: 2px solid #3498db;
     outline-offset: 2px;
 }
-
+main.details-user-container{
+    width:-webkit-fill-available;
+}
+.order-card img {
+    width: 100%; /* larghezza fissa per le immagini*/
+    height: auto;
+    object-fit: contain; /* mantiene le proporzioni dell'immagine senza deformarla*/
+    border-radius: 4px;
+}
+.order-card-image-products{
+    display: flex;
+    flex-direction: row;
+    gap: 10px; /* spazio tra le immagini*/
+    width: 100%; /* le immagini occupano tutta la larghezza disponibile*/
+    overflow-x: auto; /* abilita lo scroll orizzontale se le immagini superano la larghezza del contenitore*/
+}
 
 /* versione tablet */
 @media (min-width: 768px) {

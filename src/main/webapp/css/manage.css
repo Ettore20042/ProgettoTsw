@@ -81,7 +81,7 @@
     font-size: 1rem;
     transition: border-color 0.3s;
     flex-grow: 1; /* Indica quanto può "crescere" l'elemento dato lo spazio libero disponibile */
-    outline: none;
+    outline: none !important; /* Rimuove il contorno predefinito del browser */
 }
 
 #searchBarTable:focus {

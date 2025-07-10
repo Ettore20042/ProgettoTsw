@@ -1,9 +1,11 @@
 package service;
 
 import com.google.gson.Gson;
+import com.mysql.cj.Session;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Bean.Brand;
 import model.Bean.Product;
 
@@ -23,6 +25,7 @@ public class FilterService {
 		productService = new ProductService(context);
 		brandService = new BrandService(context);
 		this.context = context;
+		HttpSession session = (HttpSession) context.getAttribute("session");
 	}
 
 	public Map<String, Object> loadFilterData(Integer categoryId) {
