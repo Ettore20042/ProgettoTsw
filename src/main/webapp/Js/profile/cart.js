@@ -3,9 +3,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateQuantityInput() {
         const quantityInput = document.querySelectorAll('.quantity-input');
 
+        //esegue il codice per ogni campo trovato
         quantityInput.forEach(input => {
+            //attende che l'utente modifichi il valore dell'input
             input.addEventListener('change', (e) => {
+                //prende la nuova quantità inserita
                 const quantity = e.target.value;
+                //prende il productId associato a quella riga
                 const productId = e.target.closest('tr').dataset.productId;
                 const contextPath = document.body.dataset.contextPath;
                 const formData = new URLSearchParams();
@@ -14,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 formData.append('quantity', quantity);
                 formData.append('update', 'true');
 
+                //invia una richiesta POST asincrona alla CartServlet
                 fetch(`${contextPath}/CartServlet`, {
                     method: 'POST',
                     body: formData,
@@ -22,11 +27,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
                         }
-
+                        //converte la risposta in oggetto js
                         return response.json();
                     }).then( data => {
                     const lastQuantity = parseInt(data.lastQuantity, 10);
                     console.log(lastQuantity);
+                    //aggiorna l'icona del carrello
                     const cartcount = document.querySelector('.cart-count');
                     if (cartcount) {
                         if (lastQuantity < quantity) {
@@ -37,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
 
+                //chiama le due funzioni di aggiornamento
                 updateRowTotal(e.target.closest('tr'), quantity, parseFloat(e.target.dataset.price));
                 updateCartTotal();
             })

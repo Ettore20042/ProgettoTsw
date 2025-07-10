@@ -6,6 +6,7 @@
  */
 function updateProductTable(products) {
     const tableBody = document.querySelector('.componentTableBody');
+    //svuota la tabella
     tableBody.innerHTML = '';
 
     if (!tableBody) {
@@ -21,6 +22,7 @@ function updateProductTable(products) {
     // Genera righe della tabella per ogni prodotto
     tableBody.innerHTML = products.map(product => createProductRowHTML(product)).join('');
 
+    //cerca un manager globale
     const manager = window.getCurrentManager();
     if (manager && typeof manager.initializeEditLinks === 'function' && typeof manager.initializeRemoveButtons === 'function') {
         manager.initializeEditLinks();
@@ -41,6 +43,7 @@ function createProductRowHTML(product) {
     const contextPath = document.body.dataset.contextPath;
     const salePrice = product.salePrice > 0 ? product.salePrice : '-';
 
+    //usiamo " ` " per costruire facilmente una stringa html su più righe
     return `
         <tr>
             <td>${product.productId}</td>
@@ -61,7 +64,9 @@ function createProductRowHTML(product) {
  * @param {HTMLElement} tableBody - Body della tabella
  */
 function showNoProductsRow(tableBody) {
+    //prendiamo il numero di colonne nell'intestazione della tabella
     const columnsCount = document.querySelectorAll('.admin-products-table thead th').length || 9;
+    //creiamo una riga con una sola cella che si estende per tutte le colonne
     tableBody.innerHTML = `
         <tr class="no-products-row">
             <td colspan="${columnsCount}" class="text-center">
@@ -164,10 +169,11 @@ function showErrorMessage(message) {
     console.error('Admin Error:', message);
 }
 
-// Inizializzazione per la pagina di gestione admin
+// Inizializzazione per la pagina di gestione admin, colleghiamo questo script con quello che gestisce i filtri
 document.addEventListener('DOMContentLoaded', function() {
     if (window.ProductFilter && window.ProductFilter.initFilterEvents) {
         console.log('🔗 Collegamento filtri con aggiornatore lista prodotti...');
+        //chiama la funzione di ProductFilter passando updateProductTable di questo file
         window.ProductFilter.initFilterEvents(updateProductTable);
     } else {
         console.error('❌ ProductFilter non disponibile - assicurati che productFilter.js sia caricato prima');
