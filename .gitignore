@@ -11,8 +11,7 @@ target/*
 
 # Non ignorare la cartella images dent
 # Se usi img invece di images, cambia qui di conseguenza
- !target/img/
-!target/img/**
+
 
 
 ### IntelliJ IDEA ###
