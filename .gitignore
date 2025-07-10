@@ -5,6 +5,14 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+# Escludi (includi) la cartella target/images
+# Ignora tutto target
+target/*
+
+# Non ignorare la cartella images dent
+# Se usi img invece di images, cambia qui di conseguenza
+ !target/img/
+!target/img/**
 
 
 ### IntelliJ IDEA ###
