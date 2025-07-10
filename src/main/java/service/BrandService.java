@@ -16,6 +16,7 @@ public class BrandService {
 
 	public BrandService(ServletContext context) {
 		this.context = context;
+		checkBrandCache(); // Inizializza la cache al momento della creazione del servizio
 	}
 
 
