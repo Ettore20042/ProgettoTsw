@@ -79,7 +79,7 @@ INSERT INTO `useraccount` (`FirstName`, `LastName`, `Phone`, `Admin`, `Password`
 -- BrandID: Bosch(1), Makita(2), DeWalt(3), Gardena(4), Samsung(5), LG(6), Bialetti(7), Lagostina(8), Foppapedretti(9), Black+Decker(10), Philips(11), Weber(12)
 -- CategoryID: Grandi Elettrodomestici(7), Piccoli Elettrodomestici(8), Utensili da Giardino(9), Irrigazione(10), Elettroutensili(11), Utensili Manuali(12), Cucina(13), Decorazioni Casa(14), Lampade da Interno(15), Lampade da Esterno(16), Mobili da Giardino(17), Barbecue e Accessori(18)
 INSERT INTO `product` (`ProductName`, `Price`, `Color`, `Material`, `Quantity`, `Description`, `BrandID`, `CategoryID`, `SalePrice`) VALUES
-('Trapano Avvitatore 18V', 129.99, 'Blu/Nero', 'Plastica/Metallo', 50, 'Potente trapano avvitatore a batteria, con 2 batterie.', 1, 11, 110.00),
+('Trapano Avvitatore 18V', 129.99, 'Blu/Nero', 'Plastica/Metallo', 50, 'Potente trapano avvitatore a batbrandproductproductteria, con 2 batterie.', 1, 11, 110.00),
 ('Frigorifero Combinato No Frost', 699.00, 'Argento', 'Acciaio Inox', 20, 'Classe A++, capacità 300L, tecnologia No Frost.', 5, 7, NULL),
 ('Set Attrezzi Giardinaggio 5 Pezzi', 39.50, 'Verde/Nero', 'Metallo/Plastica', 100, 'Set completo per piccoli lavori di giardinaggio.', 4, 9, 35.00),
 ('Macchina da Caffè Espresso', 89.90, 'Rosso', 'Plastica/Alluminio', 75, 'Macchina per caffè espresso manuale, 15 bar.', 7, 8, NULL),
