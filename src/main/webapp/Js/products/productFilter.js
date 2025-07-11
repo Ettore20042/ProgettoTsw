@@ -23,7 +23,7 @@
         }
 
         try {
-            console.log('🔄 Caricamento dati filtri...');
+            console.log(' Caricamento dati filtri...');
             const response = await fetch(`${contextPath}/FilterServlet?action=loadData`);
 
             if (!response.ok) {
@@ -31,11 +31,11 @@
             }
 
             filterData = await response.json();
-            console.log('✅ Dati filtri caricati:', filterData);
+            console.log('Dati filtri caricati:', filterData);
             return filterData;
 
         } catch (error) {
-            console.error('❌ Errore nel caricamento dei dati filtri:', error);
+            console.error(' Errore nel caricamento dei dati filtri:', error);
             throw error;
         }
     }
@@ -47,11 +47,11 @@
     function populateBrandFilter(brands) {
         const brandList = document.querySelector('.product-filter_list-brand');
         if (!brandList || !brands) {
-            console.warn('⚠️ Brand filter container non trovato o dati brand mancanti');
+            console.warn('⚠ Brand filter container non trovato o dati brand mancanti');
             return;
         }
 
-        console.log('🏷️ Popolamento filtro brand...');
+        console.log(' Popolamento filtro brand...');
         brandList.innerHTML = '';
 
         Object.entries(brands).forEach(([id, brand]) => {
@@ -65,7 +65,7 @@
             brandList.appendChild(li);
         });
 
-        console.log(`✅ Popolati ${Object.keys(brands).length} brand`);
+        console.log(` Popolati ${Object.keys(brands).length} brand`);
     }
 
     /**
@@ -76,11 +76,11 @@
         const colorList = document.querySelector('.product-filter_list-color')
 
         if (!colorList || !colors || colors.length === 0) {
-            console.warn('⚠️ Color filter container non trovato o dati colori mancanti');
+            console.warn('Color filter container non trovato o dati colori mancanti');
             return;
         }
 
-        console.log('🎨 Popolamento filtro colori...');
+        console.log(' Popolamento filtro colori...');
         colorList.innerHTML = '';
 
         colors.forEach((color, index) => {
@@ -94,7 +94,7 @@
             colorList.appendChild(li);
         });
 
-        console.log(`✅ Popolati ${colors.length} colori`);
+        console.log(` Popolati ${colors.length} colori`);
     }
 
     /**
@@ -105,7 +105,7 @@
         const materialsList = document.querySelector('.product-filter_list-material')
 
         if (!materialsList || !materials || materials.length === 0) {
-            console.warn('⚠️ Material filter container non trovato o dati materiali mancanti');
+            console.warn(' Material filter container non trovato o dati materiali mancanti');
             return;
         }
 
@@ -136,7 +136,7 @@
         // const priceRange = document.querySelector('.product-filter_price-range');
         const priceRangeValue = document.querySelector('.product-filter_price-range-value');
 
-        console.log('💰 Configurazione filtro prezzo, max:', maxPrice);
+        console.log(' Configurazione filtro prezzo, max:', maxPrice);
 
         if (priceMax) {
             priceMax.placeholder = maxPrice;
@@ -157,7 +157,7 @@
 
         priceMin.addEventListener('input', priceDinamicRange);
         priceMax.addEventListener('input', priceDinamicRange);
-        console.log('✅ Filtro prezzo configurato');
+        console.log(' Filtro prezzo configurato');
     }
 
     function setupToggleFilterSideView() {
@@ -192,7 +192,7 @@
             }
         })
 
-        mediaQueryDesktop.addEventListener('change', (e) => {
+        mediaQueryDesktop.addEventListener('change', (e) => {// Rileva il cambiamento della media query
             if (mediaQueryDesktop.matches){
                 e.stopPropagation();
                 filterMobileWrapper.style.width = '100%';
@@ -210,7 +210,7 @@
      */
     async function initializeFilters() {
         try {
-            console.log('🚀 Inizializzazione filtri...');
+            console.log(' Inizializzazione filtri...');
             const data = await loadFilterData();
 
             // Popola tutti i filtri in parallelo per migliori performance
@@ -220,10 +220,10 @@
             setupPriceFilter(data.priceMax);
             setupToggleFilterSideView();
 
-            console.log('🎉 Filtri inizializzati con successo!');
+            console.log(' Filtri inizializzati con successo!');
 
         } catch (error) {
-            console.error('💥 Errore nell\'inizializzazione dei filtri:', error);
+            console.error(' Errore nell inizializzazione dei filtri:', error);
             showErrorMessage('Errore nel caricamento dei filtri. Ricarica la pagina.');
         }
     }
@@ -262,7 +262,7 @@
             maxPrice
         };
 
-        console.log('📋 Dati filtri raccolti:', filterData);
+        console.log(' Dati filtri raccolti:', filterData);
         return filterData;
     }
 
@@ -286,7 +286,7 @@
         if (filterData.maxPrice && filterData.maxPrice.trim()) params.append('maxPrice', filterData.maxPrice);
 
         const url = `${contextPath}/FilterServlet?${params.toString()}`;
-        console.log('🔗 URL filtro costruito:', url);
+        console.log(' URL filtro costruito:', url);
 
         return url;
     }
@@ -298,7 +298,7 @@
      */
     async function fetchFilteredProducts(filterData) {
         try {
-            console.log('🔍 Ricerca prodotti con filtri...');
+            console.log(' Ricerca prodotti con filtri...');
             const url = buildFilterUrl(filterData);
             const response = await fetch(url);
 
@@ -307,11 +307,11 @@
             }
 
             const products = await response.json();
-            console.log(`✅ Trovati ${products.length} prodotti`);
+            console.log(` Trovati ${products.length} prodotti`);
             return products;
 
         } catch (error) {
-            console.error('❌ Errore nel caricamento dei prodotti:', error);
+            console.error(' Errore nel caricamento dei prodotti:', error);
             throw error;
         }
     }
@@ -322,20 +322,20 @@
      */
     async function applyFilters(updateCallback) {
         try {
-            console.log('⚡ Applicazione filtri...');
+            console.log('Applicazione filtri...');
 
             const filterData = collectFilterData();
             const products = await fetchFilteredProducts(filterData);
 
             if (typeof updateCallback === 'function') {
                 updateCallback(products);
-                console.log('🔄 UI aggiornata con i risultati');
+                console.log(' UI aggiornata con i risultati');
             } else {
-                console.warn('⚠️ Callback di aggiornamento UI non fornito');
+                console.warn(' Callback di aggiornamento UI non fornito');
             }
 
         } catch (error) {
-            console.error('💥 Errore nell\'applicazione dei filtri:', error);
+            console.error(' Errore nell\'applicazione dei filtri:', error);
             showErrorMessage('Errore nella ricerca. Riprova.');
         }
     }
@@ -349,13 +349,13 @@
      * @param {Function} updateCallback - Funzione per aggiornare l'UI quando si applicano i filtri
      */
     function initFilterEvents(updateCallback) {
-        console.log('🎛️ Inizializzazione event listeners...');
+        console.log(' Inizializzazione event listeners...');
 
         // Event listener per il pulsante "Applica filtri"
         const applyButton = document.querySelector('.product-filter_apply');
         if (applyButton) {
             applyButton.addEventListener('click', () => {
-                console.log('👆 Click su "Applica filtri"');
+                console.log(' Click su "Applica filtri"');
                 applyFilters(updateCallback);
 
             });
@@ -366,11 +366,11 @@
         // Event listener per i pulsanti "Ripristina"
         document.querySelectorAll('.product-filter_details-reset, .product-filter_reset-all').forEach(button => {
             button.addEventListener('click', (e) => {
-                console.log('🔄 Reset sezione filtro');
+                console.log(' Reset sezione filtro');
                 if (button.classList.contains('product-filter_reset-all')) {
                     // --- LOGICA PER CANCELLARE TUTTI I FILTRI ---
-                    console.log('🔄 Reset di tutti i filtri');
-                    const filterContainer = button.closest('.product-filter_wrapper') || document;
+                    console.log(' Reset di tutti i filtri');
+                    const filterContainer = button.closest('.product-filter_wrapper') || document; // Trova il contenitore principale dei filtri se non esiste usa il document come valore di fallback
 
                     // Deseleziona tutte le checkbox
                     const allCheckboxes = filterContainer.querySelectorAll('input[type="checkbox"]');
@@ -390,7 +390,7 @@
 
                 } else {
                     // --- LOGICA ESISTENTE PER RIPRISTINARE UNA SEZIONE ---
-                    console.log('🔄 Reset sezione filtro');
+                    console.log('Reset sezione filtro');
                     const detailsBox = e.target.closest('.product-filter_details-box');
                     if (!detailsBox) return;
 
@@ -413,7 +413,7 @@
             });
         });
 
-        console.log('✅ Event listeners configurati');
+        console.log(' Event listeners configurati');
     }
 
 
@@ -423,9 +423,8 @@
      * @param {string} message - Messaggio da mostrare
      */
     function showErrorMessage(message) {
-        // TODO: Implementare UI per mostrare errori all'utente
+
         console.error('🚨 Errore UI:', message);
-        // Temporaneamente usa alert, ma sarebbe meglio un toast o notifica
         alert(message);
     }
 
@@ -439,7 +438,6 @@
      * Inizializzazione automatica quando il DOM è pronto
      */
     document.addEventListener('DOMContentLoaded', () => {
-        console.log('🌟 DOM pronto, inizializzazione filtri prodotti...');
         initializeFilters();
     });
 
@@ -455,5 +453,5 @@
 
     };
 
-    console.log('📦 Modulo ProductFilter caricato e pronto');
+
 })();

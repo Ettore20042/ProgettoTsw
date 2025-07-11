@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const sliderTrack = sliderContainer.querySelector('.product-card_gallery-track');
-    const slides = Array.from(sliderTrack.children);
+    const slides = Array.from(sliderTrack.children); //crea un array di slide a partire dagli elementi figli dell'elemento sliderTrack
     const nextButton = sliderContainer.querySelector('.product-card_arrow--next');
     const prevButton = sliderContainer.querySelector('.product-card_arrow--prev');
     const dotsNav = sliderContainer.querySelector('.product-card_gallery-dots');
@@ -93,6 +93,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const getPositionX = (event) => {
         return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+        /**
+         * “Se l'evento è un evento del mouse,
+         * usa event.pageX,-->Rappresenta la posizione orizzontale del mouse rispetto alla pagina.
+         * altrimenti (touch) usa event.touches[0].clientX.”-->Rappresenta la posizione orizzontale del primo tocco rispetto alla viewport.
+         *
+         * */
     };
 
     const dragStart = (event) => {

@@ -101,10 +101,10 @@ function showNoProductsMessage(container) {
 document.addEventListener('DOMContentLoaded', function() {
     // Ora initFilterEvents è esposta tramite window.ProductFilter
     if (window.ProductFilter && window.ProductFilter.initFilterEvents) {
-        console.log('🔗 Collegamento filtri con aggiornatore lista prodotti...');
+        console.log(' Collegamento filtri con aggiornatore lista prodotti...');
         window.ProductFilter.initFilterEvents(updateProductList);
     } else {
-        console.error('❌ ProductFilter non disponibile - assicurati che productFilter.js sia caricato prima');
+        console.error(' ProductFilter non disponibile - assicurati che productFilter.js sia caricato prima');
     }
 });
 // Improved cart form handling

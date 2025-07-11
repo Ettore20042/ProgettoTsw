@@ -2,8 +2,6 @@
  * gestione dell'apertura/chiusura dei menu delle sottocategorie
  */
 
-
-
 document.addEventListener("DOMContentLoaded", function() {
     //seleziona tutti gli elementi della pagina con questa classe (pulsanti) e per ognuno di essi esegue il codice nel ciclo
     const toggleBtns = document.querySelectorAll(".toggle-subcategories");
@@ -35,11 +33,5 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-
-    /**
-     * Gestione del form "aggiungi al carrello"
-     */
-
-    // Improved cart form handling
 
 });

@@ -5,7 +5,7 @@
 
 class BrandManager extends BaseManager {
     constructor(system) {
-        super(system);
+        super(system); // Chiamata al costruttore della classe base passando il sistema
         this.initializeBrandEvents();
     }
 

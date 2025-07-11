@@ -55,7 +55,7 @@ class CategoryManager extends BaseManager {
             console.log("CategoryId ricevuto:", data.category.categoryId);
 
             if (data.success && data.category) {
-                // ✅ AGGIUNGI DEBUG QUI
+
                 console.log("Chiamando addCategoryToTable con:", data.category);
 
                 this.addCategoryToTable(data.category);
