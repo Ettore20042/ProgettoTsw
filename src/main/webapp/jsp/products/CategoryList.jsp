@@ -55,7 +55,26 @@
                                  alt="${product.productName}" class="category-product-item_image--img" />
                             <h6 class="category-product-item_name--title">${product.productName}</h6>
                         </a>
-                        <p class="category-container_card_price">Prezzo: €${product.price}</p>
+
+                        <div class="category-product-price">
+                            <c:choose>
+                                <c:when test="${not empty product.salePrice and product.salePrice > 0 and product.salePrice < product.price}">
+                                    <div class="product-card_price--sale">
+                                        <p class="category-container_card_price--sale" >
+                                             <fmt:formatNumber value="${product.salePrice}" pattern="€#,##0.00" />
+                                        </p>
+                                        <p class="product-card_price--original-in-sale">
+                                            <fmt:formatNumber value="${product.price}" pattern="€#,##0.00" />
+                                        </p>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <p class="category-container_card_price--regular">
+                                        <fmt:formatNumber value="${product.price}" pattern="€#,##0.00" />
+                                    </p>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
                         <form action="${pageContext.request.contextPath}/CartServlet" class="add-to-cart-form" data-product-id="${product.productId}" method="post" style="display: contents;">
                             <input type="hidden" name="productId" value="${product.productId}" />
                             <input type="hidden" name="quantity" value="1" />
