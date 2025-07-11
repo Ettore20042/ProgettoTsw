@@ -7,6 +7,7 @@ function addToCart() {
             const cartcount = document.querySelector('.cart-count');
             const button = this.querySelector('button[type="submit"]');
             const originalIcon = button.innerHTML;
+            const stylebutton=button.style.border; // Save original border style
 
             // Disable button and show loading state
             button.disabled = true;
@@ -26,6 +27,7 @@ function addToCart() {
                         // Show success icon
                         button.innerHTML = '<span class="material-symbols-rounded">check</span>';
                         button.style.backgroundColor = '#4CAF50'; // Green background
+                        button.style.border= '2px solid green'; // Remove border
 
                         // Show notification
                         const notification = document.createElement('div');
@@ -52,6 +54,7 @@ function addToCart() {
                             button.innerHTML = originalIcon;
                             button.style.backgroundColor = ''; // Reset background color
                             button.disabled = false;
+                            button.style.border = stylebutton; // Reset border
                         }, 2000);
 
                     } else {
