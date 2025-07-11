@@ -25,7 +25,14 @@ function addToCart() {
                 .then(data => {
                     if(data.status === 'ok') {
                         // Show success icon
-                        button.innerHTML = '<span class="material-symbols-rounded">check</span>';
+                            /*** Si potrenne aggiungere per aspettare  il caricamento del font,perchè alcune volte appare la scritta check prima dell'icona
+                             document.fonts.ready.then(() => {
+                             button.innerHTML = '<span class="material-symbols-rounded">check</span>';
+                             });
+                             */
+                            button.innerHTML = '<span class="material-symbols-rounded">check</span>';
+
+
                         button.style.backgroundColor = '#4CAF50'; // Green background
                         button.style.border= '2px solid green'; // Remove border
 
