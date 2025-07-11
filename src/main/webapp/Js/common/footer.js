@@ -1,4 +1,5 @@
 const mediaQueryDesktop = window.matchMedia("(min-width: 992px)");
+/* Controlla se matcha con la media query*/
 
 function openDisclosureBox(){
     let disclosureBoxes = document.querySelectorAll("details.disclosure-box");

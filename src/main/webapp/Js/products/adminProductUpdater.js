@@ -21,8 +21,14 @@ function updateProductTable(products) {
     // Genera righe della tabella per ogni prodotto
     tableBody.innerHTML = products.map(product => createProductRowHTML(product)).join('');
 
-    const manager = window.getCurrentManager();
+    const manager = window.getCurrentManager(); // Assicurati che getCurrentManager sia definito e restituisca l'istanza corretta
     if (manager && typeof manager.initializeEditLinks === 'function' && typeof manager.initializeRemoveButtons === 'function') {
+        /*
+        *Controlla se la variabile manager esiste ed è definita
+        *Controlla se la proprietà initializeEditLinks di manager esiste ed è una funzione.
+        *
+        * */
+
         manager.initializeEditLinks();
         manager.initializeRemoveButtons();
     } else {
@@ -39,7 +45,6 @@ function updateProductTable(products) {
  */
 function createProductRowHTML(product) {
     const contextPath = document.body.dataset.contextPath;
-    const salePrice = product.salePrice > 0 ? product.salePrice : '-';
 
     return `
         <tr>
@@ -61,7 +66,7 @@ function createProductRowHTML(product) {
  * @param {HTMLElement} tableBody - Body della tabella
  */
 function showNoProductsRow(tableBody) {
-    const columnsCount = document.querySelectorAll('.admin-products-table thead th').length || 9;
+    const columnsCount = document.querySelectorAll('.admin-products-table thead th').length || 9; //Se il numero di colonne della tabella è nullo o 0 allora il valore di ColumnsCount sarà 9
     tableBody.innerHTML = `
         <tr class="no-products-row">
             <td colspan="${columnsCount}" class="text-center">
@@ -167,9 +172,14 @@ function showErrorMessage(message) {
 // Inizializzazione per la pagina di gestione admin
 document.addEventListener('DOMContentLoaded', function() {
     if (window.ProductFilter && window.ProductFilter.initFilterEvents) {
-        console.log('🔗 Collegamento filtri con aggiornatore lista prodotti...');
+        console.log(' Collegamento filtri con aggiornatore lista prodotti...');
         window.ProductFilter.initFilterEvents(updateProductTable);
     } else {
-        console.error('❌ ProductFilter non disponibile - assicurati che productFilter.js sia caricato prima');
+        console.error('ProductFilter non disponibile - assicurati che productFilter.js sia caricato prima');
     }
 });
+/**Registra una funzione che viene eseguita quando il DOM è completamente carico
+ * Controlla se la variabile ProductFilter esiste e se ha il metodo initFilterEvents
+ * Chiama initFilterEvents passando la funzione updateProductTable come callback
+ *
+ * */

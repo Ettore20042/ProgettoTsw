@@ -1,9 +1,9 @@
 function addToCart() {
     document.querySelectorAll('.add-to-cart-form').forEach(form => {
         form.addEventListener('submit', function(event) {
-            event.preventDefault();
+            event.preventDefault(); // Prevent default form submission
 
-            const formData = new FormData(this);
+            const formData = new FormData(this); // Collect form data
             const cartcount = document.querySelector('.cart-count');
             const button = this.querySelector('button[type="submit"]');
             const originalIcon = button.innerHTML;
@@ -71,5 +71,5 @@ function addToCart() {
 }
 
 
-document.addEventListener('DOMContentLoaded', addToCart);
-window.addToCart = addToCart; // Expose function globally if needed
+document.addEventListener('DOMContentLoaded', addToCart); //The function will be called when the listener is added, ensuring that the DOM is fully loaded before executing the function
+window.addToCart = addToCart; // Expose function globally if needed //In Js we can call a function before it is defined, so we need to expose it globally if we want to use it in other scripts
