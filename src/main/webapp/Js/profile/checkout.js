@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const addressModal = document.getElementById('addressModal');
     const closeModalBtn = document.getElementById('close-address-modal');
     const addAddressForm = document.getElementById('addAddressForm');
-    const contextPath = '/' + window.location.pathname.split('/')[1];
+    const contextPath = '/' + window.location.pathname.split('/')[1]; // Il context path è il primo segmento del percorso URL
 
     // Gestione metodi di pagamento
     const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');

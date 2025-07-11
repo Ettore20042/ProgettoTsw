@@ -1,12 +1,13 @@
 function addToCart() {
     document.querySelectorAll('.add-to-cart-form').forEach(form => {
         form.addEventListener('submit', function(event) {
-            event.preventDefault();
+            event.preventDefault(); // Prevent default form submission
 
-            const formData = new FormData(this);
+            const formData = new FormData(this); // Collect form data
             const cartcount = document.querySelector('.cart-count');
             const button = this.querySelector('button[type="submit"]');
             const originalIcon = button.innerHTML;
+            const stylebutton=button.style.border; // Save original border style
 
             // Disable button and show loading state
             button.disabled = true;
@@ -24,8 +25,16 @@ function addToCart() {
                 .then(data => {
                     if(data.status === 'ok') {
                         // Show success icon
-                        button.innerHTML = '<span class="material-symbols-rounded">check</span>';
+                            /*** Si potrenne aggiungere per aspettare  il caricamento del font,perchè alcune volte appare la scritta check prima dell'icona
+                             document.fonts.ready.then(() => {
+                             button.innerHTML = '<span class="material-symbols-rounded">check</span>';
+                             });
+                             */
+                            button.innerHTML = '<span class="material-symbols-rounded">check</span>';
+
+
                         button.style.backgroundColor = '#4CAF50'; // Green background
+                        button.style.border= '2px solid green'; // Remove border
 
                         // Show notification
                         const notification = document.createElement('div');
@@ -52,6 +61,7 @@ function addToCart() {
                             button.innerHTML = originalIcon;
                             button.style.backgroundColor = ''; // Reset background color
                             button.disabled = false;
+                            button.style.border = stylebutton; // Reset border
                         }, 2000);
 
                     } else {
@@ -71,5 +81,5 @@ function addToCart() {
 }
 
 
-document.addEventListener('DOMContentLoaded', addToCart);
-window.addToCart = addToCart; // Expose function globally if needed
+document.addEventListener('DOMContentLoaded', addToCart); //The function will be called when the listener is added, ensuring that the DOM is fully loaded before executing the function
+window.addToCart = addToCart; // Expose function globally if needed //In Js we can call a function before it is defined, so we need to expose it globally if we want to use it in other scripts

@@ -1,20 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    //contenitore principale di tutta la galleria
     const sliderContainer = document.querySelector('.product-card_gallery');
     // Se non c'è uno slider in questa pagina, esci per non causare errori.
     if (!sliderContainer) {
         return;
     }
 
-    //il container interno che avrà tutte le immagini affiancate e verrà spostato a sx e dx
     const sliderTrack = sliderContainer.querySelector('.product-card_gallery-track');
-    //array di singole immagini
-    const slides = Array.from(sliderTrack.children);
-    //frecce per andare avanti e indietro
+    const slides = Array.from(sliderTrack.children); //crea un array di slide a partire dagli elementi figli dell'elemento sliderTrack
     const nextButton = sliderContainer.querySelector('.product-card_arrow--next');
     const prevButton = sliderContainer.querySelector('.product-card_arrow--prev');
-    //contenitore dei pallini di navigazione
     const dotsNav = sliderContainer.querySelector('.product-card_gallery-dots');
 
     // Se non ci sono slide, non fare nulla
@@ -57,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //calcola la distanza totale da spostare
         const amountToMove = targetIndex * slideWidth;
-        //applica lo spostamento
         sliderTrack.style.transform = `translateX(-${amountToMove}px)`;
 
         // Aggiorna lo stato corrente
@@ -70,28 +64,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Funzione per aggiornare lo stato visivo delle frecce e dei pallini
     const updateNav = () => {
         // Gestione delle frecce
-        //se siamo sulla prima slide, nasconde la freccia "indietro"
         prevButton.classList.toggle('is-hidden', currentIndex === 0);
-        //se siamo all'ultima slide, nasconde la freccia "avanti"
         nextButton.classList.toggle('is-hidden', currentIndex === slides.length - 1);
 
         // Gestione dei pallini
         dots.forEach((dot, index) => {
-            //evidenzia il pallino corrispondente alla slide corrente
-            //togliendo l'evidenziazione a tutti gli altri
             dot.classList.toggle('current-slide', index === currentIndex);
         });
     };
 
     // --- GESTIONE EVENTI FRECCE ---
-    //quando si clicca "avanti" chiama moveToSlide con l'indice successivo
     nextButton.addEventListener('click', () => {
         if (currentIndex < slides.length - 1) {
             moveToSlide(currentIndex + 1);
         }
     });
 
-    //quanso si clicca "indietro" chiama moveToSlide con l'indice precedente
     prevButton.addEventListener('click', () => {
         if (currentIndex > 0) {
             moveToSlide(currentIndex - 1);
@@ -105,18 +93,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const getPositionX = (event) => {
         return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+        /**
+         * “Se l'evento è un evento del mouse,
+         * usa event.pageX,-->Rappresenta la posizione orizzontale del mouse rispetto alla pagina.
+         * altrimenti (touch) usa event.touches[0].clientX.”-->Rappresenta la posizione orizzontale del primo tocco rispetto alla viewport.
+         *
+         * */
     };
 
-    //quando l'utente inizia a trascinare
     const dragStart = (event) => {
         isDragging = true;
-        //registra la posizione iniziale del cursore
         startPos = getPositionX(event);
         // Rimuovi la transizione CSS durante il drag per un movimento immediato
         sliderTrack.style.transition = 'none';
     };
 
-    //mentre l'utente trascina
     const dragMove = (event) => {
         if (isDragging) {
             const currentPosition = getPositionX(event);
@@ -124,23 +115,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const dragOffset = currentPosition - startPos;
             // La nuova posizione è la posizione della slide corrente più lo spostamento
             currentTranslate = (currentIndex * -slideWidth) + dragOffset;
-            //aggiorna la posizione dello sliderTrack in tempo reale per farlo
-            //corrispondere al movimento
             sliderTrack.style.transform = `translateX(${currentTranslate}px)`;
         }
     };
 
-    //quando l'utente smette di trascinare
     const dragEnd = (event) => {
         if (!isDragging) return;
         isDragging = false;
 
-        //calcola quanto è lungo lo swipe
         const movedBy = currentTranslate - (currentIndex * -slideWidth);
         const swipeThreshold = slideWidth * 0.2; // Soglia: 20% della larghezza della slide
 
-        // se lo swipe ha superato la soglia, si sposterà alla pagina successiva/precedente
-        //altrimenti moveToSlide riporterà la slide alla sua posizione originale
+        // Se lo swipe è abbastanza lungo e c'è una slide successiva/precedente
         if (movedBy < -swipeThreshold && currentIndex < slides.length - 1) {
             // Swipe a sinistra -> vai alla prossima slide
             moveToSlide(currentIndex + 1);

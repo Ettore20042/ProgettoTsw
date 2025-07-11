@@ -82,7 +82,7 @@ main{
 
 @media (min-width: 768px){
     .product-page{
-        margin: 0.5rem 1rem;
+        margin: 0.5rem auto;
     }
     .product-page .product-card{
         display: grid;

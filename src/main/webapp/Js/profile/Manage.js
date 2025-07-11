@@ -36,8 +36,7 @@ class ManageSystem {
         // Flag che indica se il sistema è stato completamente inizializzato
         this.isInitialized = false;
 
-        // Log di avvio del sistema
-        this.log('🚀 ManageSystem inizializzato', this.config);
+
         // Avvia il processo di inizializzazione asincrono
         this.initialize();
     }
@@ -49,7 +48,7 @@ class ManageSystem {
      */
     async initialize() {
         try {
-            this.log('📦 Avvio inizializzazione sistema...');
+
 
             // Fase 1: Inizializza gli elementi comuni dell'interfaccia (modale, messaggi, barra di ricerca)
             this.initializeCommonElements();
@@ -173,7 +172,7 @@ class ManageSystem {
             const ManagerClass = managers[this.config.entity];
 
             if (ManagerClass) {
-                // ✅ Il manager è disponibile, procedi con l'inizializzazione
+                //  Il manager è disponibile, procedi con l'inizializzazione
                 this.currentManager = new ManagerClass(this);
                 this.log(`✅ Manager inizializzato: ${ManagerClass.name}`);
 
@@ -185,13 +184,13 @@ class ManageSystem {
                     manager: this.currentManager
                 });*/
             } else if (attempts < maxAttempts) {
-                // ⏳ Il manager non è ancora disponibile, riprova tra 100ms
+                // Il manager non è ancora disponibile, riprova tra 100ms
                 attempts++;
-                this.log(`⏳ Tentativo ${attempts}/${maxAttempts} per ${this.config.entity}...`);
+                this.log(` Tentativo ${attempts}/${maxAttempts} per ${this.config.entity}...`);
                 setTimeout(checkAndInitialize, 100);
             } else {
-                // ❌ Timeout raggiunto, usa BaseManager come fallback
-                this.log(`⚠️ Timeout nel caricamento del manager per ${this.config.entity}, uso BaseManager`);
+                // Timeout raggiunto, usa BaseManager come fallback
+                this.log(`️ Timeout nel caricamento del manager per ${this.config.entity}, uso BaseManager`);
                 this.currentManager = new BaseManager(this);
                 this.setupGlobalEventListeners();
                 this.isInitialized = true;
@@ -557,7 +556,7 @@ class ManageSystem {
      * Fornisce funzionalità minime per non lasciare l'interfaccia completamente non funzionante.
      */
     initializeFallback() {
-        this.log('⚠️ Inizializzazione fallback attivata');
+        this.log('️ Inizializzazione fallback attivata');
 
         // Crea un manager minimale con solo le funzionalità base del modale
         this.currentManager = {
@@ -570,7 +569,7 @@ class ManageSystem {
         };
 
         // Mostra una notifica all'utente per informarlo della modalità limitata
-        this.showNotification('⚠️ Sistema in modalità limitata', 'warning');
+        this.showNotification(' Sistema in modalità limitata', 'warning');
         // Configura almeno gli eventi base del modale
         this.setupModalEvents();
     }

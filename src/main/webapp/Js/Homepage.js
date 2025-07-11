@@ -38,9 +38,7 @@
     const scrollWidth = container.scrollWidth;
     const clientWidth = container.clientWidth;
 
-    console.log("scrollLeft:", scrollLeft);
-    console.log("scrollWidth:", scrollWidth);
-    console.log("clientWidth:", clientWidth);
+
 
     // Disabilita il pulsante sinistro se siamo all'inizio
     scrollLeftBtn.disabled = scrollLeft <= 0;

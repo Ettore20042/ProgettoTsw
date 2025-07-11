@@ -62,7 +62,7 @@
                 </summary>
                 <p class=" main-support_disclosure_text">
                     Puoi tracciare l'ordine cliccando sul link inviato via email o accedendo al tuo account.
-                    <a href="${pageContext.request.contextPath}/jsp/profile/User.jsp" class=" support_disclosure_link">Clicca  qui </a>
+                    <a href="${pageContext.request.contextPath}/OrderServlet?userId=${sessionScope.user.userId}" class=" support_disclosure_link">Clicca  qui </a>
                 </p>
             </details>
 

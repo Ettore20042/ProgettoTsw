@@ -111,16 +111,17 @@
     color: #392E23;
     padding: 0.5rem;
     border-radius: 1.2rem;
-    border: none;
+    border: 2px solid #FFE312;
     cursor: pointer;
-    background-color: #FFE312;
+    /*background-color: #FFE312;*/
+    background-color: #F3EED8;
     margin-top: auto;
     margin-left: 0;
     transition: background-color 0.2s ease;
 }
 
 .category-product-item_add-to-cart--button:hover {
-    background-color: #FFD700;
+    background-color: #f4c40f;
 }
 
 .category-product-item_name--title {
@@ -189,7 +190,28 @@
     margin: 0.4rem 0;
     color: #2d5a27;
 }
+.category-container_card_price--sale{
+    color: rgba(32, 96, 13, 0.76);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-top: 0.5rem;
+}
+.product-card_price--original-in-sale{
+    text-decoration: line-through;
+    color: #1b1919;
+    font-size: 1rem;
+    padding-bottom:1rem;
+}
+.product-card_price--sale{
+    display: inline-flex;
 
+}
+.category-container_card_price--regular{
+    color: #1b1919;
+    font-weight: 600;
+    font-size: 1.2rem;
+    padding-bottom: 0.5rem;
+}
 /* Tablet Portrait */
 @media (min-width: 576px) {
     .categories-container {

@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
 const input = document.getElementById('searchBar');
 const suggestionBox = document.getElementById('suggestions');
 const searchBarWrapper = document.querySelector('.main-header_search-bar');
-const contextPath = document.getElementsByTagName("header")[0].dataset.contextPath;
+const contextPath = document.getElementsByTagName("header")[0].dataset.contextPath; // recupera il contextPath dal tag header, utile per costruire gli URL corretti per le richieste AJAX
 
 let timeout = null;
 
@@ -79,7 +79,7 @@ input.addEventListener('input', function() {
         return;
     }
 
-    const url = `${contextPath}/SuggestionsServlet?entity=products&query=${encodeURIComponent(value)}`;
+    const url = `${contextPath}/SuggestionsServlet?entity=products&query=${encodeURIComponent(value)}`; //  Funzione che codifica la stringa per processarla senza problemi nei parametri URL
 
     timeout = setTimeout(() => {
         fetch(url)

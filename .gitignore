@@ -5,6 +5,14 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+# Escludi (includi) la cartella target/images
+# Ignora tutto target
+target/*
+
+# Non ignorare la cartella images dent
+# Se usi img invece di images, cambia qui di conseguenza
+
+
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
@@ -2955,5 +2963,6 @@ build/
 /node_modules/xml/package.json
 /node_modules/xml/readme.md
 /node_modules/.package-lock.json
-/ s r c / m a i n / j a v a / m o d e l / C o n n P o o l . j a v a  
+/ s r c / m a i n / j a v a / m o d e l / C o n n P o o l . j a v a 
+ 
  
