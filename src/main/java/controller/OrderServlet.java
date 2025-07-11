@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Bean.Order;
 import model.Bean.OrderItem;
 import model.Bean.Product;
@@ -29,7 +30,13 @@ public class OrderServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String userId = request.getParameter("userId");
+        if(userId == null || userId.isEmpty()) {
+            request.setAttribute("errorMessage", "Non sei autenticato, devi effettuare il login per visualizzare gli ordini");
 
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/auth/Login.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
         OrderDAO orderDAO = new OrderDAO();
         OrderItemDAO orderItemDAO = new OrderItemDAO();
 

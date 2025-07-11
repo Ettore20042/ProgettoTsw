@@ -1,9 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <title>Login</title>
+    <meta charset="UTF-8">
     <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/auth.css">
     <script src="${pageContext.request.contextPath}/Js/CheckCredential.js?v=2350" defer></script>
@@ -12,6 +13,13 @@
 <jsp:include page="/WEB-INF/jsp/components/common/header.jsp" />
 <main>
     <div class="auth-form-container">
+
+        <c:if test="${not empty errorMessage}">
+            <div class="login-error">
+                <span class="error-icon">⚠️</span>
+                <span class="error-text">${errorMessage}</span>
+            </div>
+        </c:if>
         <h2 class="auth-form-container__title">Accedi</h2>
         <form id="loginForm" action="${pageContext.request.contextPath}/LoginServlet" method="post">
             <div class="auth-form-container__input-wrapper">
@@ -64,3 +72,17 @@
 <jsp:include page="/WEB-INF/jsp/components/common/footer.jsp" />
 </body>
 </html>
+<style>
+    .login-error {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 10px;
+        border: 1px solid #f5c6cb;
+        border-radius: 4px;
+        margin-bottom: 15px;
+    }
+
+    .error-icon {
+        margin-right: 5px;
+    }
+</style>
