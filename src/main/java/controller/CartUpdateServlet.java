@@ -55,6 +55,8 @@ public class CartUpdateServlet extends HttpServlet {
                 }
 
                 if (updated) {
+                    int totalItems = cart.stream().mapToInt(CartItem::getQuantity).sum();
+                    session.setAttribute("totalItemsCart", totalItems);
                     session.setAttribute("cart", cart);
                     response.getWriter().write("{\"success\": true}");
                 } else {
@@ -75,6 +77,8 @@ public class CartUpdateServlet extends HttpServlet {
             }
 
             if (removed) {
+                int totalItems = cart.stream().mapToInt(CartItem::getQuantity).sum();
+                session.setAttribute("totalItemsCart", totalItems);
                 session.setAttribute("cart", cart);
                 String xRequestedWith = request.getHeader("X-Requested-With");
                 if ("XMLHttpRequest".equals(xRequestedWith)) {
