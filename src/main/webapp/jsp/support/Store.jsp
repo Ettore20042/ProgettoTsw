@@ -4,7 +4,7 @@
 <head>
     <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
     <title>I Nostri Store - BricoShop</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/store.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/pages/store.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
 </head>
 <body>
     <jsp:include page="/WEB-INF/jsp/components/common/header.jsp" />

@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Metodi di pagamento</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/info.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/pages/info.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
     <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
 </head>
 <body>

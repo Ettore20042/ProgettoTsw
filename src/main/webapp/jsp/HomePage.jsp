@@ -11,7 +11,7 @@
         <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/homepage.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
         <script src="${pageContext.request.contextPath}/Js/Homepage.js" defer></script>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/productList.css" />
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/products/productList.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/components/_productCard.css">
 
     </head>

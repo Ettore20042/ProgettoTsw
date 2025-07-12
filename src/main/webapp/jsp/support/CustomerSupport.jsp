@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Assistenza clienti</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/support.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/pages/support.css?v=<%=System.currentTimeMillis()%>" type="text/css"/>
     <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
 </head>
 <body>
