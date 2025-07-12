@@ -86,7 +86,7 @@ public class CartUpdateServlet extends HttpServlet {
                     response.getWriter().write("{\"success\": true}");
                 } else {
                     // Regular form submission - redirect
-                    response.sendRedirect(request.getContextPath() + "/jsp/profile/Cart.jsp");
+                    response.sendRedirect(request.getContextPath() + "/WEB-INF/jsp/cart/Cart.jsp");
                 }
             } else {
                 sendError(response, HttpServletResponse.SC_NOT_FOUND, "Product not found");
@@ -103,6 +103,6 @@ public class CartUpdateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/jsp/profile/Cart.jsp");
+        response.sendRedirect(request.getContextPath() + "/WEB-INF/jsp/cart/Cart.jsp");
     }
 }

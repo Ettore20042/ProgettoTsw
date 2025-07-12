@@ -109,7 +109,7 @@
                 </c:choose>
             </div>
 
-            <a href="${pageContext.request.contextPath}/jsp/profile/Cart.jsp"
+            <a href="${pageContext.request.contextPath}/WEB-INF/jsp/cart/Cart.jsp"
                class="user-actions_button user-actions_button--cart"
                aria-label="Carrello: ${sessionScope.totalItemsCart != null ? sessionScope.totalItemsCart : 0} articoli">
                 <img src="${pageContext.request.contextPath}/img/header/carrello.svg"

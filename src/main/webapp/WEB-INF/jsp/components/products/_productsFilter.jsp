@@ -17,9 +17,9 @@
 <%--                    <input type="range" class="product-filter_price-range" min="0">--%>
                     <div class="product-filter_price-box">
                         <span class="product-filter_price-range-value">Prezzo: 0 - 0</span>
-                        <input type="number" class="product-filter_price-min" placeholder="0" min="0">
+                        <input type="number" class="product-filter_price-min" id="price-min" placeholder="0" min="0" value="0">
                         <span class="material-symbols-rounded">check_indeterminate_small</span>
-                        <input type="number" class="product-filter_price-max" placeholder="0" min="0">
+                        <input type="number" class="product-filter_price-max" id="price-max" placeholder="0" min="0">
                     </div>
 
                 </div>

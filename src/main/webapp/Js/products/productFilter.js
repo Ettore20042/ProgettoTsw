@@ -46,6 +46,7 @@
      */
     function populateBrandFilter(brands) {
         const brandList = document.querySelector('.product-filter_list-brand');
+        const brandIdPage = document.body.dataset.brandId;
         if (!brandList || !brands) {
             console.warn('⚠ Brand filter container non trovato o dati brand mancanti');
             return;
@@ -57,9 +58,15 @@
         Object.entries(brands).forEach(([id, brand]) => {
             const li = document.createElement('li');
             li.classList.add('product-filter_list-item');
+
+            // Verifica se questo brand corrisponde al brandIdPage
+            const isCurrentBrand = brandIdPage && id === brandIdPage;
+            const checkedAttribute = isCurrentBrand ? 'checked' : '';
+
             li.innerHTML = `
+                
                 <input type="checkbox" name="brand" id="brand_${id}" value="${id}"
-                       class="product-filter_checkbox" data-brand-id="${id}">
+                       class="product-filter_checkbox" data-brand-id="${id}" ${checkedAttribute}>
                 <label for="brand_${id}" class="product-filter_label">${brand.brandName}</label>
             `;
             brandList.appendChild(li);
@@ -131,8 +138,8 @@
      * @param {number} maxPrice - Prezzo massimo dai dati del server
      */
     function setupPriceFilter(maxPrice) {
-        const priceMin = document.querySelector('.product-filter_price-min');
-        const priceMax = document.querySelector('.product-filter_price-max');
+        const priceMin = document.getElementById('price-min');
+        const priceMax = document.getElementById('price-max');
         // const priceRange = document.querySelector('.product-filter_price-range');
         const priceRangeValue = document.querySelector('.product-filter_price-range-value');
 
@@ -141,6 +148,7 @@
         if (priceMax) {
             priceMax.placeholder = maxPrice;
             priceMax.max = maxPrice;
+            priceMax.value = maxPrice; // Imposta il valore massimo come predefinito
         }
 
         const priceDinamicRange = () => {
@@ -377,10 +385,10 @@
                     allCheckboxes.forEach(cb => cb.checked = false);
 
                     // Resetta i campi prezzo
-                    const priceMin = filterContainer.querySelector('.product-filter_price-min');
-                    const priceMax = filterContainer.querySelector('.product-filter_price-max');
-                    if (priceMin) priceMin.value = '';
-                    if (priceMax) priceMax.value = '';
+                    const priceMin = filterContainer.querySelector('#price-min');
+                    const priceMax = filterContainer.querySelector('#price-max');
+                    if (priceMin) priceMin.value = '0';
+                    if (priceMax) priceMax.value = priceMax.max || parseFloat(priceMax.placeholder) || 0;
 
                     // Aggiorna il display del range prezzo
                     const priceRangeValue = filterContainer.querySelector('.product-filter_price-range-value');
@@ -399,11 +407,12 @@
                     checkboxes.forEach(cb => cb.checked = false);
 
                     // Resetta tutti gli input numerici e range nella sezione
-                    const inputs = detailsBox.querySelectorAll('input[type="number"], input[type="range"]');
-                    inputs.forEach(input => input.value = '');
+                    const priceMin = detailsBox.querySelector('#price-min');
+                    const priceMax = detailsBox.querySelector('#price-max');
+                    if (priceMin) priceMin.value = '0';
+                    if (priceMax) priceMax.value = priceMax.max || parseFloat(priceMax.placeholder) || 0;
 
                     // Se c'è un range slider del prezzo, aggiorna anche il display
-                    const priceMax = detailsBox.querySelector('.product-filter_price-max');
                     const priceRangeValue = detailsBox.querySelector('.product-filter_price-range-value');
                     if (priceRangeValue) {
                         priceRangeValue.textContent = `Prezzo: 0 - ${priceMax.placeholder || 0}`;
@@ -448,10 +457,5 @@
     window.ProductFilter = {
         // Funzioni per l'interazione esterna
         initFilterEvents,
-        applyFilters,
-        collectFilterData,
-
     };
-
-
 })();

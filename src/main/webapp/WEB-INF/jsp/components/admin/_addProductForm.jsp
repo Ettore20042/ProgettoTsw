@@ -5,7 +5,7 @@
   <div class="modal-content">
     <span class="close" id="close-modal">&times;</span>
     <h2 id="modalTitle">Aggiungi un prodotto</h2>
-    <form id="addProductForm" action="${pageContext.request.contextPath}/AddProductServlet" method="post" enctype="multipart/form-data">
+    <form id="addProductForm" action="${pageContext.request.contextPath}/ManageProductServlet" method="post" enctype="multipart/form-data">
       <label for="productName">Nome Prodotto:</label>
       <input type="text" id="productName" name="productName" required>
 
