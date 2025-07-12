@@ -8,8 +8,7 @@
     <jsp:include page="/WEB-INF/jsp/components/common/headContent.jsp" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/manage.css">
 
-    <!-- Prima carichiamo BaseManager, poi Manage.js, infine i manager specifici -->
-    <script src="${pageContext.request.contextPath}/Js/profile/managers/BaseManager.js" defer></script>
+
     <script src="${pageContext.request.contextPath}/Js/profile/Manage.js" defer></script>
     <script src="${pageContext.request.contextPath}/Js/profile/managers/ProductManager.js" defer></script>
     <script src="${pageContext.request.contextPath}/Js/profile/managers/UserManager.js" defer></script>
