@@ -33,7 +33,7 @@ public class BrandServlet extends HttpServlet {
         // Recupera i brand tramite il service
         List<Brand> brands = this.brandService.getAllBrands();
         request.setAttribute("brands", brands);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/products/Brand.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/products/Brand.jsp");
 
         dispatcher.forward(request, response);
     }

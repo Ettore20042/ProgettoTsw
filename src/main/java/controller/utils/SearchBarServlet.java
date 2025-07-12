@@ -34,7 +34,7 @@ public class SearchBarServlet extends HttpServlet {
         }
         request.setAttribute("productList", products);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/products/ProductsList.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/products/ProductsList.jsp");
         dispatcher.forward(request, response);
     }
 }

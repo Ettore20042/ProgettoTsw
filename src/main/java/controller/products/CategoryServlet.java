@@ -37,7 +37,7 @@ public class CategoryServlet extends HttpServlet {
         List<Product> products = productService.getFirstNProducts(10);
         request.setAttribute("products", products);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/products/CategoryList.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/products/CategoryList.jsp");
         dispatcher.forward(request, response);
     }
 
