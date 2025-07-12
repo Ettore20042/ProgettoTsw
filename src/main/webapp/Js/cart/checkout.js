@@ -1,3 +1,16 @@
+/**
+ * Gestione della pagina del checkout
+ * Funzioni:
+ * -gestione degli indirizzi
+ *
+ * -gestione metodi di pagamento
+ *
+ * -formattazione e validazione input in tempo reale
+ *
+ * -logica di conferma e invio dell'ordine
+ */
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const addAddressBtn = document.getElementById('addAddressBtn');
     const addressModal = document.getElementById('addressModal');

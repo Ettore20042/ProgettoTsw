@@ -1,3 +1,12 @@
+/**
+ * Funzioni dello script:
+ * -permettere all'utente di modificare la quantità di un prodotto direttamente nella pagina del carrello
+ * e vedere subito i dati aggiornati, senza ricaricare la pagina
+ *
+ * -comunica la modifica al server per renderla permanente
+ */
+
+
 document.addEventListener('DOMContentLoaded', function() {
 
     function updateQuantityInput() {
@@ -36,9 +45,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     const cartcount = document.querySelector('.cart-count');
                     if (cartcount) {
                         if (lastQuantity < quantity) {
-                            cartcount.textContent = parseInt(cartcount.textContent, 10) + 1; //decrementa il contatore del carrello
+                            cartcount.textContent = parseInt(cartcount.textContent, 10) + 1; //incrementa il contatore del carrello
                         }else {
-                            cartcount.textContent = parseInt(cartcount.textContent, 10) - 1; //incrementa il contatore del carrello
+                            cartcount.textContent = parseInt(cartcount.textContent, 10) - 1; //decrementa il contatore del carrello
                         }
                     }
                 });

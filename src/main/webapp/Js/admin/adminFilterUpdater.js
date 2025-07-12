@@ -64,7 +64,9 @@ function createProductRowHTML(product) {
  * @param {HTMLElement} tableBody - Body della tabella
  */
 function showNoProductsRow(tableBody) {
-    const columnsCount = document.querySelectorAll('.admin-products-table thead th').length || 9; //Se il numero di colonne della tabella è nullo o 0 allora il valore di ColumnsCount sarà 9
+    //si prende il numero di colonne
+    const columnsCount = document.querySelectorAll('.admin-products-table thead th').length || 9;
+    //crea una riga che si espande lungo tutta l'intestazione
     tableBody.innerHTML = `
         <tr class="no-products-row">
             <td colspan="${columnsCount}" class="text-center">

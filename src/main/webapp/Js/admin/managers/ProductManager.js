@@ -56,15 +56,15 @@ class ProductManager extends BaseManager {
 
             if (data.success && data.product) {
                 this.addProductToTable(data.product);
-                this.showMessage("✅ Prodotto aggiunto con successo", "#4CAF50");
+                this.showMessage("Prodotto aggiunto con successo", "#4CAF50");
                 form.reset();
                 this.closeModal();
             } else {
-                this.showMessage("❌ Errore nell'aggiunta del prodotto", "#f44336");
+                this.showMessage("Errore nell'aggiunta del prodotto", "#f44336");
             }
         } catch (error) {
             console.error("Errore nell'aggiunta del prodotto:", error);
-            this.showMessage(`❌ Errore: ${error.message}`, "#f44336");
+            this.showMessage(`Errore: ${error.message}`, "#f44336");
         }
     }
 
@@ -95,15 +95,15 @@ class ProductManager extends BaseManager {
             const data = await response.json();
 
             if (data.success) {
-                this.showMessage("✅ Prodotto modificato con successo", "#4CAF50");
+                this.showMessage("Prodotto modificato con successo", "#4CAF50");
                 this.closeModal();
                 location.reload();
             } else {
-                this.showMessage("❌ Errore nella modifica del prodotto", "#f44336");
+                this.showMessage("Errore nella modifica del prodotto", "#f44336");
             }
         } catch (error) {
             console.error("Errore nella modifica del prodotto:", error);
-            this.showMessage(`❌ Errore: ${error.message}`, "#f44336");
+            this.showMessage(`Errore: ${error.message}`, "#f44336");
         }
     }
 
@@ -167,14 +167,14 @@ class ProductManager extends BaseManager {
                     const productRow = button.closest('tr');
                     if (productRow) {
                         productRow.remove();
-                        this.showMessage("✅ Prodotto eliminato con successo", "#4CAF50");
+                        this.showMessage("Prodotto eliminato con successo", "#4CAF50");
                     }
                 } else {
-                    this.showMessage("❌ Errore nell'eliminazione del prodotto", "#f44336");
+                    this.showMessage("Errore nell'eliminazione del prodotto", "#f44336");
                 }
             } catch (error) {
                 console.error('Errore nell\'eliminazione del prodotto:', error);
-                this.showMessage("❌ Errore nell'eliminazione del prodotto", "#f44336");
+                this.showMessage("Errore nell'eliminazione del prodotto", "#f44336");
             }
         });
     }
@@ -186,7 +186,7 @@ class ProductManager extends BaseManager {
         document.querySelectorAll('.edit-link').forEach(link => {
             this.addEditEventListener(link);
         });
-        console.log("✅ Event listeners per i link di modifica inizializzati");
+        console.log("Event listeners per i link di modifica inizializzati");
     }
 
 
@@ -199,7 +199,7 @@ class ProductManager extends BaseManager {
             this.loadProductForEdit(productId);
         });
 
-        console.log(`✅ Event listener aggiunto con successo per productId: ${link.dataset.productId}`);
+        console.log(`Event listener aggiunto con successo per productId: ${link.dataset.productId}`);
     }
 
     /**
@@ -228,11 +228,11 @@ class ProductManager extends BaseManager {
                 this.populateFormForEdit(data);
                 this.openModal();
             } else {
-                this.showMessage("❌ Errore nel caricamento del prodotto", "#f44336");
+                this.showMessage("Errore nel caricamento del prodotto", "#f44336");
             }
         } catch (error) {
             console.error('Errore nel caricamento del prodotto:', error);
-            this.showMessage("❌ Errore nel caricamento del prodotto", "#f44336");
+            this.showMessage("Errore nel caricamento del prodotto", "#f44336");
         }
     }
 
@@ -240,6 +240,8 @@ class ProductManager extends BaseManager {
      * Popola il form con i dati del prodotto per la modifica
      */
     populateFormForEdit(data) {
+        //destrutturiamo data
+        //verranno estratte le proprietà e assegnate a tre costanti locali con lo stesso nome
         const { product, image, images } = data;
         this.setFormValue('productId', product.productId);
         this.setFormValue('productName', product.productName);
