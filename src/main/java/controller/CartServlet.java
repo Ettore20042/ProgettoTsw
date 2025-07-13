@@ -48,13 +48,13 @@ public class CartServlet extends HttpServlet {
             }
 
             boolean found = false;
-            for (CartItem item : cart) {
+            for (CartItem item : cart) { // Itera sugli elementi del carrello e cerca il prodotto
                 if (item.getProductId() == productId) {
-                    if (isUpdate) {
+                    if (isUpdate) { //Se il prodotto è già presente sovrascrive la quantità
                         lastQuantity = item.getQuantity(); // Salva la nuova quantità per l'eventuale risposta
-                        item.setQuantity(quantity); // ✅ aggiornamento diretto
-                    } else {
-                        item.setQuantity(item.getQuantity() + quantity); // ➕ aggiunta
+                        item.setQuantity(quantity); // aggiornamento diretto
+                    } else { //Se il prodotto non c'è lo aggiunge
+                        item.setQuantity(item.getQuantity() + quantity); //  aggiunta
                     }
                     found = true;
 
@@ -62,7 +62,7 @@ public class CartServlet extends HttpServlet {
                 }
             }
 
-            if (!found) {
+            if (!found) { //Se il prodotto esiste crea un nuovo oggetto CartItem e lo aggiunge al carrello
                 ProductDAO productDAO = new ProductDAO();
                 try {
                     Product product = productDAO.doRetrieveById(productId);
@@ -73,7 +73,7 @@ public class CartServlet extends HttpServlet {
                     CartItem newItem = new CartItem(product.getProductId(), product.getProductName(), product.getPrice(), quantity);
                     cart.add(newItem);
                 } finally {
-                    // Close DAO resources if needed
+
                 }
             }
             int totalItems = cart.stream().mapToInt(CartItem::getQuantity).sum();

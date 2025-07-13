@@ -64,7 +64,7 @@ public class FilterServlet extends HttpServlet {
             if ("loadData".equals(action)) {
                 // Carica i dati iniziali per i filtri
                 filterData = filterService.loadFilterData(categoryId);
-                json = gson.toJson(filterData);
+                json = gson.toJson(filterData); // Converti i dati in JSON
             } else {
 
                 Boolean isOffersPage = false;

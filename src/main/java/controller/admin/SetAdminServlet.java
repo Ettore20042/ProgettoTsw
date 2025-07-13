@@ -36,7 +36,7 @@ public class SetAdminServlet extends HttpServlet {
             UserService userService = new UserService(getServletContext());
 
 
-            boolean adminStatus = "yes".equals(isAdminParam); // ✅ Corretto
+            boolean adminStatus = "yes".equals(isAdminParam); //  Corretto
             boolean result = userService.updateAdmin(userId, adminStatus);
 
             if (result) {

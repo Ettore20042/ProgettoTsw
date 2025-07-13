@@ -224,7 +224,7 @@ public class ManageProductServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         Map<String, Object> jsonResponse = new HashMap<>();
 
-        // Only handle the "modifica" action in GET to retrieve product info
+        //Edit product
 
         try {
             String productIdStr = request.getParameter("productId");

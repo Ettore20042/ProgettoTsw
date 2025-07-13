@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
-@MultipartConfig // Necessario per gestire file upload, se necessario
+@MultipartConfig // Necessario per gestire file upload,
 @WebServlet(name = "AddAddressServlet", value = "/AddAddressServlet")
 public class AddAddressServlet extends HttpServlet {
     @Override
