@@ -86,14 +86,14 @@ main{
     }
     .product-page .product-card{
         display: grid;
-        grid-template-columns: 1.65fr 1fr;
-        grid-template-rows: auto 1fr auto;
+        grid-template-columns: 1.65fr 1fr; /*definisce due colonne non uguali*/
+        grid-template-rows: auto 1fr auto; /*definisce tre righe: la prima e la terza saranno alte quanto basta, la seconda è flessibile e occuperà tutto lo spazio verticale rimanente*/
         grid-template-areas:
             'gallery header'
             'gallery details'
             'description description';
         margin: 1.5rem 2rem;
-        column-gap: 3rem;
+        column-gap: 3rem; /*aggiunge spazio orizzontale solo tra le colonne*/
     }
     .product-page .product-card_header-info{
         grid-area: header;

@@ -127,6 +127,7 @@
 
     .brands-grid {
         display: grid;
+        /* non specifichiamo il numero di colonne, verranno generate in base allo spazio disponibile*/
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));  /* Responsive grid */
         gap: 1.5rem;
     }

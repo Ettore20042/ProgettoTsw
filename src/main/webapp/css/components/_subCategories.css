@@ -16,19 +16,19 @@
 .sub-categories_list{
     display: grid;
     grid-template-columns: 1fr;
-    grid-auto-flow: column;
+    grid-auto-flow: column; /*riempie gli elementi colonna per colonna */
     grid-auto-columns: 1fr;
-    grid-template-rows: repeat(4, auto);
-    list-style: none;
-    width: fit-content;
+    grid-template-rows: repeat(4, auto); /*4 righe nella griglia e l'altezza di ciascuna si adatta al contenuto al suo interno */
+    list-style: none; /*rimuove i pallini */
+    width: fit-content; /*la larghezza del contenitore della griglia si adatta al suo contenuto */
     border-radius: 0.4rem;
     margin-top: 0.5rem;
     overflow: hidden;
 }
 .sub-categories_link{
-    display: inline-block;
+    display: inline-block; /*si comporta come blocco */
     padding: 0.5rem 1rem;
-    font-size: clamp(0.8rem, 0.7rem + 0.2vw, 1rem);
+    font-size: clamp(0.8rem, 0.7rem + 0.2vw, 1rem); /*accetta tre valori: minimo, preferito e massimo */
     color: #392E23;
     background-color: #F3EED8;
     text-decoration: none;

@@ -466,7 +466,7 @@
     }
 
     .info-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr); /* griglia a due colonne di uguale larghezza*/
         gap: 2rem;
     }
 

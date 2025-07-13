@@ -34,7 +34,7 @@
 
 .cart-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: collapse;/* fonde i bordi adiacenti delle celle e della tabella in un unico bordo singolo e sottile */
     margin-bottom: 1rem;
 
 }
@@ -115,7 +115,7 @@
 .remove-icon {
     width: 18px;
     height: 18px;
-    filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1);/* prima imposta la luminosità a zero e poi inverte i colori, dando l'effetto "contrario" */
 }
 .cart-total-label {
     text-align: right;
@@ -188,8 +188,8 @@
     }
 
     .quantity-form {
-        flex-direction: row;
-        align-items: center;
+        flex-direction: row; /*disposti uno accanto all'altro */
+        align-items: center; /* li allinea al centro in verticale*/
     }
 
 
@@ -213,9 +213,10 @@
         margin-bottom: 1.25rem;
     }
 
+    /* punta all'intera quarta colonna della tabella, sia intestazione che celle*/
     .cart-table th:nth-child(4),
     .cart-table td:nth-child(4) {
-        display: table-cell;
+        display: table-cell; /* sovrascrive per rendere visibile la colonna*/
     }
 
     .cart-actions {
@@ -223,6 +224,7 @@
         justify-content: space-between;
     }
 
+    /* stabiliamo l'ordine visivo dei due elementi*/
     .continue-shopping {
         order: 1;
     }

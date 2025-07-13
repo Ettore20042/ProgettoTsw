@@ -1,5 +1,5 @@
 body.no-scroll {
-    overflow: hidden;
+    overflow: hidden; /* impedisce lo scroll dell'intera pagina */
 }
 .product-filter{
     display: flex;
@@ -23,14 +23,15 @@ body.no-scroll {
     background-color: rgba(66, 66, 66, 0.75);
     top: 0;
     right: 0;
-    position: fixed;
-    z-index: 1000;
+    position: fixed; /* viene fissato */
+    z-index: 1000; /* messo su un livello superiore rispetto al resto della pagina */
 }
 .product-filter_wrapper{
     display: flex;
     flex-direction: column;
     background-color: white;
-    width: calc(100% - 5rem);
+    /* lascia un piccolo margine a sinistra */
+    width: calc(100% - 5rem); /* occupa quasi tutta la larghezza dello schermo */
     height: 100%;
     margin-left: auto;
     overflow-y: auto;
@@ -73,10 +74,11 @@ body.no-scroll {
 }
 
 .product-filter_details-summary::marker{
-    display: none;
+    display: none; /* nascosto per togliere il triangolino di default */
     content: '';
 }
 
+/*viene aggiunto un pseudo-elemento che mostra un'icona a forma di freccia */
 .product-filter_details-summary::after{
     content: '\e315';
     font-family: 'Material Symbols Rounded';
@@ -87,12 +89,14 @@ body.no-scroll {
     line-height: 1;
     text-transform: none;
     letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-    -webkit-font-smoothing: antialiased;
-    transition: all 0.3s ease;
+    word-wrap: normal; /* non spezza le parole a metà per mandarle a capo */
+    white-space: nowrap;  /* impedisce al testo di andare a capo */
+    direction: ltr;  /*direzione del testo da sx a dx: left to right */
+    -webkit-font-smoothing: antialiased; /*migliora l'esteticità dei caratteri */
+    transition: all 0.3s ease; /* animazione fluida a tutti gli elementi */
 }
+
+/*quando la sezione è aperta */
 .product-filter_details-box[open] .product-filter_details-summary::after{
     transform: rotate(90deg);
 }
@@ -173,10 +177,11 @@ body.no-scroll {
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem 0.75rem;
+    /*fissa la barra dei pulsanti in basso */
     position: fixed;
     bottom: 0;
     background-color: white;
-    z-index: 2000;
+    z-index: 2000; /*per essere sicuri che sia sempre cliccabile */
     width: calc(100% - 5rem);
 }
 
@@ -187,7 +192,7 @@ body.no-scroll {
     cursor: pointer;
     width: 12rem;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis; /*mostra i tre puntini alla fine di un testo quando questo è troppo lungo */
     overflow: hidden;
 }
 
@@ -207,6 +212,7 @@ body.no-scroll {
 }
 
 @media (min-width: 992px) {
+    /*non più pannello di scorrimento, ma riquadro statico nella pagina */
     .product-filter{
         width: 100%;
         /*background-color: #f2eeda;*/
@@ -216,7 +222,7 @@ body.no-scroll {
         margin: 0 0 3rem;
     }
     .product-filter_open-btn{
-        display: none;
+        display: none; /*nasconde il pulsante di apertura filtri */
     }
     .product-filter_mobile-wrapper{
         width: 100%;
@@ -243,8 +249,10 @@ body.no-scroll {
     .product-filter_details-box{
         border-bottom: 1px solid #F3EED8;
     }
+
+    /*i pulsanti si troveranno alla fine del riquadro del filtro */
     .product-filter_buttons-event-box{
-        flex-direction: column;
+        flex-direction: column; /*pulsanti impilati uno sopra l'altro */
         position: relative;
         bottom: auto;
         width: 100%;
@@ -255,7 +263,7 @@ body.no-scroll {
         margin: 0;
     }
     .product-filter_apply{
-        order: -1;
+        order: -1; /* il pulsante "applica" viene messo prima di "azzera" */
         margin-top: 5px;
     }
 }

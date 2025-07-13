@@ -23,7 +23,7 @@
 
 /* Mobile First - Base Styles */
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: smooth; /* scorrimento fluido all'interno della pagina*/
 }
 
 body {
@@ -389,11 +389,12 @@ body {
 }
 
 .store-card {
-    animation: fadeInUp 0.6s ease forwards;
+    animation: fadeInUp 0.6s ease forwards; /*mantiene gli stili del suo stato finale*/
 }
 
+/* secondo elemento dello store-card e cosi via*/
 .store-card:nth-child(2) {
-    animation-delay: 0.1s;
+    animation-delay: 0.1s;/*ritardo dell'animazione*/
 }
 
 .store-card:nth-child(3) {

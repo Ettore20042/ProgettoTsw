@@ -131,11 +131,11 @@
     margin-bottom: 0.4rem;
     margin-top: 0.25rem;
     line-height: 1.1;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    display: -webkit-box;/* per usare le successive due proprietà*/
+    -webkit-line-clamp: 2; /*definisce il numero di righe da visualizzare prima di tagliare il testo*/
+    -webkit-box-orient: vertical;/* specifica che il contenuto all'interno del box deve essere disposto in verticale*/
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis;/* disegna i tre puntini nel punto in cui il testo viene tagliato*/
     height: 1.8rem;
     color: #333;
     text-align: left;
