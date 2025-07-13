@@ -15,13 +15,13 @@
 <main>
     <div class="auth-form-container">
         <% if (request.getAttribute("error") != null) { %>
-        <div class="server-error-message" style="color: #fff; background-color: #e74c3c; padding: 15px; border-radius: 5px; margin-bottom: 20px; font-weight: bold; text-align: center;">
+        <div class="server-error-message">
             <%= request.getAttribute("error") %>
         </div>
         <% } %>
 
         <% if (request.getAttribute("success") != null) { %>
-        <div class="server-success-message" style="color: #fff; background-color: #27ae60; padding: 15px; border-radius: 5px; margin-bottom: 20px; font-weight: bold; text-align: center;">
+        <div class="server-success-message" >
             <%= request.getAttribute("success") %>
         </div>
         <% } %>
@@ -99,7 +99,7 @@
 
             <div class="password-requirements" >
                 <strong>La password deve contenere:</strong>
-                <ul style="margin: 8px 0; padding-left: 20px; list-style-type: disc;">
+                <ul class ="requirements-list" >
                     <li>8-20 caratteri</li>
                     <li>Almeno una lettera maiuscola (A-Z)</li>
                     <li>Almeno una lettera minuscola (a-z)</li>

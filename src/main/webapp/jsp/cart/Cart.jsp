@@ -3,9 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.Bean.CartItem" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    request.setAttribute("pageTitle", "BricoShop - Cart");
-%>
+
 <!DOCTYPE html>
 <html lang="it">
     <head>
@@ -25,7 +23,7 @@
                 <div class="cart-empty">
                     <p>Il carrello è vuoto.</p>
                     <a href="${pageContext.request.contextPath}/CategoryServlet" class="continue-shopping"
-                       style="width: 30%; display:inline-block; margin-top:5px;">
+                       >
                         Continua lo shopping</a>
                 </div>
                 </c:when>

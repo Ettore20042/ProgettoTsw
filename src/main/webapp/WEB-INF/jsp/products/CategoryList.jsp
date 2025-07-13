@@ -75,7 +75,7 @@
                                 </c:otherwise>
                             </c:choose>
                         </div>
-                        <form action="${pageContext.request.contextPath}/CartServlet" class="add-to-cart-form" data-product-id="${product.productId}" method="post" style="display: contents;">
+                        <form action="${pageContext.request.contextPath}/CartServlet" class="add-to-cart-form" data-product-id="${product.productId}" method="post" style="display: contents;"> <%-- L'elemento non genera un layout ma preserva il contenuto --%>
                             <input type="hidden" name="productId" value="${product.productId}" />
                             <input type="hidden" name="quantity" value="1" />
                             <button type="submit" class="category-product-item_add-to-cart--button">Aggiungi al carrello</button>
