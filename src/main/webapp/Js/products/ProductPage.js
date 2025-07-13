@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const sliderTrack = sliderContainer.querySelector('.product-card_gallery-track');
-    const slides = Array.from(sliderTrack.children); //crea un array di slide a partire dagli elementi figli dell'elemento sliderTrack
+    //crea un array di slide a partire dagli elementi figli dell'elemento sliderTrack
+    const slides = Array.from(sliderTrack.children);
     const nextButton = sliderContainer.querySelector('.product-card_arrow--next');
     const prevButton = sliderContainer.querySelector('.product-card_arrow--prev');
     const dotsNav = sliderContainer.querySelector('.product-card_gallery-dots');

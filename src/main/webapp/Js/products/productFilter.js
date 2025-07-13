@@ -24,12 +24,14 @@
 
         try {
             console.log(' Caricamento dati filtri...');
+            //chiediamo al server di inviarci tutti le opzioni per i filtri
             const response = await fetch(`${contextPath}/FilterServlet?action=loadData`);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
+            //usiamo questa variabile per mettere in cache i dati
             filterData = await response.json();
             console.log('Dati filtri caricati:', filterData);
             return filterData;
@@ -48,7 +50,7 @@
         const brandList = document.querySelector('.product-filter_list-brand');
         const brandIdPage = document.body.dataset.brandId;
         if (!brandList || !brands) {
-            console.warn('⚠ Brand filter container non trovato o dati brand mancanti');
+            console.warn('Brand filter container non trovato o dati brand mancanti');
             return;
         }
 
@@ -116,7 +118,7 @@
             return;
         }
 
-        console.log('🔧 Popolamento filtro materiali...');
+        console.log(' Popolamento filtro materiali...');
         materialsList.innerHTML = '';
 
         materials.forEach((material, index) => {
@@ -130,7 +132,7 @@
             materialsList.appendChild(li);
         });
 
-        console.log(`✅ Popolati ${materials.length} materiali`);
+        console.log(`Popolati ${materials.length} materiali`);
     }
 
     /**
@@ -168,6 +170,11 @@
         console.log(' Filtro prezzo configurato');
     }
 
+    /**
+     * Gestisce l'apertura e la chiusura del pannello dei filtri
+     * su dispositivi mobili
+     */
+
     function setupToggleFilterSideView() {
         const openButtons = document.querySelectorAll('.product-filter_open-btn');
         const closeButton = document.getElementById("close-filter-btn");
@@ -191,6 +198,7 @@
             document.body.classList.remove('no-scroll'); // Rimuovi classe per abilitare lo scroll del body
         });
 
+        //per gestire il comportamento in base alla larghezza dello schermo
         applyButton.addEventListener('click', (e) => {
             if (!mediaQueryDesktop.matches){
                 e.stopPropagation();
@@ -219,6 +227,8 @@
     async function initializeFilters() {
         try {
             console.log(' Inizializzazione filtri...');
+            //ottiene prima i dati e poi, una volta ricevuti, chiama le varie funzioni
+            //per costruire l'interfaccia dei filtri
             const data = await loadFilterData();
 
             // Popola tutti i filtri in parallelo per migliori performance
@@ -245,6 +255,7 @@
      * @returns {Object} Oggetto con i parametri dei filtri
      */
     function collectFilterData() {
+        //scorre tutte le checkbox e raccoglie i valori di quelle selezionate
         const brands = Array.from(document.querySelectorAll('input[name="brand"]:checked'))
             .map(input => input.value);
 
@@ -260,6 +271,7 @@
         const minPrice = document.querySelector('.product-filter_price-min')?.value;
         const maxPrice = document.querySelector('.product-filter_price-max')?.value;
 
+        //restituisce un oggetto contenente tutte le scelte dell'utente
         const filterData = {
             brands,
             colors,
@@ -368,7 +380,7 @@
 
             });
         } else {
-            console.warn('⚠️ Pulsante "Applica filtri" non trovato');
+            console.warn('Pulsante "Applica filtri" non trovato');
         }
 
         // Event listener per i pulsanti "Ripristina"
@@ -433,7 +445,7 @@
      */
     function showErrorMessage(message) {
 
-        console.error('🚨 Errore UI:', message);
+        console.error('Errore UI:', message);
         alert(message);
     }
 

@@ -6,6 +6,7 @@
  */
 function updateProductList(products) {
     const productListContainer = document.querySelector('.product-list_cards');
+    //svuota il container
     productListContainer.innerHTML = '';
 
     if (!productListContainer) {
@@ -36,11 +37,14 @@ function createProductCardHTML(product) {
     const salePrice = product.salePrice > 0 ? product.salePrice : null;
     const originalPrice = product.price > 0 ? product.price : null;
 
+    //se è in saldo, crea un html che mostra il nuovo prezzo in evidenza
+    //e il prezzo originale sbarrato, se non è in saldo, mostra solo il prezzo originale
     let priceHTML = salePrice > 0
         ? `<p class="product-card_price--sale">${salePrice.toLocaleString('en-US', {style: 'currency', currency: 'EUR'})}</p>
             <p class="product-card_price--original-in-sale">${originalPrice.toLocaleString('en-US', {style: 'currency', currency: 'EUR'})}</p>`
         : `<p class="product-card_price--original">${originalPrice.toLocaleString('en-US', {style: 'currency', currency: 'EUR'})}</p>`;
 
+    //se è disponibile, mostra il messaggio e genera un form per aggiungere il prodotto al carrello
     let availableHTML = product.quantity > 0
         ? `<p class="product-card_stock-status--available">Disponibilità immediata</p>
                 <form action="${contextPath}/CartServlet" class="add-to-cart-form" data-product-id="${product.productId}" method="post" style="display: contents;">
@@ -60,6 +64,7 @@ function createProductCardHTML(product) {
 
 
 
+    //assemblaggio finale dell'html
     return `
         <section class="product-card">
         <a href="${contextPath}/ProductServlet?productId=${product.productId}" class="product-card_link">

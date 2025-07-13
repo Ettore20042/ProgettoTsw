@@ -9,8 +9,10 @@ document.addEventListener("DOMContentLoaded", function() {
     toggleBtns.forEach(btn => {
         //associa a ogni pulsante una funzione che si attiverà con il click dell'utente
         btn.addEventListener("click", function() {
-            const categoryCard = this.closest('.category-card'); //parte dal pulsante e trova il suo "antenato" più vicino che ha la classe .category-card
-            const menu = categoryCard.querySelector('.subcategory-menu'); //trovata la scheda giusta, cerca al suo interno l'elemento con questa classe, che è il menu da mostrare/nascondere
+            //parte dal pulsante e trova il suo "antenato" più vicino che ha la classe .category-card
+            const categoryCard = this.closest('.category-card');
+            //trovata la scheda giusta, cerca al suo interno l'elemento con questa classe, che è il menu da mostrare/nascondere
+            const menu = categoryCard.querySelector('.subcategory-menu');
 
             //controlla se il menu è nascosto, se sì lo rende visibile
             if (menu.style.display === "none" || menu.style.display === "") {

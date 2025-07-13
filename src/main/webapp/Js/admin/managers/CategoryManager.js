@@ -60,16 +60,16 @@ class CategoryManager extends BaseManager {
 
                 this.addCategoryToTable(data.category);
 
-                this.showMessage("✅ Categoria aggiunta con successo", "#4CAF50");
+                this.showMessage("Categoria aggiunta con successo", "#4CAF50");
                 form.reset();
                 this.closeModal();
             } else {
                 console.log("Errore nei dati:", data);
-                this.showMessage("❌ Errore nell'aggiunta della categoria", "#f44336");
+                this.showMessage("Errore nell'aggiunta della categoria", "#f44336");
             }
         } catch (error) {
             console.error("Errore nell'aggiunta della categoria:", error);
-            this.showMessage(`❌ Errore: ${error.message}`, "#f44336");
+            this.showMessage(`Errore: ${error.message}`, "#f44336");
         }
     }
 
@@ -106,20 +106,19 @@ class CategoryManager extends BaseManager {
             if (data.success) {
                 // Aggiorna la riga della tabella invece di ricaricare la pagina
                 this.updateCategoryInTable(data.category);
-                this.showMessage("✅ Categoria modificata con successo", "#4CAF50");
+                this.showMessage("Categoria modificata con successo", "#4CAF50");
                 this.closeModal();
 
             } else {
-                this.showMessage(`❌ Errore nella modifica della categoria: ${data.message}`, "#f44336");
+                this.showMessage(`Errore nella modifica della categoria: ${data.message}`, "#f44336");
             }
         } catch (error) {
             console.error("Errore nella modifica della categoria:", error);
-            this.showMessage(`❌ Errore: ${error.message}`, "#f44336");
+            this.showMessage(`Errore: ${error.message}`, "#f44336");
         }
     }
-    /**
-     * Aggiorna una riga esistente nella tabella delle categorie
-     */
+
+
     /**
      * Aggiorna una riga esistente nella tabella delle categorie
      */
@@ -234,14 +233,14 @@ class CategoryManager extends BaseManager {
                     const categoryRow = button.closest('tr');
                     if (categoryRow) {
                         categoryRow.remove();
-                        this.showMessage("✅ Categoria eliminata con successo", "#4CAF50");
+                        this.showMessage("Categoria eliminata con successo", "#4CAF50");
                     }
                 } else {
-                    this.showMessage(`❌ ${data.message}`, "#f44336");
+                    this.showMessage(`${data.message}`, "#f44336");
                 }
             } catch (error) {
                 console.error('Errore nell\'eliminazione della categoria:', error);
-                this.showMessage("❌ Errore nell'eliminazione della categoria", "#f44336");
+                this.showMessage("Errore nell'eliminazione della categoria", "#f44336");
             }
         });
     }
@@ -277,6 +276,7 @@ class CategoryManager extends BaseManager {
             this.loadCategoryForEdit(categoryId);
         };
 
+        //ogni editHandler rimane legato al suo specifico link
         link.addEventListener('click', editHandler);
     }
     /**
@@ -292,11 +292,11 @@ class CategoryManager extends BaseManager {
                 this.populateFormForEdit(data.category);
                 this.openModal();
             } else {
-                this.showMessage("❌ Errore nel caricamento della categoria", "#f44336");
+                this.showMessage("Errore nel caricamento della categoria", "#f44336");
             }
         } catch (error) {
             console.error('Errore nel caricamento della categoria:', error);
-            this.showMessage("❌ Errore nel caricamento della categoria", "#f44336");
+            this.showMessage("Errore nel caricamento della categoria", "#f44336");
         }
     }
 

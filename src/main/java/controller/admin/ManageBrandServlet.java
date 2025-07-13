@@ -123,7 +123,7 @@ public class ManageBrandServlet extends HttpServlet {
                 Brand newBrand = brandService.addBrand(name.trim(), logoPath);
 
                 if (newBrand != null) {
-                    ;
+
                     responseMap.put("success", true);
                     responseMap.put("message", "Brand aggiunto con successo");
                     responseMap.put("brand", newBrand);
@@ -169,7 +169,7 @@ public class ManageBrandServlet extends HttpServlet {
             // Estraiamo il brandId dal body (formato: brandId=123)
             String brandIdParam = null;
             if (requestBody.contains("brandId=")) {
-                String[] parts = requestBody.split("=");
+                String[] parts = requestBody.split("="); // separa per il simbolo '='
                 if (parts.length == 2) {
                     brandIdParam = parts[1];
                 }

@@ -1,4 +1,9 @@
+/**
+ * Intercetta l'azione di aggiungere al carrello, di uno o più prodotti, su una pagina
+ * Evita di ricaricare la pagina
+ */
 function addToCart() {
+    //cerca nella pagina tutti gli elementi che sono form e hanno questa classe css
     document.querySelectorAll('.add-to-cart-form').forEach(form => {
         form.addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
@@ -6,15 +11,17 @@ function addToCart() {
             const formData = new FormData(this); // Collect form data
             const cartcount = document.querySelector('.cart-count');
             const button = this.querySelector('button[type="submit"]');
-            const originalIcon = button.innerHTML;
-            const stylebutton=button.style.border; // Save original border style
+            const originalIcon = button.innerHTML; //salva l'icona originale
+            const stylebutton=button.style.border; // Salva lo stile del bordo originale
 
-            // Disable button and show loading state
+            // Subito dopo il click il pulsante viene disabilitato e l'icona cambiata
             button.disabled = true;
             button.innerHTML = '<span class="material-symbols-rounded">hourglass_empty</span>';
 
             fetch(this.action, {
                 method: this.method,
+                //converte i dati del form in una stringa adatta per essere inviata
+                //in una richiesta POST
                 body: new URLSearchParams(formData),
             })
                 .then(res => {
@@ -31,6 +38,7 @@ function addToCart() {
                              });
                              */
                             button.innerHTML = '<span class="material-symbols-rounded">check</span>';
+                            //viene sostituita l'icona di caricamento da una di successo
 
 
                         button.style.backgroundColor = '#4CAF50'; // Green background
@@ -40,12 +48,14 @@ function addToCart() {
                         const notification = document.createElement('div');
                         notification.className = 'cart-notification';
                         notification.innerHTML = `<span>Prodotto aggiunto al carrello!</span>`;
+                        //viene aggiunto al body della pagina e reso visibile tramite css
                         document.body.appendChild(notification);
 
                         setTimeout(() => {
                             notification.classList.add('show');
                         }, 10);
 
+                        //dopo 2 secondi viene fatto sparire e rimosso dalla pagina
                         setTimeout(() => {
                             notification.classList.remove('show');
                             setTimeout(() => document.body.removeChild(notification), 300);

@@ -15,13 +15,13 @@
 <main>
     <div class="auth-form-container">
         <% if (request.getAttribute("error") != null) { %>
-        <div class="server-error-message" style="color: #fff; background-color: #e74c3c; padding: 15px; border-radius: 5px; margin-bottom: 20px; font-weight: bold; text-align: center;">
+        <div class="server-error-message">
             <%= request.getAttribute("error") %>
         </div>
         <% } %>
 
         <% if (request.getAttribute("success") != null) { %>
-        <div class="server-success-message" style="color: #fff; background-color: #27ae60; padding: 15px; border-radius: 5px; margin-bottom: 20px; font-weight: bold; text-align: center;">
+        <div class="server-success-message" >
             <%= request.getAttribute("success") %>
         </div>
         <% } %>
@@ -52,7 +52,7 @@
             <input type="tel"
                    class="auth-form-container__input"
                    name="phone"
-                   placeholder="Telefono* (es. 3123456789)"
+                   placeholder="Telefono* (es. 312 534 6789)"
                    required
                    pattern="[0-9]{8,15}"
                    value="<%= request.getParameter("phone") != null ? request.getParameter("phone") : "" %>"
@@ -97,9 +97,9 @@
 
             </div>
 
-            <div class="password-requirements" style="font-size: 12px; color: #666; margin-bottom: 15px; line-height: 1.4;">
+            <div class="password-requirements" >
                 <strong>La password deve contenere:</strong>
-                <ul style="margin: 8px 0; padding-left: 20px; list-style-type: disc;">
+                <ul class ="requirements-list" >
                     <li>8-20 caratteri</li>
                     <li>Almeno una lettera maiuscola (A-Z)</li>
                     <li>Almeno una lettera minuscola (a-z)</li>
@@ -123,48 +123,5 @@
     </div>
 </main>
 <jsp:include page="/WEB-INF/jsp/components/common/footer.jsp" />
-
-<script>
-    // Script aggiuntivo per migliorare l'UX
-    document.addEventListener('DOMContentLoaded', function() {
-        // Gestione loading button
-        const form = document.getElementById('registerForm');
-        const submitButton = form.querySelector('button[type="submit"]');
-        const buttonText = submitButton.querySelector('.button-text');
-        const buttonLoader = submitButton.querySelector('.button-loader');
-
-        form.addEventListener('submit', function(e) {
-            if (validateForm()) {
-                submitButton.disabled = true;
-                buttonText.style.display = 'none';
-                buttonLoader.style.display = 'inline';
-            }
-        });
-
-        // Gestione accessibilità per toggle password
-        document.querySelectorAll('.auth-form-container__icon').forEach(icon => {
-            icon.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    this.click();
-                }
-            });
-        });
-
-        // Auto-hide messaggi del server dopo 5 secondi
-        const serverMessages = document.querySelectorAll('.server-error-message, .server-success-message');
-        serverMessages.forEach(message => {
-            setTimeout(() => {
-                message.style.opacity = '0';
-                message.style.transition = 'opacity 0.5s ease-out';
-                setTimeout(() => {
-                    if (message.parentNode) {
-                        message.remove();
-                    }
-                }, 500);
-            }, 5000);
-        });
-    });
-</script>
 </body>
 </html>

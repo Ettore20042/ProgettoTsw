@@ -29,7 +29,6 @@ public class OrderServlet extends HttpServlet {
         String userId = request.getParameter("userId");
         if(userId == null || userId.isEmpty()) {
             request.setAttribute("errorMessage", "Non sei autenticato, devi effettuare il login per visualizzare gli ordini");
-
             RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/auth/Login.jsp");
             dispatcher.forward(request, response);
             return;
@@ -73,7 +72,7 @@ public class OrderServlet extends HttpServlet {
                 List<OrderItem> items = orderItemDAO.doRetrieveByOrderID(order.getOrderId());
                 order.setOrderItems(items);
             }
-            // Usa il nuovo metodo
+
             List<Product> productList = getProductsFromOrderList(orderList);
             for(Product product : productList){
                 System.out.println("Product: " + product.getProductName() + ", Price: " + product.getPrice());

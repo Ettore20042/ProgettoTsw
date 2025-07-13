@@ -2,7 +2,7 @@
  * Manage.js - Sistema di gestione unificato per il pannello amministrativo
  * Gestisce tutte le entità: prodotti, brand, categorie, admin, utenti
  *
- * Questo file implementa un pattern modulare per la gestione del pannello admin:
+ * Gestione del pannello admin:
  * - ManageSystem: Classe principale che coordina tutto il sistema
  * - BaseManager: Classe base con funzionalità comuni per tutti i manager
  * - Caricamento dinamico dei manager specifici in base all'entità corrente
@@ -61,69 +61,13 @@ class ManageSystem {
 
         } catch (error) {
             // In caso di errore durante l'inizializzazione, attiva la modalità fallback
-            this.log('❌ Errore durante l\'inizializzazione:', error);
+            this.log('Errore durante l\'inizializzazione:', error);
             this.initializeFallback();
         }
     }
 
-    /**
-     * Carica dinamicamente il manager specifico per l'entità corrente.
-     * Utilizza una mappa per associare ogni entità al suo file JavaScript corrispondente.
-     */
-   /* async loadManagers() {
-        // Mappa delle entità ai loro file manager corrispondenti
-        const managers = {
-            products: 'ProductManager.js',      // Gestione prodotti
-            brands: 'BrandManager.js',         // Gestione brand/marchi
-            categories: 'CategoryManager.js',   // Gestione categorie
-            admins: 'UserManager.js',           // Gestione admin (usa lo stesso manager degli utenti)
-            users: 'UserManager.js'            // Gestione utenti (usa lo stesso manager degli admin)
-        };
 
-        // Determina quale file manager caricare in base all'entità corrente
-        const currentManagerFile = managers[this.config.entity];
-        console.log(`🔍 Caricamento manager per entità: ${this.config.entity} (${currentManagerFile})`);
 
-        if (currentManagerFile) {
-            try {
-                // Carica il file JavaScript del manager dalla cartella managers/
-                await this.loadScript(`Js/profile/managers/${currentManagerFile}`);
-                this.log(`✅ Manager caricato: ${currentManagerFile}`);
-            } catch (error) {
-                // Log dell'errore ma non blocca l'esecuzione (verrà usato BaseManager)
-                this.log(`⚠️ Errore caricamento manager ${currentManagerFile}:`, error);
-            }
-        }
-    }*/
-
-    /**
-     * Utility per caricare script JavaScript dinamicamente.
-     * Previene il caricamento duplicato dello stesso script.
-     *
-     * @param {string} src - URL del file JavaScript da caricare
-     * @returns {Promise} Promise che si risolve quando lo script è caricato
-     */
-    /*loadScript(src) {
-        return new Promise((resolve, reject) => {
-            // Controlla se lo script è già stato caricato per evitare duplicati
-            if (document.querySelector(`script[src="${src}"]`)) {
-                resolve();
-                return;
-            }
-
-            // Crea e configura l'elemento script
-            const script = document.createElement('script');
-            script.src = src;
-            script.type = 'text/javascript';
-
-            // Configura i callback per successo e fallimento
-            script.onload = resolve;
-            script.onerror = reject;
-
-            // Aggiunge lo script al DOM per avviare il caricamento
-            document.head.appendChild(script);
-        });
-    }*/
 
     /**
      * Inizializza tutti gli elementi comuni dell'interfaccia utente.
@@ -174,7 +118,7 @@ class ManageSystem {
             if (ManagerClass) {
                 //  Il manager è disponibile, procedi con l'inizializzazione
                 this.currentManager = new ManagerClass(this);
-                this.log(`✅ Manager inizializzato: ${ManagerClass.name}`);
+                this.log(`Manager inizializzato: ${ManagerClass.name}`);
 
                 // Continua con l'inizializzazione
                 this.setupGlobalEventListeners();
@@ -364,24 +308,7 @@ class ManageSystem {
         }
     }
 
-    /**
-     * Configura il sistema di cambio dinamico di entità.
-     * Permette di passare da una gestione all'altra (es. da prodotti a brand) senza ricaricare la pagina.
-     */
-    /*setupEntitySwitching() {
-        // Trova tutti gli elementi che permettono di cambiare entità
-        const entitySwitchers = document.querySelectorAll('[data-entity]:not(body)'); //Esclude il body per evitare conflitti
-        entitySwitchers.forEach(switcher => {
-            switcher.addEventListener('click', async (e) => {
-                // Ottiene la nuova entità dall'attributo data-entity
-                const newEntity = switcher.dataset.entity;
-                // Se è diversa dall'entità corrente, effettua il cambio
-                if (newEntity !== this.config.entity) {
-                    await this.switchEntity(newEntity);
-                }
-            });
-        });
-    }*/
+
 
     /**
      * Configura le scorciatoie da tastiera per migliorare l'usabilità.
@@ -410,39 +337,7 @@ class ManageSystem {
         });
     }
 
-    /**
-     * Cambia dinamicamente l'entità gestita dal sistema.
-     * Ricarica il manager appropriato e aggiorna la configurazione.
-     *
-     * @param {string} newEntity - Nuova entità da gestire (products, brands, etc.)
-     */
-    /*async switchEntity(newEntity) {
-        try {
-            this.log(`🔄 Cambio entità da ${this.config.entity} a ${newEntity}`);
 
-            // Aggiorna la configurazione interna
-            this.config.entity = newEntity;
-            // Aggiorna anche l'attributo nel DOM per coerenza
-            document.body.dataset.entity = newEntity;
-
-            // Carica il nuovo manager specifico per l'entità
-           /!* await this.loadManagers();*!/
-            // Inizializza il nuovo manager
-            this.initializeManager();
-
-            // Notifica il cambio di entità a tutti i listener
-            this.dispatchEvent('manage:entity:changed', {
-                oldEntity: this.config.entity,
-                newEntity: newEntity,
-                manager: this.currentManager
-            });
-
-            this.log(`✅ Entità cambiata con successo: ${newEntity}`);
-
-        } catch (error) {
-            this.log(`❌ Errore nel cambio entità:`, error);
-        }
-    }*/
 
     /**
      * Apre il modale utilizzando il manager corrente se disponibile, altrimenti usa il fallback.
@@ -631,20 +526,7 @@ class ManageSystem {
         }, duration);
     }
 
-    /**
-     * Sistema di eventi personalizzati per comunicazione tra componenti.
-     * Permette a diverse parti del sistema di comunicare in modo loosely-coupled.
-     *
-     * @param {string} eventName - Nome dell'evento da inviare
-     * @param {Object} detail - Dati da allegare all'evento
-     */
-    dispatchEvent(eventName, detail = {}) {
-        // Crea e invia un CustomEvent con i dati specificati
-        const event = new CustomEvent(eventName, { detail });
-        document.dispatchEvent(event);
-        // Log per debugging
-        this.log(`📡 Evento inviato: ${eventName}`, detail);
-    }
+
 
     /**
      * Sistema di logging unificato con timestamp.

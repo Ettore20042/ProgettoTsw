@@ -175,6 +175,44 @@ function validateForm() {
 
 
 
+/**
+ * Migliora l'accessibilità degli elementi toggle password
+ * Aggiunge supporto per navigazione da tastiera (Enter e Spazio)
+ */
+function setupPasswordToggleAccessibility() {
+    document.querySelectorAll('.auth-form-container__icon').forEach(icon => {
+        icon.addEventListener('keypress', function(e) {
+            // Supporta sia Enter che Spazio per attivare il toggle
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
+}
+
+/**
+ * Rimuove automaticamente i messaggi del server dopo 5 secondi
+ * Migliora l'UX nascondendo i messaggi con una transizione smooth
+ */
+function setupAutoHideServerMessages() {
+    const serverMessages = document.querySelectorAll('.server-error-message, .server-success-message');
+
+    serverMessages.forEach(message => {
+        setTimeout(() => {
+            message.style.opacity = '0';
+            message.style.transition = 'opacity 0.5s ease-out';
+
+            // Rimuove completamente l'elemento dopo la transizione
+            setTimeout(() => {
+                if (message.parentNode) {
+                    message.remove();
+                }
+            }, 500);
+        }, 5000);
+    });
+}
+
 // Event listeners principali
 document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.getElementById("loginForm");
@@ -182,29 +220,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Setup validazione form
     if (registerForm) {
+        // Setup elementi del button per la registrazione
+        const registerButtonElements = setupLoadingButton(registerForm);
+
         registerForm.addEventListener("submit", function (event) {
             if (!validateForm()) { //se questo restituisce false (cioè ci sono errori), viene eseguito event.preventDefault()
                 event.preventDefault();  //impedisce l'azione predefinita, che in questo caso è l'invio del form al server
+            } else {
+                // Se la validazione è passata, mostra il loading
+                showLoadingState(registerButtonElements);
             }
         });
     }
 
     if (loginForm) {
+        // Setup elementi del button per il login
+        const loginButtonElements = setupLoadingButton(loginForm);
+
         loginForm.addEventListener("submit", function (event) {
             if (!validateForm()) {
                 event.preventDefault();
+            } else {
+                // Se la validazione è passata, mostra il loading
+                showLoadingState(loginButtonElements);
             }
         });
     }
 
-    // Setup toggle password
-    //aggiunge l'evento "click" all'icona dell'occhio per attivare la funzione togglePassword
-    document.querySelector('.auth-form-container__icon-password')
-        .addEventListener('click', function () {
-            const input = document.getElementById('password')
+    // Setup toggle password con supporto accessibilità migliorato
+    const passwordToggle = document.querySelector('.auth-form-container__icon-password');
+    if (passwordToggle) {
+        passwordToggle.addEventListener('click', function () {
+            const input = document.getElementById('password');
             if (input) {
-                togglePassword(input.name);
+                togglePassword(this);
             }
         });
+    }
 
+    // Inizializza le funzionalità UX aggiuntive
+    setupPasswordToggleAccessibility();
+    setupAutoHideServerMessages();
 });

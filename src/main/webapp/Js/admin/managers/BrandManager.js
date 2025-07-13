@@ -23,14 +23,14 @@ class BrandManager extends BaseManager {
         if (!form) return;
 
         form.addEventListener('submit', (event) => {
-            event.preventDefault();
+            event.preventDefault(); //impedisce al formd di ricaricare la pagina
             const submitBtn = document.getElementById('submitBtn');
             const isEdit = submitBtn?.textContent === 'Modifica Brand';
 
             if (isEdit) {
-                this.updateBrand(form);
+                this.updateBrand(form); //chiama il metodo per modificare
             } else {
-                this.addBrand(form);
+                this.addBrand(form); //o quello per aggiungere
             }
         });
     }
@@ -52,6 +52,7 @@ class BrandManager extends BaseManager {
             const url = `${this.contextPath}/ManageBrandServlet`;
             console.log("URL chiamata:", url);
 
+            //invia i dati eseguendo una fetch con metodo POST e passando nel body il formData
             const response = await fetch(url, {
                 method: 'POST',
                 body: formData
@@ -64,19 +65,21 @@ class BrandManager extends BaseManager {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
+            //legge i dati JSON dal server
             const data = await response.json();
 
             if (data.success && data.brand) {
+                //aggiunge la nuova riga del brand alla tabella visibile sulla pagina
                 this.addBrandToTable(data.brand);
-                this.showMessage("✅ Brand aggiunto con successo", "#4CAF50");
+                this.showMessage("Brand aggiunto con successo", "#4CAF50");
                 form.reset();
                 this.closeModal();
             } else {
-                this.showMessage("❌ Errore nell'aggiunta del brand", "#f44336");
+                this.showMessage("Errore nell'aggiunta del brand", "#f44336");
             }
         } catch (error) {
             console.error("Errore nell'aggiunta del brand:", error);
-            this.showMessage(`❌ Errore: ${error.message}`, "#f44336");
+            this.showMessage(`Errore: ${error.message}`, "#f44336");
         }
     }
 
@@ -85,8 +88,10 @@ class BrandManager extends BaseManager {
      */
     async updateBrand(form) {
         try {
+            //recupera l'id del brand che si sta modificando
             const brandId = this.getCurrentEditId();
             const formData = new FormData(form);
+            //passiamo anche un parametro che indica l'azione da intraprendere
             const url = `${this.contextPath}/ManageBrandServlet?action=update&id=${brandId}`;
 
             const response = await fetch(url, {
@@ -101,15 +106,16 @@ class BrandManager extends BaseManager {
             const data = await response.json();
 
             if (data.success) {
-                this.showMessage("✅ Brand modificato con successo", "#4CAF50");
+                this.showMessage("Brand modificato con successo", "#4CAF50");
                 this.closeModal();
+                //ricarica la pagina
                 location.reload();
             } else {
-                this.showMessage("❌ Errore nella modifica del brand", "#f44336");
+                this.showMessage("Errore nella modifica del brand", "#f44336");
             }
         } catch (error) {
             console.error("Errore nella modifica del brand:", error);
-            this.showMessage(`❌ Errore: ${error.message}`, "#f44336");
+            this.showMessage(`Errore: ${error.message}`, "#f44336");
         }
     }
 
@@ -135,8 +141,10 @@ class BrandManager extends BaseManager {
             </td>
         `;
 
+        //aggiunge la nuova riga alla tabella
         tableBody.appendChild(newRow);
 
+        //si prende i bottoni di modifica e rimozione e gli aggiunge gli EventListener per farli funzionare correttamente
         const editLink = newRow.querySelector('.edit-link');
         const removeButton = newRow.querySelector('.remove-button-brand');
 
@@ -162,6 +170,7 @@ class BrandManager extends BaseManager {
             }
 
             try {
+                //recupera l'id del brand da eliminare dall'attributo data-id del pulsante
                 const brandId = button.getAttribute('data-id');
                 console.log("Tentativo di eliminazione brand ID:", brandId);
 
@@ -185,17 +194,18 @@ class BrandManager extends BaseManager {
                 console.log("Response data:", data);
 
                 if (data.success) {
+                    //trova la riga interessata e la rimuove dal DOM
                     const brandRow = button.closest('tr');
                     if (brandRow) {
                         brandRow.remove();
-                        this.showMessage("✅ Brand eliminato con successo", "#4CAF50");
+                        this.showMessage("Brand eliminato con successo", "#4CAF50");
                     }
                 } else {
-                    this.showMessage(`❌ ${data.message}`, "#f44336");
+                    this.showMessage(` ${data.message}`, "#f44336");
                 }
             } catch (error) {
                 console.error('Errore nell\'eliminazione del brand:', error);
-                this.showMessage("❌ Errore nell'eliminazione del brand", "#f44336");
+                this.showMessage("Errore nell'eliminazione del brand", "#f44336");
             }
         });
     }
@@ -226,6 +236,7 @@ class BrandManager extends BaseManager {
     async loadBrandForEdit(brandId) {
         try {
             const url = `${this.contextPath}/ManageBrandServlet?action=edit&id=${brandId}`;
+            //esegue una chiamata GET al server per richiedere i dati del brand specifico
             const data = await this.makeRequest(url);
 
             if (data.success && data.brand) {
@@ -233,11 +244,11 @@ class BrandManager extends BaseManager {
                 this.populateFormForEdit(data.brand);
                 this.openModal();
             } else {
-                this.showMessage("❌ Errore nel caricamento del brand", "#f44336");
+                this.showMessage("Errore nel caricamento del brand", "#f44336");
             }
         } catch (error) {
             console.error('Errore nel caricamento del brand:', error);
-            this.showMessage("❌ Errore nel caricamento del brand", "#f44336");
+            this.showMessage("Errore nel caricamento del brand", "#f44336");
         }
     }
 
@@ -245,6 +256,7 @@ class BrandManager extends BaseManager {
      * Popola il form con i dati del brand per la modifica
      */
     populateFormForEdit(brand) {
+        //prende i dati del brand ricevuti dal server
         this.setFormValue('brandName', brand.brandName);
         this.setFormValue('brandPath', brand.logoPath);
 
