@@ -284,7 +284,7 @@ function processOrder() {
                 showMessage('Ordine confermato con successo!', 'success');
                 // Reindirizza alla pagina di conferma dopo 2 secondi
                 setTimeout(() => {
-                    window.location.href = `../../WEB-INF/jsp/cart/orderConfirmation.jsp`;
+                    window.location.href = `${contextPath}/jsp/cart/orderConfirmation.jsp`;
                 }, 2000);
             } else {
                 showMessage(data.message || 'Errore durante l\'elaborazione dell\'ordine', 'error');
