@@ -4,32 +4,38 @@ import model.Bean.User;
 import model.ConnPool;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
-    public void doSaveUser(User user) {
+    public User doSaveUser(String firstName, String lastName, String phoneNumber, String password, String email) {
         try (Connection conn = ConnPool.getConnection()) {
-            String sql = "INSERT INTO user_account (FirstName, LastName, Email, Password, Admin, Phone) VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, user.getFirstName());
-            ps.setString(2, user.getLastName());
-            ps.setString(3, user.getEmail());
-            ps.setString(4, user.getPassword());
-            ps.setBoolean(5, user.isAdmin());
-            ps.setString(6, user.getPhoneNumber());
+            String sql = "INSERT INTO user_account (FirstName, LastName, Phone, Password, Email) VALUES (?, ?, ?, ?, ?)";
 
-            if (ps.executeUpdate() != 1) {
-                throw new RuntimeException("INSERT error.");
+            // Chiedi di restituire la chiave generata (es. user_id)
+            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setString(1, firstName);
+            ps.setString(2, lastName);
+            ps.setString(3, phoneNumber);
+            ps.setString(4, password);
+            ps.setString(5, email);
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    int generatedId = rs.getInt(1); // o rs.getLong(1) se l'ID è LONG
+                    return doRetrieveById(generatedId); // questo metodo deve esistere nel DAO
+                }
             }
-        } catch (Exception e) {
+            return null;
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     public User doLogin(String email, String plainPassword) {
         try (Connection conn = ConnPool.getConnection()) {

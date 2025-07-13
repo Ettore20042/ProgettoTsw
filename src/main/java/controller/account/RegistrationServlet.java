@@ -24,6 +24,7 @@ public class RegistrationServlet extends HttpServlet {
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
         String phone = request.getParameter("phone");
+        System.out.println("Phone: " + phone);
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt()); // Hash della password per sicurezza
@@ -34,8 +35,8 @@ public class RegistrationServlet extends HttpServlet {
             requestDispatcher.forward(request, response);
             return;
         }
-        User user= new User(0, name, surname, phone, hashedPassword, email);
-        userDAO.doSaveUser(user);
+
+        User user=userDAO.doSaveUser(name,surname, phone, hashedPassword, email);
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/jsp/HomePage.jsp");

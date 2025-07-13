@@ -29,7 +29,7 @@
 
             </div>
 
-            <span id="emailError" style="color: #E71D36; display: none;">Email non valida</span>
+            <span id="emailError" >Email non valida</span>
             <div class="auth-form-container__input-wrapper">
                 <label for="password" class="visually-hidden"> Inserisci la password</label>
                <input type="password" id="password" name="password" placeholder="Conferma Password" required class="auth-form-container__input" aria-describedby="passwordHelp">
@@ -46,7 +46,7 @@
             </div>
             <span id="passwordError" style="color: #E71D36; display: none;">Password non valida</span>
             <c:if test="${not empty loginError}">
-                <div style=" width:40% ;background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+                <div class="login-error">
                         ${loginError}
                 </div>
             </c:if>

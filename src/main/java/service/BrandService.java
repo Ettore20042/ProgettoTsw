@@ -34,7 +34,7 @@ public class BrandService {
 
 		/* usa la mappa per memorizzare i brand, la chiave è l'id del brand, il valore è l'oggetto Brand */
 		Map<Integer, Brand> brandMap = allBrands.stream()
-				.collect(Collectors.toMap(Brand::getBrandId, Function.identity()));
+				.collect(Collectors.toMap(Brand::getBrandId, Function.identity())); //identity() è una funzione che restituisce l'oggetto stesso
 
 		/* salva la mappa e l'ora corrente di aggiornamento della cache nel ServletContext */
 		context.setAttribute("brandCacheMap", brandMap);
