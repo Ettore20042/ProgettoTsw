@@ -37,31 +37,6 @@ public class AddressDAO {
         return address;
 }
 
-    public List<Address> doRetrieveByUserId(int userid) {
-        try (Connection connection = ConnPool.getConnection()) {
-            String sql = "SELECT * FROM address a, user_address ua WHERE UserID = ? AND a.AddressID = ua.AddressID";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setInt(1, userid);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                List<Address> addresses = new ArrayList<>();
-                while (resultSet.next()) {
-                    Address address = new Address();
-                    address.setAddressId(resultSet.getInt("AddressID"));
-                    address.setProvince(resultSet.getString("Province"));
-                    address.setCountry(resultSet.getString("Country"));
-                    address.setZipCode(resultSet.getString("ZipCode"));
-                    address.setStreetNumber(resultSet.getString("StreetNumber"));
-                    address.setStreet(resultSet.getString("Street"));
-                    address.setCity(resultSet.getString("City"));
-                    addresses.add(address);
-                }
-                return addresses;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Log dettagliato dell'errore
-            throw new RuntimeException("Errore durante il recupero degli indirizzi: " + e.getMessage(), e);
-        }
-    }
 
     public boolean deleteAddress(String addressId, String addressType) {
         try (Connection connection = ConnPool.getConnection()) {

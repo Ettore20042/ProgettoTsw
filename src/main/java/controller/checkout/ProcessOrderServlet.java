@@ -5,19 +5,29 @@ import com.google.gson.Gson;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import model.Bean.CartItem;
 import model.Bean.Order;
 import model.Bean.User;
 import service.OrderService;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @MultipartConfig
 @WebServlet(name = "ProcessOrderServlet", value = "/ProcessOrderServlet")
 public class ProcessOrderServlet extends HttpServlet {
+
+    private OrderService orderService;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        ServletContext context = config.getServletContext();
+        this.orderService = new OrderService(context);
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        /*prova*/
@@ -31,7 +41,6 @@ public class ProcessOrderServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("user");
-
 
             if (user == null) {
                 jsonResponse.put("success", false);
@@ -57,22 +66,26 @@ public class ProcessOrderServlet extends HttpServlet {
             int shippingAddressId = Integer.parseInt(shippingAddress);
             int billingAddressId = Integer.parseInt(billingAddress);
 
+            // Ottieni il carrello dalla sessione
+            List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cart");
+            if (cartItems == null || cartItems.isEmpty()) {
+                jsonResponse.put("success", false);
+                jsonResponse.put("message", "Carrello vuoto");
+                response.getWriter().write(new Gson().toJson(jsonResponse));
+                return;
+            }
 
-            LocalDate orderDate = LocalDate.now();
-            String status = calculateOrderStatus(orderDate);
-            LocalDateTime orderDateTime = LocalDateTime.now();
+            // Utilizza il service per creare l'ordine
+            Order order = orderService.createOrderFromCheckout(
+                user.getUserId(), shippingAddressId, billingAddressId, totalPrice
+            );
 
-            Order order = new Order();
-            order.setUserId(user.getUserId());
-            order.setShippingAddressId(shippingAddressId);
-            order.setBillingAddressId(billingAddressId);
-            order.setTotalAmount(totalPrice);
-            order.setOrderDate(orderDate);
-            order.setOrderTime(orderDateTime.toLocalTime());
-            order.setStatus(status);
+            // Utilizza il service per processare l'ordine
+            orderService.processOrder(order, cartItems);
 
-            OrderService orderService = new OrderService(getServletContext());
-            orderService.processOrder(order, session);
+            // Pulisce il carrello dalla sessione dopo il successo
+            session.removeAttribute("cart");
+            session.removeAttribute("totalItemsCart");
 
             jsonResponse.put("success", true);
             jsonResponse.put("message", "Ordine elaborato con successo");
@@ -90,18 +103,4 @@ public class ProcessOrderServlet extends HttpServlet {
             response.getWriter().write(new Gson().toJson(jsonResponse));
         }
     }
-    private String calculateOrderStatus(LocalDate orderDate) {
-        long daysSinceOrder = java.time.temporal.ChronoUnit.DAYS.between(orderDate, LocalDate.now());
-
-        if (daysSinceOrder < 3) {
-            return "In elaborazione";
-        } else if (daysSinceOrder < 6) {
-            return "Spedito";
-        } else if (daysSinceOrder < 9) {
-            return "In consegna";
-        } else {
-            return "Consegnato";
-        }
-    }
-
 }

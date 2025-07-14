@@ -5,6 +5,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import model.Bean.*;
+import service.OrderService;
 import service.ProductService;
 import service.UserService;
 
@@ -13,12 +14,24 @@ import java.util.List;
 
 @WebServlet(name = "CheckoutServlet", value = "/CheckoutServlet")
 public class CheckoutServlet extends HttpServlet {
+
+    private ProductService productService;
+    private UserService userService;
+    private OrderService orderService;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        ServletContext context = config.getServletContext();
+        this.productService = new ProductService(context);
+        this.userService = new UserService(context);
+        this.orderService = new OrderService(context);
+    }
+
     @Override/* Si occupa dell'acquista ora*/
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String productId = request.getParameter("productId");
         String quantity = request.getParameter("quantitySelected");
-
-
 
         // Validate parameters
         if (productId == null || quantity == null) {
@@ -27,7 +40,6 @@ public class CheckoutServlet extends HttpServlet {
         }
 
         try {
-            ProductService productService = new ProductService(getServletContext());
             Product product = productService.getProductById(Integer.parseInt(productId));
 
             if (product == null) {
@@ -41,8 +53,8 @@ public class CheckoutServlet extends HttpServlet {
                 return;
             }
 
-            double total = product.getPrice() * qty;
-
+            // Utilizza il service per calcolare il totale
+            double total = orderService.calculateProductTotal(product.getPrice(), qty);
 
             request.setAttribute("productId", productId);
             request.setAttribute("quantity", quantity);
@@ -73,15 +85,10 @@ public class CheckoutServlet extends HttpServlet {
             return;
         }
 
-        double total = 0.0;
-        for(CartItem item : cart) {
-            total += item.getPrice() * item.getQuantity();
-        }
-        UserService userService = new UserService(getServletContext());
-        List<UserAddress> addresses=userService.getUserAddresses(userid);
+        // Utilizza il service per calcolare il totale del carrello
+        double total = orderService.calculateCartTotal(cart);
 
-
-
+        List<UserAddress> addresses = userService.getUserAddresses(userid);
 
         request.setAttribute("addresses", addresses);
         request.setAttribute("cart", cart);
@@ -90,4 +97,3 @@ public class CheckoutServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 }
-

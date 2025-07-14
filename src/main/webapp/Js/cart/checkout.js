@@ -368,7 +368,7 @@ function deleteAddress(addressId, addressType, addressElement) {
 
     // Chiamata AJAX per eliminare l'indirizzo
     fetch(`${contextPath}/AddAddressServlet?addressId=${addressId}&addressType=${addressType}`, {
-        method: 'GET',
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
 

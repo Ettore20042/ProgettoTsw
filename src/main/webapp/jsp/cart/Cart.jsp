@@ -43,7 +43,7 @@
                         <c:forEach var="item" items="${sessionScope.cart}">
                             <tr class="cart-row" data-product-id="${item.getProductId()}">
                                 <td class="product-remove">
-                                    <form action="${pageContext.request.contextPath}/cart-update" method="post">
+                                    <form action="${pageContext.request.contextPath}/CartServlet" method="get">
                                         <input type="hidden" name="productId" value="${item.getProductId()}">
                                         <input type="hidden" name="action" value="remove">
                                         <button type="submit" class="remove-button remove-item-btn">

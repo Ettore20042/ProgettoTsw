@@ -4,58 +4,31 @@ import com.google.gson.Gson;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import model.Bean.Address;
 import model.Bean.User;
 import model.Bean.UserAddress;
-import model.DAO.AddressDAO;
-import service.UserService;
+import service.AddressService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
-@MultipartConfig // Necessario per gestire file upload,
+
 @WebServlet(name = "AddAddressServlet", value = "/AddAddressServlet")
 public class AddAddressServlet extends HttpServlet {
+
+    private AddressService addressService;
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
-        Map<String, Object> jsonResponse = new HashMap<>();
-
-        try {
-            String addressId = request.getParameter("addressId");
-            String addressType = request.getParameter("addressType");
-
-            System.out.println("AddressId: " + addressId);
-            System.out.println("AddressType: " + addressType);
-
-            if (addressId == null || addressType == null) {
-                jsonResponse.put("success", false);
-                jsonResponse.put("message", "Parametri mancanti");
-                response.getWriter().write(new Gson().toJson(jsonResponse));
-                return;
-            }
-
-            AddressDAO addressDAO = new AddressDAO();
-            boolean success = addressDAO.deleteAddress(addressId, addressType);
-
-            if (success) {
-                jsonResponse.put("success", true);
-                jsonResponse.put("message", "Indirizzo eliminato con successo");
-            } else {
-                jsonResponse.put("success", false);
-                jsonResponse.put("message", "Errore durante l'eliminazione dell'indirizzo");
-            }
-
-        } catch (Exception e) {
-            jsonResponse.put("success", false);
-            jsonResponse.put("message", "Errore del server: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        response.getWriter().write(new Gson().toJson(jsonResponse));
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        ServletContext context = config.getServletContext();
+        this.addressService = new AddressService(context);
     }
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -92,29 +65,10 @@ public class AddAddressServlet extends HttpServlet {
                 return;
             }
 
-            // Creazione Address
-            Address newAddress = new Address();
-            newAddress.setCity(city);
-            newAddress.setStreet(street);
-            newAddress.setStreetNumber(streetNumber);
-            newAddress.setZipCode(zipCode);
-            newAddress.setCountry(country);
-            newAddress.setProvince(province);
-
-            // Salvataggio Address
-            AddressDAO addressDao = new AddressDAO();
-            Address savedAddress = addressDao.doSave(newAddress);
-
-            // Creazione UserAddress
-            UserAddress userAddress = new UserAddress();
-            userAddress.setUserId(user.getUserId());
-            userAddress.setAddress(savedAddress);
-            userAddress.setAddressType(addressType);
-            userAddress.setPrimary(false);
-
-            // Salvataggio UserAddress
-            UserService userService = new UserService(getServletContext());
-            UserAddress savedUserAddress = userService.addUserAddress(userAddress);
+            // Utilizza il service per creare e associare l'indirizzo all'utente
+            UserAddress savedUserAddress = addressService.createAndAddAddressToUser(
+                user.getUserId(), city, street, streetNumber, zipCode, country, province, addressType
+            );
 
             if (savedUserAddress != null) {
                 jsonResponse.put("success", true);
@@ -138,6 +92,39 @@ public class AddAddressServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    }
+        response.setContentType("application/json;charset=UTF-8");
+        Map<String, Object> jsonResponse = new HashMap<>();
 
+        try {
+            String addressId = request.getParameter("addressId");
+            String addressType = request.getParameter("addressType");
+
+            System.out.println("AddressId: " + addressId);
+            System.out.println("AddressType: " + addressType);
+
+            if (addressId == null || addressType == null) {
+                jsonResponse.put("success", false);
+                jsonResponse.put("message", "Parametri mancanti");
+                response.getWriter().write(new Gson().toJson(jsonResponse));
+            }
+
+            // Utilizza il service per eliminare l'indirizzo
+            boolean success = addressService.deleteAddress(addressId, addressType);
+
+            if (success) {
+                jsonResponse.put("success", true);
+                jsonResponse.put("message", "Indirizzo eliminato con successo");
+            } else {
+                jsonResponse.put("success", false);
+                jsonResponse.put("message", "Errore durante l'eliminazione dell'indirizzo");
+            }
+
+        } catch (Exception e) {
+            jsonResponse.put("success", false);
+            jsonResponse.put("message", "Errore del server: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        response.getWriter().write(new Gson().toJson(jsonResponse));
+    }
 }

@@ -4,13 +4,22 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import model.Bean.User;
-import model.DAO.UserDAO;
+import service.AuthenticationService;
 
 import java.io.IOException;
 import java.net.URLEncoder;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
+
+    private AuthenticationService authenticationService;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        ServletContext context = config.getServletContext();
+        this.authenticationService = new AuthenticationService(context);
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -28,8 +37,8 @@ public class LoginServlet extends HttpServlet {
         String productId = request.getParameter("productId");
         String quantitySelected = request.getParameter("quantitySelected");
 
-        UserDAO userDAO = new UserDAO();
-        User user = userDAO.doLogin(email, password);
+        // Utilizza il service per l'autenticazione
+        User user = authenticationService.authenticateUser(email, password);
 
         if (user != null) {
             // Salva l'utente nella sessione
@@ -42,7 +51,6 @@ public class LoginServlet extends HttpServlet {
                 String redirectURL = request.getContextPath() + "/";
                 System.out.println("Redirect URL (homepage): " + redirectURL);
                 response.sendRedirect(redirectURL);
-                return;
             }
 
             // Costruisco l'URL di redirect per altre pagine
@@ -58,12 +66,10 @@ public class LoginServlet extends HttpServlet {
             System.out.println("Redirect URL: " + redirectURL);
             response.sendRedirect(redirectURL);
 
-
         } else {
             // Login fallito
             request.setAttribute("loginError", "Credenziali errate");
             request.getRequestDispatcher("/jsp/auth/Login.jsp").forward(request, response);
-            return;
         }
     }
 
