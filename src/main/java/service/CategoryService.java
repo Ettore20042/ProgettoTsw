@@ -17,8 +17,6 @@ public class CategoryService {
 
 	public CategoryService(ServletContext context) {
 		this.context = context;
-		/* quando viene creato per la prima volta, viene immediatamente refreshato */
-		refreshCategoryCache();
 	}
 
 

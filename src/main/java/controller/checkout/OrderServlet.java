@@ -50,6 +50,7 @@ public class OrderServlet extends HttpServlet {
         try {
             // Utilizza il service per recuperare gli ordini recenti
             List<Order> recentOrders = orderService.getUserRecentOrders(Integer.parseInt(userId));
+            recentOrders = orderService.setOrdersStatus(recentOrders);
 
             if(recentOrders.isEmpty()){
                 request.setAttribute("orderMessage", "Non hai ancora effettuato alcun ordine");
@@ -81,6 +82,7 @@ public class OrderServlet extends HttpServlet {
         try {
             // Utilizza il service per recuperare tutti gli ordini con dettagli
             List<Order> orderList = orderService.getUserAllOrdersWithDetails(userId);
+            orderList = orderService.setOrdersStatus(orderList);
 
             // Utilizza il service per ottenere i prodotti dalla lista ordini
             List<Product> productList = orderService.getProductsFromOrderList(orderList);

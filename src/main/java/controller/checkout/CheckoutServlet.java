@@ -33,6 +33,13 @@ public class CheckoutServlet extends HttpServlet {
         String productId = request.getParameter("productId");
         String quantity = request.getParameter("quantitySelected");
 
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            response.sendRedirect(getServletContext().getContextPath() + "/LoginServlet");
+            return;
+        }
+
         // Validate parameters
         if (productId == null || quantity == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameters");
@@ -53,10 +60,14 @@ public class CheckoutServlet extends HttpServlet {
                 return;
             }
 
+
+            List<UserAddress> addresses = userService.getUserAddresses(user.getUserId());
             // Utilizza il service per calcolare il totale
             double total = orderService.calculateProductTotal(product.getPrice(), qty);
 
-            request.setAttribute("productId", productId);
+            request.setAttribute("buyNow", true);
+            request.setAttribute("addresses", addresses);
+            request.setAttribute("product", product);
             request.setAttribute("quantity", quantity);
             request.setAttribute("total", total);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/cart/Checkout.jsp");

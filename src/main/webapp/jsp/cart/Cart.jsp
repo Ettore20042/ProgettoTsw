@@ -22,9 +22,7 @@
                 <c:when test="${empty sessionScope.cart}">
                 <div class="cart-empty">
                     <p>Il carrello è vuoto.</p>
-                    <a href="${pageContext.request.contextPath}/CategoryServlet" class="continue-shopping"
-                       >
-                        Continua lo shopping</a>
+                    <a href="${pageContext.request.contextPath}/CategoryServlet" class="continue-shopping">Continua lo shopping</a>
                 </div>
                 </c:when>
                 <c:otherwise>
@@ -36,7 +34,6 @@
                             <th>Prodotto</th>
                             <th>Quantità</th>
                             <th>Prezzo</th>
-                                <%--                        <th>Totale</th>--%>
                         </tr>
                         </thead>
                         <tbody>
@@ -55,20 +52,14 @@
                                         ${item.getProductName()}
                                 </td>
                                 <td class="product-quantity">
-                                        <%--                            <form class="quantity-form" action="${pageContext.request.contextPath}/CartServlet" method="post">--%>
-                                        <%--                                <input type="hidden" name="productId" value="<%= item.getProductId() %>">--%>
-                                        <%--                                <input type="hidden" name="action" value="update">--%>
                                     <input type="number"
                                            class="quantity-input"
                                            name="quantity"
-                                        <%--                                       data-product-id="<%= item.getProductId() %>"--%>
                                            data-price="${item.getPrice()}"
                                            value="${item.getQuantity()}"
                                            min="1"
                                            max="30000">
-                                        <%--                            </form>--%>
                                 </td>
-                                    <%--                        <td class="product-price">&euro; <%= String.format("%.2f", item.getPrice()) %></td>--%>
                                 <td class="total-value"><fmt:formatNumber value="${item.getPrice() * item.getQuantity()}" pattern="€#,##0.00" /></td>
                             </tr>
                         </c:forEach>
@@ -92,12 +83,7 @@
                 </div>
                 </c:otherwise>
             </c:choose>
-
-
-
-
         </div>
-
         <jsp:include page="/WEB-INF/jsp/components/common/footer.jsp"/>
     </body>
 </html>

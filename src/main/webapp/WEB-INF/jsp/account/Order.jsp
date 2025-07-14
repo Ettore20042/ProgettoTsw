@@ -1,11 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="model.Bean.User" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    request.setAttribute("pageTitle", "BricoShop - User Orders");
-%>
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -25,7 +21,7 @@
                     <c:forEach var="order" items="${orderList}">
                         <div class="listorders-user-order-card">
                             <div class="order-card-details">
-                                <p>Stato: ${order.status}</p>
+                                <p>Stato: <span>${order.status}</span></p>
                                 <p>Data: ${order.orderDate}</p>
                             </div>
 

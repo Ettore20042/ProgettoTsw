@@ -4,61 +4,104 @@
  * e vedere subito i dati aggiornati, senza ricaricare la pagina
  *
  * -comunica la modifica al server per renderla permanente
+ * -carica dinamicamente la quantità massima disponibile per ogni prodotto
  */
-
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    function updateQuantityInput() {
-        const quantityInput = document.querySelectorAll('.quantity-input');
+    /**
+     * Funzione principale che gestisce tutti gli input quantity del carrello
+     * Itera una sola volta su tutti gli input per efficienza
+     */
+    function initializeQuantityInputs() {
+        const quantityInputs = document.querySelectorAll('.quantity-input');
 
-        //esegue il codice per ogni campo trovato
-        quantityInput.forEach(input => {
-            //attende che l'utente modifichi il valore dell'input
-            input.addEventListener('change', (e) => {
-                //prende la nuova quantità inserita
-                const quantity = e.target.value;
-                //prende il productId associato a quella riga
-                const productId = e.target.closest('tr').dataset.productId;
-                const contextPath = document.body.dataset.contextPath;
-                const formData = new URLSearchParams();
-
-                formData.append('productId', productId);
-                formData.append('quantity', quantity);
-                formData.append('update', 'true');
-
-                //invia una richiesta POST asincrona alla CartServlet
-                fetch(`${contextPath}/CartServlet`, {
-                    method: 'POST',
-                    body: formData,
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        //converte la risposta in oggetto js
-                        return response.json();
-                    }).then( data => {
-                    const lastQuantity = parseInt(data.lastQuantity, 10);
-                    console.log(lastQuantity);
-                    //aggiorna l'icona del carrello
-                    const cartcount = document.querySelector('.cart-count');
-                    if (cartcount) {
-                        if (lastQuantity < quantity) {
-                            cartcount.textContent = parseInt(cartcount.textContent, 10) + 1; //incrementa il contatore del carrello
-                        }else {
-                            cartcount.textContent = parseInt(cartcount.textContent, 10) - 1; //decrementa il contatore del carrello
-                        }
-                    }
-                });
-
-                //chiama le due funzioni di aggiornamento
-                updateRowTotal(e.target.closest('tr'), quantity, parseFloat(e.target.dataset.price));
-                updateCartTotal();
-            })
+        quantityInputs.forEach(input => {
+            // Verifica se l'attributo max è già stato settato
+            if (!input.hasAttribute('data-max-loaded')) {
+                // Se non è settato, carica prima la quantità massima
+                loadMaxQuantityForInput(input);
+                addChangeListenerToInput(input);
+            } else {
+                // Se è già settato, aggiunge direttamente il listener
+                addChangeListenerToInput(input);
+            }
         });
     }
 
+    /**
+     * Carica la quantità massima per un singolo input
+     */
+    function loadMaxQuantityForInput(input) {
+        const productId = input.closest('tr').dataset.productId;
+        const contextPath = document.body.dataset.contextPath;
+
+        fetch(`${contextPath}/ProductServlet?action=getStock&productId=${productId}`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Errore recupero stock');
+                }
+            })
+            .then(data => {
+                // Imposta il max con la quantità disponibile
+                input.setAttribute('max', data.stock);
+                input.setAttribute('data-max-loaded', 'true');
+                console.log(`Max quantity loaded for product ${productId}: ${data.stock}`);
+            })
+            .catch(error => {
+                console.warn(`Error loading stock for product ${productId}:`, error);
+                // Fallback: mantiene il max di default
+                input.setAttribute('max', 30000);
+                input.setAttribute('data-max-loaded', 'true');
+            });
+    }
+
+    /**
+     * Aggiunge il listener di change a un singolo input
+     * Contiene la logica originale di updateQuantityInput
+     */
+    function addChangeListenerToInput(input) {
+        input.addEventListener('change', (e) => {
+            //prende la nuova quantità inserita
+            const quantity = e.target.value;
+            //prende il productId associato a quella riga
+            const productId = e.target.closest('tr').dataset.productId;
+            const contextPath = document.body.dataset.contextPath;
+            const formData = new URLSearchParams();
+
+            formData.append('productId', productId);
+            formData.append('quantity', quantity);
+            formData.append('update', 'true');
+
+            //invia una richiesta POST asincrona alla CartServlet
+            fetch(`${contextPath}/CartServlet`, {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    //converte la risposta in oggetto js
+                    return response.json();
+                }).then(data => {
+                const lastQuantity = parseInt(data.lastQuantity, 10);
+                const quantityDifference = quantity - lastQuantity;
+                console.log(lastQuantity);
+                //aggiorna l'icona del carrello
+                const cartcount = document.querySelector('.cart-count');
+                if (cartcount) {
+                    cartcount.textContent = parseInt(cartcount.textContent, 10) + quantityDifference; //incrementa il contatore del carrello
+                }
+            });
+
+            //chiama le due funzioni di aggiornamento
+            updateRowTotal(e.target.closest('tr'), quantity, parseFloat(e.target.dataset.price));
+            updateCartTotal();
+        });
+    }
 
     //aggiorna il subtotale di una singola riga
     function updateRowTotal(row, quantity, price) {
@@ -106,8 +149,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-   //la funzione viene chiamata alla fine dello script per assicurarsi che
+    //la funzione viene chiamata alla fine dello script per assicurarsi che
     //al caricamento della pagina il totale del carrello sia calcolato e visualizzato correttamente
     updateCartTotal();
-    updateQuantityInput();
+
+    // Inizializza tutti gli input quantity con un'unica iterazione
+    initializeQuantityInputs();
 });

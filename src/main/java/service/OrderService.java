@@ -11,6 +11,7 @@ import model.DAO.ProductDAO;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -56,16 +57,15 @@ public class OrderService {
      */
     public Order createOrderFromCheckout(int userId, int shippingAddressId, int billingAddressId,
                                         float totalAmount) {
-        LocalDate orderDate = LocalDate.now();
-        String status = calculateOrderStatus(orderDate);
         java.time.LocalDateTime orderDateTime = java.time.LocalDateTime.now();
+        String status = calculateOrderStatus(orderDateTime);
 
         Order order = new Order();
         order.setUserId(userId);
         order.setShippingAddressId(shippingAddressId);
         order.setBillingAddressId(billingAddressId);
         order.setTotalAmount(totalAmount);
-        order.setOrderDate(orderDate);
+        order.setOrderDate(LocalDate.now());
         order.setOrderTime(orderDateTime.toLocalTime());
         order.setStatus(status);
 
@@ -76,18 +76,28 @@ public class OrderService {
      * Calcola lo status dell'ordine in base alla data
      * Spostato da ProcessOrderServlet.java
      */
-    public String calculateOrderStatus(LocalDate orderDate) {
-        long daysSinceOrder = java.time.temporal.ChronoUnit.DAYS.between(orderDate, LocalDate.now());
+    public String calculateOrderStatus(LocalDateTime orderDateTime) {
+        long minutesElapsed = java.time.temporal.ChronoUnit.MINUTES.between(orderDateTime, java.time.LocalDateTime.now());
 
-        if (daysSinceOrder < 3) {
+        if (minutesElapsed < 3) {
             return "In elaborazione";
-        } else if (daysSinceOrder < 6) {
+        } else if (minutesElapsed < 6) {
             return "Spedito";
-        } else if (daysSinceOrder < 9) {
+        } else if (minutesElapsed < 9) {
             return "In consegna";
         } else {
             return "Consegnato";
         }
+    }
+
+    public List<Order> setOrdersStatus(List<Order> orders) {
+        for (Order order : orders) {
+            if (!order.getStatus().equals("Consegnato")) {
+                LocalDateTime orderDateTime = LocalDateTime.of(order.getOrderDate(), order.getOrderTime());
+                order.setStatus(calculateOrderStatus(orderDateTime));
+            }
+        }
+        return orders;
     }
 
     // ===== METODI PER ELABORAZIONE ORDINI =====

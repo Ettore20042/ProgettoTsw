@@ -53,6 +53,10 @@ body {
     margin: 5px 0;
     font-size: 0.95rem;
 }
+.order-card-details p span{
+    color: #27ae60;
+    font-weight: 500;
+}
 
 .order-card-products-section p{
     margin-top: 15px;

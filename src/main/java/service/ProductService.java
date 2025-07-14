@@ -155,4 +155,13 @@ public class ProductService {
         brandService.addBrandToProductBean(productList);
         return productList;
     }
+
+    /**
+     * Recupera la quantità disponibile in magazzino per un prodotto
+     * @param productId L'ID del prodotto
+     * @return La quantità disponibile
+     */
+    public int getProductStock(int productId) {
+        return productDAO.getProductStock(productId);
+    }
 }

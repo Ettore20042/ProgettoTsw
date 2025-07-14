@@ -27,6 +27,30 @@ public class ProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+
+        // Se l'azione è getStock, restituisce solo la quantità disponibile
+        if (action!= null && "getStock".equals(action)) {
+            String productIdParam = request.getParameter("productId");
+            if (productIdParam == null) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parametro 'productId' mancante");
+                return;
+            }
+
+            try {
+                int productId = Integer.parseInt(productIdParam);
+                int stock = productService.getProductStock(productId);
+
+                response.setContentType("application/json;charset=UTF-8");
+                response.getWriter().write("{\"stock\":" + stock + "}");
+                return;
+            } catch (NumberFormatException e) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID non valido");
+                return;
+            }
+        }
+
+        // Logica originale per visualizzazione prodotto
         String idParam = request.getParameter("productId");
         if (idParam == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parametro 'productId' mancante");

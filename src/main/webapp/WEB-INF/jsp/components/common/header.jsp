@@ -18,7 +18,7 @@
         </a>
 
       <div class="search-bar main-header_search-bar" role="search">
-          <form id="searchForm" action="SearchBarServlet" method="get" class="search-bar_form" autocomplete="off">
+          <form id="searchForm" action="${pageContext.request.contextPath}/SearchBarServlet" method="get" class="search-bar_form" autocomplete="off">
               <label for="searchBar" class="sr-only">Cerca prodotti</label>
               <input type="search"
                      id="searchBar"

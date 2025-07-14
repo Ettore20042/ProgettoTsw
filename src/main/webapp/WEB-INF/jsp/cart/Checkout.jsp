@@ -29,16 +29,31 @@
         <div class="checkout-section order-section">
             <h2 class="section-title">Riepilogo Ordine</h2>
             <div class="order-summary">
-                <c:forEach var="item" items="${cart}">
-                    <div class="checkout-item">
-                        <h3 class="item-name">${item.productName}</h3>
-                        <div class="item-details">
-                            <span class="item-price">Prezzo: <fmt:formatNumber value="${item.price}" pattern="€#,##0.00"/></span>
-                            <span class="item-quantity">Quantità: ${item.quantity}</span>
+                <c:choose>
+                    <c:when test="${not empty buyNow and buyNow}">
+                        <div class="checkout-item">
+                            <h3 class="item-name">${product.productName}</h3>
+                            <div class="item-details">
+                                <span class="item-price">Prezzo: <fmt:formatNumber value="${product.price}" pattern="€#,##0.00"/></span>
+                                <span class="item-quantity">Quantità: ${requestScope.quantity}</span>
 
+                            </div>
                         </div>
-                    </div>
-                </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach var="item" items="${cart}">
+                            <div class="checkout-item">
+                                <h3 class="item-name">${item.productName}</h3>
+                                <div class="item-details">
+                                    <span class="item-price">Prezzo: <fmt:formatNumber value="${item.price}" pattern="€#,##0.00"/></span>
+                                    <span class="item-quantity">Quantità: ${item.quantity}</span>
+
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
+
                 <div class="order-total">
                     <strong id="total">Totale: <fmt:formatNumber value="${total}" pattern="€#,##0.00"/></strong>
                     <!-- Campo nascosto per facilitare il recupero del valore numerico -->
