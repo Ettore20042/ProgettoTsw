@@ -153,7 +153,7 @@
                         Torna alla Homepage
                     </a>
 
-                    <a href="${pageContext.request.contextPath}/OrderServlet?userId=${sessionScope.user.userId}" class="btn btn-primary">
+                    <a href="${pageContext.request.contextPath}/OrderServlet" class="btn btn-primary">
                         <span class="btn-icon">📋</span>
                         I Miei Ordini
                     </a>

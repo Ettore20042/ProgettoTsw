@@ -89,7 +89,7 @@
                  aria-hidden="true">
                 <c:choose>
                     <c:when test="${sessionScope.user != null}">
-                        <a href="${pageContext.request.contextPath}/OrderServlet?userId=${sessionScope.user.userId}"
+                        <a href="${pageContext.request.contextPath}/OrderServlet"
                            class="user-actions_dropdown--first-link"
                            role="menuitem"
                            tabindex="-1">Account</a>
