@@ -57,7 +57,6 @@
             </c:choose>
         </div>
         <p class="product-card_shipping-info">Iva inclusa. Spedizione gratuita</p>
-        <%--Aggiungere elemento per quantità, da vedere se gestire con js oppure da server--%>
         <c:if test="${product.getQuantity() > 0}">
             <div class="product-card_quantity">
                 <label class="product-card_quantity-label">Quantità: </label>
@@ -68,36 +67,37 @@
                 </select>
             </div>
             <p class="product-card_stock-status--available">Disponibilità immediata</p>
+            <form action="${pageContext.request.contextPath}/CartServlet" class="add-to-cart-form" data-product-id="${product.productId}" method="post" style="display: contents;">
+                <input type="hidden" name="productId" value="${product.productId}" />
+                <input type="hidden" name="quantity" id="cartQuantity" value="1" />
+                <button type="submit" class="product-card_button product-card_button--add-to-cart">Aggiungi al carrello</button>
+                    <%--  <button type="submit" class="product-card_button product-card_button--add-to-cart-icon">
+                          <span class="material-symbols-rounded">shopping_cart</span>
+                      </button>--%>
+            </form>
+
+            <c:choose>
+                <c:when test="${empty sessionScope.user}">
+                    <form action="${pageContext.request.contextPath}/LoginServlet" method="post">
+                        <input type="hidden" name="redirectAfterLogin" value="CheckoutServlet" />
+                        <input type="hidden" name="productId" value="${product.productId}" />
+                        <input type="hidden" name="quantitySelected" id="buyNowQuantityGuest" value="1" />
+                        <button type="submit" class="product-card_button product-card_button--buy-now">Acquista Ora</button>
+                    </form>
+                </c:when>
+                <c:otherwise>
+                    <form action="${pageContext.request.contextPath}/CheckoutServlet" method="get">
+                        <input type="hidden" name="productId" value="${product.productId}" />
+                        <input type="hidden" name="quantitySelected" id="buyNowQuantityUser" value="1" />
+                        <button type="submit" class="product-card_button product-card_button--buy-now">Acquista Ora</button>
+                    </form>
+                </c:otherwise>
+            </c:choose>
         </c:if>
         <c:if test="${product.getQuantity() == 0}">
             <p class="product-card_stock-status--not-available">Non disponibile momentaneamente</p>
         </c:if>
-        <form action="${pageContext.request.contextPath}/CartServlet" class="add-to-cart-form" data-product-id="${product.productId}" method="post" style="display: contents;">
-            <input type="hidden" name="productId" value="${product.productId}" />
-            <input type="hidden" name="quantity" id="cartQuantity" value="1" />
-            <button type="submit" class="product-card_button product-card_button--add-to-cart">Aggiungi al carrello</button>
-          <%--  <button type="submit" class="product-card_button product-card_button--add-to-cart-icon">
-                <span class="material-symbols-rounded">shopping_cart</span>
-            </button>--%>
-        </form>
 
-        <c:choose>
-            <c:when test="${empty sessionScope.user}">
-                <form action="${pageContext.request.contextPath}/LoginServlet" method="post">
-                    <input type="hidden" name="redirectAfterLogin" value="CheckoutServlet" />
-                    <input type="hidden" name="productId" value="${product.productId}" />
-                    <input type="hidden" name="quantitySelected" id="buyNowQuantityGuest" value="1" />
-                    <button type="submit" class="product-card_button product-card_button--buy-now">Acquista Ora</button>
-                </form>
-            </c:when>
-            <c:otherwise>
-                <form action="${pageContext.request.contextPath}/CheckoutServlet" method="get">
-                    <input type="hidden" name="productId" value="${product.productId}" />
-                    <input type="hidden" name="quantitySelected" id="buyNowQuantityUser" value="1" />
-                    <button type="submit" class="product-card_button product-card_button--buy-now">Acquista Ora</button>
-                </form>
-            </c:otherwise>
-        </c:choose>
     </div>
 
 
