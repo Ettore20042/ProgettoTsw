@@ -115,6 +115,18 @@ body {
   /*  width: 20%; !* larghezza fissa per le immagini dei prodotti*!*/
     min-width: 120px; /* larghezza minima per evitare che diventino troppo piccole*/
 }
+  .order-card-link{
+      cursor: pointer;
+        text-decoration: none;
+      text-align: center; /* centra il testo del link*/
+
+
+  }
+  .order-card-link:hover{
+     scale: 1.05; /* ingrandisce leggermente il link al passaggio del mouse*/
+
+      border-radius: 4px; /* arrotonda gli angoli del bordo*/
+  }
 
 /* versione tablet*/
 @media (min-width: 768px) {
@@ -165,7 +177,9 @@ body {
     }
 
     .listorders-user-order-card-products img:hover{
-        transform: scale(1.05);
+        transform: scale(1.02);
+        border-radius: 6px; /* arrotonda gli angoli delle immagini al passaggio del mouse*/
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        margin-top: 5px; /* aggiunge un piccolo padding per evitare che l'immagine tocchi il bordo*/
     }
 }

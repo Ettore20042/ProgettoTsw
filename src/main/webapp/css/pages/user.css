@@ -114,7 +114,7 @@ body > h1 {
     padding: 1rem;
     border: 1px solid #e9ecef;
     transition: all 0.3s ease; /* fa sì che ogni cambiamento di stile avvenga in modo fluido in 0.3 sec*/
-    cursor: pointer;
+
     max-height: fit-content; /* limita l'altezza della card per evitare che diventi troppo alta*/
 }
 
@@ -125,17 +125,21 @@ body > h1 {
 }
 
 .order-card img {
+    margin-left:4px;
     width: 100%;
     height: 110px;
     object-fit: cover; /* assicura che l'immagine riempia lo spazio senza deformarsi*/
     border-radius: 4px;
+    margin-top:10px;
     margin-bottom: 0.5rem;
     transition: transform 0.3s ease;
 }
-
-.order-card:hover img {
-    transform: scale(1.05); /* si ingrandisce leggermente*/
+.order-image:hover {
+    transform: scale(1.12); /* ingrandisce leggermente l'immagine al passaggio del mouse*/
+    border-radius: 10px; /* arrotonda gli angoli dell'immagine*/
+    border: 1px solid #e9ecef; /* aggiunge un bordo sottile per evidenziare l'immagine*/
 }
+
 
 .order-card p {
     margin: 0.25rem 0;

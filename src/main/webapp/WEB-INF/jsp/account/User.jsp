@@ -40,9 +40,12 @@
             </div>
         
                 <div class="overview-user-orders">
-                    <a href="${pageContext.request.contextPath}/OrderServlet?userId=${user.userId}" method="post" id="user-orders-link">
-                        <h2>I tuoi ordini</h2>
-                    </a>
+                    <form action="${pageContext.request.contextPath}/OrderServlet" method="post" style="display:inline">
+                        <input type="hidden" name="userId" value="${user.userId}" />
+                        <button type="submit" id="user-orders-link" style="all: unset; cursor: pointer;">
+                            <h2>I tuoi ordini</h2>
+                        </button>
+                    </form>
 
 
                     <c:choose>
@@ -54,25 +57,20 @@
                             <div class="order-grid">
                                 <c:forEach var="order" items="${recentOrderList}">
 
-                                        <c:if test="${not empty order.orderItems}">
-                                            <div class="order-card">
-
-                                                    <p>${order.status}</p>
-                                                    <p>${order.orderDate}</p>
-                                                    <div class="order-card-image-products">
-                                                        <a href="${pageContext.request.contextPath}/ProductServlet?productId=${order.orderItems[0].productId}" class="order-card-link">
-                                                            <img src="${pageContext.request.contextPath}/ImageServlet?productId=${order.orderItems[0].productId}" alt="Immagine prodotto" id="order-image">
-                                                        </a>
-                                                    <a href="${pageContext.request.contextPath}/ProductServlet?productId=${order.orderItems[1].productId}" class="order-card-link">
-                                                            <img src="${pageContext.request.contextPath}/ImageServlet?productId=${order.orderItems[1].productId}" alt="Immagine prodotto" id="order-image">
+                                    <c:if test="${not empty order.orderItems}">
+                                        <div class="order-card">
+                                            <p>${order.status}</p>
+                                            <p>${order.orderDate}</p>
+                                            <div class="order-card-image-products">
+                                                <c:forEach var="item" items="${order.orderItems}">
+                                                    <a href="${pageContext.request.contextPath}/ProductServlet?productId=${item.productId}" class="order-card-link" >
+                                                        <img src="${pageContext.request.contextPath}/ImageServlet?productId=${item.productId}" alt="Immagine prodotto" class="order-image" />
                                                     </a>
-                                                    <a href="${pageContext.request.contextPath}/ProductServlet?productId=${order.orderItems[2].productId}" class="order-card-link">
-                                                            <img src="${pageContext.request.contextPath}/ImageServlet?productId=${order.orderItems[2].productId}" alt="Immagine prodotto" id="order-image">
-                                                        </a>
-                                                    </div>
-                                                </a>
+                                                </c:forEach>
                                             </div>
-                                                </c:if>
+                                        </div>
+                                    </c:if>
+
 
                                 </c:forEach>
                             </div>
@@ -84,7 +82,7 @@
 
                     <% if (request.getSession().getAttribute("user") != null) {
                         User user = (User) session.getAttribute("user");%>
-                    <form action="${pageContext.request.contextPath}/OrderServlet?userId=<%= user.getUserId()%>" method="post" id="view-all-orders-form">
+                    <form action="${pageContext.request.contextPath}/OrderServlet" method="post" id="view-all-orders-form">
                         <button type="submit" class="overview-user-orders-buttons" >Vedi tutti</button>
                     </form>
                     <% } %>

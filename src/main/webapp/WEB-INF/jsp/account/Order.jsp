@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="model.Bean.User" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     request.setAttribute("pageTitle", "BricoShop - User Orders");
@@ -19,7 +20,6 @@
     <main class="listorders-user-container">
         <div class="listorders-user-list">
             <h1>I tuoi ordini</h1>
-
             <c:choose>
                 <c:when test="${not empty orderList}">
                     <c:forEach var="order" items="${orderList}">
@@ -36,15 +36,20 @@
                                     <c:forEach var="item" items="${order.orderItems}">
                                         <c:forEach var="product" items="${productList}">
                                             <c:if test="${product.productId == item.productId}">
+
                                                 <div class="order-product-item">
-                                                    <img src="${pageContext.request.contextPath}/ImageServlet?productId=${item.productId}"
-                                                         alt="Immagine prodotto">
+                                                    <a href="${pageContext.request.contextPath}/ProductServlet?productId=${item.productId}" class="order-card-link" >
+                                                        <img src="${pageContext.request.contextPath}/ImageServlet?productId=${item.productId}"
+                                                             alt="Immagine prodotto" class="product-image">
+
+
                                                     <div class="product-info">
                                                         <h4 class="product-name">${product.productName}</h4>
                                                         <p>Prezzo: €${product.price}</p>
                                                         <p>Quantità: ${item.quantity}</p>
                                                         <p>Totale: <fmt:formatNumber value="${product.price * item.quantity}" type="currency" currencySymbol="€" /></p>
                                                     </div>
+                                                    </a>
                                                 </div>
                                             </c:if>
                                         </c:forEach>
