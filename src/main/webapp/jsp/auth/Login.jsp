@@ -32,7 +32,7 @@
             <span id="emailError" >Email non valida</span>
             <div class="auth-form-container__input-wrapper">
                 <label for="password" class="visually-hidden"> Inserisci la password</label>
-               <input type="password" id="password" name="password" placeholder="Conferma Password" required class="auth-form-container__input" aria-describedby="passwordHelp">
+               <input type="password" id="password" name="password" placeholder="Password" required class="auth-form-container__input" aria-describedby="passwordHelp">
                 <img src="${pageContext.request.contextPath}/img/icon/eye.png"
                      class="auth-form-container__icon auth-form-container__icon-password"
                      alt="Mostra password"

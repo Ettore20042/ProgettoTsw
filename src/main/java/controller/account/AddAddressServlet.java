@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @WebServlet(name = "AddAddressServlet", value = "/AddAddressServlet")
+@MultipartConfig
 public class AddAddressServlet extends HttpServlet {
 
     private AddressService addressService;
