@@ -245,8 +245,8 @@ class ProductManager extends BaseManager {
         const { product, image, images } = data;
         this.setFormValue('productId', product.productId);
         this.setFormValue('productName', product.productName);
-        this.setFormValue('price', product.price);
-        this.setFormValue('salePrice', product.salePrice);
+        this.setFormValue('price', parseFloat(product.price).toFixed(2));
+        this.setFormValue('salePrice', parseFloat(product.salePrice).toFixed(2));
         this.setFormValue('color', product.color);
         this.setFormValue('description', product.description);
         this.setFormValue('quantity', product.quantity);

@@ -647,7 +647,6 @@ class BaseManager {
             case 'products': return 'Prodotto';
             case 'brands': return 'Brand';
             case 'categories': return 'Categoria';
-            case 'admins':
             case 'users': return 'Utente';
             default: return 'Elemento'; // Fallback generico
         }
